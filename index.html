@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zale App — Pan-African FX, Crypto, Cards & Safe-PIN</title>
+<style>
+*{box-sizing:border-box}body{background:#020617;color:#fff;font-family:system-ui,sans-serif;margin:0;padding:16px}
+.w{max-width:480px;margin:0 auto}.r{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
+.c{background:#0f172a;border:1px solid #1e293b;border-radius:14px;padding:14px;margin-bottom:10px}
+.tb{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;background:#0f172a;padding:4px;border-radius:10px;margin-bottom:10px}
+button{cursor:pointer;border:none;border-radius:8px;padding:10px;font-weight:700;font-size:11px}
+.b{background:#10b981;color:#020617;width:100%;margin-top:8px;font-size:13px}.bs{background:#10b981;color:#020617;padding:6px 10px}
+.off{background:transparent;color:#94a3b8}.on{background:#10b981;color:#020617}.h{display:none!important}
+input,select{width:100%;background:#020617;color:#fff;border:1px solid #334155;border-radius:8px;padding:10px;font-size:13px;margin-top:8px}
+.m{background:#10b98122;border:1px solid #10b981;color:#6ee7b7;padding:9px;border-radius:8px;font-size:12px;margin-bottom:10px}
+.it{background:#020617;border:1px solid #1e293b;border-radius:10px;padding:10px;margin-top:8px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="w">
+<div class="r"><div><b style="font-size:18px;color:#34d399">Zale App</b><div style="font-size:11px;color:#94a3b8">4-Digit PIN Escrow • Crypto • Cards • Bills</div></div>
+<div id="uc" class="h"><button style="background:#1e293b;color:#f87171" onclick="out()">Exit</button></div></div>
+<div id="msg" class="m">Sign in or create an account to trade across Africa.</div>
+
+<div id="ab" class="c">
+<input id="em" type="email" placeholder="Email">
+<input id="pw" type="password" placeholder="Password (6+ chars)">
+<div class="r" style="margin:8px 0 0">
+<button type="button" class="b" style="margin:0" onclick="go('in')">Sign In</button>
+<button type="button" class="b" style="margin:0;background:#f59e0b" onclick="go('up')">Create Account</button>
+</div></div>
+
+<div id="ap" class="h">
+<div class="c r"><select id="cty" onchange="setC()" style="margin:0"><option value="ZM">Zambia (ZMW K)</option><option value="NG">Nigeria (NGN ₦)</option><option value="KE">Kenya (KES KSh)</option><option value="GH">Ghana (GHS ₵)</option><option value="ZA">South Africa (ZAR R)</option></select></div>
+<div id="nv" class="tb"><button id="t-sw" class="on" onclick="tb('sw')">Crypto</button><button id="t-cd" class="off" onclick="tb('cd')">Cards</button><button id="t-bl" class="off" onclick="tb('bl')">Bills</button><button id="t-sf" class="off" onclick="tb('sf')">Safe-PIN</button><button id="t-hs" class="off" onclick="tb('hs')">Orders</button><button id="t-ad" class="off h" onclick="tb('ad')">Admin</button></div>
+
+<div id="p-sw" class="c"><div class="r" style="margin:0"><button id="ms" class="on" style="flex:1" onclick="md('Sell')">Sell (Cashout)</button><button id="mb" class="off" style="flex:1" onclick="md('Buy')">Buy (Fund)</button></div>
+<select id="cn"><option>USDT</option><option>USDC</option><option>BTC</option><option>ETH</option><option>SOL</option></select><select id="rl"></select>
+<input id="sa" oninput="ca()" type="number" placeholder="USD Amount"><input id="sd" placeholder="Mobile Money / Bank / Wallet">
+<p id="se" style="color:#34d399;font-size:12px;margin:8px 0 0">Est: 0</p>
+<button class="b" onclick="ord(mode+' '+cn.value,rl.value,sa.value,se.textContent,sd.value,'')">Submit Crypto Order</button></div>
+
+<div id="p-cd" class="c h"><select id="cb" onchange="ca()"><option value="0.82">Amazon (82%)</option><option value="0.80">Apple/iTunes (80%)</option><option value="0.84">Steam (84%)</option><option value="0.85">Razer Gold (85%)</option></select>
+<input id="cv" oninput="ca()" type="number" placeholder="Card USD"><input id="cp" placeholder="Card Code / PIN"><input id="cd" placeholder="Payout Account / Wallet">
+<p id="ce" style="color:#34d399;font-size:12px;margin:8px 0 0">Est: 0</p>
+<button class="b" onclick="ord('Gift Card',cb.selectedOptions[0].text,cv.value,ce.textContent,cd.value,cp.value)">Submit Gift Card</button></div>
+
+<div id="p-bl" class="c h"><select id="pr"></select><input id="bn" placeholder="Phone / Meter Number"><input id="ba" type="number" placeholder="USD Amount"><button class="b" onclick="ord('Utility Bill',pr.value,ba.value,'$'+ba.value,bn.value,'')">Pay Bill</button></div>
+
+<div id="p-sf" class="c h"><input id="et" placeholder="Token (USDT/USDC)"><input id="ea" type="number" placeholder="USD Amount"><input id="ep" placeholder="4-Digit PIN"><button class="b" onclick="ord('Safe-PIN Escrow',et.value,ea.value,'PIN Protected',ep.value,'')">Lock Safe-PIN</button></div>
+
+<div id="p-hs" class="c h"><div class="r" style="margin:0"><b>My Orders</b><button class="bs" onclick="ldO()">Refresh</button></div><div id="ol"></div></div>
+
+<div id="p-ad" class="c h"><div class="r" style="margin:0"><b>Admin Queue</b><button class="bs" onclick="ldA()">Refresh</button></div><div id="al"></div></div>
+</div></div>
+
+<script>
+const U="https://supabase.co",K="sb_publishable_XDN1F6gIkJL1JiLS1QRq4w_Tf8tk3qW",ADM="ikatanga40@gmail.com";
+const R={ZM:{s:"K",r:27.5,l:["MTN MoMo","Airtel Money","Zamtel","Bank"],b:["MTN ZM","Airtel ZM","ZESCO","DStv"]},NG:{s:"₦",r:1620,l:["OPay","PalmPay","Bank"],b:["MTN NG","Airtel NG","IKEDC","DStv"]},KE:{s:"KSh",r:129,l:["M-Pesa","Airtel","Bank"],b:["Safaricom","KPLC","DStv"]},GH:{s:"₵",r:15.8,l:["MTN MoMo","Telecel","Bank"],b:["MTN GH","ECG","DStv"]},ZA:{s:"R",r:18.2,l:["Capitec/FNB","Bank"],b:["Vodacom","Eskom","DStv"]}};
+let usr=JSON.parse(localStorage.getItem("zu")||"null"),mode="Sell";
+const say=t=>msg.textContent=t;
+function md(m){mode=m;ms.className=m=='Sell'?'on':'off';mb.className=m=='Buy'?'on':'off';ca();}
+function setC(){const d=R[cty.value];rl.innerHTML=d.l.map(x=>'<option>'+x+'</option>').join('');pr.innerHTML=d.b.map(x=>'<option>'+x+'</option>').join('');ca();}
+function ca(){const d=R[cty.value],a=+sa.value||0;se.textContent=mode=='Sell'?'Receive: '+d.s+(a*d.r).toLocaleString():'Pay: '+d.s+(a*d.r*1.03).toFixed(0)+' -> Get $'+a;ce.textContent='Receive: $'+((+cv.value||0)*(+cb.value||.8)).toFixed(2);}
+function tb(k){['sw','cd','bl','sf','hs','ad'].forEach(x=>{document.getElementById('p-'+x).classList.toggle('h',x!=k);document.getElementById('t-'+x).className=x==k?'on':'off';});if(!(location.search.includes("admin=true")&&usr&&usr.email.toLowerCase()==ADM))document.getElementById('t-ad').classList.add('h');if(k=='hs')ldO();if(k=='ad')ldA();}
+async function go(m){const e=em.value.trim(),p=pw.value.trim();if(!e||!p)return say("Enter email and password");say("Opening account...");try{const r=await fetch(U+(m=='up'?'/auth/v1/signup':'/auth/v1/token?grant_type=password'),{method:'POST',headers:{apikey:K,'Content-Type':'application/json'},body:JSON.stringify({email:e,password:p})});const d=await r.json();if(d.error_description||d.msg)say(d.error_description||d.msg);}catch(x){}usr={email:e};localStorage.setItem("zu",JSON.stringify(usr));ent(usr);}
+function ent(u){usr=u;ab.classList.add('h');ap.classList.remove('h');uc.classList.remove('h');if(location.search.includes("admin=true")&&u.email.toLowerCase()==ADM){nv.style.gridTemplateColumns="repeat(6,1fr)";document.getElementById('t-ad').classList.remove('h');}setC();say("Signed in: "+u.email);}
+function out(){localStorage.removeItem("zu");location.reload();}
+async function ord(t,b,a,p,d,c){if(!a||!d)return say("Fill all fields");say("Saving order...");const o={id:'o'+Date.now(),user_email:usr.email,country:cty.value,order_type:t,asset_or_brand:b,amount_usd:+a,payout_local:p,destination:d,card_code_or_tx:c,status:'pending'};const L=JSON.parse(localStorage.getItem("zo")||"[]");L.unshift(o);localStorage.setItem("zo",JSON.stringify(L));try{await fetch(U+'/rest/v1/orders',{method:'POST',headers:{apikey:K,Authorization:'Bearer '+K,'Content-Type':'application/json'},body:JSON.stringify([o])});}catch(x){}say("Order submitted!");tb('hs');}
+async function ldO(){let L=JSON.parse(localStorage.getItem("zo")||"[]").filter(x=>x.user_email==usr.email);try{const r=await fetch(U+'/rest/v1/orders?user_email=eq.'+encodeURIComponent(usr.email)+'&order=created_at.desc',{headers:{apikey:K,Authorization:'Bearer '+K}});const d=await r.json();if(Array.isArray(d)&&d.length)L=d;}catch(x){}ol.innerHTML=L.map(o=>'<div class="it"><b>'+o.order_type+'</b> ('+o.status.toUpperCase()+')<br>$'+o.amount_usd+' • '+o.payout_local+' -> '+o.destination+'</div>').join('')||"No orders yet.";}
+async function ldA(){let L=JSON.parse(localStorage.getItem("zo")||"[]");try{const r=await fetch(U+'/rest/v1/orders?order=created_at.desc',{headers:{apikey:K,Authorization:'Bearer '+K}});const d=await r.json();if(Array.isArray(d)&&d.length)L=d;}catch(x){}al.innerHTML=L.map(o=>'<div class="it"><b>'+o.user_email+'</b> ['+o.status+']<br>'+o.order_type+': $'+o.amount_usd+' -> '+o.destination+' '+(o.card_code_or_tx||'')+(o.status=='pending'?' <button class="bs" onclick="pd(\''+o.id+'\')">Mark Paid</button>':'')+'</div>').join('')||"No orders yet.";}
+async function pd(id){const L=JSON.parse(localStorage.getItem("zo")||"[]").map(x=>x.id==id?{...x,status:'paid'}:x);localStorage.setItem("zo",JSON.stringify(L));try{await fetch(U+'/rest/v1/orders?id=eq.'+id,{method:'PATCH',headers:{apikey:K,Authorization:'Bearer '+K,'Content-Type':'application/json'},body:JSON.stringify({status:'paid'})});}catch(x){}ldA();}
+if(usr)ent(usr);
+</script>
+</body>
+</html>
