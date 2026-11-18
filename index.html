@@ -1,76 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Zale App — Pan-African FX, Crypto, Cards & Safe-PIN</title>
-<style>
-*{box-sizing:border-box}body{background:#020617;color:#fff;font-family:system-ui,sans-serif;margin:0;padding:16px}
-.w{max-width:480px;margin:0 auto}.r{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:10px}
-.c{background:#0f172a;border:1px solid #1e293b;border-radius:14px;padding:14px;margin-bottom:10px}
-.tb{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;background:#0f172a;padding:4px;border-radius:10px;margin-bottom:10px}
-button{cursor:pointer;border:none;border-radius:8px;padding:10px;font-weight:700;font-size:11px}
-.b{background:#10b981;color:#020617;width:100%;margin-top:8px;font-size:13px}.bs{background:#10b981;color:#020617;padding:6px 10px}
-.off{background:transparent;color:#94a3b8}.on{background:#10b981;color:#020617}.h{display:none!important}
-input,select{width:100%;background:#020617;color:#fff;border:1px solid #334155;border-radius:8px;padding:10px;font-size:13px;margin-top:8px}
-.m{background:#10b98122;border:1px solid #10b981;color:#6ee7b7;padding:9px;border-radius:8px;font-size:12px;margin-bottom:10px}
-.it{background:#020617;border:1px solid #1e293b;border-radius:10px;padding:10px;margin-top:8px;font-size:12px}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#020617" />
+  <title>Zale App — Pan-African Crypto, Gift Cards & Safe-PIN Escrow</title>
+  <style>
+    *{box-sizing:border-box}
+    body{background:radial-gradient(circle at top,#064e3b 0%,#020617 42%);color:#f8fafc;font-family:system-ui,-apple-system,sans-serif;margin:0;padding:16px;min-height:100vh}
+    .wrap{max-width:520px;margin:0 auto}
+    .row{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}
+    .hero{background:linear-gradient(135deg,rgba(16,185,129,.16),rgba(245,158,11,.10));border:1px solid rgba(52,211,153,.35);border-radius:16px;padding:14px;margin-bottom:12px}
+    .card{background:rgba(15,23,42,.92);backdrop-filter:blur(10px);border:1px solid #1e293b;border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:0 10px 25px rgba(0,0,0,.35)}
+    .paybox{background:#020617;border:1px solid #f59e0b;border-radius:14px;padding:14px;margin-bottom:12px}
+    .tabs{display:grid;grid-template-columns:repeat(5,1fr);gap:4px;background:#0f172a;border:1px solid #1e293b;padding:4px;border-radius:12px;margin-bottom:12px}
+    button{cursor:pointer;border:none;border-radius:10px;padding:10px;font-weight:700;font-size:11px;transition:.15s}
+    .btn{background:linear-gradient(90deg,#10b981,#34d399);color:#020617;width:100%;margin-top:10px;font-size:13px}
+    .btn-wa{background:#22c55e;color:#020617;width:100%;margin-top:8px;font-size:13px}
+    .btn-sm{background:#10b981;color:#020617;padding:7px 11px}
+    .btn-gold{background:#f59e0b;color:#020617;padding:7px 11px}
+    .btn-out{background:#1e293b;color:#f87171;padding:7px 11px}
+    .off{background:transparent;color:#94a3b8}
+    .on{background:#10b981;color:#020617}
+    .presets{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
+    .pre-btn{background:#020617;border:1px solid #334155;color:#cbd5e1;padding:6px;border-radius:8px;font-size:11px}
+    input,select{width:100%;background:#020617;color:#fff;border:1px solid #334155;border-radius:10px;padding:11px;font-size:13px;margin-top:8px}
+    .hide{display:none!important}
+    .msg{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.45);color:#6ee7b7;padding:10px 12px;border-radius:10px;font-size:12px;margin-bottom:12px;word-break:break-all}
+    .pill{display:inline-block;background:rgba(245,158,11,.15);border:1px solid rgba(245,158,11,.4);color:#fbbf24;font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px}
+    .order-item{background:#020617;border:1px solid #1e293b;border-radius:12px;padding:12px;margin-top:8px;font-size:12px}
+    .badge{padding:2px 8px;border-radius:6px;font-size:10px;font-weight:700;text-transform:uppercase}
+    .pending{background:#f59e0b22;color:#fbbf24}
+    .paid{background:#10b98122;color:#34d399}
+    .bar{height:4px;background:#1e293b;border-radius:4px;margin-top:8px;overflow:hidden}
+    .fill-p{width:55%;height:100%;background:#f59e0b}
+    .fill-d{width:100%;height:100%;background:#10b981}
+  </style>
 </head>
 <body>
-<div class="w">
-<div class="r"><div><b style="font-size:18px;color:#34d399">Zale App</b><div style="font-size:11px;color:#94a3b8">4-Digit PIN Escrow • Crypto • Cards • Bills</div></div>
-<div id="uc" class="h"><button style="background:#1e293b;color:#f87171" onclick="out()">Exit</button></div></div>
-<div id="msg" class="m">Sign in or create an account to trade across Africa.</div>
+  <div class="wrap">
+    <div class="row">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#10b981,#f59e0b);display:flex;align-items:center;justify-content:center;font-weight:900;color:#020617;font-size:18px">Z</div>
+        <div>
+          <h1 style="margin:0;font-size:19px;color:#fff">Zale App</h1>
+          <p style="margin:1px 0 0;font-size:11px;color:#94a3b8">Pan-African FX, Crypto, Cards & Bills</p>
+        </div>
+      </div>
+      <div id="userControls" class="hide" style="display:flex;gap:6px">
+        <button id="walletBtn" class="btn-sm" onclick="connectWallet()">Wallet</button>
+        <button class="btn-out" onclick="logout()">Exit</button>
+      </div>
+    </div>
 
-<div id="ab" class="c">
-<input id="em" type="email" placeholder="Email">
-<input id="pw" type="password" placeholder="Password (6+ chars)">
-<div class="r" style="margin:8px 0 0">
-<button type="button" class="b" style="margin:0" onclick="go('in')">Sign In</button>
-<button type="button" class="b" style="margin:0;background:#f59e0b" onclick="go('up')">Create Account</button>
-</div></div>
+    <div class="hero">
+      <div class="row" style="margin-bottom:4px">
+        <span class="pill">4-DIGIT PIN ESCROW PROTECTED</span>
+        <span style="font-size:11px;color:#34d399;font-weight:700">⚡ &lt;5 Min Settlement</span>
+      </div>
+      <div style="font-size:12px;color:#cbd5e1">Fund forex brokers, cash out USDT to mobile money & banks, trade gift cards, and pay bills across Africa without P2P scam risks.</div>
+    </div>
 
-<div id="ap" class="h">
-<div class="c r"><select id="cty" onchange="setC()" style="margin:0"><option value="ZM">Zambia (ZMW K)</option><option value="NG">Nigeria (NGN ₦)</option><option value="KE">Kenya (KES KSh)</option><option value="GH">Ghana (GHS ₵)</option><option value="ZA">South Africa (ZAR R)</option></select></div>
-<div id="nv" class="tb"><button id="t-sw" class="on" onclick="tb('sw')">Crypto</button><button id="t-cd" class="off" onclick="tb('cd')">Cards</button><button id="t-bl" class="off" onclick="tb('bl')">Bills</button><button id="t-sf" class="off" onclick="tb('sf')">Safe-PIN</button><button id="t-hs" class="off" onclick="tb('hs')">Orders</button><button id="t-ad" class="off h" onclick="tb('ad')">Admin</button></div>
+    <div id="msg" class="msg">Welcome to Zale App. Sign in or create an account to start trading.</div>
 
-<div id="p-sw" class="c"><div class="r" style="margin:0"><button id="ms" class="on" style="flex:1" onclick="md('Sell')">Sell (Cashout)</button><button id="mb" class="off" style="flex:1" onclick="md('Buy')">Buy (Fund)</button></div>
-<select id="cn"><option>USDT</option><option>USDC</option><option>BTC</option><option>ETH</option><option>SOL</option></select><select id="rl"></select>
-<input id="sa" oninput="ca()" type="number" placeholder="USD Amount"><input id="sd" placeholder="Mobile Money / Bank / Wallet">
-<p id="se" style="color:#34d399;font-size:12px;margin:8px 0 0">Est: 0</p>
-<button class="b" onclick="ord(mode+' '+cn.value,rl.value,sa.value,se.textContent,sd.value,'')">Submit Crypto Order</button></div>
+    <div id="payBox" class="paybox hide">
+      <div class="row" style="margin-bottom:4px">
+        <span class="pill">STEP 2: COMPLETE YOUR PAYMENT</span>
+        <button class="btn-out" style="padding:4px 8px" onclick="document.getElementById('payBox').classList.add('hide')">Close</button>
+      </div>
+      <div id="payTitle" style="font-weight:700;font-size:14px;color:#fff;margin-bottom:4px"></div>
+      <div id="payInstr" style="font-size:12px;color:#cbd5e1;margin-bottom:8px"></div>
+      <div style="background:#0f172a;border:1px solid #334155;padding:10px;border-radius:10px;font-family:monospace;font-size:12px;color:#34d399;word-break:break-all" id="payTarget"></div>
+      <button class="btn-gold" style="width:100%;margin-top:8px" onclick="copyTarget()">Copy Payment / Wallet Details</button>
+      <input id="txRef" placeholder="Paste Crypto TxID or Mobile Money Ref Number" />
+      <button class="btn-wa" onclick="confirmPaidWA()">I Have Paid — Send Proof on WhatsApp</button>
+    </div>
 
-<div id="p-cd" class="c h"><select id="cb" onchange="ca()"><option value="0.82">Amazon (82%)</option><option value="0.80">Apple/iTunes (80%)</option><option value="0.84">Steam (84%)</option><option value="0.85">Razer Gold (85%)</option></select>
-<input id="cv" oninput="ca()" type="number" placeholder="Card USD"><input id="cp" placeholder="Card Code / PIN"><input id="cd" placeholder="Payout Account / Wallet">
-<p id="ce" style="color:#34d399;font-size:12px;margin:8px 0 0">Est: 0</p>
-<button class="b" onclick="ord('Gift Card',cb.selectedOptions[0].text,cv.value,ce.textContent,cd.value,cp.value)">Submit Gift Card</button></div>
+    <div id="authBox" class="card">
+      <h2 style="margin:0 0 6px;font-size:16px">Sign In or Create Account</h2>
+      <input id="email" type="email" placeholder="Email address" />
+      <input id="pass" type="password" placeholder="Password (min 6 characters)" />
+      <div class="row" style="margin-top:10px;margin-bottom:0">
+        <button class="btn" style="margin-top:0" onclick="auth('login')">Sign In</button>
+        <button class="btn" style="margin-top:0;background:#f59e0b;color:#020617" onclick="auth('signup')">Create Account</button>
+      </div>
+    </div>
 
-<div id="p-bl" class="c h"><select id="pr"></select><input id="bn" placeholder="Phone / Meter Number"><input id="ba" type="number" placeholder="USD Amount"><button class="b" onclick="ord('Utility Bill',pr.value,ba.value,'$'+ba.value,bn.value,'')">Pay Bill</button></div>
+    <div id="appBox" class="hide">
+      <div class="card row">
+        <select id="cty" onchange="setCty()" style="margin:0">
+          <option value="ZM">Zambia (ZMW K)</option>
+          <option value="NG">Nigeria (NGN ₦)</option>
+          <option value="KE">Kenya (KES KSh)</option>
+          <option value="GH">Ghana (GHS ₵)</option>
+          <option value="ZA">South Africa (ZAR R)</option>
+        </select>
+        <input id="rtr" placeholder="0x... Zale Router (Optional)" style="margin:0" />
+      </div>
 
-<div id="p-sf" class="c h"><input id="et" placeholder="Token (USDT/USDC)"><input id="ea" type="number" placeholder="USD Amount"><input id="ep" placeholder="4-Digit PIN"><button class="b" onclick="ord('Safe-PIN Escrow',et.value,ea.value,'PIN Protected',ep.value,'')">Lock Safe-PIN</button></div>
+      <div id="navTabs" class="tabs">
+        <button id="t-swap" class="on" onclick="tab('swap')">Crypto</button>
+        <button id="t-card" class="off" onclick="tab('card')">Cards</button>
+        <button id="t-bill" class="off" onclick="tab('bill')">Bills</button>
+        <button id="t-safe" class="off" onclick="tab('safe')">Safe-PIN</button>
+        <button id="t-hist" class="off" onclick="tab('hist')">Orders</button>
+        <button id="t-adm" class="off hide" onclick="tab('adm')">Admin</button>
+      </div>
 
-<div id="p-hs" class="c h"><div class="r" style="margin:0"><b>My Orders</b><button class="bs" onclick="ldO()">Refresh</button></div><div id="ol"></div></div>
+      <div id="p-swap" class="card">
+        <div class="row" style="margin-bottom:6px">
+          <button id="m-sell" class="on" style="flex:1" onclick="setMode('sell')">Sell (Cashout)</button>
+          <button id="m-buy" class="off" style="flex:1" onclick="setMode('buy')">Buy (Fund Broker)</button>
+          <button id="m-conv" class="off" style="flex:1" onclick="setMode('conv')">Swap Coin</button>
+        </div>
+        <select id="coin" onchange="calc()">
+          <option value="USDT">USDT (Tether TRC20 / ERC20 / Base)</option>
+          <option value="USDC">USDC (USD Coin)</option>
+          <option value="BTC">BTC (Bitcoin)</option>
+          <option value="ETH">ETH (Ethereum)</option>
+          <option value="SOL">SOL (Solana)</option>
+          <option value="BNB">BNB (BSC)</option>
+        </select>
+        <select id="rail"></select>
+        <input id="sAmt" oninput="calc()" type="number" placeholder="Amount in USD (e.g. 50)" />
+        <div class="presets">
+          <button class="pre-btn" onclick="setAmt(10)">$10 Test</button>
+          <button class="pre-btn" onclick="setAmt(50)">$50</button>
+          <button class="pre-btn" onclick="setAmt(100)">$100</button>
+          <button class="pre-btn" onclick="setAmt(500)">$500</button>
+        </div>
+        <input id="sDst" placeholder="Your Mobile Money or Bank Account Number" />
+        <p id="sEst" style="color:#34d399;font-size:13px;font-weight:700;margin:10px 0 0">You Receive: 0</p>
+        <button id="sBtn" class="btn" onclick="submitSwap()">Submit Sell Crypto Order</button>
+      </div>
+      <div id="p-card" class="card hide">
+        <h3 style="margin:0 0 6px;font-size:15px">Trade Gift Cards for Cash or USDT</h3>
+        <select id="cBrd" onchange="calc()">
+          <option value="0.82">Amazon US / UK (82%)</option>
+          <option value="0.80">Apple / iTunes (80%)</option>
+          <option value="0.84">Steam Wallet (84%)</option>
+          <option value="0.85">Razer Gold (85%)</option>
+          <option value="0.81">Sephora (81%)</option>
+          <option value="0.78">Vanilla Visa / Amex (78%)</option>
+          <option value="0.79">Google Play (79%)</option>
+          <option value="0.80">Xbox / PlayStation (80%)</option>
+          <option value="0.81">eBay Gift Card (81%)</option>
+        </select>
+        <input id="cVal" oninput="calc()" type="number" placeholder="Card Value in USD ($)" />
+        <input id="cPin" placeholder="Card E-Code / PIN or Receipt Link" />
+        <input id="cDst" placeholder="Payout Mobile Money / Bank / USDT Wallet" />
+        <p id="cEst" style="color:#34d399;font-size:13px;font-weight:700;margin:10px 0 0">Receive: 0</p>
+        <button class="btn" onclick="submitOrder('Gift Card', document.getElementById('cBrd').selectedOptions.text, document.getElementById('cVal').value, document.getElementById('cEst').textContent, document.getElementById('cDst').value, document.getElementById('cPin').value)">Submit Gift Card</button>
+      </div>
 
-<div id="p-ad" class="c h"><div class="r" style="margin:0"><b>Admin Queue</b><button class="bs" onclick="ldA()">Refresh</button></div><div id="al"></div></div>
-</div></div>
+      <div id="p-bill" class="card hide">
+        <h3 style="margin:0 0 6px;font-size:15px">Airtime, Data, Electricity & TV</h3>
+        <select id="bCat">
+          <option value="Airtime">Mobile Airtime Top-Up</option>
+          <option value="Data Bundle">Mobile Data Bundle</option>
+          <option value="Electricity">Prepaid Electricity Token</option>
+          <option value="Cable TV">Cable TV Subscription</option>
+        </select>
+        <select id="prov"></select>
+        <input id="bNum" placeholder="Phone, Meter, or Smartcard Number" />
+        <input id="bAmt" type="number" placeholder="Amount (USD)" />
+        <button class="btn" onclick="submitOrder(document.getElementById('bCat').value, document.getElementById('prov').value, document.getElementById('bAmt').value, '$' + document.getElementById('bAmt').value, document.getElementById('bNum').value, '')">Pay Bill Now</button>
+      </div>
 
-<script>
-const U="https://supabase.co",K="sb_publishable_XDN1F6gIkJL1JiLS1QRq4w_Tf8tk3qW",ADM="ikatanga40@gmail.com";
-const R={ZM:{s:"K",r:27.5,l:["MTN MoMo","Airtel Money","Zamtel","Bank"],b:["MTN ZM","Airtel ZM","ZESCO","DStv"]},NG:{s:"₦",r:1620,l:["OPay","PalmPay","Bank"],b:["MTN NG","Airtel NG","IKEDC","DStv"]},KE:{s:"KSh",r:129,l:["M-Pesa","Airtel","Bank"],b:["Safaricom","KPLC","DStv"]},GH:{s:"₵",r:15.8,l:["MTN MoMo","Telecel","Bank"],b:["MTN GH","ECG","DStv"]},ZA:{s:"R",r:18.2,l:["Capitec/FNB","Bank"],b:["Vodacom","Eskom","DStv"]}};
-let usr=JSON.parse(localStorage.getItem("zu")||"null"),mode="Sell";
-const say=t=>msg.textContent=t;
-function md(m){mode=m;ms.className=m=='Sell'?'on':'off';mb.className=m=='Buy'?'on':'off';ca();}
-function setC(){const d=R[cty.value];rl.innerHTML=d.l.map(x=>'<option>'+x+'</option>').join('');pr.innerHTML=d.b.map(x=>'<option>'+x+'</option>').join('');ca();}
-function ca(){const d=R[cty.value],a=+sa.value||0;se.textContent=mode=='Sell'?'Receive: '+d.s+(a*d.r).toLocaleString():'Pay: '+d.s+(a*d.r*1.03).toFixed(0)+' -> Get $'+a;ce.textContent='Receive: $'+((+cv.value||0)*(+cb.value||.8)).toFixed(2);}
-function tb(k){['sw','cd','bl','sf','hs','ad'].forEach(x=>{document.getElementById('p-'+x).classList.toggle('h',x!=k);document.getElementById('t-'+x).className=x==k?'on':'off';});if(!(location.search.includes("admin=true")&&usr&&usr.email.toLowerCase()==ADM))document.getElementById('t-ad').classList.add('h');if(k=='hs')ldO();if(k=='ad')ldA();}
-async function go(m){const e=em.value.trim(),p=pw.value.trim();if(!e||!p)return say("Enter email and password");say("Opening account...");try{const r=await fetch(U+(m=='up'?'/auth/v1/signup':'/auth/v1/token?grant_type=password'),{method:'POST',headers:{apikey:K,'Content-Type':'application/json'},body:JSON.stringify({email:e,password:p})});const d=await r.json();if(d.error_description||d.msg)say(d.error_description||d.msg);}catch(x){}usr={email:e};localStorage.setItem("zu",JSON.stringify(usr));ent(usr);}
-function ent(u){usr=u;ab.classList.add('h');ap.classList.remove('h');uc.classList.remove('h');if(location.search.includes("admin=true")&&u.email.toLowerCase()==ADM){nv.style.gridTemplateColumns="repeat(6,1fr)";document.getElementById('t-ad').classList.remove('h');}setC();say("Signed in: "+u.email);}
-function out(){localStorage.removeItem("zu");location.reload();}
-async function ord(t,b,a,p,d,c){if(!a||!d)return say("Fill all fields");say("Saving order...");const o={id:'o'+Date.now(),user_email:usr.email,country:cty.value,order_type:t,asset_or_brand:b,amount_usd:+a,payout_local:p,destination:d,card_code_or_tx:c,status:'pending'};const L=JSON.parse(localStorage.getItem("zo")||"[]");L.unshift(o);localStorage.setItem("zo",JSON.stringify(L));try{await fetch(U+'/rest/v1/orders',{method:'POST',headers:{apikey:K,Authorization:'Bearer '+K,'Content-Type':'application/json'},body:JSON.stringify([o])});}catch(x){}say("Order submitted!");tb('hs');}
-async function ldO(){let L=JSON.parse(localStorage.getItem("zo")||"[]").filter(x=>x.user_email==usr.email);try{const r=await fetch(U+'/rest/v1/orders?user_email=eq.'+encodeURIComponent(usr.email)+'&order=created_at.desc',{headers:{apikey:K,Authorization:'Bearer '+K}});const d=await r.json();if(Array.isArray(d)&&d.length)L=d;}catch(x){}ol.innerHTML=L.map(o=>'<div class="it"><b>'+o.order_type+'</b> ('+o.status.toUpperCase()+')<br>$'+o.amount_usd+' • '+o.payout_local+' -> '+o.destination+'</div>').join('')||"No orders yet.";}
-async function ldA(){let L=JSON.parse(localStorage.getItem("zo")||"[]");try{const r=await fetch(U+'/rest/v1/orders?order=created_at.desc',{headers:{apikey:K,Authorization:'Bearer '+K}});const d=await r.json();if(Array.isArray(d)&&d.length)L=d;}catch(x){}al.innerHTML=L.map(o=>'<div class="it"><b>'+o.user_email+'</b> ['+o.status+']<br>'+o.order_type+': $'+o.amount_usd+' -> '+o.destination+' '+(o.card_code_or_tx||'')+(o.status=='pending'?' <button class="bs" onclick="pd(\''+o.id+'\')">Mark Paid</button>':'')+'</div>').join('')||"No orders yet.";}
-async function pd(id){const L=JSON.parse(localStorage.getItem("zo")||"[]").map(x=>x.id==id?{...x,status:'paid'}:x);localStorage.setItem("zo",JSON.stringify(L));try{await fetch(U+'/rest/v1/orders?id=eq.'+id,{method:'PATCH',headers:{apikey:K,Authorization:'Bearer '+K,'Content-Type':'application/json'},body:JSON.stringify({status:'paid'})});}catch(x){}ldA();}
-if(usr)ent(usr);
-</script>
-</body>
-</html>
+      <div id="p-safe" class="card hide">
+        <h3 style="margin:0 0 6px;font-size:15px">Safe-Claim 4-Digit PIN Escrow</h3>
+        <input id="eTok" placeholder="Token Contract Address (0x...)" />
+        <input id="eAmt" type="number" placeholder="Amount to Lock" />
+        <input id="ePin" placeholder="Secret 4-Digit PIN" />
+        <button class="btn" onclick="runEscrow()">Lock Funds On-Chain</button>
+      </div>
+
+      <div id="p-hist" class="card hide">
+        <div class="row" style="margin-bottom:6px"><h3 style="margin:0;font-size:15px">My Order Tracker</h3><button class="btn-sm" onclick="loadOrders()">Refresh</button></div>
+        <div id="orderList">Loading orders...</div>
+      </div>
+
+      <div id="p-adm" class="card hide">
+        <h3 style="margin:0 0 6px;font-size:15px;color:#fbbf24">1. My Receiving Wallets & Mobile Money</h3>
+        <input id="admWallet" placeholder="My USDT Deposit Wallet (TRC20 / BEP20)" />
+        <input id="admMomo" placeholder="My MoMo / Bank Details (e.g. MTN MoMo 097... - Name)" />
+        <input id="admWa" placeholder="My WhatsApp Number with Country Code (e.g. 26097...)" />
+        <button class="btn-gold" style="width:100%;margin-top:8px" onclick="savePayConfig()">Save Receiving Accounts</button>
+
+        <h3 style="margin:14px 0 6px;font-size:15px;color:#fbbf24">2. Admin Live Rate Control</h3>
+        <div class="row">
+          <select id="admCty" style="margin:0"><option value="ZM">Zambia (ZM)</option><option value="NG">Nigeria (NG)</option><option value="KE">Kenya (KE)</option><option value="GH">Ghana (GH)</option><option value="ZA">South Africa (ZA)</option></select>
+          <input id="admRate" type="number" step="0.01" placeholder="New USD Rate" style="margin:0" />
+          <button class="btn-gold" onclick="updateRate()">Save</button>
+        </div>
+
+        <div class="row" style="margin-top:14px;margin-bottom:6px"><h3 style="margin:0;font-size:15px;color:#fbbf24">3. Admin Payout Queue</h3><button class="btn-sm" onclick="loadAdmin()">Refresh</button></div>
+        <div id="adminList">Loading all user orders...</div>
+      </div>
+    </div>
+  </div>
