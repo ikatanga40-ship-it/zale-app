@@ -1,0 +1,12 @@
+{
+  "name": "Zale App — Pan-African FX, Crypto & Bills",
+  "short_name": "Zale App",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#020617",
+  "theme_color": "#020617",
+  "icons": [
+    { "src": "./icon.svg", "sizes": "192x192 512x512", "type": "image/svg+xml", "purpose": "any maskable" }
+  ]
+}
