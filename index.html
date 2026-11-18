@@ -199,3 +199,179 @@
       </div>
     </div>
   </div>
+  <script>
+    const SB_URL = "https://supabase.co";
+    const SB_KEY = "sb_publishable_XDN1F6gIkJL1JiLS1QRq4w_Tf8tk3qW";
+    const ADMIN_EMAIL = "ikatanga40@gmail.com";
+    const RAILS = {
+      ZM: { s: "K", r: 27.5, rl: ["MTN MoMo", "Airtel Money", "Zamtel", "Zanaco / FNB", "USDT"], bl: ["MTN ZM", "Airtel ZM", "Zamtel", "ZESCO Power", "DStv / GOtv ZM"] },
+      NG: { s: "₦", r: 1620, rl: ["OPay / PalmPay", "Nigerian Bank", "USDT"], bl: ["MTN NG", "Airtel NG", "Glo / 9mobile", "IKEDC / EKEDC Power", "DStv / GOtv NG"] },
+      KE: { s: "KSh", r: 129, rl: ["M-Pesa", "Airtel Money", "KCB / Equity", "USDT"], bl: ["Safaricom", "Airtel KE", "KPLC Power", "DStv / GOtv KE"] },
+      GH: { s: "₵", r: 15.8, rl: ["MTN MoMo GH", "Telecel Cash", "GCB Bank", "USDT"], bl: ["MTN GH", "Telecel GH", "ECG Power", "DStv / GOtv GH"] },
+      ZA: { s: "R", r: 18.2, rl: ["FNB / Capitec", "Standard Bank", "USDT"], bl: ["Vodacom / MTN", "Eskom Power", "DStv SA"] }
+    };
+
+    let currentUser = JSON.parse(localStorage.getItem("zale_user") || "null");
+    let localOrders = JSON.parse(localStorage.getItem("zale_orders") || "[]");
+    let payCfg = JSON.parse(localStorage.getItem("zale_paycfg") || '{"wallet":"Set your USDT wallet in Admin","momo":"Set your MoMo/Bank in Admin","wa":""}');
+    let lastOrder = null, walletAcct = "", swapMode = "sell";
+    const say = t => document.getElementById('msg').textContent = t;
+    const setAmt = v => { document.getElementById('sAmt').value = v; calc(); };
+    const isAdmin = () => currentUser?.email?.toLowerCase() === ADMIN_EMAIL;
+
+    async function sbFetch(path, opts = {}) {
+      try {
+        const ctrl = new AbortController();
+        const t = setTimeout(() => ctrl.abort(), 2500);
+        const res = await fetch(SB_URL + path, {
+          ...opts, signal: ctrl.signal,
+          headers: { "apikey": SB_KEY, "Authorization": "Bearer " + (currentUser?.token || SB_KEY), "Content-Type": "application/json", ...(opts.headers || {}) }
+        });
+        clearTimeout(t);
+        const text = await res.text();
+        return { ok: res.ok, data: text ? JSON.parse(text) : null };
+      } catch (e) { return { ok: false, data: null }; }
+    }
+
+    function setMode(m) {
+      swapMode = m;
+      ['sell','buy','conv'].forEach(x => document.getElementById('m-'+x).className = x === m ? 'on' : 'off');
+      document.getElementById('rail').classList.toggle('hide', m === 'conv');
+      document.getElementById('sDst').placeholder = m === 'sell' ? "Your Mobile Money or Bank Account Number" : m === 'buy' ? "Your Broker or Wallet Crypto Address" : "Target Coin & Receiving Wallet";
+      document.getElementById('sBtn').textContent = m === 'sell' ? "Submit Sell Crypto Order" : m === 'buy' ? "Submit Buy Crypto Order" : "Submit Coin Swap Order";
+      calc();
+    }
+
+    async function loadLiveRates() {
+      const { ok, data } = await sbFetch("/rest/v1/rates?select=*");
+      if (ok && Array.isArray(data)) data.forEach(r => { if (RAILS[r.country]) { RAILS[r.country].r = Number(r.usd_rate); RAILS[r.country].s = r.currency_symbol; } });
+      calc();
+    }
+
+    function setCty() {
+      const d = RAILS[document.getElementById('cty').value];
+      document.getElementById('rail').innerHTML = d.rl.map(x => `<option>${x}</option>`).join('');
+      document.getElementById('prov').innerHTML = d.bl.map(x => `<option>${x}</option>`).join('');
+      calc();
+    }
+
+    function calc() {
+      const d = RAILS[document.getElementById('cty').value], a = parseFloat(document.getElementById('sAmt').value) || 0, coin = document.getElementById('coin').value;
+      if (swapMode === 'sell') document.getElementById('sEst').textContent = `You Receive: ${d.s}${(a * d.r).toLocaleString()} ($${a} ${coin})`;
+      else if (swapMode === 'buy') document.getElementById('sEst').textContent = `You Pay: ${d.s}${(a * +(d.r * 1.03).toFixed(2)).toLocaleString()} -> $${a} ${coin}`;
+      else document.getElementById('sEst').textContent = `Swap $${a} ${coin} -> $${(a * 0.985).toFixed(2)} Target Coin`;
+      const c = (parseFloat(document.getElementById('cVal').value) || 0) * (parseFloat(document.getElementById('cBrd').value) || 0.8);
+      document.getElementById('cEst').textContent = `Receive: $${c.toFixed(2)} USDT (${d.s}${(c * d.r).toLocaleString()})`;
+    }
+    function tab(k) {
+      ['swap','card','bill','safe','hist','adm'].forEach(x => {
+        document.getElementById('p-'+x).classList.toggle('hide', x !== k);
+        document.getElementById('t-'+x).className = x === k ? 'on' : 'off';
+      });
+      if (!isAdmin()) document.getElementById('t-adm').classList.add('hide');
+      if (k === 'hist') loadOrders();
+      if (k === 'adm' && isAdmin()) {
+        document.getElementById('admWallet').value = payCfg.wallet || "";
+        document.getElementById('admMomo').value = payCfg.momo || "";
+        document.getElementById('admWa').value = payCfg.wa || "";
+        loadAdmin();
+      }
+    }
+    async function auth(mode) {
+      const email = document.getElementById('email').value.trim(), password = document.getElementById('pass').value.trim();
+      if (!email || !password) return say("Enter both email and password.");
+      if (password.length < 6) return say("Password must be at least 6 characters.");
+      const userObj = { email, token: SB_KEY };
+      localStorage.setItem("zale_user", JSON.stringify(userObj));
+      enterApp(userObj);
+      const endpoint = mode === 'signup' ? "/auth/v1/signup" : "/auth/v1/token?grant_type=password";
+      sbFetch(endpoint, { method: "POST", body: JSON.stringify({ email, password }) }).then(res => {
+        if (res.ok && res.data?.access_token) { userObj.token = res.data.access_token; localStorage.setItem("zale_user", JSON.stringify(userObj)); }
+      });
+    }
+    function enterApp(user) {
+      currentUser = user;
+      document.getElementById('authBox').classList.add('hide');
+      document.getElementById('appBox').classList.remove('hide');
+      document.getElementById('userControls').classList.remove('hide');
+      if (isAdmin()) { document.getElementById('navTabs').style.gridTemplateColumns = "repeat(6,1fr)"; document.getElementById('t-adm').classList.remove('hide'); }
+      const code = "ZALE-" + user.email.split("@").shift().toUpperCase().slice(0,6);
+      document.getElementById('refCodeText').textContent = `Your Code: ${code} — Share your link & earn $2 cashback on every friend's first $50+ trade.`;
+      say("Signed in as " + user.email);
+      loadLiveRates();
+    }
+    function copyRef() {
+      const code = "ZALE-" + (currentUser?.email?.split("@").shift().toUpperCase().slice(0,6) || "VIP");
+      navigator.clipboard.writeText(`Trade crypto & fund forex brokers in <5 mins on Zale App (Use my code ${code}): ${location.origin + location.pathname}`);
+      say("Referral invite link copied!");
+    }
+    function logout() { localStorage.removeItem("zale_user"); location.reload(); }
+    function submitSwap() {
+      const coin = document.getElementById('coin').value;
+      const label = swapMode === 'sell' ? `Sell ${coin}` : swapMode === 'buy' ? `Buy ${coin}` : `Swap ${coin}`;
+      submitOrder(label, swapMode === 'conv' ? 'Coin-to-Coin' : document.getElementById('rail').value, document.getElementById('sAmt').value, document.getElementById('sEst').textContent, document.getElementById('sDst').value, '');
+    }
+    async function submitOrder(type, brand, amt, payout, dest, code) {
+      if (!amt || !dest) return say("Please fill in the amount and destination.");
+      const o = { id: String(Date.now()), user_email: currentUser.email, country: document.getElementById('cty').value, order_type: type, asset_or_brand: brand, amount_usd: Number(amt), payout_local: payout, destination: dest, card_code_or_tx: code, status: "pending" };
+      lastOrder = o; localOrders.unshift(o); localStorage.setItem("zale_orders", JSON.stringify(localOrders));
+      showPayBox(o); tab('hist');
+      sbFetch("/rest/v1/orders", { method: "POST", headers: { "Prefer": "return=minimal" }, body: JSON.stringify([{ user_email: o.user_email, country: o.country, order_type: o.order_type, asset_or_brand: o.asset_or_brand, amount_usd: o.amount_usd, payout_local: o.payout_local, destination: o.destination, card_code_or_tx: o.card_code_or_tx }]) });
+    }
+    function showPayBox(o) {
+      const isCryptoIn = o.order_type.startsWith("Sell") || o.order_type.startsWith("Swap");
+      document.getElementById('payTitle').textContent = `${o.order_type} — $${o.amount_usd} (${o.payout_local})`;
+      document.getElementById('payInstr').textContent = isCryptoIn ? `Send $${o.amount_usd} crypto to our official Zale App wallet below, then paste your TxID:` : o.order_type === 'Gift Card' ? `Your gift card code (${o.card_code_or_tx}) is queued for verification. Tap below to alert our desk:` : `Send your local payment to our official Zale App collection account below, then enter your Ref ID:`;
+      document.getElementById('payTarget').textContent = isCryptoIn ? payCfg.wallet : (o.order_type === 'Gift Card' ? `Card: ${o.asset_or_brand} ($${o.amount_usd})` : payCfg.momo);
+      document.getElementById('payBox').classList.remove('hide');
+    }
+    function copyTarget() { navigator.clipboard.writeText(document.getElementById('payTarget').textContent); say("Payment details copied!"); }
+    function confirmPaidWA() {
+      const ref = document.getElementById('txRef').value.trim() || "Attached";
+      if (lastOrder) { lastOrder.card_code_or_tx = ref; localOrders = localOrders.map(x => x.id === lastOrder.id ? lastOrder : x); localStorage.setItem("zale_orders", JSON.stringify(localOrders)); }
+      const msg = encodeURIComponent(`Hello Zale App! I have completed payment for Order #${lastOrder?.id || ''}: ${lastOrder?.order_type} ($${lastOrder?.amount_usd}) | ${lastOrder?.payout_local} | Payout To: ${lastOrder?.destination} | Payment Ref/TxID: ${ref}`);
+      if (payCfg.wa) window.open(`https://wa.me{payCfg.wa.replace(/\D/g,'')}?text=${msg}`, "_blank");
+      else { navigator.clipboard.writeText(decodeURIComponent(msg)); say("Payment proof copied! Paste it in WhatsApp to complete settlement."); }
+    }
+    function savePayConfig() {
+      payCfg = { wallet: document.getElementById('admWallet').value.trim(), momo: document.getElementById('admMomo').value.trim(), wa: document.getElementById('admWa').value.trim() };
+      localStorage.setItem("zale_paycfg", JSON.stringify(payCfg)); say("Receiving wallets, MoMo/Bank & WhatsApp saved!");
+    }
+    function copyProof(txt) { navigator.clipboard.writeText(txt); say("Receipt copied! Paste in WhatsApp or Telegram."); }
+    async function loadOrders() {
+      const { ok, data } = await sbFetch(`/rest/v1/orders?user_email=eq.${encodeURIComponent(currentUser.email)}&order=created_at.desc`);
+      const list = (ok && Array.isArray(data) && data.length) ? data : localOrders.filter(o => o.user_email === currentUser.email);
+      document.getElementById('orderList').innerHTML = list.length ? list.map(o => `<div class="order-item"><div class="row" style="margin:0"><b>${o.order_type} (${o.asset_or_brand})</b><span class="badge ${o.status}">${o.status}</span></div><div style="color:#94a3b8;margin-top:4px">$${o.amount_usd} • ${o.payout_local} • To: ${o.destination}</div><div class="bar"><div class="${o.status === 'paid' ? 'fill-d' : 'fill-p'}"></div></div><button class="pre-btn" style="margin-top:8px;width:100%" onclick="copyProof('Zale App Receipt | ${o.order_type} ($${o.amount_usd}) | ${o.payout_local} | Status: ${o.status.toUpperCase()}')">Copy WhatsApp Receipt</button></div>`).join('') : "<p style='color:#94a3b8;font-size:12px'>No orders yet.</p>";
+    }
+    async function updateRate() {
+      const cty = document.getElementById('admCty').value, val = parseFloat(document.getElementById('admRate').value);
+      if (!val) return say("Enter a valid rate.");
+      RAILS[cty].r = val; calc(); say(`Updated ${cty} rate to ${val}!`);
+      sbFetch(`/rest/v1/rates?country=eq.${cty}`, { method: "PATCH", body: JSON.stringify({ usd_rate: val }) });
+    }
+    async function loadAdmin() {
+      const { ok, data } = await sbFetch("/rest/v1/orders?order=created_at.desc");
+      const list = (ok && Array.isArray(data) && data.length) ? data : localOrders;
+      document.getElementById('adminList').innerHTML = list.length ? list.map(o => `<div class="order-item"><div class="row" style="margin:0"><b>${o.user_email}</b><span class="badge ${o.status}">${o.status}</span></div><div style="color:#cbd5e1;margin-top:4px">${o.order_type}: $${o.amount_usd} (${o.asset_or_brand}) -> ${o.payout_local}</div><div style="color:#34d399;margin-top:2px">Send To: ${o.destination} ${o.card_code_or_tx ? '| Ref: ' + o.card_code_or_tx : ''}</div>${o.status === 'pending' ? `<button class="btn-sm" style="margin-top:6px" onclick="markPaid('${o.id}')">Mark Paid</button>` : ''}</div>`).join('') : "<p style='color:#94a3b8;font-size:12px'>No orders yet.</p>";
+    }
+    async function markPaid(id) {
+      localOrders = localOrders.map(o => String(o.id) === String(id) ? { ...o, status: "paid" } : o);
+      localStorage.setItem("zale_orders", JSON.stringify(localOrders));
+      say("Order marked as PAID!"); loadAdmin();
+      sbFetch(`/rest/v1/orders?id=eq.${id}`, { method: "PATCH", body: JSON.stringify({ status: "paid" }) });
+    }
+    async function connectWallet() {
+      if (!window.ethereum) return say("Open in Chrome with MetaMask installed.");
+      const a = await window.ethereum.request({ method: "eth_requestAccounts" });
+      walletAcct = a; document.getElementById('walletBtn').textContent = walletAcct.slice(0,5) + "..." + walletAcct.slice(-3);
+      say("Wallet linked: " + walletAcct);
+    }
+    async function runEscrow() {
+      if (!walletAcct) await connectWallet();
+      await submitOrder('Safe-PIN Escrow', 'On-Chain Lock', document.getElementById('eAmt').value || 10, 'Locked with PIN', 'Recipient Link', document.getElementById('ePin').value);
+    }
+    setCty();
+    if (currentUser) enterApp(currentUser);
+  </script>
+</body>
+</html>
