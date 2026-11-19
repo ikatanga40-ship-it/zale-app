@@ -444,7 +444,7 @@
         document.body.classList.add("member-mode"); document.getElementById("welcomeCard").classList.add("hide"); document.getElementById("authBox").classList.add("hide"); document.getElementById("topSignInBtn").classList.add("hide");
         document.getElementById("traderPassport").classList.remove("hide"); document.getElementById("memberFeed").classList.remove("hide");
         document.getElementById("passEmail").textContent = user.email;
-        const code = "ZALE-" + user.email.split("@").toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,6);
+        const code = "ZALE-" + user.email.split("@")[0].toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,6);
         document.getElementById("passId").textContent = (user.admin ? "Executive Desk Owner • " : "Verified Member • ") + code;
         document.getElementById("refCodeText").innerHTML = `Your personal invite code is <b style="color:#fbbf24">${code}</b>. Share it with fellow traders to earn $2 cashback on their first $50+ trade.`;
         if (user.admin) document.getElementById("t-adm").classList.remove("hide");
@@ -564,7 +564,7 @@
     function markPaid(id) { const o = orders.find(x => x.id===id); if (o) { o.status = "Settled"; save(); pushOrderCloud(o); say(`Order #${id} marked Settled.`); } }
     function save() { localStorage.setItem("zale_orders", JSON.stringify(orders)); render(); }
     function shareApp() { const u = location.href; navigator.clipboard?.writeText(u); if (navigator.share) navigator.share({title:"Zale App",text:"Borderless FX, Crypto & Utility Desk",url:u}); else say("Zale App link copied! Ready to paste on WhatsApp or Telegram."); }
-    function copyRef() { const code = user ? "ZALE-" + user.email.split("@").toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,6) : "ZALE-VIP"; navigator.clipboard?.writeText(`Join me on Zale App — Pan-African FX, Crypto & Utility Desk! Use my invite code ${code} at ${location.href}`); say(`Invite message with code ${code} copied!`); }
+    function copyRef() { const code = user ? "ZALE-" + user.email.split("@")[0].toUpperCase().replace(/[^A-Z0-9]/g,"").slice(0,6) : "ZALE-VIP"; navigator.clipboard?.writeText(`Join me on Zale App — Pan-African FX, Crypto & Utility Desk! Use my invite code ${code} at ${location.href}`); say(`Invite message with code ${code} copied!`); }
     function render() {
       const myOrders = user ? orders.filter(o => o.user===user.email) : [];
       if (user) {
