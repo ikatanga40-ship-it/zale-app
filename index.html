@@ -1,4 +1,4 @@
-i<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -293,8 +293,22 @@ i<!DOCTYPE html>
       if(navigator.share) navigator.share({title:"Split Bill on Zale App",text:txt}); else { navigator.clipboard.writeText(txt); say("Split request copied! Paste in your WhatsApp group."); }
     }
     function tab(t) {
+      const isAdm = t === "adm";
       ["swap","card","bill","safe","ord","adm"].forEach(k => document.getElementById("p-"+k).classList.toggle("hide", k!==t));
       ["swap","card","bill","safe"].forEach(k => document.getElementById("nav-"+k).classList.toggle("active", k===t));
+      document.querySelectorAll(".wrap > div").forEach((el, idx) => {
+        if (idx === 0) return;
+        if (el.id === "p-adm") { el.classList.toggle("hide", !isAdm); return; }
+        if (isAdm) {
+          el.classList.add("hide");
+        } else {
+          if (["p-swap","p-card","p-bill","p-safe","p-ord"].includes(el.id)) el.classList.toggle("hide", el.id !== "p-"+t);
+          else if (el.id === "welcomeCard" || el.id === "authBox") el.classList.toggle("hide", !!user);
+          else if (el.id === "traderPassport" || el.id === "memberFeed") el.classList.toggle("hide", !user);
+          else if (el.id === "payBox") el.classList.add("hide");
+          else el.classList.remove("hide");
+        }
+      });
       render();
     }
     function auth(type) {
