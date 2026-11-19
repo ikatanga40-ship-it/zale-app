@@ -175,11 +175,22 @@
           <div id="billDrawer" class="hide" style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--brd)">
             <div id="billTitle" style="font-weight:800;font-size:13px;color:var(--acc)"></div>
             <input id="billMeter" placeholder="Meter / Smartcard / Phone Number" /><input id="billUsd" type="number" placeholder="Amount in USD (e.g. 20)" />
-            <button class="btn" onclick="placeBillOrder()">Pay Utility Bill</button>
+                        <button class="btn" onclick="placeBillOrder()">Pay Utility Bill</button>
+            <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--brd)">
+              <div class="row" style="margin-bottom:6px"><span style="font-size:12px;font-weight:800;color:var(--gold)">🧾 Split Bill With 3+ Friends</span><span class="eyebrow">Zale Exclusive</span></div>
+              <div class="row"><input id="spPpl" type="number" min="2" value="3" placeholder="People" oninput="calcSplitV3()" style="margin:0" /><input id="spNote" placeholder="Note (e.g. DStv)" style="margin:0" /></div>
+              <div id="spEachLbl" style="font-size:12px;font-weight:800;color:var(--acc);margin-top:6px">Each pays: $0.00 (K0)</div>
+              <button class="btn-gold" style="width:100%;margin-top:8px" onclick="shareSplitV3()">Send Split Request to 3+ Friends</button>
+            </div>
+
           </div>
         </div>
 
-        <div class="card"><div class="row" style="margin-bottom:8px"><h3 style="margin:0;font-size:14.5px">Live Rates</h3><span class="eyebrow">Live Feed</span></div><div id="homeRatesList"></div></div>
+        <div class="card"><div class="row" style="margin-bottom:8px"><h3 style="margin:0;font-size:14.5px">Live Rates</h3><span class="eyebrow">Live Feed</span></div>          <div id="homeRatesList"></div>
+          <div style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--brd)">
+            <div class="row"><input id="v3AlertRate" type="number" placeholder="🔔 Target Rate Alert (e.g. 28.00)" style="margin:0;padding:10px 12px;font-size:12.5px" /><button class="btn-gold" style="white-space:nowrap;padding:10px 12px" onclick="sendRateAlertV3()">Alert</button></div>
+          </div>
+</div>
       </div>
 
       <div id="tab-trade" class="hide">
@@ -193,7 +204,9 @@
         <div id="coinTradeBox" class="card hide" style="border-color:rgba(16,185,129,.55)">
           <div class="row" style="margin-bottom:8px"><h3 id="selCoinTitle" style="margin:0;font-size:15.5px">Trade Tether (USDT)</h3><button class="btn-ghost" style="padding:4px 8px;font-size:10px" onclick="document.getElementById('coinTradeBox').classList.add('hide')">Close</button></div>
           <div class="seg"><button id="tm-buy" class="on" onclick="setTradeMode('buy')">Crypto Buy</button><button id="tm-sell" class="off" onclick="setTradeMode('sell')">Crypto Sell</button><button id="tm-swap" class="off" onclick="setTradeMode('swap')">Crypto Swap</button></div>
-          <input id="trAmt" type="number" placeholder="Amount in USD (e.g. 100)" /><input id="trDest" placeholder="Destination Wallet Address or Mobile Money" />
+                    <select id="trRailType"><option>Standard Crypto Wallet / Mobile Money</option><option>Forex Broker Funding (XM / Exness / Deriv / HFM)</option><option>Prop-Firm Payout Settlement (FTMO / FundedNext)</option></select>
+          <input id="trAmt" type="number" placeholder="Amount in USD (e.g. 100)" />
+<input id="trDest" placeholder="Destination Wallet Address or Mobile Money" />
           <button class="btn" onclick="placeCryptoOrder()">Confirm Coin Trade</button>
         </div>
         <div class="card">
@@ -255,7 +268,14 @@
           <button class="btn-gold" style="width:100%;margin-top:8px" onclick="document.getElementById('kycModalBox').classList.toggle('hide')">Update KYC</button>
           <div id="kycModalBox" class="hide" style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--brd)"><input id="kycIdNum" placeholder="Enter BVN or National ID / NRC Number" /><select id="kycDocType"><option>National ID / NRC</option><option>BVN Verification</option><option>International Passport</option></select><button class="btn" onclick="submitKycUpdate()">Submit Face &amp; BVN Verification</button></div>
         </div>
-        <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Security</h3><div class="acc-row"><span>Change Password</span><button class="btn-ghost" onclick="changePassPrompt()">Update</button></div><div class="acc-row"><span>Two-Factor Authentication</span><input type="checkbox" id="tog2fa" style="width:auto;margin:0" onchange="savePrefs()" /></div><div class="acc-row"><span>Fingerprint Enabler</span><input type="checkbox" id="togBio" style="width:auto;margin:0" onchange="savePrefs()" /></div></div>
+        <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Security</h3>          <div class="acc-row"><span>Change Password</span><button class="btn-ghost" onclick="changePassPrompt()">Update</button></div>
+          <div class="acc-row"><span>🔐 Saved Payout Vault</span><button class="btn-ghost" onclick="document.getElementById('vaultBoxV3').classList.toggle('hide')">Manage</button></div>
+          <div id="vaultBoxV3" class="hide" style="padding:10px 0;border-bottom:1px solid var(--brd)">
+            <input id="v3VaultMomo" placeholder="Default Mobile Money / Bank Account" style="margin-top:4px" />
+            <input id="v3VaultWallet" placeholder="Default USDT (TRC20) Address" />
+            <button class="btn" style="padding:11px;margin-top:8px" onclick="saveVaultV3()">Save Payout Details</button>
+          </div>
+<div class="acc-row"><span>Two-Factor Authentication</span><input type="checkbox" id="tog2fa" style="width:auto;margin:0" onchange="savePrefs()" /></div><div class="acc-row"><span>Fingerprint Enabler</span><input type="checkbox" id="togBio" style="width:auto;margin:0" onchange="savePrefs()" /></div></div>
         <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Preferences</h3><div class="acc-row"><span>Newsletters</span><input type="checkbox" id="prefNews" checked style="width:auto;margin:0" onchange="savePrefs()" /></div><div class="acc-row"><span>Push Notification</span><input type="checkbox" id="prefPush" checked style="width:auto;margin:0" onchange="savePrefs()" /></div><div class="acc-row"><span>Email Notification</span><input type="checkbox" id="prefEmail" checked style="width:auto;margin:0" onchange="savePrefs()" /></div><div class="acc-row"><span>Daily Rates Update</span><input type="checkbox" id="prefRates" checked style="width:auto;margin:0" onchange="savePrefs()" /></div></div>
         <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Appearance</h3><select id="themeSel" onchange="applyTheme(this.value)" style="margin-top:4px"><option value="dark">Dark Theme</option><option value="light">Light Theme</option><option value="system">System (Phone System)</option></select></div>
         <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Support</h3><div class="acc-row"><span>Company Email</span><b>ikatanga40@gmail.com</b></div><div class="acc-row"><span>WhatsApp Support</span><a href="https://wa.me" target="_blank" style="color:var(--acc);font-weight:800;text-decoration:none">+260 77 947 3735</a></div><button class="btn-ghost" style="width:100%;margin-top:10px" onclick="shareApp()">📤 Share Zale App</button><button class="btn" style="background:#ef4444;color:#fff;margin-top:10px" onclick="doLogout()">Sign Out</button></div>
@@ -407,7 +427,7 @@
     function submitProof() { const r = document.getElementById("stRef").value.trim(); if (!r) return toast("Enter your payment reference first."); if (activeOrd) { activeOrd.ref = r; localStorage.setItem("zale_orders", JSON.stringify(orders)); } document.getElementById("stRef").value = ""; document.getElementById("settleCard").classList.add("hide"); toast("Payment proof submitted! Your order is in verification."); }
     function waConcierge() { if (activeOrd) window.open(`https://wa.me{PAY.wa}?text=${encodeURIComponent("Zale v3.0.3 Order #" + activeOrd.id + " | " + activeOrd.type + " | $" + activeOrd.usd)}`, "_blank"); }
     function placeBillOrder() { const m = document.getElementById("billMeter").value.trim(), v = parseFloat(document.getElementById("billUsd").value); if (!m || !v) return toast("Enter meter/account number and USD amount."); createOrder(document.getElementById("billTitle").textContent, v, m, `${PAY.momo} | USDT: ${PAY.wallet}`); }
-    function placeCryptoOrder() { const v = parseFloat(document.getElementById("trAmt").value), d = document.getElementById("trDest").value.trim(); if (!v || !d) return toast("Enter USD amount and destination."); createOrder(`Crypto ${tradeMode.toUpperCase()} (${selCoin.name} ${selCoin.sym})`, v, d, tradeMode==="buy" ? PAY.momo : PAY.wallet); }
+    function placeCryptoOrder() { const v = parseFloat(document.getElementById("trAmt").value), d = document.getElementById("trDest").value.trim(); if (!v || !d) return toast("Enter USD amount and destination."); createOrder(`${document.getElementById("trRailType")?.value.includes("Broker")?"Broker Funding":document.getElementById("trRailType")?.value.includes("Prop")?"Prop-Firm Payout":"Crypto "+tradeMode.toUpperCase()} (${selCoin.name} ${selCoin.sym})`, v, d, tradeMode==="buy" ? PAY.momo : PAY.wallet); }
     function sendUsernameTransfer() { const to = document.getElementById("uToName").value.trim(), v = parseFloat(document.getElementById("uToAmt").value); if (!to || !v) return toast("Enter recipient username and USD amount."); createOrder("Zale Username Transfer", v, to, "Internal Zale Ledger Transfer ($0 Fee)"); }
     function initiateBankDeposit() { const v = parseFloat(document.getElementById("depUsd").value); if (!v) return toast("Enter deposit amount in USD."); createOrder("Bank / First Deposit", v, user.email, PAY.momo); }
     function initiateWithdrawOrder() { const v = parseFloat(document.getElementById("depUsd").value), a = document.getElementById("depAcct").value.trim(); if (!v || !a) return toast("Enter amount and bank/mobile money account."); createOrder("Wallet Withdrawal", v, a, "Desk payout to: " + a); }
@@ -417,7 +437,28 @@
     function submitKycUpdate() { const idn = document.getElementById("kycIdNum").value.trim(); if (!idn) return toast("Enter your BVN or National ID number."); user.kycVerified = true; localStorage.setItem("zale_v3_user", JSON.stringify(user)); document.getElementById("kycModalBox").classList.add("hide"); toast("KYC submitted! Face & BVN verification updated."); renderAll(); }
     function changePassPrompt() { const np = prompt("Enter new password:"); if (np && np.length>=4) toast("Password updated successfully."); }
     function savePrefs() { toast("Security & notification preferences saved."); }
-    function applyTheme(t) { localStorage.setItem("zale_theme", t); const sysLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches; document.body.classList.toggle("light", t==="light" || (t==="system" && sysLight)); }
+        function calcSplitV3() {
+      const c = CURR[user?.cty] || CURR.ZM, v = parseFloat(document.getElementById("billUsd")?.value)||0, p = Math.max(2, parseInt(document.getElementById("spPpl")?.value)||3);
+      document.getElementById("spEachLbl").textContent = `Each pays: $${(v/p).toFixed(2)} (${c.s}${((v/p)*c.r).toLocaleString(undefined,{maximumFractionDigits:0})})`;
+    }
+    function shareSplitV3() {
+      const c = CURR[user?.cty] || CURR.ZM, v = parseFloat(document.getElementById("billUsd")?.value)||0, p = Math.max(2, parseInt(document.getElementById("spPpl")?.value)||3), note = document.getElementById("spNote")?.value.trim() || "Shared Bill";
+      if (!v) return toast("Enter bill amount in USD first.");
+      const msg = `Zale App Group Split (${p} friends) for ${note}: Total $${v}. Your share is $${(v/p).toFixed(2)} (${c.s}${((v/p)*c.r).toLocaleString(undefined,{maximumFractionDigits:0})}). Settle at ${location.href}`;
+      window.open(`https://wa.me{encodeURIComponent(msg)}`, "_blank");
+    }
+    function sendRateAlertV3() {
+      const r = document.getElementById("v3AlertRate")?.value.trim(); if (!r) return toast("Enter your target FX rate.");
+      window.open(`https://wa.me{PAY.wa}?text=${encodeURIComponent(`Zale Rate Alert: Ping ${user?.email||"me"} when ${user?.cty||"ZM"} hits ${r}`)}`, "_blank");
+    }
+    function saveVaultV3() {
+      const sv = {momo:document.getElementById("v3VaultMomo").value.trim(), wallet:document.getElementById("v3VaultWallet").value.trim()};
+      localStorage.setItem("zale_v3_vault", JSON.stringify(sv));
+      document.getElementById("vaultBoxV3").classList.add("hide");
+      toast("Saved Payout Vault updated!");
+    }
+    function applyTheme(t) {
+ localStorage.setItem("zale_theme", t); const sysLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches; document.body.classList.toggle("light", t==="light" || (t==="system" && sysLight)); }
     function renderAll() {
       if (!user) return;
       const c = CURR[user.cty] || CURR.ZM, bal = parseFloat(user.bal) || 0;
