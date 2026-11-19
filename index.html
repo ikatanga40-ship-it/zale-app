@@ -468,7 +468,19 @@
         if (r.ok) { const p = await r.json(); const el = document.getElementById("liveTicker"); if (el && p.bitcoin) el.innerHTML = `<span class="tk-item">USDT <b>$1.00</b></span><span class="tk-item">BTC <b>$${p.bitcoin.usd.toLocaleString()}</b></span><span class="tk-item">SOL <b>$${p.solana.usd.toLocaleString()}</b></span><span class="tk-item">ETH <b>$${p.ethereum.usd.toLocaleString()}</b></span>`; }
       } catch(e) {}
     }
+    function detectCountry() {
+      const saved = localStorage.getItem("zale_cty");
+      if (saved && RAILS[saved]) { document.getElementById("cty").value = saved; return; }
+      const tz = (Intl.DateTimeFormat().resolvedOptions().timeZone || "").toLowerCase();
+      let c = "ZM";
+      if (tz.includes("lagos")) c = "NG";
+      else if (tz.includes("nairobi")) c = "KE";
+      else if (tz.includes("accra")) c = "GH";
+      else if (tz.includes("johannesburg")) c = "ZA";
+      document.getElementById("cty").value = c;
+    }
     function boot() {
+      detectCountry();
       setCty(); setProvs();
       document.getElementById("cfgWallet").value = payCfg.wallet; document.getElementById("cfgMomo").value = payCfg.momo; document.getElementById("cfgWa").value = payCfg.wa;
       if (user) {
@@ -516,7 +528,7 @@
       document.getElementById("cDest").placeholder = m==="sell" ? "Your Payout Account, Email, or 'Zale Wallet'" : "Email Address to Deliver Digital Gift Card Code";
       document.getElementById("gcBtn").textContent = m==="sell" ? "Submit Gift Card for Cashout" : "Buy Digital Gift Card"; calc();
     }
-    function setCty() { const c = RAILS[document.getElementById("cty").value]; document.getElementById("rail").innerHTML = c.m.map(x=>`<option>${x}</option>`).join(""); calc(); calcSplit(); render(); }
+    function setCty() { localStorage.setItem("zale_cty", document.getElementById("cty").value); const c = RAILS[document.getElementById("cty").value]; document.getElementById("rail").innerHTML = c.m.map(x=>`<option>${x}</option>`).join(""); calc(); calcSplit(); render(); }
     function setProvs() { const c = RAILS[document.getElementById("cty").value]; document.getElementById("prov").innerHTML = c.p[document.getElementById("bType").value].map(x=>`<option>${x}</option>`).join(""); }
     function calc() {
       const c = RAILS[document.getElementById("cty").value], v = parseFloat(document.getElementById("amt").value)||0;
