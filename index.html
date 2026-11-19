@@ -92,6 +92,99 @@
         <button id="topSignInBtn" class="btn-copper" onclick="scrollAuth()">Sign In</button>
       </div>
     </div>
+        <div id="welcomeCard" class="hero">
+      <span class="eyebrow"><span class="dot"></span>4-Digit PIN Escrow • Verified Desk</span>
+      <h1 style="margin:12px 0 8px;font-size:21px;line-height:1.25;font-weight:900;color:#fff">Thoughtful, borderless finance built for African traders.</h1>
+      <p style="margin:0;font-size:13px;line-height:1.55;color:#cbd5e1">Whether you are funding a forex broker, settling USDT to local mobile money, buying or selling gift cards, or splitting a household bill, every transaction is handled with transparent rates and personal care.</p>
+    </div>
+
+    <div id="traderPassport" class="hide">
+      <div class="exec-deck">
+        <div class="row">
+          <div>
+            <div style="font-size:10px;color:#38bdf8;text-transform:uppercase;letter-spacing:.9px;font-weight:800">Zale Private Terminal</div>
+            <div id="passEmail" style="font-size:14.5px;font-weight:800;color:#fff;margin-top:2px"></div>
+            <div id="passId" style="font-size:11px;color:#fbbf24;margin-top:2px"></div>
+          </div>
+          <div style="display:flex;gap:6px">
+            <button class="btn-ghost" style="border-color:rgba(56,189,248,.4);color:#38bdf8" onclick="toggleVault()">Vault</button>
+            <button class="btn-ghost" onclick="logout()">Sign Out</button>
+          </div>
+        </div>
+        <div class="wallet-banner">
+          <div class="row">
+            <div>
+              <div style="font-size:10px;color:#6ee7b7;text-transform:uppercase;letter-spacing:.7px;font-weight:800">Zale Multi-Currency Wallet</div>
+              <div id="walUsd" style="font-size:24px;font-weight:900;color:#fff;margin-top:2px">$0.00</div>
+              <div id="walLoc" style="font-size:11.5px;color:#94a3b8">≈ K0.00 Local Equivalent</div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:6px">
+              <button class="btn-copper" style="padding:7px 11px;font-size:11px" onclick="promptTopup()">+ Top Up</button>
+              <button class="btn-ghost" style="padding:6px 11px;font-size:11px" onclick="openWalletWithdraw()">Withdraw</button>
+            </div>
+          </div>
+          <div id="liveTicker" class="ticker-bar"><span class="tk-item">USDT <b>$1.00</b></span><span class="tk-item">BTC <b>Live...</b></span><span class="tk-item">SOL <b>Live...</b></span><span class="tk-item">ETH <b>Live...</b></span></div>
+          <div id="topupDrawer" class="hide" style="margin-top:12px;padding-top:12px;border-top:1px dashed rgba(16,185,129,.35)">
+            <div class="row" style="margin-bottom:6px"><span style="font-size:11.5px;font-weight:800;color:#6ee7b7">Top Up Zale Wallet</span><button class="btn-ghost" style="padding:3px 8px;font-size:10px" onclick="document.getElementById('topupDrawer').classList.add('hide')">Close</button></div>
+            <div class="row"><input id="tuAmt" type="number" placeholder="USD Amount (e.g. 50)" style="margin:0" /><select id="tuRail" style="margin:0"><option value="momo">Mobile Money / Bank</option><option value="usdt">USDT (TRC20)</option></select></div>
+            <button class="btn" style="margin-top:8px;padding:11px" onclick="submitTopupOrder()">Get Deposit Details</button>
+          </div>
+        </div>
+        <div class="tele-grid">
+          <div class="tele-box"><div style="font-size:9.5px;color:#94a3b8;text-transform:uppercase">Desk Volume</div><div id="statVol" style="font-size:15px;font-weight:900;color:#fff;margin-top:3px">$0.00</div></div>
+          <div class="tele-box"><div style="font-size:9.5px;color:#94a3b8;text-transform:uppercase">Settled</div><div id="statSettled" style="font-size:15px;font-weight:900;color:#34d399;margin-top:3px">0</div></div>
+          <div class="tele-box"><div style="font-size:9.5px;color:#94a3b8;text-transform:uppercase">Desk Tier</div><div id="tierBadge" style="font-size:13px;font-weight:900;color:#fbbf24;margin-top:4px">Standard</div></div>
+        </div>
+        <div class="quick-strip"><div class="q-chip" onclick="quickTrade('buy',50)">⚡ Fund Broker $50</div><div class="q-chip" onclick="quickTrade('sell',100)">💵 Cash Out $100</div><div class="q-chip" onclick="tab('bill')">🧾 Split Bill 3+</div></div>
+        <div id="vaultDrawer" class="vault-drawer hide">
+          <div class="row" style="margin-bottom:6px"><span style="font-size:12px;font-weight:800;color:#38bdf8">🔐 Saved Payout Vault</span><button class="btn-ghost" style="padding:3px 8px;font-size:10px" onclick="toggleVault()">Close</button></div>
+          <input id="vMomo" placeholder="Default Mobile Money / Bank Account" /><input id="vWallet" placeholder="Default USDT (TRC20) Wallet" />
+          <button class="btn-copper" style="width:100%;margin-top:8px" onclick="saveVault()">Save to My Vault</button>
+        </div>
+      </div>
+    </div>
+    <div id="msg" class="note">Preview live conversion rates below. When you are ready to settle, sign in or create your desk account in seconds.</div>
+
+    <div id="payBox" class="paybox hide">
+      <div class="row" style="margin-bottom:6px"><span class="eyebrow">Step 2 • Direct Settlement</span><button class="btn-ghost" style="padding:4px 9px" onclick="document.getElementById('payBox').classList.add('hide')">Close</button></div>
+      <div id="payTitle" style="font-weight:800;font-size:15px;color:#fff;margin-top:6px"></div>
+      <div id="payInstr" style="font-size:12.5px;color:#cbd5e1;margin:4px 0 10px;line-height:1.45"></div>
+      <div style="background:#050d0b;border:1px solid rgba(245,158,11,.45);padding:12px;border-radius:12px;font-family:monospace;font-size:12px;color:#6ee7b7;word-break:break-all" id="payTarget"></div>
+      <button class="btn-copper" style="width:100%;margin-top:10px" onclick="copyTarget()">Copy Official Account Details</button>
+      <input id="txRef" placeholder="Enter Transaction ID or Mobile Money Reference" />
+      <div class="row" style="margin-top:10px"><button class="btn" style="margin:0" onclick="confirmSent()">Confirm Payment</button><button class="btn-copper" style="width:100%;padding:14px" onclick="sendWA()">WhatsApp Concierge</button></div>
+    </div>
+
+    <div id="pillarsBar" class="pillars">
+      <div id="nav-swap" class="pillar active" onclick="tab('swap')"><span class="pillar-ico">💱</span><span class="pillar-lbl">FX Bridge</span></div>
+      <div id="nav-card" class="pillar" onclick="tab('card')"><span class="pillar-ico">💳</span><span class="pillar-lbl">Gift Cards</span></div>
+      <div id="nav-bill" class="pillar" onclick="tab('bill')"><span class="pillar-ico">🧾</span><span class="pillar-lbl">Bills &amp; 3+</span></div>
+      <div id="nav-safe" class="pillar" onclick="tab('safe')"><span class="pillar-ico">🔐</span><span class="pillar-lbl">PIN Escrow</span></div>
+    </div>
+
+    <div id="topLedgerBar" class="row" style="margin-top:10px">
+      <button class="btn-ghost" style="width:100%" onclick="tab('ord')">📋 View My Order Ledger</button>
+      <button id="t-adm" class="btn-copper hide" style="width:100%" onclick="tab('adm')">⚙️ Admin Control</button>
+    </div>
+
+    <div id="p-swap" class="card">
+      <div class="seg"><button id="m-buy" class="on" onclick="setMode('buy')">Buy / Broker</button><button id="m-sell" class="off" onclick="setMode('sell')">Sell / Cash Out</button><button id="m-ex" class="off" onclick="setMode('ex')">Crypto Swap</button></div>
+      <div class="row">
+        <select id="cty" onchange="setCty()" style="margin:0"><option value="ZM">Zambia (ZMW)</option><option value="NG">Nigeria (NGN)</option><option value="KE">Kenya (KES)</option><option value="GH">Ghana (GHS)</option><option value="ZA">South Africa (ZAR)</option></select>
+        <select id="rail" style="margin:0"></select>
+      </div>
+      <select id="asset"><option>USDT (TRC20) — Broker &amp; P2P Standard</option><option>USDC (ERC20 / Polygon)</option><option>Bitcoin (BTC)</option><option>Solana (SOL)</option><option>Ethereum (ETH)</option><option>Virtual USD / Prop-Firm Payout Rail</option></select>
+      <div class="presets"><button class="pre-btn" onclick="setAmt(25)">$25</button><button class="pre-btn" onclick="setAmt(50)">$50</button><button class="pre-btn" onclick="setAmt(100)">$100</button><button class="pre-btn" onclick="setAmt(500)">$500</button></div>
+      <input id="amt" type="number" placeholder="Enter Amount in USD (e.g. 100)" oninput="calc()" />
+      <div class="row" style="margin-top:10px"><input id="dest" placeholder="Destination Wallet Address (TRC20 / BTC / SOL)" style="margin:0" /><button id="fillDestBtn" class="btn-ghost hide" style="white-space:nowrap;padding:12px 10px;border-color:rgba(56,189,248,.4);color:#38bdf8" onclick="fillSavedDest()">⚡ Saved</button></div>
+      <div class="bridge">
+        <div class="row"><span style="font-size:11px;color:#94a3b8">Desk Benchmark Rate</span><span id="recRate" style="font-size:12px;font-weight:700;color:#e2e8f0">1 USDT = K27.50</span></div>
+        <div class="bridge-mid"><span>⚡ Direct Settlement Rail</span><span style="color:#34d399;font-weight:700">$0.00 Hidden Fees</span></div>
+        <div class="row"><span style="font-size:12px;font-weight:700;color:#cbd5e1">Estimated Settlement</span><span id="est" style="font-size:15px;font-weight:900;color:#fbbf24">K0.00</span></div>
+      </div>
+      <button id="swapBtn" class="btn" onclick="placeSwap()">Initiate Desk Order</button>
+    </div>
+
     <div id="p-card" class="card hide">
       <div class="row" style="margin-bottom:8px">
         <h3 style="margin:0;font-size:15.5px">Two-Way Gift Card Hub</h3>
