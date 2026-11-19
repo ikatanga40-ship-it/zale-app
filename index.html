@@ -364,6 +364,44 @@
     let tempReg = {}, genOtp = "", balHidden = false, tradeMode = "buy", selCoin = COINS, selGc = GC_BRANDS, gcFilter = "all", activeOrd = null;
 
     setTimeout(() => { document.getElementById("splashScreen").classList.add("hide"); }, 1350);
+        function copyVal(txt, label) {
+      navigator.clipboard?.writeText(txt);
+      toast(label + " copied to clipboard!");
+    }
+    function renderPayRows(target) {
+      const box = document.getElementById("stTarget");
+      box.style.fontFamily = "inherit";
+      box.style.background = "transparent";
+      box.style.padding = "0";
+      if (target === PAY.wallet || target.includes(PAY.wallet) && !target.includes("0779473735")) {
+        box.innerHTML = `
+          <div style="background:var(--card2);border:1px solid var(--brd);border-radius:12px;padding:11px;margin-top:6px">
+            <div style="font-size:10.5px;color:var(--mut);font-weight:800;text-transform:uppercase">Official USDT (TRC20) Address</div>
+            <div class="row" style="margin-top:4px"><span style="font-family:monospace;font-size:11.5px;color:#10b981;word-break:break-all">${PAY.wallet}</span><button class="btn-ghost" style="padding:5px 9px;font-size:11px;flex-shrink:0" onclick="copyVal('${PAY.wallet}','USDT Address')">Copy</button></div>
+          </div>`;
+        return;
+      }
+      if (target.includes("Internal Zale") || target.includes("Desk payout") || target.includes("Submit code")) {
+        box.innerHTML = `<div style="background:var(--card2);border:1px solid var(--brd);border-radius:12px;padding:11px;margin-top:6px;font-size:12.5px;color:#10b981;font-weight:700">${target}</div>`;
+        return;
+      }
+      const rows = [
+        {lbl:"Airtel Money (Zambia)", val:"0779473735", sub:"Isaac Katanga"},
+        {lbl:"Zamtel Kwacha (Zambia)", val:"0957538263", sub:"Isaac Katanga"},
+        {lbl:"Standard Chartered Bank", val:"0104314987600", sub:"Isaac Katanga"},
+        {lbl:"USDT (TRC20) Wallet", val:PAY.wallet, sub:"Instant Crypto Rail"}
+      ];
+      box.innerHTML = rows.map(r => `
+        <div style="background:var(--card2);border:1px solid var(--brd);border-radius:12px;padding:10px 12px;margin-top:7px" class="row">
+          <div style="min-width:0">
+            <div style="font-size:10.5px;color:var(--mut);font-weight:800">${r.lbl}</div>
+            <div style="font-size:13px;font-weight:900;color:var(--txt);word-break:break-all;margin-top:1px">${r.val}</div>
+            <div style="font-size:10.5px;color:var(--acc)">${r.sub}</div>
+          </div>
+          <button class="btn-ghost" style="padding:6px 10px;font-size:11px;flex-shrink:0" onclick="copyVal('${r.val}','${r.lbl}')">Copy</button>
+        </div>`).join("");
+    }
+
     function toast(t) { const el = document.getElementById("statusToast"); el.textContent = t; el.classList.remove("hide"); }
     function showAuthStep(id) { ["viewLogin","viewReg1","viewReg2","viewReg3"].forEach(k => document.getElementById(k).classList.toggle("hide", k!==id)); }
     function updateDialCode() { const v = document.getElementById("rCountry").value.split("|"); document.getElementById("rDial").value = v; }
@@ -449,7 +487,7 @@
       const o = {id:Math.floor(100000+Math.random()*900000), user:user.email, type, usd, local:loc, to, ref:"Pending Proof", status:"Pending", time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})};
       orders.unshift(o); localStorage.setItem("zale_orders", JSON.stringify(orders)); activeOrd = o;
       try { fetch(`${SB_URL}/rest/v1/zale_orders`,{method:"POST",headers:{"apikey":SB_KEY,"Content-Type":"application/json","Prefer":"resolution=merge-duplicates"},body:JSON.stringify({id:o.id,user_email:o.user,type:o.type,usd:o.usd,local:o.local,destination:o.to,ref:o.ref,status:o.status,time:o.time})}); } catch(e) {}
-      document.getElementById("settleCard").classList.remove("hide"); document.getElementById("stTitle").textContent = `${type} — $${usd} (${loc})`; document.getElementById("stTarget").textContent = target;
+      document.getElementById("settleCard").classList.remove("hide"); document.getElementById("stTitle").textContent = `${type} — $${usd} (${loc})`; renderPayRows(target);
       renderAll();
     }
     function submitProof() { const r = document.getElementById("stRef").value.trim(); if (!r) return toast("Enter your payment reference first."); if (activeOrd) { activeOrd.ref = r; localStorage.setItem("zale_orders", JSON.stringify(orders)); } document.getElementById("stRef").value = ""; document.getElementById("settleCard").classList.add("hide"); toast("Payment proof submitted! Your order is in verification."); }
