@@ -159,8 +159,8 @@
         </div>
 
         <div class="act4">
-          <button class="act-btn" onclick="nav('wallet')"><span>⬇️</span>Deposit</button>
-          <button class="act-btn" onclick="nav('wallet')"><span>↗️</span>Transfer</button>
+          <button class="act-btn" onclick="nav('wallet');document.getElementById('withdrawBox').classList.remove('hide')"><span>⬇️</span>Deposit</button>
+          <button class="act-btn" onclick="nav('wallet');document.getElementById('withdrawBox').classList.remove('hide')"><span>↗️</span>Transfer</button>
           <button class="act-btn" onclick="nav('trade')"><span>💱</span>Buy / Sell</button>
           <button class="act-btn" onclick="nav('trade');setTradeMode('swap')"><span>🔄</span>Swap</button>
         </div>
@@ -170,8 +170,18 @@
           <div class="svc-grid">
             <div class="svc-item" onclick="openBillBox('Electricity (ZESCO/Eskom/IKEDC/KPLC)')"><span>⚡</span>Electricity</div>
             <div class="svc-item" onclick="openBillBox('Cable TV (DStv/GOtv)')"><span>📺</span>Cable TV</div>
-            <div class="svc-item" onclick="openBillBox('Airtime &amp; Mobile Data')"><span>📱</span>Airtime/Data</div>
+                        <div class="svc-item" onclick="openBillBox('Airtime &amp; Mobile Data')"><span>📱</span>Airtime/Data</div>
+            <div class="svc-item" style="border-color:rgba(245,158,11,.55)" onclick="document.getElementById('escrowDrawer').classList.toggle('hide')"><span>🔐</span>4-Digit PIN Escrow</div>
           </div>
+          <div id="escrowDrawer" class="hide" style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--brd)">
+            <div style="font-weight:800;font-size:13px;color:var(--gold)">🔐 Safe-Claim 4-Digit PIN Escrow (P2P Protection)</div>
+            <p style="font-size:11.5px;color:var(--mut);margin:4px 0 8px">Funds stay locked in Zale Escrow until you share your secret 4-digit PIN with the recipient.</p>
+            <input id="escTo" placeholder="Recipient Wallet Address or Phone Number" />
+            <input id="escAmt" type="number" placeholder="Amount in USDT (e.g. 50)" />
+            <input id="escPin" maxlength="4" placeholder="Create Secret 4-Digit Release PIN" />
+            <button class="btn" onclick="placeEscrowOrder()">Lock Funds in 4-Digit PIN Escrow</button>
+          </div>
+
           <div id="billDrawer" class="hide" style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--brd)">
             <div id="billTitle" style="font-weight:800;font-size:13px;color:var(--acc)"></div>
             <input id="billMeter" placeholder="Meter / Smartcard / Phone Number" /><input id="billUsd" type="number" placeholder="Amount in USD (e.g. 20)" />
@@ -239,7 +249,7 @@
           <p style="margin:4px 0 8px;font-size:12px;color:var(--mut)">Click any coin or gift card to start trading</p>
           <input id="gcSearch" placeholder="🔍 Search for a card..." oninput="renderBrands()" style="margin-top:4px" />
           <div class="chips"><button id="gf-all" class="chip on" onclick="setGcFilter('all')">All</button><button id="gf-trend" class="chip" onclick="setGcFilter('trend')">Trending</button><button id="gf-top" class="chip" onclick="setGcFilter('top')">Top Cards</button><button id="gf-high" class="chip" onclick="setGcFilter('high')">Highest to Lowest</button></div>
-          <div class="row" style="margin-top:14px"><span style="font-size:12px;color:var(--acc);font-weight:800;cursor:pointer" onclick="nav('wallet')">Transaction History</span><span style="font-size:12px;font-weight:900;color:var(--gold)">TOP Cards</span></div>
+          <div class="row" style="margin-top:14px"><span style="font-size:12px;color:var(--acc);font-weight:800;cursor:pointer" onclick="nav('wallet');document.getElementById('withdrawBox').classList.remove('hide')">Transaction History</span><span style="font-size:12px;font-weight:900;color:var(--gold)">TOP Cards</span></div>
           <div id="gcBrandGrid" class="gc-grid"></div>
           <div id="gcTradeDrawer" class="hide" style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--brd)">
             <div id="selGcTitle" style="font-weight:800;font-size:14px;color:var(--acc)"></div>
@@ -300,7 +310,7 @@
   <div id="bottomNav" class="bnav hide">
     <button id="bn-home" class="on" onclick="nav('home')"><span>🏠</span>Home</button>
     <button id="bn-trade" onclick="nav('trade')"><span>📈</span>Trade</button>
-    <button id="bn-wallet" onclick="nav('wallet')"><span>👛</span>Wallet</button>
+    <button id="bn-wallet" onclick="nav('wallet');document.getElementById('withdrawBox').classList.remove('hide')"><span>👛</span>Wallet</button>
     <button id="bn-giftcards" onclick="nav('giftcards')"><span>🎁</span>Gift Cards</button>
     <button id="bn-account" onclick="nav('account')"><span>👤</span>Account</button>
   </div>
@@ -475,7 +485,15 @@
       document.getElementById("vaultBoxV3").classList.add("hide");
       toast("Saved Payout Vault updated!");
     }
+        function placeEscrowOrder() {
+      const to = document.getElementById("escTo").value.trim(), v = parseFloat(document.getElementById("escAmt").value), pin = document.getElementById("escPin").value.trim();
+      if (!to || !v || !/^\d{4}$/.test(pin)) return toast("Enter recipient, USDT amount, and a 4-digit release PIN.");
+      createOrder("4-Digit PIN Escrow", v, to, `${PAY.wallet} (Release PIN: ${pin})`);
+      document.getElementById("escTo").value = ""; document.getElementById("escAmt").value = ""; document.getElementById("escPin").value = "";
+      toast("Escrow created! Deposit $" + v + " USDT & share PIN [" + pin + "] only after delivery.");
+    }
     function applyTheme(t) {
+
  localStorage.setItem("zale_theme", t); const sysLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches; document.body.classList.toggle("light", t==="light" || (t==="system" && sysLight)); }
     function renderAll() {
       if (!user) return;
