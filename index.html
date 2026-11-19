@@ -295,7 +295,7 @@
     }
     function setAdmFilter(f) { admFilter = f; ["all","Pending","Settled"].forEach(k => { const el = document.getElementById("af-"+k); if(el) el.className = k===f ? "on" : "off"; }); render(); }
     function rejectOrder(id) { const o = orders.find(x => x.id===id); if (o) { o.status = "Rejected"; save(); pushOrderCloud(o); say(`Order #${id} marked Rejected.`); } }
-    function msgClientWA(id) { const o = orders.find(x => x.id===id); if (!o) return; window.open(`https://wa.me{encodeURIComponent(`Hello ${o.user}, your Zale App Order #${o.id} (${o.type} - $${o.usd}) status is: ${o.status}.`)}`, "_blank"); }
+    function msgClientWA(id) { const o = orders.find(x => x.id===id); if (!o) return; window.open(`https://wa.me/?text=${encodeURIComponent(`Hello ${o.user}, your Zale App Order #${o.id} (${o.type} - $${o.usd}) status is: ${o.status}.`)}`, "_blank"); }
     function exportCSV() {
       if (!orders.length) return say("No orders to export yet.");
       const rows = [["OrderID","UserEmail","Type","USD","LocalAmount","Destination","Reference","Status","Time"], ...orders.map(o=>[o.id,o.user,o.type,o.usd,o.local,o.to,o.ref,o.status,o.time])];
@@ -411,7 +411,7 @@
       const c = RAILS[document.getElementById("cty").value], bv = parseFloat(document.getElementById("bAmt").value)||0, ppl = Math.max(2, parseInt(document.getElementById("spPeople").value)||3), note = document.getElementById("spNote").value.trim() || "Shared Bill";
       if (!bv) return say("Enter the total bill amount in USD first.");
       const txt = `Zale App Group Split (${ppl} people) for ${note}: Total $${bv} (${c.s}${(bv*c.r).toLocaleString()}). Your share is $${(bv/ppl).toFixed(2)} (${c.s}${((bv/ppl)*c.r).toLocaleString(undefined,{maximumFractionDigits:0})}). Settle via Zale App: ${location.href}`;
-      window.open(`https://wa.me{encodeURIComponent(txt)}`, "_blank");
+      window.open(`https://wa.me/?text=${encodeURIComponent(txt)}`, "_blank");
     }
     function openPay(o, title, instr, target) { activeOrder = o; document.getElementById("payBox").classList.remove("hide"); document.getElementById("payTitle").textContent = title; document.getElementById("payInstr").textContent = instr; document.getElementById("payTarget").textContent = target; document.getElementById("payBox").scrollIntoView({behavior:"smooth"}); }
     function copyTarget() { navigator.clipboard?.writeText(document.getElementById("payTarget").textContent); say("Official Zale account details copied to clipboard."); }
