@@ -1,13 +1,7 @@
-if (user?.admin) {
-        const q = (document.getElementById("admSearch")?.value || "").toLowerCase();
-        const filtered = orders.filter(o => (admFilter==="all" || o.status===admFilter) && (!q || String(o.id).includes(q) || (o.user||"").toLowerCase().includes(q) || (o.ref||"").toLowerCase().includes(q)));
-        const totUsd = orders.filter(o=>o.status!=="Rejected").reduce((s,o)=>s+(parseFloat(o.usd)||0),0);
-        if(document.getElementById("admUsersCnt")) document.getElementById("admUsersCnt").textContent = Math.max(usersDir.length, new Set(orders.map(o=>o.user)).size, 1);
-        if(document.getElementById("admPendCnt")) document.getElementById("admPendCnt").textContent = orders.filter(o=>o.status==="Pending").length;
-        if(document.getElementById("admVolVal")) document.getElementById("admVolVal").textContent = "$" + totUsd.toLocaleString(undefined,{maximumFractionDigits:0});
+if );
         if(document.getElementById("admProfitVal")) document.getElementById("admProfitVal").textContent = "$" + (totUsd*0.03).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
         if(document.getElementById("rateBoard")) document.getElementById("rateBoard").innerHTML = Object.keys(RAILS).map(k=>`<div class="rb-item">${k}<b>${RAILS[k].s}${RAILS[k].r}</b></div>`).join("");
-        const admCard = o => `<div class="order-item"><div class="row"><b>#${o.id} • ${o.type}</b><span class="badge ${o.status==='Pending'?'pending':'paid'}">${o.status}</span></div><div style="color:#38bdf8;font-size:11px;margin-top:3px">Trader: ${o.user} • ${o.time}</div><div style="color:#94a3b8;margin-top:3px">$${o.usd} • ${o.local}</div><div style="color:#e2e8f0;margin-top:2px;word-break:break-all">To: ${o.to}</div><div style="color:#fbbf24;margin-top:2px">Ref: ${o.ref}</div><div class="row" style="margin-top:8px">${o.status==='Pending'?`<button style="background:#10b981;color:#03120e;padding:7px;width:100%" onclick="markPaid(${o.id})">✓ Settle</button><button class="btn-ghost" style="padding:7px 9px;color:#f87171" onclick="rejectOrder(${o.id})">✕</button>`:""}<button class="btn-copper" style="padding:7px 10px" onclick='msgClientWA(${JSON.stringify(o).replace(/'/g,"")})'>💬</button></div></div>`;
+        const admCard = o => `<div class="order-item"><div class="row"><b>#${o.id} • ${o.type}</b><span class="badge ${o.status==='Pending'?'pending':'paid'}">${o.status}</span></div><div style="color:#38bdf8;font-size:11px;margin-top:3px">Trader: ${o.user} • ${o.time}</div><div style="color:#94a3b8;margin-top:3px">$${o.usd} • ${o.local}</div><div style="color:#e2e8f0;margin-top:2px;word-break:break-all">To: ${o.to}</div><div style="color:#fbbf24;margin-top:2px">Ref: ${o.ref}</div><div class="row" style="margin-top:8px">${o.status==='Pending'?`<button style="background:#10b981;color:#03120e;padding:7px;width:100%" onclick="markPaid(${o.id})">✓ Settle</button><button class="btn-ghost" style="padding:7px 9px;color:#f87171" onclick="rejectOrder(${o.id})">✕</button>`:""}<button class="btn-copper" style="padding:7px 10px" onclick="msgClientWA(${o.id})">💬</button></div></div>`;
         document.getElementById("aList").innerHTML = filtered.map(admCard).join("") || "<p style='color:#94a3b8;font-size:12px'>No matching orders.</p>";
         if(document.getElementById("uList")) document.getElementById("uList").innerHTML = (usersDir.length ? usersDir : [{email:user.email,date:"Today"}]).map(u=>`<div class="user-row"><span><b>${u.email}</b></span><span style="color:#94a3b8">${u.date}</span></div>`).join("");
       }<!DOCTYPE html>
@@ -331,7 +325,7 @@ if (user?.admin) {
     let admFilter = "all";
     function setAdmFilter(f){ admFilter=f; ["all","Pending","Settled"].forEach(k=>{const el=document.getElementById("af-"+k); if(el) el.className=k===f?"on":"off";}); render(); }
     function rejectOrder(id){ const o=orders.find(x=>x.id===id); if(o){ o.status="Rejected"; save(); pushOrderCloud(o); say(`Order #${id} marked Rejected.`); } }
-    function msgClientWA(o){ const txt=encodeURIComponent(`Hello ${o.user}, your Zale App Order #${o.id} (${o.type} - $${o.usd}) status is: ${o.status}.`); window.open(`https://wa.me{txt}`,"_blank"); }
+    function msgClientWA(id){ const o=orders.find(x=>x.id===id); if(!o) return; const txt=encodeURIComponent(`Hello , your Zale App Order # ( - ) status is: .`); window.open(`https://wa.me{txt}`,"_blank"); }
     function exportCSV(){
       if(!orders.length) return say("No orders to export yet.");
       const rows=[["OrderID","UserEmail","Type","USD","LocalAmount","Destination","Reference","Status","Time"],...orders.map(o=>[o.id,o.user,o.type,o.usd,o.local,o.to,o.ref,o.status,o.time])];
@@ -387,10 +381,30 @@ if (user?.admin) {
     function lockSafe() { if (!requireAuth()) return; const to = document.getElementById("sTo").value.trim(), a = document.getElementById("sAmt").value, pin = document.getElementById("sPin").value; if (!to.startsWith("0x") || !a || pin.length !== 4) return say("Enter a valid 0x address, USDT amount, and 4-digit PIN."); saveOrder("Safe-Claim PIN Escrow", a, `PIN: ${pin}`, to); tab("ord"); say("Escrow logged. Share your 4-digit PIN only after confirming delivery."); }
     function render() {
       const myOrders = user ? orders.filter(o => o.user===user.email) : [];
-      if (user) { const settledCount = myOrders.filter(o => o.status==="Settled").length; const totalVol = myOrders.reduce((s,o)=>s+(parseFloat(o.usd)||0),0); document.getElementById("statVol").textContent = "$" + totalVol.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); document.getElementById("tierBadge").textContent = settledCount >= 10 ? "VIP Desk" : settledCount >= 3 ? "Silver" : "Standard"; document.getElementById("statSettled").textContent = settledCount; if(document.getElementById("miniFeed")) document.getElementById("miniFeed").innerHTML = myOrders.slice(0,2).map(card).join("") || "<p style='color:#94a3b8;font-size:11.5px;margin:4px 0'>No active settlements yet. Use a quick shortcut above to start.</p>"; document.getElementById("statPending").textContent = myOrders.filter(o => o.status==="Pending").length; }
-      const card = o => `<div class="order-item"><div class="row"><b>#${o.id} • ${o.type}</b><span class="badge ${o.status==='Pending'?'pending':'paid'}">${o.status}</span></div><div style="color:#94a3b8;margin-top:4px">$${o.usd} • ${o.local} • ${o.time}</div><div style="color:#e2e8f0;margin-top:2px;word-break:break-all">Destination: ${o.to}</div><div style="color:#fbbf24;margin-top:2px">Reference: ${o.ref}</div>${user?.admin && o.status==='Pending' ? `<button style="background:#10b981;color:#03120e;padding:8px;margin-top:8px;width:100%" onclick="markPaid(${o.id})">Mark Settled &amp; Complete</button>` : ""}</div>`;
+      if (user) {
+        const settledCount = myOrders.filter(o => o.status==="Settled").length;
+        const totalVol = myOrders.reduce((s,o)=>s+(parseFloat(o.usd)||0),0);
+        document.getElementById("statVol").textContent = "$" + totalVol.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+        document.getElementById("tierBadge").textContent = settledCount >= 10 ? "VIP Desk" : settledCount >= 3 ? "Silver" : "Standard";
+        document.getElementById("statSettled").textContent = settledCount;
+        document.getElementById("statPending").textContent = myOrders.filter(o => o.status==="Pending").length;
+      }
+      const card = o => `<div class="order-item"><div class="row"><b>#${o.id} • ${o.type}</b><span class="badge ${o.status==='Pending'?'pending':'paid'}">${o.status}</span></div><div style="color:#94a3b8;margin-top:4px">$${o.usd} • ${o.local} • ${o.time}</div><div style="color:#e2e8f0;margin-top:2px;word-break:break-all">Destination: ${o.to}</div><div style="color:#fbbf24;margin-top:2px">Reference: ${o.ref}</div><div class="bar"><div class="${o.status==='Pending'?'fill-p':'fill-d'}"></div></div>${user?.admin && o.status==='Pending' ? `<button style="background:#10b981;color:#03120e;padding:8px;margin-top:8px;width:100%" onclick="markPaid(${o.id})">Mark Settled &amp; Complete</button>` : ""}</div>`;
+      if(document.getElementById("miniFeed")) document.getElementById("miniFeed").innerHTML = myOrders.slice(0,2).map(card).join("") || "<p style='color:#94a3b8;font-size:11.5px;margin:4px 0'>No active settlements yet. Use a quick shortcut above to start.</p>";
       document.getElementById("oList").innerHTML = user ? (myOrders.map(card).join("") || "<p style='color:#94a3b8;font-size:12px'>Your ledger is empty. Initiate your first trade above.</p>") : "<p style='color:#94a3b8;font-size:12px'>Sign in below to view your personal order ledger.</p>";
-      if (user?.admin) document.getElementById("aList").innerHTML = orders.map(card).join("") || "<p style='color:#94a3b8;font-size:12px'>No client orders in queue.</p>";
+      if (user?.admin) {
+        const q = (document.getElementById("admSearch")?.value || "").toLowerCase();
+        const filtered = orders.filter(o => (admFilter==="all" || o.status===admFilter) && (!q || String(o.id).includes(q) || (o.user||"").toLowerCase().includes(q) || (o.ref||"").toLowerCase().includes(q)));
+        const totUsd = orders.filter(o=>o.status!=="Rejected").reduce((s,o)=>s+(parseFloat(o.usd)||0),0);
+        if(document.getElementById("admUsersCnt")) document.getElementById("admUsersCnt").textContent = Math.max(usersDir.length, new Set(orders.map(o=>o.user)).size, 1);
+        if(document.getElementById("admPendCnt")) document.getElementById("admPendCnt").textContent = orders.filter(o=>o.status==="Pending").length;
+        if(document.getElementById("admVolVal")) document.getElementById("admVolVal").textContent = "$" + totUsd.toLocaleString(undefined,{maximumFractionDigits:0});
+        if(document.getElementById("admProfitVal")) document.getElementById("admProfitVal").textContent = "$" + (totUsd*0.03).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+        if(document.getElementById("rateBoard")) document.getElementById("rateBoard").innerHTML = Object.keys(RAILS).map(k=>`<div class="rb-item">${k}<b>${RAILS[k].s}${RAILS[k].r}</b></div>`).join("");
+        const admCard = o => `<div class="order-item"><div class="row"><b>#${o.id} • ${o.type}</b><span class="badge ${o.status==='Pending'?'pending':'paid'}">${o.status}</span></div><div style="color:#38bdf8;font-size:11px;margin-top:3px">Trader: ${o.user} • ${o.time}</div><div style="color:#94a3b8;margin-top:3px">$${o.usd} • ${o.local}</div><div style="color:#e2e8f0;margin-top:2px;word-break:break-all">To: ${o.to}</div><div style="color:#fbbf24;margin-top:2px">Ref: ${o.ref}</div><div class="row" style="margin-top:8px">${o.status==='Pending'?`<button style="background:#10b981;color:#03120e;padding:7px;width:100%" onclick="markPaid(${o.id})">✓ Settle</button><button class="btn-ghost" style="padding:7px 9px;color:#f87171" onclick="rejectOrder(${o.id})">✕</button>`:""}<button class="btn-copper" style="padding:7px 10px" onclick="msgClientWA(${o.id})">💬</button></div></div>`;
+        document.getElementById("aList").innerHTML = filtered.map(admCard).join("") || "<p style='color:#94a3b8;font-size:12px'>No matching orders.</p>";
+        if(document.getElementById("uList")) document.getElementById("uList").innerHTML = (usersDir.length ? usersDir : [{email:user.email,date:"Today"}]).map(u=>`<div class="user-row"><span><b>${u.email}</b></span><span style="color:#94a3b8">${u.date}</span></div>`).join("");
+      }
     }
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js");
     setCty(); boot();
