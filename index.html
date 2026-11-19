@@ -68,6 +68,210 @@
     <div style="font-size:11.5px;color:#6ee7b7;margin-top:4px">Version 3.0.3 • Pan-African &amp; Global FX</div>
     <div class="loader-bar"><div class="loader-fill"></div></div>
   </div>
+  <div class="wrap">
+    <div id="authFlow">
+      <div class="row" style="margin-bottom:8px">
+        <div style="display:flex;align-items:center;gap:10px">
+          <svg width="38" height="38" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="16" fill="#10b981"/><path d="M18 20H46L22 44H46" stroke="#fde68a" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          <div><div style="font-size:18px;font-weight:900">Zale App</div><div style="font-size:10.5px;color:var(--mut)">v3.0.3 • Pan-African &amp; Global</div></div>
+        </div>
+        <span class="eyebrow">v3.0.3</span>
+      </div>
+      <div id="viewLogin" class="card">
+        <h2 style="margin:0 0 4px;font-size:20px">Welcome Back</h2>
+        <p style="margin:0 0 10px;font-size:12.5px;color:var(--mut)">Sign in to access your Zale wallet, crypto coins, and gift cards.</p>
+        <input id="lEmail" type="email" placeholder="Email Address" />
+        <input id="lPass" type="password" placeholder="Password" />
+        <button class="btn" onclick="doLogin()">Sign In</button>
+        <button class="btn-ghost" style="width:100%;margin-top:10px" onclick="showAuthStep('viewReg1')">New to Zale App? Create Account</button>
+      </div>
+      <div id="viewReg1" class="card hide">
+        <span class="eyebrow">Step 1 of 3 • Personal Details</span>
+        <h2 style="margin:10px 0 4px;font-size:19px">Create Account</h2>
+        <input id="rFirst" placeholder="First Name" />
+        <input id="rLast" placeholder="Last Name" />
+        <input id="rEmail" type="email" placeholder="Email Address" />
+        <input id="rPass" type="password" placeholder="Create Password (6+ characters)" />
+        <input id="rRef" placeholder="Referral Code (Optional)" />
+        <button class="btn" onclick="goRegStep2()">Next</button>
+        <button class="btn-ghost" style="width:100%;margin-top:10px" onclick="showAuthStep('viewLogin')">Already have an account? Welcome Back Login</button>
+      </div>
+      <div id="viewReg2" class="card hide">
+        <span class="eyebrow">Step 2 of 3 • Region &amp; Mobile</span>
+        <h2 style="margin:10px 0 4px;font-size:19px">Select Country &amp; Phone</h2>
+        <select id="rCountry" onchange="updateDialCode()">
+          <optgroup label="Africa (10 Corridors)">
+            <option value="ZM|+260">🇿🇲 Zambia (+260)</option><option value="NG|+234">🇳🇬 Nigeria (+234)</option><option value="KE|+254">🇰🇪 Kenya (+254)</option><option value="GH|+233">🇬🇭 Ghana (+233)</option><option value="ZA|+27">🇿🇦 South Africa (+27)</option>
+            <option value="UG|+256">🇺🇬 Uganda (+256)</option><option value="TZ|+255">🇹🇿 Tanzania (+255)</option><option value="RW|+250">🇷🇼 Rwanda (+250)</option><option value="BW|+267">🇧🇼 Botswana (+267)</option><option value="EG|+20">🇪🇬 Egypt (+20)</option>
+          </optgroup>
+          <optgroup label="Europe">
+            <option value="GB|+44">🇬🇧 United Kingdom (+44)</option><option value="DE|+49">🇩🇪 Germany (+49)</option><option value="FR|+33">🇫🇷 France (+33)</option><option value="NL|+31">🇳🇱 Netherlands (+31)</option><option value="ES|+34">🇪🇸 Spain (+34)</option><option value="IT|+39">🇮🇹 Italy (+39)</option><option value="IE|+353">🇮🇪 Ireland (+353)</option><option value="CH|+41">🇨🇭 Switzerland (+41)</option>
+          </optgroup>
+        </select>
+        <div class="row" style="margin-top:10px"><input id="rDial" value="+260" readonly style="width:92px;margin:0;text-align:center;font-weight:800" /><input id="rPhone" type="tel" placeholder="Phone Number" style="margin:0" /></div>
+        <button class="btn" onclick="goRegStep3()">Sign Up &amp; Send 4-Digit Code</button>
+        <button class="btn-ghost" style="width:100%;margin-top:8px" onclick="showAuthStep('viewReg1')">← Back</button>
+      </div>
+      <div id="viewReg3" class="card hide">
+        <span class="eyebrow">Step 3 of 3 • Email Verification</span>
+        <h2 style="margin:10px 0 4px;font-size:19px">Enter 4-Digit Code</h2>
+        <p id="otpHint" style="font-size:12px;color:var(--mut);margin:0"></p>
+        <div id="emailSimBanner" class="note" style="font-weight:800"></div>
+        <div class="otp-row"><input id="o1" maxlength="1" oninput="if(this.value)document.getElementById('o2').focus()" /><input id="o2" maxlength="1" oninput="if(this.value)document.getElementById('o3').focus()" /><input id="o3" maxlength="1" oninput="if(this.value)document.getElementById('o4').focus()" /><input id="o4" maxlength="1" /></div>
+        <button class="btn" onclick="verifyOtpAndEnter()">Verify &amp; Open Main Dashboard</button>
+      </div>
+    </div>
+    <div id="mainApp" class="hide">
+      <div id="statusToast" class="note hide"></div>
+      <div id="settleCard" class="card hide" style="border-color:rgba(245,158,11,.6)">
+        <div class="row"><span class="eyebrow">Direct Settlement Instructions</span><button class="btn-ghost" style="padding:4px 8px;font-size:10px" onclick="document.getElementById('settleCard').classList.add('hide')">Close</button></div>
+        <div id="stTitle" style="font-weight:800;font-size:14.5px;margin-top:8px"></div>
+        <div id="stTarget" style="background:var(--card2);padding:10px;border-radius:10px;font-family:monospace;font-size:11.5px;margin-top:8px;word-break:break-all;color:#10b981"></div>
+        <input id="stRef" placeholder="Enter Payment Reference / TxID" />
+        <div class="row" style="margin-top:8px"><button class="btn" style="margin:0" onclick="submitProof()">Confirm Paid</button><button class="btn-gold" style="width:100%;padding:14px" onclick="waConcierge()">WhatsApp Desk</button></div>
+      </div>
+
+      <div id="tab-home">
+        <div class="row">
+          <div>
+            <div style="font-size:18px;font-weight:900">Welcome</div>
+            <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
+              <div id="homeInitials" class="avatar" style="width:32px;height:32px;font-size:12px">IK</div>
+              <span id="homeCountryBadge" style="font-size:12.5px;font-weight:800;color:var(--txt)">🇿🇲 Zambia</span>
+            </div>
+          </div>
+          <div style="display:flex;gap:6px"><button class="btn-ghost" onclick="shareApp()">📤 Share</button><button id="adminTopBtn" class="btn-gold hide" onclick="nav('admin')">⚙️ Admin</button></div>
+        </div>
+
+        <div class="card" style="padding:12px 14px">
+          <div style="font-size:10.5px;color:var(--mut);font-weight:800;text-transform:uppercase">Select Wallet</div>
+          <select id="walletSelector" onchange="handleWalletSelect(this.value)" style="margin-top:6px;font-weight:800"></select>
+        </div>
+
+        <div id="kycBanner" class="card" style="border-color:rgba(245,158,11,.5);background:linear-gradient(135deg,rgba(245,158,11,.15),var(--card))">
+          <div class="row"><div><div style="font-weight:800;font-size:13.5px;color:var(--gold)">⚠️ Complete Setup KYC</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Verify Face ID &amp; BVN/National ID to unlock higher limits.</div></div><button class="btn-gold" onclick="nav('account');document.getElementById('kycModalBox').classList.remove('hide')">Complete KYC</button></div>
+        </div>
+
+        <div class="card" style="background:linear-gradient(145deg,#0c2e24,#071612);color:#fff">
+          <div class="row"><span style="font-size:11px;color:#6ee7b7;font-weight:800;text-transform:uppercase">Available Wallet Balance</span><button class="btn-ghost" style="color:#fff;border-color:rgba(255,255,255,.25);padding:5px 10px;font-size:11px" onclick="toggleBal()">👁️ <span id="balToggleLbl">Hide Balance</span></button></div>
+          <div id="homeBalLoc" style="font-size:27px;font-weight:900;margin-top:6px">K0.00</div>
+          <div id="homeBalUsd" style="font-size:12px;color:#a7f3d0;margin-top:2px">≈ $0.00 USD Equivalent</div>
+        </div>
+
+        <div class="act4">
+          <button class="act-btn" onclick="nav('wallet')"><span>⬇️</span>Deposit</button>
+          <button class="act-btn" onclick="nav('wallet')"><span>↗️</span>Transfer</button>
+          <button class="act-btn" onclick="nav('trade')"><span>💱</span>Buy / Sell</button>
+          <button class="act-btn" onclick="nav('trade');setTradeMode('swap')"><span>🔄</span>Swap</button>
+        </div>
+
+        <div class="card">
+          <div class="row"><h3 style="margin:0;font-size:14.5px">Services &amp; Utility Bills</h3><span style="font-size:11px;color:var(--mut)">Instant Vending</span></div>
+          <div class="svc-grid">
+            <div class="svc-item" onclick="openBillBox('Electricity (ZESCO/Eskom/IKEDC/KPLC)')"><span>⚡</span>Electricity</div>
+            <div class="svc-item" onclick="openBillBox('Cable TV (DStv/GOtv)')"><span>📺</span>Cable TV</div>
+            <div class="svc-item" onclick="openBillBox('Airtime &amp; Mobile Data')"><span>📱</span>Airtime/Data</div>
+          </div>
+          <div id="billDrawer" class="hide" style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--brd)">
+            <div id="billTitle" style="font-weight:800;font-size:13px;color:var(--acc)"></div>
+            <input id="billMeter" placeholder="Meter / Smartcard / Phone Number" /><input id="billUsd" type="number" placeholder="Amount in USD (e.g. 20)" />
+            <button class="btn" onclick="placeBillOrder()">Pay Utility Bill</button>
+          </div>
+        </div>
+
+        <div class="card"><div class="row" style="margin-bottom:8px"><h3 style="margin:0;font-size:14.5px">Live Rates</h3><span class="eyebrow">Live Feed</span></div><div id="homeRatesList"></div></div>
+      </div>
+
+      <div id="tab-trade" class="hide">
+        <div class="card">
+          <h2 style="margin:0;font-size:19px">Trade Coins</h2>
+          <p style="margin:4px 0 8px;font-size:12px;color:var(--mut)">Click any coins to start trading</p>
+          <input id="coinSearch" placeholder="🔍 Search for a coin..." oninput="renderCoins()" style="margin-top:4px" />
+          <div style="font-size:11px;font-weight:800;color:var(--acc);margin-top:12px;text-transform:uppercase">ALL</div>
+          <div id="coinList"></div>
+        </div>
+        <div id="coinTradeBox" class="card hide" style="border-color:rgba(16,185,129,.55)">
+          <div class="row" style="margin-bottom:8px"><h3 id="selCoinTitle" style="margin:0;font-size:15.5px">Trade Tether (USDT)</h3><button class="btn-ghost" style="padding:4px 8px;font-size:10px" onclick="document.getElementById('coinTradeBox').classList.add('hide')">Close</button></div>
+          <div class="seg"><button id="tm-buy" class="on" onclick="setTradeMode('buy')">Crypto Buy</button><button id="tm-sell" class="off" onclick="setTradeMode('sell')">Crypto Sell</button><button id="tm-swap" class="off" onclick="setTradeMode('swap')">Crypto Swap</button></div>
+          <input id="trAmt" type="number" placeholder="Amount in USD (e.g. 100)" /><input id="trDest" placeholder="Destination Wallet Address or Mobile Money" />
+          <button class="btn" onclick="placeCryptoOrder()">Confirm Coin Trade</button>
+        </div>
+        <div class="card">
+          <h3 style="margin:0 0 6px;font-size:15px">Zale Username Transfer (Free)</h3>
+          <input id="uToName" placeholder="Recipient @ZaleUsername or Email" /><input id="uToAmt" type="number" placeholder="Amount in USD" />
+          <button class="btn-gold" style="width:100%;margin-top:10px;padding:13px" onclick="sendUsernameTransfer()">Send Instant Username Transfer</button>
+        </div>
+      </div>
+      <div id="tab-wallet" class="hide">
+        <div class="card" style="background:linear-gradient(145deg,#0c2e24,#071612);color:#fff">
+          <div style="font-size:11px;color:#6ee7b7;font-weight:800;text-transform:uppercase">Zale Spot &amp; Fiat Wallet</div>
+          <div id="walTabBal" style="font-size:26px;font-weight:900;margin-top:4px">$0.00</div>
+          <div class="act3" style="margin-top:14px">
+            <button class="act-btn" style="background:rgba(16,185,129,.22);color:#fff;border-color:rgba(16,185,129,.5)" onclick="nav('trade')"><span>⬇️</span>Buy</button>
+            <button class="act-btn" style="background:rgba(245,158,11,.22);color:#fff;border-color:rgba(245,158,11,.5)" onclick="nav('trade');setTradeMode('sell')"><span>⬆️</span>Sell</button>
+            <button class="act-btn" style="background:rgba(56,189,248,.22);color:#fff;border-color:rgba(56,189,248,.5)" onclick="document.getElementById('withdrawBox').classList.toggle('hide')"><span>🏦</span>Withdraw</button>
+          </div>
+        </div>
+        <div id="withdrawBox" class="card hide">
+          <h3 style="margin:0 0 6px;font-size:15px">Bank Account &amp; First Deposit / Withdraw</h3>
+          <input id="depUsd" type="number" placeholder="Amount in USD (e.g. 50)" /><input id="depAcct" placeholder="Bank Account or Mobile Money Number" />
+          <div class="row" style="margin-top:8px"><button class="btn" style="margin:0" onclick="initiateBankDeposit()">Deposit Funds</button><button class="btn-gold" style="width:100%;padding:14px" onclick="initiateWithdrawOrder()">Withdraw Funds</button></div>
+        </div>
+        <div class="card"><div class="row" style="margin-bottom:8px"><h3 style="margin:0;font-size:15px">Recent Transactions</h3><span style="font-size:12px;color:var(--acc);font-weight:800;cursor:pointer" onclick="toast('Showing all wallet transactions.')">See All</span></div><div id="walletOrders"></div></div>
+      </div>
+
+      <div id="tab-giftcards" class="hide">
+        <div class="card">
+          <h2 style="margin:0;font-size:19px">Trade Gift Card</h2>
+          <p style="margin:4px 0 8px;font-size:12px;color:var(--mut)">Click any coin or gift card to start trading</p>
+          <input id="gcSearch" placeholder="🔍 Search for a card..." oninput="renderBrands()" style="margin-top:4px" />
+          <div class="chips"><button id="gf-all" class="chip on" onclick="setGcFilter('all')">All</button><button id="gf-trend" class="chip" onclick="setGcFilter('trend')">Trending</button><button id="gf-top" class="chip" onclick="setGcFilter('top')">Top Cards</button><button id="gf-high" class="chip" onclick="setGcFilter('high')">Highest to Lowest</button></div>
+          <div class="row" style="margin-top:14px"><span style="font-size:12px;color:var(--acc);font-weight:800;cursor:pointer" onclick="nav('wallet')">Transaction History</span><span style="font-size:12px;font-weight:900;color:var(--gold)">TOP Cards</span></div>
+          <div id="gcBrandGrid" class="gc-grid"></div>
+          <div id="gcTradeDrawer" class="hide" style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--brd)">
+            <div id="selGcTitle" style="font-weight:800;font-size:14px;color:var(--acc)"></div>
+            <select id="gcAction"><option value="Sell">Sell Gift Card for Cash</option><option value="Buy">Buy Digital Gift Card</option></select>
+            <input id="gcVal" type="number" placeholder="Card Face Value in USD (e.g. 50)" /><input id="gcCode" placeholder="Card E-Code (if selling) or Delivery Email (if buying)" />
+            <button class="btn" onclick="submitGiftCard()">Confirm Gift Card Trade</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-account" class="hide">
+        <div class="card"><div style="display:flex;align-items:center;gap:12px"><div id="accInitials" class="avatar">IK</div><div><div id="accFullName" style="font-size:17px;font-weight:900">Isaac Katanga</div><div id="accContact" style="font-size:12px;color:var(--mut);margin-top:2px"></div></div></div></div>
+        <div class="card" style="border-color:rgba(245,158,11,.45)">
+          <div class="row" style="margin-bottom:8px"><h3 style="margin:0;font-size:15px;color:var(--gold)">Refer &amp; Earn</h3><span style="font-size:11.5px;color:var(--acc);font-weight:800;cursor:pointer" onclick="toast('Referral leaderboard synced.')">Referrals • See All</span></div>
+          <div class="row" style="gap:8px;margin-bottom:10px"><div class="ref-stat"><div style="font-size:10px;color:var(--mut)">Total No. of Referrals</div><div id="refTotalCnt" style="font-size:18px;font-weight:900;margin-top:2px">0</div></div><div class="ref-stat"><div style="font-size:10px;color:var(--mut)">Completed Referrals</div><div id="refDoneCnt" style="font-size:18px;font-weight:900;color:var(--acc);margin-top:2px">0</div></div></div>
+          <div style="background:var(--card2);border:1px dashed var(--brd);padding:10px 12px;border-radius:12px" class="row"><span style="font-size:11.5px;color:var(--mut)">Referral Code</span><b id="userRefCode" style="font-size:14px;color:var(--gold);letter-spacing:.6px">UD4IK</b></div>
+          <div class="row" style="margin-top:10px"><button class="btn-ghost" style="width:100%" onclick="copyRefLink()">📋 Copy Referral Link</button><button class="btn-gold" style="width:100%" onclick="shareRefLink()">📤 Share Link</button></div>
+          <div style="font-size:10.5px;color:var(--mut);text-align:center;margin-top:8px">Terms and conditions applied</div>
+        </div>
+        <div class="card">
+          <div class="row"><h3 style="margin:0;font-size:14.5px">KYC Verification Level</h3><span id="kycBadge" class="pill-pend">Tier 1 • Pending</span></div>
+          <div class="acc-row"><span>Email &amp; Phone Verification</span><span class="pill-ok">Verified</span></div>
+          <div class="acc-row"><span>Face Verification</span><span id="faceStatus" class="pill-pend">Pending</span></div>
+          <div class="acc-row"><span>BVN Verification</span><span id="bvnStatus" class="pill-pend">Pending</span></div>
+          <div class="acc-row"><span>Transfer Limits</span><b id="dailyLimit">$1,000 / day</b></div>
+          <button class="btn-gold" style="width:100%;margin-top:8px" onclick="document.getElementById('kycModalBox').classList.toggle('hide')">Update KYC</button>
+          <div id="kycModalBox" class="hide" style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--brd)"><input id="kycIdNum" placeholder="Enter BVN or National ID / NRC Number" /><select id="kycDocType"><option>National ID / NRC</option><option>BVN Verification</option><option>International Passport</option></select><button class="btn" onclick="submitKycUpdate()">Submit Face &amp; BVN Verification</button></div>
+        </div>
+        <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Security</h3><div class="acc-row"><span>Change Password</span><button class="btn-ghost" onclick="changePassPrompt()">Update</button></div><div class="acc-row"><span>Two-Factor Authentication</span><input type="checkbox" id="tog2fa" style="width:auto;margin:0" onchange="savePrefs()" /></div><div class="acc-row"><span>Fingerprint Enabler</span><input type="checkbox" id="togBio" style="width:auto;margin:0" onchange="savePrefs()" /></div></div>
+        <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Preferences</h3><div class="acc-row"><span>Newsletters</span><input type="checkbox" id="prefNews" checked style="width:auto;margin:0" onchange="savePrefs()" /></div><div class="acc-row"><span>Push Notification</span><input type="checkbox" id="prefPush" checked style="width:auto;margin:0" onchange="savePrefs()" /></div><div class="acc-row"><span>Email Notification</span><input type="checkbox" id="prefEmail" checked style="width:auto;margin:0" onchange="savePrefs()" /></div><div class="acc-row"><span>Daily Rates Update</span><input type="checkbox" id="prefRates" checked style="width:auto;margin:0" onchange="savePrefs()" /></div></div>
+        <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Appearance</h3><select id="themeSel" onchange="applyTheme(this.value)" style="margin-top:4px"><option value="dark">Dark Theme</option><option value="light">Light Theme</option><option value="system">System (Phone System)</option></select></div>
+        <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Support</h3><div class="acc-row"><span>Company Email</span><b>ikatanga40@gmail.com</b></div><div class="acc-row"><span>WhatsApp Support</span><a href="https://wa.me" target="_blank" style="color:var(--acc);font-weight:800;text-decoration:none">+260 77 947 3735</a></div><button class="btn-ghost" style="width:100%;margin-top:10px" onclick="shareApp()">📤 Share Zale App</button><button class="btn" style="background:#ef4444;color:#fff;margin-top:10px" onclick="doLogout()">Sign Out</button></div>
+      </div>
+
+      <div id="tab-admin" class="hide"><div class="card" style="border-color:rgba(245,158,11,.6)"><div class="row"><span class="eyebrow">Executive Admin Workspace</span><button class="btn-ghost" onclick="nav('home')">← Home</button></div><div id="admOrdersList" style="margin-top:10px"></div></div></div>
+    </div>
+  </div>
+  <div id="bottomNav" class="bnav hide">
+    <button id="bn-home" class="on" onclick="nav('home')"><span>🏠</span>Home</button>
+    <button id="bn-trade" onclick="nav('trade')"><span>📈</span>Trade</button>
+    <button id="bn-wallet" onclick="nav('wallet')"><span>👛</span>Wallet</button>
+    <button id="bn-giftcards" onclick="nav('giftcards')"><span>🎁</span>Gift Cards</button>
+    <button id="bn-account" onclick="nav('account')"><span>👤</span>Account</button>
+  </div>
+
   <script>
     const ADMIN = "ikatanga40@gmail.com";
     const SB_URL = "https://supabase.co";
