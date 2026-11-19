@@ -59,18 +59,23 @@
     .quick-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px}
     .q-chip{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.32);color:#fde68a;padding:8px 4px;border-radius:11px;font-size:10.5px;font-weight:800;text-align:center;cursor:pointer}
     .vault-drawer{background:#0b0f19;border:1px solid rgba(56,189,248,.28);border-radius:18px;padding:14px;margin-top:12px}
+  @media (min-width:820px){
+      .wrap{max-width:980px;padding:28px 24px 64px;display:grid;grid-template-columns:1fr 1.15fr;gap:20px;align-items:start}
+      .desk-left,.desk-right{min-width:0}
+      .desk-top{grid-column:1 / -1}
+      .headline{font-size:25px}
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <div class="row">
+  <div class="wrap"><div class="desk-top"><div class="row">
       <div style="display:flex;align-items:center;gap:11px">
         <img src="./icon-192.png" alt="Zale App" style="width:44px;height:44px;border-radius:13px;object-fit:cover;border:1px solid rgba(245,158,11,.45)" />
         <div>
           <h1 class="brand-title">Zale App</h1>
           <p class="brand-tag">Pan-African FX, Crypto &amp; Utility Desk</p>
         </div>
-      </div>
+      </div></div><div class="desk-left">
       <div style="display:flex;gap:6px">
         <button class="btn-copper" onclick="shareApp()">Share</button>
         <button id="topSignBtn" class="btn-ghost" onclick="scrollAuth()">Sign In</button>
@@ -137,7 +142,7 @@
       <div class="row" style="margin-top:10px"><button class="btn" style="margin:0" onclick="confirmSent()">Confirm Payment</button><button class="btn-copper" style="width:100%;padding:14px" onclick="sendWA()">WhatsApp Concierge</button></div>
     </div>
 
-    <div class="pillars">
+    <div id="leftEnd"></div></div><div class="desk-right"><div class="pillars">
       <div id="nav-swap" class="pillar active" onclick="tab('swap')"><span class="pillar-ico">💱</span><span class="pillar-lbl">FX Bridge</span></div>
       <div id="nav-card" class="pillar" onclick="tab('card')"><span class="pillar-ico">💳</span><span class="pillar-lbl">Gift Cards</span></div>
       <div id="nav-bill" class="pillar" onclick="tab('bill')"><span class="pillar-ico">🧾</span><span class="pillar-lbl">Bills &amp; 3+</span></div>
@@ -295,7 +300,7 @@
       document.getElementById("authBox").classList.add("hide");
       document.getElementById("topSignBtn").classList.add("hide");
       document.getElementById("welcomeCard").classList.add("hide");
-      document.body.classList.add("member-mode"); document.getElementById("traderPassport").classList.remove("hide"); document.getElementById("memberFeed").classList.remove("hide"); document.getElementById("fillDestBtn").classList.remove("hide"); updateVaultUI();
+      document.body.classList.add("member-mode"); document.getElementById("traderPassport").classList.remove("hide"); document.getElementById("memberFeed").classList.remove("hide"); var le=document.getElementById("leftEnd"); if(le) le.parentNode.insertBefore(document.getElementById("memberFeed"), le); document.getElementById("fillDestBtn").classList.remove("hide"); updateVaultUI();
       document.getElementById("userControls").classList.remove("hide");
       document.getElementById("passEmail").textContent = user.email;
       if (user.admin) { document.getElementById("t-adm").classList.remove("hide"); document.getElementById("cfgWallet").value = payCfg.wallet; document.getElementById("cfgMomo").value = payCfg.momo; document.getElementById("cfgWa").value = payCfg.wa; }
@@ -328,5 +333,5 @@
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js");
     setCty(); boot();
   </script>
-</body>
+</div></body>
 </html>
