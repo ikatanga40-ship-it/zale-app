@@ -3,92 +3,190 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Zale App — Pan-African FX, Crypto, Cards & Bills</title>
-  <meta name="theme-color" content="#050811" />
+  <title>Zale App — Sovereign Pan-African FX, Crypto &amp; Utility Desk</title>
+  <meta name="theme-color" content="#06110e" />
   <link rel="manifest" href="./manifest.json" />
   <link rel="icon" type="image/png" href="./icon-192.png" />
   <link rel="apple-touch-icon" href="./icon-192.png" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
   <style>
     *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Inter","Segoe UI",Roboto,sans-serif;background:#050811;background-image:radial-gradient(ellipse 90% 45% at 50% -10%,rgba(16,185,129,.16),transparent);color:#f8fafc;min-height:100vh}
-    .wrap{max-width:460px;margin:0 auto;padding:18px 16px 60px}
+    body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","Inter","Segoe UI",Roboto,sans-serif;background:#06110e;background-image:radial-gradient(ellipse 85% 45% at 50% -10%,rgba(16,185,129,.15),transparent),radial-gradient(ellipse 65% 35% at 85% 5%,rgba(217,119,6,.10),transparent);color:#f8fafc;min-height:100vh;-webkit-font-smoothing:antialiased}
+    .wrap{max-width:456px;margin:0 auto;padding:20px 16px 64px}
     .row{display:flex;align-items:center;justify-content:space-between;gap:10px}
-    .brand-sub{margin:2px 0 0;font-size:12px;font-weight:600;color:#6ee7b7}
-    .lux-hero{background:linear-gradient(155deg,#0f172a 0%,#071f22 58%,#060a14 100%);border:1px solid rgba(245,158,11,.42);border-radius:24px;padding:20px;margin-top:16px;box-shadow:0 24px 48px -14px rgba(0,0,0,.85)}
-    .trust-strip{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08);text-align:center}
-    .trust-item{font-size:10px;color:#cbd5e1;font-weight:700;line-height:1.3}
-    .trust-item b{display:block;color:#34d399;font-size:11px;margin-bottom:2px}
-    .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
-    .tile{background:#0b111e;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:15px;cursor:pointer}
-    .tile:active{transform:scale(.97)}
-    .tile-ico{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;margin-bottom:10px;background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.32)}
-    .tile-t{font-size:13.5px;font-weight:800;color:#fff}
-    .tile-s{font-size:11px;color:#94a3b8;margin-top:3px;line-height:1.35}
-    .card{background:#0b111e;border:1px solid rgba(255,255,255,.08);border-radius:22px;padding:18px;margin-top:14px}
-    .paybox{background:linear-gradient(160deg,#0c1e32,#060a14);border:1.5px solid #f59e0b;border-radius:22px;padding:18px;margin-top:14px}
-    .subtabs,.auth-tabs{display:grid;gap:4px;background:#050811;padding:4px;border-radius:13px;border:1px solid rgba(255,255,255,.07);margin-bottom:12px}
-    .subtabs{grid-template-columns:repeat(3,1fr)}
-    .auth-tabs{grid-template-columns:1fr 1fr}
-    button{cursor:pointer;border:0;border-radius:13px;font-weight:700;font-size:12px}
+    .brand-title{margin:0;font-size:20px;font-weight:800;letter-spacing:-.4px;color:#fff}
+    .brand-tag{margin:2px 0 0;font-size:11.5px;font-weight:600;color:#6ee7b7;letter-spacing:.1px}
+    .passport{background:linear-gradient(155deg,#0c1f1a 0%,#091613 60%,#050c0a 100%);border:1px solid rgba(245,158,11,.35);border-radius:24px;padding:20px;margin-top:18px;box-shadow:0 24px 48px -14px rgba(0,0,0,.85),inset 0 1px 0 rgba(255,255,255,.07)}
+    .eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#fbbf24;background:rgba(245,158,11,.1);border:1px solid rgba(245,158,11,.28);padding:4px 10px;border-radius:99px}
+    .dot{width:6px;height:6px;border-radius:50%;background:#10b981;box-shadow:0 0 8px #10b981;display:inline-block}
+    .headline{font-size:21px;font-weight:800;color:#fff;letter-spacing:-.45px;line-height:1.25;margin:12px 0 6px}
+    .subcopy{font-size:13px;line-height:1.55;color:#cbd5e1;font-weight:400}
+    .pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:16px}
+    .pillar{background:#0b1915;border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:12px 6px;text-align:center;cursor:pointer;transition:all .15s ease}
+    .pillar.active{background:linear-gradient(160deg,rgba(16,185,129,.18),rgba(11,25,21,.95));border-color:rgba(16,185,129,.55);box-shadow:0 8px 20px -6px rgba(16,185,129,.25)}
+    .pillar-ico{font-size:18px;display:block;margin-bottom:5px}
+    .pillar-lbl{font-size:11px;font-weight:700;color:#e2e8f0;letter-spacing:-.1px}
+    .card{background:#0b1915;border:1px solid rgba(255,255,255,.08);border-radius:24px;padding:20px;margin-top:14px;box-shadow:0 18px 36px -12px rgba(0,0,0,.7)}
+    .paybox{background:linear-gradient(165deg,#12221d,#07110e);border:1.5px solid rgba(245,158,11,.65);border-radius:24px;padding:20px;margin-top:14px;box-shadow:0 0 32px rgba(245,158,11,.14)}
+    .seg,.seg2{display:grid;gap:4px;background:#050d0b;padding:4px;border-radius:14px;border:1px solid rgba(255,255,255,.06);margin-bottom:14px}
+    .seg{grid-template-columns:repeat(3,1fr)}
+    .seg2{grid-template-columns:1fr 1fr}
+    button{cursor:pointer;border:0;border-radius:13px;font-weight:700;font-size:12.5px;letter-spacing:-.1px;transition:transform .12s ease,opacity .15s ease}
     button:active{transform:scale(.97)}
-    .subtabs button,.auth-tabs button{padding:9px 4px;border-radius:10px}
-    .on{background:linear-gradient(135deg,#10b981,#059669);color:#020617}
+    .seg button,.seg2 button{padding:9px 4px;border-radius:10px}
+    .on{background:linear-gradient(135deg,#10b981,#059669);color:#03120e;font-weight:800;box-shadow:0 4px 12px rgba(16,185,129,.25)}
     .off{background:transparent;color:#94a3b8}
-    .btn{width:100%;padding:14px;background:linear-gradient(135deg,#10b981,#059669);color:#020617;font-size:14px;font-weight:800;margin-top:12px}
-    .btn-gold{background:linear-gradient(135deg,#fde047,#f59e0b);color:#020617;padding:9px 13px;font-weight:800}
-    .btn-sm{background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.38);color:#34d399;padding:7px 11px}
-    .btn-out{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#e2e8f0;padding:7px 11px}
+    .btn{width:100%;padding:14.5px;background:linear-gradient(135deg,#10b981,#059669);color:#03120e;font-size:14px;font-weight:800;margin-top:14px;box-shadow:0 8px 22px rgba(16,185,129,.24)}
+    .btn-copper{background:linear-gradient(135deg,#fcd34d,#d97706);color:#090d0c;padding:9px 14px;font-weight:800}
+    .btn-ghost{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);color:#e2e8f0;padding:8px 12px}
+    .bridge{background:#050d0b;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:14px;margin-top:12px}
+    .bridge-mid{display:flex;align-items:center;justify-content:space-between;padding:8px 0;margin:8px 0;border-top:1px dashed rgba(255,255,255,.1);border-bottom:1px dashed rgba(255,255,255,.1);font-size:11.5px;color:#94a3b8}
     .presets{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:10px}
-    .pre-btn{background:#050811;border:1px solid rgba(255,255,255,.08);color:#cbd5e1;padding:8px;font-size:11px;border-radius:10px}
-    input,select{width:100%;padding:13px 14px;border-radius:13px;border:1px solid rgba(255,255,255,.1);background:#050811;color:#fff;margin-top:10px;font-size:14px;outline:none}
-    .receipt{background:#050811;border:1px solid rgba(16,185,129,.32);border-radius:15px;padding:13px 14px;margin-top:12px}
-    .rec-line{display:flex;justify-content:space-between;font-size:11.5px;color:#94a3b8;margin-bottom:6px}
-    .rec-total{display:flex;justify-content:space-between;align-items:center;padding-top:8px;border-top:1px dashed rgba(255,255,255,.1);font-size:14px;font-weight:900;color:#34d399}
-    .msg{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:11px 14px;border-radius:13px;font-size:12px;color:#cbd5e1;margin-top:12px}
+    .pre-btn{background:#050d0b;border:1px solid rgba(255,255,255,.08);color:#cbd5e1;padding:8px;font-size:11.5px;border-radius:10px}
+    input,select{width:100%;padding:13px 14px;border-radius:13px;border:1px solid rgba(255,255,255,.1);background:#050d0b;color:#fff;margin-top:10px;font-size:14px;outline:none}
+    input:focus,select:focus{border-color:#10b981}
+    .note{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);padding:11px 14px;border-radius:14px;font-size:12px;color:#cbd5e1;margin-top:14px;line-height:1.45}
     .hide{display:none!important}
-    .pill{display:inline-flex;align-items:center;gap:5px;background:rgba(245,158,11,.13);border:1px solid rgba(245,158,11,.4);color:#fbbf24;font-size:10px;font-weight:800;padding:4px 10px;border-radius:99px}
-    .dot{width:6px;height:6px;border-radius:50%;background:#10b981;display:inline-block}
-    .order-item{background:#050811;border:1px solid rgba(255,255,255,.08);border-radius:15px;padding:13px;margin-top:10px;font-size:12px}
+    .order-item{background:#050d0b;border:1px solid rgba(255,255,255,.08);border-radius:16px;padding:14px;margin-top:10px;font-size:12.5px}
     .badge{padding:3px 8px;border-radius:6px;font-size:10px;font-weight:800;text-transform:uppercase}
-    .pending{background:#f59e0b22;color:#fbbf24}
-    .paid{background:#10b98122;color:#34d399}
-    .bar{height:4px;background:rgba(255,255,255,.08);border-radius:4px;margin-top:9px;overflow:hidden}
-    .fill-p{width:55%;height:100%;background:#f59e0b}
-    .fill-d{width:100%;height:100%;background:#10b981}
+    .pending{background:rgba(245,158,11,.16);color:#fbbf24}
+    .paid{background:rgba(16,185,129,.16);color:#34d399}
   </style>
 </head>
 <body>
   <div class="wrap">
     <div class="row">
       <div style="display:flex;align-items:center;gap:11px">
-        <img src="./icon-192.png" alt="Zale App" style="width:44px;height:44px;border-radius:13px;object-fit:cover;border:1px solid rgba(245,158,11,.5)" />
+        <img src="./icon-192.png" alt="Zale App" style="width:44px;height:44px;border-radius:13px;object-fit:cover;border:1px solid rgba(245,158,11,.45)" />
         <div>
-          <h1 style="margin:0;font-size:20px;font-weight:800;color:#fff">Zale App</h1>
-          <p class="brand-sub">Pan-African FX, Crypto, Cards &amp; Bills</p>
+          <h1 class="brand-title">Zale App</h1>
+          <p class="brand-tag">Pan-African FX, Crypto &amp; Utility Desk</p>
         </div>
       </div>
       <div style="display:flex;gap:6px">
-        <button class="btn-gold" onclick="shareApp()">Share</button>
-        <button id="topSignBtn" class="btn-sm" onclick="scrollAuth()">Sign In</button>
+        <button class="btn-copper" onclick="shareApp()">Share</button>
+        <button id="topSignBtn" class="btn-ghost" onclick="scrollAuth()">Sign In</button>
         <div id="userControls" class="hide" style="display:flex;gap:6px">
-          <button id="walletBtn" class="btn-sm" onclick="connectWallet()">Wallet</button>
-          <button class="btn-out" onclick="logout()">Exit</button>
+          <button id="walletBtn" class="btn-ghost" onclick="connectWallet()">Wallet</button>
+          <button class="btn-ghost" onclick="logout()">Exit</button>
         </div>
       </div>
     </div>
-    <div id="welcomeHero" class="lux-hero">
-      <div class="row" style="margin-bottom:10px"><span class="pill"><span class="dot"></span>4-DIGIT PIN ESCROW PROTECTED</span><span style="font-size:11px;color:#34d399;font-weight:800">⚡ &lt;5 Min Settlement</span></div>
-      <div style="font-size:20px;font-weight:900;color:#fff;line-height:1.25;margin-bottom:6px">Move Money Across Africa Without P2P Risk.</div>
-      <div style="font-size:12.5px;line-height:1.5;color:#cbd5e1">Fund forex brokers, cash out USDT to mobile money &amp; banks, trade gift cards, and pay bills across Africa with transparent rates.</div>
-      <div class="trust-strip"><div class="trust-item"><b>PIN Escrow</b>4-Digit Lock</div><div class="trust-item"><b>&lt;5 Mins</b>Fast Payout</div><div class="trust-item"><b>0% Hidden</b>Clean FX</div><div class="trust-item"><b>5 Rails</b>Pan-African</div></div>
+    <div id="welcomeCard" class="passport">
+      <span class="eyebrow"><span class="dot"></span>4-Digit PIN Escrow • Verified Desk</span>
+      <h2 class="headline">Thoughtful, borderless finance built for African traders.</h2>
+      <p class="subcopy">Whether you are funding a forex broker, settling USDT to local mobile money, or splitting a household bill, every transaction is handled with transparent rates and personal care.</p>
     </div>
-    <div id="payoutDash" class="lux-hero hide">
-      <div class="row"><div><div style="font-size:11px;color:#94a3b8">Verified Desk Account</div><div id="dashUser" style="font-size:14px;font-weight:800;color:#fff;margin-top:2px">Trader</div></div><span class="pill"><span class="dot"></span>PAYOUT DESK ACTIVE</span></div>
-      <div class="row" style="margin-top:14px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)"><div><div style="font-size:10px;color:#94a3b8">COMPLETED</div><div id="dashSettled" style="font-size:18px;font-weight:900;color:#34d399">0 Settled</div></div><div><div style="font-size:10px;color:#94a3b8">IN REVIEW</div><div id="dashPending" style="font-size:18px;font-weight:900;color:#fbbf24">0 Pending</div></div><button class="btn-gold" onclick="tab('ord')">Payout History</button></div>
+
+    <div id="traderPassport" class="passport hide">
+      <div class="row">
+        <div>
+          <div style="font-size:10.5px;color:#94a3b8;text-transform:uppercase;letter-spacing:.6px">Zale Trader Passport</div>
+          <div id="passEmail" style="font-size:14px;font-weight:800;color:#fff;margin-top:2px">Member</div>
+        </div>
+        <span class="eyebrow"><span class="dot"></span>Active Desk</span>
+      </div>
+      <div class="row" style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">
+        <div><div style="font-size:10px;color:#94a3b8">SETTLED TRADES</div><div id="statSettled" style="font-size:18px;font-weight:900;color:#34d399;margin-top:2px">0</div></div>
+        <div><div style="font-size:10px;color:#94a3b8">IN PROGRESS</div><div id="statPending" style="font-size:18px;font-weight:900;color:#fbbf24;margin-top:2px">0</div></div>
+        <button class="btn-ghost" onclick="tab('ord')">Order Ledger</button>
+      </div>
     </div>
-    <div id="msg" class="msg">Welcome to Zale App. Calculate a live quote below or tap any service to begin.</div>
+
+    <div id="msg" class="note">Preview live conversion rates below. When you are ready to settle, sign in or create your desk account in seconds.</div>
+
+    <div id="payBox" class="paybox hide">
+      <div class="row" style="margin-bottom:6px"><span class="eyebrow">Step 2 • Direct Settlement</span><button class="btn-ghost" style="padding:4px 9px" onclick="document.getElementById('payBox').classList.add('hide')">Close</button></div>
+      <div id="payTitle" style="font-weight:800;font-size:15px;color:#fff;margin-top:6px"></div>
+      <div id="payInstr" style="font-size:12.5px;color:#cbd5e1;margin:4px 0 10px;line-height:1.45"></div>
+      <div style="background:#050d0b;border:1px solid rgba(245,158,11,.45);padding:12px;border-radius:12px;font-family:monospace;font-size:12px;color:#6ee7b7;word-break:break-all" id="payTarget"></div>
+      <button class="btn-copper" style="width:100%;margin-top:10px" onclick="copyTarget()">Copy Official Account Details</button>
+      <input id="txRef" placeholder="Enter Transaction ID or Mobile Money Reference" />
+      <div class="row" style="margin-top:10px"><button class="btn" style="margin:0" onclick="confirmSent()">Confirm Payment</button><button class="btn-copper" style="width:100%;padding:14px" onclick="sendWA()">WhatsApp Concierge</button></div>
+    </div>
+
+    <div class="pillars">
+      <div id="nav-swap" class="pillar active" onclick="tab('swap')"><span class="pillar-ico">💱</span><span class="pillar-lbl">FX Bridge</span></div>
+      <div id="nav-card" class="pillar" onclick="tab('card')"><span class="pillar-ico">💳</span><span class="pillar-lbl">Gift Cards</span></div>
+      <div id="nav-bill" class="pillar" onclick="tab('bill')"><span class="pillar-ico">🧾</span><span class="pillar-lbl">Bills &amp; 3+</span></div>
+      <div id="nav-safe" class="pillar" onclick="tab('safe')"><span class="pillar-ico">🔐</span><span class="pillar-lbl">PIN Escrow</span></div>
+    </div>
+
+    <div class="row" style="margin-top:10px">
+      <button class="btn-ghost" style="width:100%" onclick="tab('ord')">📋 View My Order Ledger</button>
+      <button id="t-adm" class="btn-copper hide" style="width:100%" onclick="tab('adm')">⚙️ Admin Control</button>
+    </div>
+
+    <div id="p-swap" class="card">
+      <div class="seg"><button id="m-buy" class="on" onclick="setMode('buy')">Buy / Broker</button><button id="m-sell" class="off" onclick="setMode('sell')">Cash Out</button><button id="m-ex" class="off" onclick="setMode('ex')">Crypto Swap</button></div>
+      <div class="row"><select id="cty" onchange="setCty()" style="margin:0"><option value="ZM">Zambia (ZMW)</option><option value="NG">Nigeria (NGN)</option><option value="KE">Kenya (KES)</option><option value="GH">Ghana (GHS)</option><option value="ZA">South Africa (ZAR)</option></select><select id="rail" style="margin:0"></select></div>
+      <select id="asset"><option>USDT (TRC20) — Broker &amp; P2P Standard</option><option>USDC (ERC20 / Polygon)</option><option>Bitcoin (BTC)</option><option>Solana (SOL)</option><option>Ethereum (ETH)</option></select>
+      <div class="presets"><button class="pre-btn" onclick="setAmt(25)">$25</button><button class="pre-btn" onclick="setAmt(50)">$50</button><button class="pre-btn" onclick="setAmt(100)">$100</button><button class="pre-btn" onclick="setAmt(500)">$500</button></div>
+      <input id="amt" type="number" placeholder="Enter Amount in USD (e.g. 100)" oninput="calc()" />
+      <input id="dest" placeholder="Your Destination Wallet Address or Mobile Money Number" />
+      <div class="bridge">
+        <div class="row"><span style="font-size:11px;color:#94a3b8">Desk Benchmark Rate</span><span id="recRate" style="font-size:12px;font-weight:700;color:#e2e8f0">1 USDT = K27.50</span></div>
+        <div class="bridge-mid"><span>⚡ Direct Settlement Rail</span><span style="color:#34d399;font-weight:700">$0.00 Hidden Fees</span></div>
+        <div class="row"><span style="font-size:12px;font-weight:700;color:#cbd5e1">Estimated Settlement</span><span id="est" style="font-size:15px;font-weight:900;color:#fbbf24">K0.00</span></div>
+      </div>
+      <button id="swapBtn" class="btn" onclick="placeSwap()">Initiate Desk Order</button>
+    </div>
+
+    <div id="p-card" class="card hide">
+      <div class="row" style="margin-bottom:6px"><h3 style="margin:0;font-size:15.5px">Gift Card Redemption</h3><span class="eyebrow">Up to 85%</span></div>
+      <p style="font-size:12px;color:#94a3b8;margin:0 0 8px">Convert unused retail gift cards into instant mobile money, bank transfer, or USDT.</p>
+      <select id="brand" onchange="calc()"><option value="0.85">Amazon USA Gift Card (85%)</option><option value="0.82">Apple / iTunes Card (82%)</option><option value="0.80">Steam Wallet Card (80%)</option><option value="0.78">Razer Gold / PlayStation (78%)</option></select>
+      <input id="cAmt" type="number" placeholder="Card Face Value in USD (e.g. 100)" oninput="calc()" /><input id="cCode" placeholder="Enter Card E-Code / PIN or Receipt Link" /><input id="cDest" placeholder="Your Payout Account or USDT Wallet" />
+      <div class="bridge"><div class="row"><span style="font-size:12px;color:#cbd5e1">Net Cashout Value</span><span id="cEst" style="font-size:15px;font-weight:900;color:#34d399">$0.00 USDT (K0)</span></div></div>
+      <button class="btn" onclick="placeCard()">Submit Gift Card for Review</button>
+    </div>
+
+    <div id="p-bill" class="card hide">
+      <h3 style="margin:0 0 6px;font-size:15.5px">Utilities &amp; Group Bill Split (3+)</h3>
+      <select id="bType" onchange="setProvs()"><option value="tv">Cable TV (DStv / GOtv / Startimes)</option><option value="pow">Electricity Token (ZESCO / IKEDC / KPLC)</option><option value="air">Airtime Top-Up</option><option value="dat">Mobile Data Bundle</option></select>
+      <select id="prov"></select><input id="bAcct" placeholder="Smartcard, Meter, or Phone Number" /><input id="bAmt" type="number" placeholder="Total Bill in USD (e.g. 20)" oninput="calc();calcSplit()" />
+      <div class="bridge"><div class="row"><span style="font-size:12px;color:#cbd5e1">Local Utility Value</span><span id="bEst" style="font-size:15px;font-weight:900;color:#34d399">K0</span></div></div>
+      <button class="btn" onclick="placeBill()">Settle Utility Bill</button>
+      <div style="margin-top:16px;padding-top:14px;border-top:1px dashed rgba(255,255,255,.12)">
+        <div class="row" style="margin-bottom:6px"><span style="font-weight:800;font-size:13px;color:#fbbf24">Split Expense With 3+ Friends</span><span class="eyebrow">Group Split</span></div>
+        <div class="row"><input id="spPeople" type="number" min="2" value="3" placeholder="People" oninput="calcSplit()" style="margin:0" /><input id="spNote" placeholder="Expense Note (e.g. DStv)" style="margin:0" /></div>
+        <div class="bridge" style="margin-top:8px"><div class="row"><span style="font-size:12px;color:#cbd5e1">Individual Share</span><span id="spEst" style="font-size:14px;font-weight:900;color:#fbbf24">$0.00 (K0)</span></div></div>
+        <button class="btn-copper" style="width:100%;margin-top:10px" onclick="shareSplit()">Send Split Request to 3+ Friends</button>
+      </div>
+    </div>
+
+    <div id="p-safe" class="card hide">
+      <h3 style="margin:0 0 6px;font-size:15.5px">Safe-Claim 4-Digit PIN Escrow</h3>
+      <p style="font-size:12.5px;color:#94a3b8;margin:0 0 8px;line-height:1.45">Protect peer-to-peer agreements. Funds remain held until you share your secret 4-digit release PIN with the recipient.</p>
+      <input id="sTo" placeholder="Recipient 0x Wallet Address" /><input id="sAmt" type="number" placeholder="Amount in USDT" /><input id="sPin" maxlength="4" placeholder="Create Secret 4-Digit Release PIN" />
+      <button class="btn" onclick="lockSafe()">Initiate PIN Escrow</button>
+    </div>
+
+    <div id="p-ord" class="card hide"><div class="row" style="margin-bottom:6px"><h3 style="margin:0;font-size:15.5px">Order &amp; Settlement Ledger</h3><button class="btn-ghost" onclick="render()">Refresh</button></div><div id="oList"></div></div>
+
+    <div id="p-adm" class="card hide" style="border-color:rgba(245,158,11,.5)">
+      <h3 style="margin:0 0 8px;font-size:15px;color:#fbbf24">1. Official Receiving Accounts</h3>
+      <input id="cfgWallet" placeholder="My USDT (TRC20) Address" /><input id="cfgMomo" placeholder="My Airtel / Zamtel / Bank Details" /><input id="cfgWa" placeholder="My WhatsApp Number" />
+
+cat << 'EOF' >> ~/Desktop/zale/index.html
+      <button class="btn-copper" style="width:100%;margin-top:10px" onclick="savePayCfg()">Save Receiving Accounts</button>
+      <h3 style="margin:16px 0 6px;font-size:15px;color:#fbbf24">2. Live Corridor Rates</h3>
+      <div class="row"><select id="aCty" style="margin:0"><option value="ZM">Zambia (ZM)</option><option value="NG">Nigeria (NG)</option><option value="KE">Kenya (KE)</option><option value="GH">Ghana (GH)</option><option value="ZA">South Africa (ZA)</option></select><input id="aRate" type="number" placeholder="New Rate" style="margin:0" /></div>
+      <button class="btn" onclick="saveRate()">Update Corridor Rate</button>
+      <h3 style="margin:16px 0 6px;font-size:14px;color:#fff">3. Client Settlement Queue</h3><div id="aList"></div>
+    </div>
+
+    <div id="authBox" class="card" style="border-color:rgba(16,185,129,.4)">
+      <div class="seg2"><button id="at-login" class="on" onclick="setAuthTab('login')">Sign In</button><button id="at-signup" class="off" onclick="setAuthTab('signup')">Create Account</button></div>
+      <div style="font-size:12px;color:#94a3b8;margin-bottom:4px">Open your personal Zale Trader Passport in seconds.</div>
+      <input id="email" type="email" placeholder="Email Address" /><input id="pass" type="password" placeholder="Password (4+ characters)" />
+      <button id="authSubmitBtn" class="btn" onclick="submitAuth()">Sign In to Zale App</button>
+    </div>
+
+    <div class="card" style="border-color:rgba(245,158,11,.35);margin-top:14px">
+      <div class="row" style="margin-bottom:4px"><span style="font-weight:800;font-size:13px;color:#fbbf24">Partner &amp; Trader Referral</span><button class="btn-copper" onclick="copyRef()">Share Invite</button></div>
+      <div id="refCodeText" style="font-size:11.5px;color:#cbd5e1;line-height:1.45">Introduce fellow traders to Zale App and earn $2 cashback when they complete their first $50+ trade.</div>
+    </div>
+  </div>
   <script>
     const ADMIN = "ikatanga40@gmail.com";
     const DEF_RAILS = {
@@ -104,14 +202,14 @@
     let orders = JSON.parse(localStorage.getItem("zale_orders") || "[]");
     let mode = "buy", authMode = "login", activeOrder = null;
     const say = t => document.getElementById("msg").textContent = t;
-    function scrollAuth() { document.getElementById("authBox").scrollIntoView({behavior:"smooth"}); say("Sign in or create your free Zale App account below."); }
-    function setAuthTab(m) { authMode = m; document.getElementById("at-login").className = m==="login" ? "on" : "off"; document.getElementById("at-signup").className = m==="signup" ? "on" : "off"; document.getElementById("authSubmitBtn").textContent = m==="login" ? "Sign In to Desk" : "Create Free Account"; }
+    function scrollAuth() { document.getElementById("authBox").scrollIntoView({behavior:"smooth"}); say("Enter your email and password below to open your Trader Passport."); }
+    function setAuthTab(m) { authMode = m; document.getElementById("at-login").className = m==="login" ? "on" : "off"; document.getElementById("at-signup").className = m==="signup" ? "on" : "off"; document.getElementById("authSubmitBtn").textContent = m==="login" ? "Sign In to Zale App" : "Create Trader Passport"; }
     function submitAuth() { auth(authMode); }
-    function requireAuth() { if (user) return true; scrollAuth(); say("Create a free account or sign in below to submit your order."); return false; }
-    function shareApp(){ const u = location.origin + location.pathname; if(navigator.share) navigator.share({title:"Zale App",text:"Fund forex brokers, cash out USDT & trade gift cards in <5 mins on Zale App:",url:u}); else { navigator.clipboard.writeText(u); say("App link copied! Paste in WhatsApp or Telegram to share."); } }
+    function requireAuth() { if (user) return true; scrollAuth(); say("Sign in or create your free Trader Passport below to submit this order."); return false; }
+    function shareApp(){ const u = location.origin + location.pathname; if(navigator.share) navigator.share({title:"Zale App",text:"Borderless Pan-African FX, Crypto & Utility Desk:",url:u}); else { navigator.clipboard.writeText(u); say("App link copied! Ready to share."); } }
     function setCty() { const d = RAILS[document.getElementById("cty").value]; document.getElementById("rail").innerHTML = d.m.map(x => `<option>${x}</option>`).join(""); setProvs(); calc(); calcSplit(); }
     function setProvs() { const d = RAILS[document.getElementById("cty").value], t = document.getElementById("bType").value; document.getElementById("prov").innerHTML = d.p[t].map(x => `<option>${x}</option>`).join(""); }
-    function setMode(m) { mode = m; ["buy","sell","ex"].forEach(k => document.getElementById("m-"+k).className = k===m ? "on" : "off"); document.getElementById("swapBtn").textContent = m==="buy" ? "Place Buy / Broker Funding Order" : m==="sell" ? "Place Cash-Out Order" : "Place Crypto Swap Order"; calc(); }
+    function setMode(m) { mode = m; ["buy","sell","ex"].forEach(k => document.getElementById("m-"+k).className = k===m ? "on" : "off"); document.getElementById("swapBtn").textContent = m==="buy" ? "Initiate Buy / Broker Order" : m==="sell" ? "Initiate Cash-Out Order" : "Initiate Crypto Swap"; calc(); }
     function setAmt(v) { document.getElementById("amt").value = v; calc(); }
     function calc() {
       const d = RAILS[document.getElementById("cty").value], a = parseFloat(document.getElementById("amt").value) || 0, loc = (a * d.r).toLocaleString(undefined,{maximumFractionDigits:2});
@@ -125,56 +223,62 @@
     function calcSplit(){ const d=RAILS[document.getElementById("cty").value], amt=parseFloat(document.getElementById("bAmt")?.value)||0, ppl=Math.max(2,parseInt(document.getElementById("spPeople")?.value)||3), eachUsd=amt/ppl, eachLoc=eachUsd*d.r; if(document.getElementById("spEst")) document.getElementById("spEst").textContent=`$${eachUsd.toFixed(2)} (${d.s}${eachLoc.toLocaleString(undefined,{maximumFractionDigits:2})}) / person`; }
     function shareSplit(){
       const d=RAILS[document.getElementById("cty").value], amt=parseFloat(document.getElementById("bAmt")?.value)||0, ppl=Math.max(2,parseInt(document.getElementById("spPeople")?.value)||3), note=document.getElementById("spNote")?.value.trim()||document.getElementById("prov").value;
-      if(!amt) return say("Enter the total bill amount above first to split.");
+      if(!amt) return say("Enter the total expense amount above first to split.");
       const eachUsd=(amt/ppl).toFixed(2), eachLoc=(eachUsd*d.r).toLocaleString(undefined,{maximumFractionDigits:2});
-      const txt=`Zale App Group Bill Split (${note})\nTotal Bill: $${amt} (${d.s}${(amt*d.r).toLocaleString()})\nSplit Between: ${ppl} people\nYour Share: $${eachUsd} (${d.s}${eachLoc})\nPay your share fast via Zale App: ${location.origin+location.pathname}`;
-      if(navigator.share) navigator.share({title:"Split Bill on Zale App",text:txt}); else { navigator.clipboard.writeText(txt); say("Split bill message copied! Paste in your WhatsApp group."); }
+      const txt=`Zale App Group Bill Split (${note})\nTotal Bill: $${amt} (${d.s}${(amt*d.r).toLocaleString()})\nSplit Between: ${ppl} people\nYour Share: $${eachUsd} (${d.s}${eachLoc})\nSettle your share via Zale App: ${location.origin+location.pathname}`;
+      if(navigator.share) navigator.share({title:"Split Bill on Zale App",text:txt}); else { navigator.clipboard.writeText(txt); say("Split request copied! Paste in your WhatsApp group."); }
     }
-    function tab(t) { ["swap","card","bill","safe","ord","adm"].forEach(k => document.getElementById("p-"+k).classList.toggle("hide", k!==t)); render(); }
-    function auth(type) { const e = document.getElementById("email").value.trim().toLowerCase(), p = document.getElementById("pass").value.trim(); if (!e || p.length < 4) return say("Enter a valid email and password (4+ chars)."); user = {email:e, admin: e === ADMIN}; localStorage.setItem("zale_user", JSON.stringify(user)); boot(); say(type==="signup" ? "Account created! Ready to trade." : "Welcome back to Zale App."); }
+    function tab(t) {
+      ["swap","card","bill","safe","ord","adm"].forEach(k => document.getElementById("p-"+k).classList.toggle("hide", k!==t));
+      ["swap","card","bill","safe"].forEach(k => document.getElementById("nav-"+k).classList.toggle("active", k===t));
+      render();
+    }
+    function auth(type) {
+      const e = document.getElementById("email").value.trim().toLowerCase(), p = document.getElementById("pass").value.trim();
+      if (!e || p.length < 4) return say("Please enter a valid email and password (4+ characters).");
+      user = {email:e, admin: e === ADMIN};
+      localStorage.setItem("zale_user", JSON.stringify(user));
+      boot();
+      say(type==="signup" ? "Your Zale Trader Passport is ready." : "Welcome back to your Zale Trader Passport.");
+      window.scrollTo({top:0, behavior:"smooth"});
+    }
     function logout() { localStorage.removeItem("zale_user"); location.reload(); }
     function boot() {
       if (!user) return;
-      document.getElementById("authBox").classList.add("hide"); document.getElementById("topSignBtn").classList.add("hide"); document.getElementById("welcomeHero").classList.add("hide"); document.getElementById("payoutDash").classList.remove("hide"); document.getElementById("userControls").classList.remove("hide");
-      document.getElementById("dashUser").textContent = user.email;
+      document.getElementById("authBox").classList.add("hide");
+      document.getElementById("topSignBtn").classList.add("hide");
+      document.getElementById("welcomeCard").classList.add("hide");
+      document.getElementById("traderPassport").classList.remove("hide");
+      document.getElementById("userControls").classList.remove("hide");
+      document.getElementById("passEmail").textContent = user.email;
       if (user.admin) { document.getElementById("t-adm").classList.remove("hide"); document.getElementById("cfgWallet").value = payCfg.wallet; document.getElementById("cfgMomo").value = payCfg.momo; document.getElementById("cfgWa").value = payCfg.wa; }
-      const code = "ZALE-" + user.email.split("@")[0].toUpperCase().replace(/[^A-Z0-9]/g,"");
-      document.getElementById("refCodeText").textContent = `Your Invite Code: ${code} — Share & earn $2 cashback on every friend's first $50+ trade.`;
+      const code = "ZALE-" + user.email.split("@").toUpperCase().replace(/[^A-Z0-9]/g,"");
+      document.getElementById("refCodeText").textContent = `Your Passport Code: ${code} — Share & earn $2 cashback when a friend completes a $50+ trade.`;
       render();
     }
-    function copyRef() { const code = user ? "ZALE-" + user.email.split("@")[0].toUpperCase().replace(/[^A-Z0-9]/g,"") : "ZALE-VIP"; navigator.clipboard.writeText(`Trade crypto, fund forex brokers & cash out gift cards in <5 mins on Zale App! Use my invite code ${code}: ${location.href}`); say("Referral invite link copied! Paste in WhatsApp or Telegram."); }
+    function copyRef() { const code = user ? "ZALE-" + user.email.split("@").toUpperCase().replace(/[^A-Z0-9]/g,"") : "ZALE-VIP"; navigator.clipboard.writeText(`Trade crypto, fund forex brokers & cash out gift cards on Zale App! Use my invite code ${code}: ${location.href}`); say("Invite link copied!"); }
     function openPayBox(o, title, instr, target) { activeOrder = o; document.getElementById("payTitle").textContent = title; document.getElementById("payInstr").textContent = instr; document.getElementById("payTarget").textContent = target; document.getElementById("txRef").value = ""; document.getElementById("payBox").classList.remove("hide"); window.scrollTo({top:0, behavior:"smooth"}); }
-    function copyTarget() { navigator.clipboard.writeText(document.getElementById("payTarget").textContent); say("Payment / Wallet details copied!"); }
-    function confirmSent() { const ref = document.getElementById("txRef").value.trim(); if (!ref) return say("Paste your Crypto TxID or Mobile Money reference first."); if (activeOrder) { activeOrder.ref = ref; save(); } say("Payment reference submitted! Admin notified for instant payout."); }
-    function sendWA() { const ref = document.getElementById("txRef").value.trim() || "Attached screenshot"; const txt = encodeURIComponent(`Hello Zale App Desk, I just paid for Order #${activeOrder?.id} (${activeOrder?.type} - $${activeOrder?.usd}). Ref: ${ref}. Send to: ${activeOrder?.to}`); window.open(payCfg.wa ? `https://wa.me{payCfg.wa}?text=${txt}` : `https://wa.me{txt}`, "_blank"); }
+    function copyTarget() { navigator.clipboard.writeText(document.getElementById("payTarget").textContent); say("Official account details copied."); }
+    function confirmSent() { const ref = document.getElementById("txRef").value.trim(); if (!ref) return say("Please enter your Transaction ID or Mobile Money reference."); if (activeOrder) { activeOrder.ref = ref; save(); } say("Reference received. Our desk is verifying your settlement."); }
+    function sendWA() { const ref = document.getElementById("txRef").value.trim() || "Attached screenshot"; const txt = encodeURIComponent(`Hello Zale App Desk, I have completed payment for Order #${activeOrder?.id} (${activeOrder?.type} - $${activeOrder?.usd}). Ref: ${ref}. Destination: ${activeOrder?.to}`); window.open(payCfg.wa ? `https://wa.me{payCfg.wa}?text=${txt}` : `https://wa.me{txt}`, "_blank"); }
     function saveOrder(type, usd, local, to) { const o = {id:Math.floor(100000+Math.random()*900000), user:user.email, type, usd, local, to, ref:"Awaiting Ref", status:"Pending", time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}; orders.unshift(o); save(); return o; }
     function save() { localStorage.setItem("zale_orders", JSON.stringify(orders)); render(); }
-    function placeSwap() { if (!requireAuth()) return; const d = RAILS[document.getElementById("cty").value], a = parseFloat(document.getElementById("amt").value), dest = document.getElementById("dest").value.trim(); if (!a || !dest) return say("Enter USD amount and destination wallet/number."); const loc = `${d.s}${(a*d.r).toLocaleString()} (${document.getElementById("rail").value})`; const o = saveOrder(`${mode.toUpperCase()} ${document.getElementById("asset").value.split(" ")[0]}`, a, loc, dest); if (mode === "buy") openPayBox(o, `Send ${loc} to Complete Order #${o.id}`, "Transfer exact local amount to our official account below, then submit your reference:", payCfg.momo); else openPayBox(o, `Send $${a} Crypto to Complete Order #${o.id}`, "Send exact crypto to our official USDT (TRC20) address below, then paste your TxID:", payCfg.wallet); }
-    function placeCard() { if (!requireAuth()) return; const a = parseFloat(document.getElementById("cAmt").value), code = document.getElementById("cCode").value.trim(), dest = document.getElementById("cDest").value.trim(); if (!a || !code || !dest) return say("Fill in card amount, code, and payout account."); const o = saveOrder(`Gift Card (${document.getElementById("brand").selectedOptions[0].text.split(" ")[0]})`, a, `$${(a*document.getElementById("brand").value).toFixed(2)} Payout`, dest); o.ref = code; save(); tab("ord"); say("Gift card submitted! Verification takes 2–5 minutes."); }
-    function placeBill() { if (!requireAuth()) return; const d = RAILS[document.getElementById("cty").value], a = parseFloat(document.getElementById("bAmt").value), acct = document.getElementById("bAcct").value.trim(); if (!a || !acct) return say("Enter meter/smartcard/phone number and amount."); const loc = `${d.s}${(a*d.r).toLocaleString()}`; const o = saveOrder(`Bill: ${document.getElementById("prov").value}`, a, loc, acct); openPayBox(o, `Pay ${loc} for ${document.getElementById("prov").value} (#${o.id})`, "Send payment to our mobile money/bank below so we process your bill instantly:", payCfg.momo); }
-    function savePayCfg() { payCfg = {wallet:document.getElementById("cfgWallet").value.trim(), momo:document.getElementById("cfgMomo").value.trim(), wa:document.getElementById("cfgWa").value.trim()}; localStorage.setItem("zale_paycfg", JSON.stringify(payCfg)); say("Receiving wallets, MoMo/Bank & WhatsApp saved!"); }
-    function saveRate() { const c = document.getElementById("aCty").value, r = parseFloat(document.getElementById("aRate").value); if (!r) return say("Enter a valid rate."); RAILS[c].r = r; localStorage.setItem("zale_rails", JSON.stringify(RAILS)); setCty(); say(`Updated ${c} rate to ${r}.`); }
-    function markPaid(id) { const o = orders.find(x => x.id===id); if (o) { o.status = "Settled"; save(); say(`Order #${id} marked Settled!`); } }
-    async function connectWallet() { if (!window.ethereum) { const dapp = location.href.replace(/^https?:\/\//, ""); say("Opening MetaMask mobile..."); window.location.href = "https://app.link" + dapp; return; } const acc = await window.ethereum.request({method:"eth_requestAccounts"}); document.getElementById("walletBtn").textContent = acc[0].slice(0,6)+"..."+acc[0].slice(-4); }
-    function lockSafe() { if (!requireAuth()) return; const to = document.getElementById("sTo").value.trim(), a = document.getElementById("sAmt").value, pin = document.getElementById("sPin").value; if (!to.startsWith("0x") || !a || pin.length !== 4) return say("Enter valid 0x address, USDT amount & 4-digit PIN."); saveOrder("Safe-Claim PIN Escrow", a, `PIN: ${pin}`, to); tab("ord"); say("Escrow order logged! Share the 4-digit PIN only after receiving cash."); }
+    function placeSwap() { if (!requireAuth()) return; const d = RAILS[document.getElementById("cty").value], a = parseFloat(document.getElementById("amt").value), dest = document.getElementById("dest").value.trim(); if (!a || !dest) return say("Enter your USD amount and destination wallet or mobile number."); const loc = `${d.s}${(a*d.r).toLocaleString()} (${document.getElementById("rail").value})`; const o = saveOrder(`${mode.toUpperCase()} ${document.getElementById("asset").value.split(" ")}`, a, loc, dest); if (mode === "buy") openPayBox(o, `Transfer ${loc} for Order #${o.id}`, "Send the exact local amount to our official settlement account below, then submit your reference:", payCfg.momo); else openPayBox(o, `Transfer $${a} Crypto for Order #${o.id}`, "Send the exact crypto amount to our official USDT (TRC20) address below, then submit your TxID:", payCfg.wallet); }
+    function placeCard() { if (!requireAuth()) return; const a = parseFloat(document.getElementById("cAmt").value), code = document.getElementById("cCode").value.trim(), dest = document.getElementById("cDest").value.trim(); if (!a || !code || !dest) return say("Enter the card amount, E-Code, and your payout account."); const o = saveOrder(`Gift Card (${document.getElementById("brand").selectedOptions.text.split(" ")})`, a, `$${(a*document.getElementById("brand").value).toFixed(2)} Payout`, dest); o.ref = code; save(); tab("ord"); say("Gift card received for verification."); }
+    function placeBill() { if (!requireAuth()) return; const d = RAILS[document.getElementById("cty").value], a = parseFloat(document.getElementById("bAmt").value), acct = document.getElementById("bAcct").value.trim(); if (!a || !acct) return say("Enter the meter, smartcard, or phone number and amount."); const loc = `${d.s}${(a*d.r).toLocaleString()}`; const o = saveOrder(`Bill: ${document.getElementById("prov").value}`, a, loc, acct); openPayBox(o, `Settle ${loc} for ${document.getElementById("prov").value} (#${o.id})`, "Transfer the local amount to our official desk account below for immediate utility top-up:", payCfg.momo); }
+    function savePayCfg() { payCfg = {wallet:document.getElementById("cfgWallet").value.trim(), momo:document.getElementById("cfgMomo").value.trim(), wa:document.getElementById("cfgWa").value.trim()}; localStorage.setItem("zale_paycfg", JSON.stringify(payCfg)); say("Official receiving accounts updated."); }
+    function saveRate() { const c = document.getElementById("aCty").value, r = parseFloat(document.getElementById("aRate").value); if (!r) return say("Enter a valid rate."); RAILS[c].r = r; localStorage.setItem("zale_rails", JSON.stringify(RAILS)); setCty(); say(`Updated ${c} benchmark rate to ${r}.`); }
+    function markPaid(id) { const o = orders.find(x => x.id===id); if (o) { o.status = "Settled"; save(); say(`Order #${id} marked Settled.`); } }
+    async function connectWallet() { if (!window.ethereum) { const dapp = location.href.replace(/^https?:\/\//, ""); say("Opening MetaMask mobile..."); window.location.href = "https://app.link" + dapp; return; } const acc = await window.ethereum.request({method:"eth_requestAccounts"}); document.getElementById("walletBtn").textContent = acc.slice(0,6)+"..."+acc.slice(-4); }
+    function lockSafe() { if (!requireAuth()) return; const to = document.getElementById("sTo").value.trim(), a = document.getElementById("sAmt").value, pin = document.getElementById("sPin").value; if (!to.startsWith("0x") || !a || pin.length !== 4) return say("Enter a valid 0x address, USDT amount, and 4-digit PIN."); saveOrder("Safe-Claim PIN Escrow", a, `PIN: ${pin}`, to); tab("ord"); say("Escrow logged. Share your 4-digit PIN only after confirming delivery."); }
     function render() {
       const myOrders = user ? orders.filter(o => o.user===user.email) : [];
-      if (user) { document.getElementById("dashSettled").textContent = myOrders.filter(o => o.status==="Settled").length + " Settled"; document.getElementById("dashPending").textContent = myOrders.filter(o => o.status==="Pending").length + " Pending"; }
-      const card = o => `<div class="order-item"><div class="row"><b>#${o.id} • ${o.type}</b><span class="badge ${o.status==='Pending'?'pending':'paid'}">${o.status}</span></div><div style="color:#94a3b8;margin-top:4px">$${o.usd} • ${o.local} • ${o.time}</div><div style="color:#cbd5e1;margin-top:2px;word-break:break-all">Send To: ${o.to}</div><div style="color:#fbbf24;margin-top:2px">Ref / Code: ${o.ref}</div><div class="bar"><div class="${o.status==='Pending'?'fill-p':'fill-d'}"></div></div>${user?.admin && o.status==='Pending' ? `<button class="btn-sm" style="margin-top:8px;width:100%" onclick="markPaid(${o.id})">Mark Paid &amp; Complete</button>` : ""}</div>`;
-      document.getElementById("oList").innerHTML = user ? (myOrders.map(card).join("") || "<p style='color:#94a3b8;font-size:12px'>No orders yet. Place your first trade above.</p>") : "<p style='color:#94a3b8;font-size:12px'>Sign in below to view your orders.</p>";
-      if (user?.admin) document.getElementById("aList").innerHTML = orders.map(card).join("") || "<p style='color:#94a3b8;font-size:12px'>Queue empty.</p>";
+      if (user) { document.getElementById("statSettled").textContent = myOrders.filter(o => o.status==="Settled").length; document.getElementById("statPending").textContent = myOrders.filter(o => o.status==="Pending").length; }
+      const card = o => `<div class="order-item"><div class="row"><b>#${o.id} • ${o.type}</b><span class="badge ${o.status==='Pending'?'pending':'paid'}">${o.status}</span></div><div style="color:#94a3b8;margin-top:4px">$${o.usd} • ${o.local} • ${o.time}</div><div style="color:#e2e8f0;margin-top:2px;word-break:break-all">Destination: ${o.to}</div><div style="color:#fbbf24;margin-top:2px">Reference: ${o.ref}</div>${user?.admin && o.status==='Pending' ? `<button style="background:#10b981;color:#03120e;padding:8px;margin-top:8px;width:100%" onclick="markPaid(${o.id})">Mark Settled &amp; Complete</button>` : ""}</div>`;
+      document.getElementById("oList").innerHTML = user ? (myOrders.map(card).join("") || "<p style='color:#94a3b8;font-size:12px'>Your ledger is empty. Initiate your first trade above.</p>") : "<p style='color:#94a3b8;font-size:12px'>Sign in below to view your personal order ledger.</p>";
+      if (user?.admin) document.getElementById("aList").innerHTML = orders.map(card).join("") || "<p style='color:#94a3b8;font-size:12px'>No client orders in queue.</p>";
     }
-    if("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js");
-    setCty(); boot();
-  </script>
-</body>
-</html>
- in navigator) navigator.serviceWorker.register("./sw.js");
-    setCty(); boot();
-  </script>
-</body>
-</html>
- in navigator) navigator.serviceWorker.register("./sw.js");
+    if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js");
     setCty(); boot();
   </script>
 </body>
