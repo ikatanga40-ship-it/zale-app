@@ -131,24 +131,24 @@
         <div class="row" style="margin-top:8px"><button class="btn" style="margin:0" onclick="submitProof()">Confirm Paid</button><button class="btn-gold" style="width:100%;padding:14px" onclick="waConcierge()">WhatsApp Desk</button></div>
       </div>
 
-      <div id="tab-home">
+            <div id="tab-home">
         <div class="row">
-          <div>
-            <div style="font-size:18px;font-weight:900">Welcome</div>
-            <div style="display:flex;align-items:center;gap:8px;margin-top:6px">
-              <div id="homeInitials" class="avatar" style="width:32px;height:32px;font-size:12px">IK</div>
-              <span id="homeCountryBadge" style="font-size:12.5px;font-weight:800;color:var(--txt)">🇿🇲 Zambia</span>
+          <div style="display:flex;align-items:center;gap:8px;cursor:pointer" onclick="document.getElementById('walletDropMenu').classList.toggle('hide')">
+            <div id="homeInitials" class="avatar" style="width:36px;height:36px;font-size:13px">IK</div>
+            <div style="display:flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--brd);padding:7px 12px;border-radius:999px">
+              <span id="homeCountryBadge" style="font-size:13px;font-weight:800;color:var(--txt)">🇿🇲 Zambia</span>
+              <span style="font-size:10px;color:var(--mut)">▼</span>
             </div>
           </div>
           <div style="display:flex;gap:6px"><button class="btn-ghost" onclick="shareApp()">📤 Share</button><button id="adminTopBtn" class="btn-gold hide" onclick="nav('admin')">⚙️ Admin</button></div>
         </div>
-
-        <div class="card" style="padding:12px 14px">
-          <div style="font-size:10.5px;color:var(--mut);font-weight:800;text-transform:uppercase">Select Wallet</div>
-          <select id="walletSelector" onchange="handleWalletSelect(this.value)" style="margin-top:6px;font-weight:800"></select>
+        <div id="walletDropMenu" class="card hide" style="padding:12px 14px;border-color:rgba(16,185,129,.45)">
+          <div style="font-size:10.5px;color:var(--mut);font-weight:800;text-transform:uppercase;margin-bottom:8px">Select Wallet</div>
+          <div class="acc-row" style="cursor:pointer" onclick="document.getElementById('walletDropMenu').classList.add('hide');nav('trade')"><span style="font-weight:800;color:var(--acc)">+ Add Crypto Asset</span><span style="font-size:11px;color:var(--mut)">USDT / BTC / SOL →</span></div>
+          <div class="acc-row" style="cursor:pointer;border:none" onclick="document.getElementById('walletDropMenu').classList.add('hide')"><span id="dropCountryLabel" style="font-weight:800">🇿🇲 Zambia</span><b id="dropCountryBal" style="color:var(--gold)">0.00 USD</b></div>
         </div>
-
-        <div id="kycBanner" class="card" style="border-color:rgba(245,158,11,.5);background:linear-gradient(135deg,rgba(245,158,11,.15),var(--card))">
+        <div id="kycBanner"
+ class="card" style="border-color:rgba(245,158,11,.5);background:linear-gradient(135deg,rgba(245,158,11,.15),var(--card))">
           <div class="row"><div><div style="font-weight:800;font-size:13.5px;color:var(--gold)">⚠️ Complete Setup KYC</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Verify Face ID &amp; BVN/National ID to unlock higher limits.</div></div><button class="btn-gold" onclick="nav('account');document.getElementById('kycModalBox').classList.remove('hide')">Complete KYC</button></div>
         </div>
 
@@ -250,15 +250,9 @@
         </div>
       </div>
 
-      <div id="tab-account" class="hide">
-        <div class="card"><div style="display:flex;align-items:center;gap:12px"><div id="accInitials" class="avatar">IK</div><div><div id="accFullName" style="font-size:17px;font-weight:900">Isaac Katanga</div><div id="accContact" style="font-size:12px;color:var(--mut);margin-top:2px"></div></div></div></div>
-        <div class="card" style="border-color:rgba(245,158,11,.45)">
-          <div class="row" style="margin-bottom:8px"><h3 style="margin:0;font-size:15px;color:var(--gold)">Refer &amp; Earn</h3><span style="font-size:11.5px;color:var(--acc);font-weight:800;cursor:pointer" onclick="toast('Referral leaderboard synced.')">Referrals • See All</span></div>
-          <div class="row" style="gap:8px;margin-bottom:10px"><div class="ref-stat"><div style="font-size:10px;color:var(--mut)">Total No. of Referrals</div><div id="refTotalCnt" style="font-size:18px;font-weight:900;margin-top:2px">0</div></div><div class="ref-stat"><div style="font-size:10px;color:var(--mut)">Completed Referrals</div><div id="refDoneCnt" style="font-size:18px;font-weight:900;color:var(--acc);margin-top:2px">0</div></div></div>
-          <div style="background:var(--card2);border:1px dashed var(--brd);padding:10px 12px;border-radius:12px" class="row"><span style="font-size:11.5px;color:var(--mut)">Referral Code</span><b id="userRefCode" style="font-size:14px;color:var(--gold);letter-spacing:.6px">UD4IK</b></div>
-          <div class="row" style="margin-top:10px"><button class="btn-ghost" style="width:100%" onclick="copyRefLink()">📋 Copy Referral Link</button><button class="btn-gold" style="width:100%" onclick="shareRefLink()">📤 Share Link</button></div>
-          <div style="font-size:10.5px;color:var(--mut);text-align:center;margin-top:8px">Terms and conditions applied</div>
-        </div>
+            <div id="tab-account" class="hide">
+        <div class="card"><div style="display:flex;align-items:center;gap:12px"><div id="accInitials" class="avatar">IK</div><div><div id="accFullName" style="font-size:17px;font-weight:900">Isaac Katanga</div><div id="accEmailDisp" style="font-size:12px;color:var(--acc);font-weight:700;margin-top:2px"></div><div id="accPhoneDisp" style="font-size:11.5px;color:var(--mut);margin-top:2px"></div></div></div></div>
+        <div style="font-size:12px;font-weight:900;color:var(--mut);text-transform:uppercase;letter-spacing:.8px;margin:16px 4px 0">Settings</div>
         <div class="card">
           <div class="row"><h3 style="margin:0;font-size:14.5px">KYC Verification Level</h3><span id="kycBadge" class="pill-pend">Tier 1 • Pending</span></div>
           <div class="acc-row"><span>Email &amp; Phone Verification</span><span class="pill-ok">Verified</span></div>
@@ -268,20 +262,39 @@
           <button class="btn-gold" style="width:100%;margin-top:8px" onclick="document.getElementById('kycModalBox').classList.toggle('hide')">Update KYC</button>
           <div id="kycModalBox" class="hide" style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--brd)"><input id="kycIdNum" placeholder="Enter BVN or National ID / NRC Number" /><select id="kycDocType"><option>National ID / NRC</option><option>BVN Verification</option><option>International Passport</option></select><button class="btn" onclick="submitKycUpdate()">Submit Face &amp; BVN Verification</button></div>
         </div>
-        <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Security</h3>          <div class="acc-row"><span>Change Password</span><button class="btn-ghost" onclick="changePassPrompt()">Update</button></div>
+        <div class="card">
+          <h3 style="margin:0 0 6px;font-size:14.5px">Security</h3>
+          <div class="acc-row"><span>Change Password</span><button class="btn-ghost" onclick="changePassPrompt()">Update</button></div>
           <div class="acc-row"><span>🔐 Saved Payout Vault</span><button class="btn-ghost" onclick="document.getElementById('vaultBoxV3').classList.toggle('hide')">Manage</button></div>
-          <div id="vaultBoxV3" class="hide" style="padding:10px 0;border-bottom:1px solid var(--brd)">
-            <input id="v3VaultMomo" placeholder="Default Mobile Money / Bank Account" style="margin-top:4px" />
-            <input id="v3VaultWallet" placeholder="Default USDT (TRC20) Address" />
-            <button class="btn" style="padding:11px;margin-top:8px" onclick="saveVaultV3()">Save Payout Details</button>
-          </div>
-<div class="acc-row"><span>Two-Factor Authentication</span><input type="checkbox" id="tog2fa" style="width:auto;margin:0" onchange="savePrefs()" /></div><div class="acc-row"><span>Fingerprint Enabler</span><input type="checkbox" id="togBio" style="width:auto;margin:0" onchange="savePrefs()" /></div></div>
-        <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Preferences</h3><div class="acc-row"><span>Newsletters</span><input type="checkbox" id="prefNews" checked style="width:auto;margin:0" onchange="savePrefs()" /></div><div class="acc-row"><span>Push Notification</span><input type="checkbox" id="prefPush" checked style="width:auto;margin:0" onchange="savePrefs()" /></div><div class="acc-row"><span>Email Notification</span><input type="checkbox" id="prefEmail" checked style="width:auto;margin:0" onchange="savePrefs()" /></div><div class="acc-row"><span>Daily Rates Update</span><input type="checkbox" id="prefRates" checked style="width:auto;margin:0" onchange="savePrefs()" /></div></div>
+          <div id="vaultBoxV3" class="hide" style="padding:10px 0;border-bottom:1px solid var(--brd)"><input id="v3VaultMomo" placeholder="Default Mobile Money / Bank Account" style="margin-top:4px" /><input id="v3VaultWallet" placeholder="Default USDT (TRC20) Address" /><button class="btn" style="padding:11px;margin-top:8px" onclick="saveVaultV3()">Save Payout Details</button></div>
+          <div class="acc-row"><span>Two-Factor Authentication</span><input type="checkbox" id="tog2fa" style="width:auto;margin:0" onchange="savePrefs()" /></div>
+          <div class="acc-row"><span>Fingerprint Enabler</span><input type="checkbox" id="togBio" style="width:auto;margin:0" onchange="savePrefs()" /></div>
+        </div>
+        <div class="card">
+          <h3 style="margin:0 0 6px;font-size:14.5px">Preferences</h3>
+          <div class="acc-row"><span>Newsletters</span><input type="checkbox" id="prefNews" checked style="width:auto;margin:0" onchange="savePrefs()" /></div>
+          <div class="acc-row"><span>Push Notification</span><input type="checkbox" id="prefPush" checked style="width:auto;margin:0" onchange="savePrefs()" /></div>
+          <div class="acc-row"><span>Email Notification</span><input type="checkbox" id="prefEmail" checked style="width:auto;margin:0" onchange="savePrefs()" /></div>
+          <div class="acc-row"><span>Daily Rates Update</span><input type="checkbox" id="prefRates" checked style="width:auto;margin:0" onchange="savePrefs()" /></div>
+        </div>
         <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Appearance</h3><select id="themeSel" onchange="applyTheme(this.value)" style="margin-top:4px"><option value="dark">Dark Theme</option><option value="light">Light Theme</option><option value="system">System (Phone System)</option></select></div>
+        <div class="card" style="border-color:rgba(245,158,11,.45);cursor:pointer" onclick="nav('refer')"><div class="row"><div><div style="font-weight:800;font-size:14.5px;color:var(--gold)">🎁 Refer &amp; Earn</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Number of referrals, code &amp; share link</div></div><span style="font-weight:900;color:var(--acc)">Open →</span></div></div>
         <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Support</h3><div class="acc-row"><span>Company Email</span><b>ikatanga40@gmail.com</b></div><div class="acc-row"><span>WhatsApp Support</span><a href="https://wa.me" target="_blank" style="color:var(--acc);font-weight:800;text-decoration:none">+260 77 947 3735</a></div><button class="btn-ghost" style="width:100%;margin-top:10px" onclick="shareApp()">📤 Share Zale App</button><button class="btn" style="background:#ef4444;color:#fff;margin-top:10px" onclick="doLogout()">Sign Out</button></div>
       </div>
-
-      <div id="tab-admin" class="hide"><div class="card" style="border-color:rgba(245,158,11,.6)"><div class="row"><span class="eyebrow">Executive Admin Workspace</span><button class="btn-ghost" onclick="nav('home')">← Home</button></div><div id="admOrdersList" style="margin-top:10px"></div></div></div>
+      <div id="tab-refer" class="hide">
+        <div class="card" style="border-color:rgba(245,158,11,.5)">
+          <div class="row" style="margin-bottom:10px"><h2 style="margin:0;font-size:19px;color:var(--gold)">Refer &amp; Earn</h2><button class="btn-ghost" style="padding:5px 10px;font-size:11px" onclick="nav('account')">← Account</button></div>
+          <div class="row" style="gap:8px;margin-bottom:12px"><div class="ref-stat"><div style="font-size:10.5px;color:var(--mut)">Number of Referrals</div><div id="refTotalCnt" style="font-size:20px;font-weight:900;margin-top:3px">0</div></div><div class="ref-stat"><div style="font-size:10.5px;color:var(--mut)">Completed Referrals</div><div id="refDoneCnt" style="font-size:20px;font-weight:900;color:var(--acc);margin-top:3px">0</div></div></div>
+          <div style="background:var(--card2);border:1px dashed var(--brd);padding:12px;border-radius:13px" class="row"><span style="font-size:12px;color:var(--mut)">Referral Code</span><b id="userRefCode" style="font-size:16px;color:var(--gold);letter-spacing:1px">UDIK40</b></div>
+          <div class="row" style="margin-top:10px"><button class="btn-ghost" style="width:100%" onclick="copyRefCodeOnly()">📋 Copy Code</button><button class="btn-ghost" style="width:100%" onclick="copyRefLink()">🔗 Copy Link</button></div>
+          <button class="btn-gold" style="width:100%;margin-top:8px;padding:13px" onclick="shareRefLink()">📤 Share Link</button>
+          <div style="margin-top:14px;padding-top:10px;border-top:1px dashed var(--brd)" class="row"><span style="font-size:12.5px;font-weight:800">Referrals</span><span style="font-size:11.5px;color:var(--acc);font-weight:800;cursor:pointer" onclick="toast('All referrals synced.')">See All</span></div>
+          <div id="refHistoryList" style="font-size:12px;color:var(--mut);padding:10px 0">No referrals yet. Share your code to earn $2 per completed referral.</div>
+          <div style="font-size:10.5px;color:var(--mut);text-align:center;margin-top:8px">Terms and conditions applied</div>
+        </div>
+      </div>
+      <div id="tab-admin"
+ class="hide"><div class="card" style="border-color:rgba(245,158,11,.6)"><div class="row"><span class="eyebrow">Executive Admin Workspace</span><button class="btn-ghost" onclick="nav('home')">← Home</button></div><div id="admOrdersList" style="margin-top:10px"></div></div></div>
     </div>
   </div>
   <div id="bottomNav" class="bnav hide">
@@ -376,24 +389,29 @@
       localStorage.setItem("zale_v3_user", JSON.stringify(user)); enterDashboard();
     }
     function doLogout() { localStorage.removeItem("zale_v3_user"); location.reload(); }
+        function copyRefCodeOnly() { const c = document.getElementById("userRefCode").textContent; navigator.clipboard?.writeText(c); toast("Referral code " + c + " copied!"); }
     function enterDashboard() {
       document.getElementById("authFlow").classList.add("hide"); document.getElementById("mainApp").classList.remove("hide"); document.getElementById("bottomNav").classList.remove("hide");
       if (user.email === ADMIN) document.getElementById("adminTopBtn").classList.remove("hide");
-      const ini = ((user.first||"I") + (user.last||"K")).toUpperCase();
+      const f = String(user.first || "Isaac"), l = String(user.last || "Katanga");
+      const ini = (f.charAt(0) + l.charAt(0)).toUpperCase();
       document.getElementById("homeInitials").textContent = ini;
       document.getElementById("accInitials").textContent = ini;
-      document.getElementById("accFullName").textContent = `${user.first} ${user.last}`;
-      document.getElementById("accContact").textContent = `${user.email} • ${user.phone || "No phone"}`;
-      document.getElementById("userRefCode").textContent = "UD4" + ini;
+      document.getElementById("accFullName").textContent = f + " " + l;
+      if (document.getElementById("accEmailDisp")) document.getElementById("accEmailDisp").textContent = user.email;
+      if (document.getElementById("accPhoneDisp")) document.getElementById("accPhoneDisp").textContent = user.phone || "+260 77 947 3735";
+      const digits = (user.email.match(/\d+/) || ["40"]).slice(0,2);
+      if (document.getElementById("userRefCode")) document.getElementById("userRefCode").textContent = "UD" + ini + digits;
       const c = CURR[user.cty] || CURR.ZM;
-      document.getElementById("homeCountryBadge").textContent = `${c.flag} ${c.name}`;
-      document.getElementById("walletSelector").innerHTML = `<option value="fiat">${c.flag} ${c.fiat}</option><option value="add">+ Add Crypto Asset</option>`;
+      document.getElementById("homeCountryBadge").textContent = c.flag + " " + c.name;
+      if (document.getElementById("dropCountryLabel")) document.getElementById("dropCountryLabel").textContent = c.flag + " " + c.name;
       renderCoins(); renderBrands(); renderAll();
     }
+
     function shareApp() { const u = location.href; navigator.clipboard?.writeText(u); if (navigator.share) navigator.share({title:"Zale App v3.0.3",text:"Pan-African & Global FX, Crypto & Gift Cards",url:u}); else toast("Zale App link copied! Ready to paste on WhatsApp."); }
     function handleWalletSelect(v) { if (v === "add") { document.getElementById("walletSelector").value = "fiat"; nav("trade"); } }
     function nav(t) {
-      ["home","trade","wallet","giftcards","account","admin"].forEach(k => document.getElementById("tab-"+k).classList.toggle("hide", k!==t));
+      ["home","trade","wallet","giftcards","account","refer","admin"].forEach(k => document.getElementById("tab-"+k).classList.toggle("hide", k!==t));
       ["home","trade","wallet","giftcards","account"].forEach(k => document.getElementById("bn-"+k).classList.toggle("on", k===t));
       renderAll();
     }
@@ -464,7 +482,7 @@
       const c = CURR[user.cty] || CURR.ZM, bal = parseFloat(user.bal) || 0;
       document.getElementById("homeBalLoc").textContent = balHidden ? "••••••" : `${c.s}${(bal*c.r).toLocaleString(undefined,{maximumFractionDigits:2})}`;
       document.getElementById("homeBalUsd").textContent = balHidden ? "Balance Hidden" : `≈ $${bal.toFixed(2)} USD Equivalent`;
-      document.getElementById("walTabBal").textContent = balHidden ? "••••••" : `${c.s}${(bal*c.r).toLocaleString(undefined,{maximumFractionDigits:2})} ($${bal.toFixed(2)})`;
+      document.getElementById("walTabBal").textContent = balHidden ? "••••••" : c.s + (bal*c.r).toLocaleString(undefined,{maximumFractionDigits:2}) + " ($" + bal.toFixed(2) + ")"; if(document.getElementById("dropCountryBal")) document.getElementById("dropCountryBal").textContent = bal.toFixed(2) + " USD";
       if (user.kycVerified) {
         document.getElementById("kycBanner").classList.add("hide"); document.getElementById("kycBadge").textContent = "Tier 2 • Verified"; document.getElementById("kycBadge").className = "pill-ok";
         document.getElementById("faceStatus").textContent = "Verified"; document.getElementById("faceStatus").className = "pill-ok";
