@@ -1,10 +1,4 @@
-if );
-        if(document.getElementById("admProfitVal")) document.getElementById("admProfitVal").textContent = "$" + (totUsd*0.03).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
-        if(document.getElementById("rateBoard")) document.getElementById("rateBoard").innerHTML = Object.keys(RAILS).map(k=>`<div class="rb-item">${k}<b>${RAILS[k].s}${RAILS[k].r}</b></div>`).join("");
-        const admCard = o => `<div class="order-item"><div class="row"><b>#${o.id} • ${o.type}</b><span class="badge ${o.status==='Pending'?'pending':'paid'}">${o.status}</span></div><div style="color:#38bdf8;font-size:11px;margin-top:3px">Trader: ${o.user} • ${o.time}</div><div style="color:#94a3b8;margin-top:3px">$${o.usd} • ${o.local}</div><div style="color:#e2e8f0;margin-top:2px;word-break:break-all">To: ${o.to}</div><div style="color:#fbbf24;margin-top:2px">Ref: ${o.ref}</div><div class="row" style="margin-top:8px">${o.status==='Pending'?`<button style="background:#10b981;color:#03120e;padding:7px;width:100%" onclick="markPaid(${o.id})">✓ Settle</button><button class="btn-ghost" style="padding:7px 9px;color:#f87171" onclick="rejectOrder(${o.id})">✕</button>`:""}<button class="btn-copper" style="padding:7px 10px" onclick="msgClientWA(${o.id})">💬</button></div></div>`;
-        document.getElementById("aList").innerHTML = filtered.map(admCard).join("") || "<p style='color:#94a3b8;font-size:12px'>No matching orders.</p>";
-        if(document.getElementById("uList")) document.getElementById("uList").innerHTML = (usersDir.length ? usersDir : [{email:user.email,date:"Today"}]).map(u=>`<div class="user-row"><span><b>${u.email}</b></span><span style="color:#94a3b8">${u.date}</span></div>`).join("");
-      }<!DOCTYPE html>
+i<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
