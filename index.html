@@ -50,6 +50,15 @@
     .badge{padding:3px 8px;border-radius:6px;font-size:10px;font-weight:800;text-transform:uppercase}
     .pending{background:rgba(245,158,11,.16);color:#fbbf24}
     .paid{background:rgba(16,185,129,.16);color:#34d399}
+  body.member-mode{background:#04070d;background-image:radial-gradient(ellipse 85% 45% at 50% -10%,rgba(56,189,248,.13),transparent),radial-gradient(ellipse 70% 40% at 85% 5%,rgba(245,158,11,.13),transparent)}
+    body.member-mode .card,body.member-mode .pillar{background:#0b0f19;border-color:rgba(251,191,36,.18)}
+    body.member-mode .pillar.active{background:linear-gradient(160deg,rgba(245,158,11,.18),rgba(11,15,25,.98));border-color:rgba(251,191,36,.6);box-shadow:0 8px 20px -6px rgba(245,158,11,.25)}
+    .exec-deck{background:linear-gradient(155deg,#101626 0%,#090d16 65%,#05070c 100%);border:1px solid rgba(251,191,36,.38);border-radius:22px;padding:16px;margin-top:14px;box-shadow:0 20px 40px -12px rgba(0,0,0,.85)}
+    .tele-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px;padding-top:12px;border-top:1px solid rgba(255,255,255,.08)}
+    .tele-box{background:#050811;border:1px solid rgba(255,255,255,.07);border-radius:13px;padding:9px 8px;text-align:center}
+    .quick-strip{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:12px}
+    .q-chip{background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.32);color:#fde68a;padding:8px 4px;border-radius:11px;font-size:10.5px;font-weight:800;text-align:center;cursor:pointer}
+    .vault-drawer{background:#0b0f19;border:1px solid rgba(56,189,248,.28);border-radius:18px;padding:14px;margin-top:12px}
   </style>
 </head>
 <body>
@@ -77,12 +86,36 @@
       <p class="subcopy">Whether you are funding a forex broker, settling USDT to local mobile money, or splitting a household bill, every transaction is handled with transparent rates and personal care.</p>
     </div>
 
-    <div id="traderPassport" class="passport hide">
-      <div class="row">
-        <div>
-          <div style="font-size:10.5px;color:#94a3b8;text-transform:uppercase;letter-spacing:.6px">Zale Trader Passport</div>
-          <div id="passEmail" style="font-size:14px;font-weight:800;color:#fff;margin-top:2px">Member</div>
+    <div id="traderPassport" class="hide">
+      <div class="exec-deck">
+        <div class="row">
+          <div>
+            <div style="font-size:10px;color:#38bdf8;font-weight:800;letter-spacing:.7px;text-transform:uppercase">Private Member Terminal</div>
+            <div id="passEmail" style="font-size:14px;font-weight:800;color:#fff;margin-top:2px">Member</div>
+          </div>
+          <button class="btn-copper" style="padding:7px 11px;font-size:11px" onclick="window.open('https://wa.me')">💬 Concierge</button>
         </div>
+        <div class="tele-grid">
+          <div class="tele-box"><div style="font-size:9.5px;color:#94a3b8;text-transform:uppercase">Volume</div><div id="statVol" style="font-size:15px;font-weight:900;color:#fbbf24;margin-top:2px">$0.00</div></div>
+          <div class="tele-box"><div style="font-size:9.5px;color:#94a3b8;text-transform:uppercase">Settled</div><div id="statSettled" style="font-size:15px;font-weight:900;color:#34d399;margin-top:2px">0</div></div>
+          <div class="tele-box"><div style="font-size:9.5px;color:#94a3b8;text-transform:uppercase">Desk Tier</div><div id="tierBadge" style="font-size:13px;font-weight:900;color:#38bdf8;margin-top:3px">Standard</div></div>
+        </div>
+        <div class="quick-strip">
+          <div class="q-chip" onclick="quickTrade('buy',50)">⚡ Broker $50</div>
+          <div class="q-chip" onclick="quickTrade('sell',100)">💸 Cash Out $100</div>
+          <div class="q-chip" onclick="tab('bill')">🧾 Split Bill 3+</div>
+        </div>
+      </div>
+      <div class="vault-drawer">
+        <div class="row" style="margin-bottom:4px"><span style="font-size:12px;font-weight:800;color:#38bdf8">🔐 Saved Payout Vault (1-Tap Auto-Fill)</span><button class="btn-ghost" style="padding:4px 9px;font-size:11px" onclick="toggleVault()">Edit</button></div>
+        <div id="vaultSummary" style="font-size:11px;color:#cbd5e1">Tap Edit to store your default Mobile Money, Bank, or USDT wallet.</div>
+        <div id="vaultEdit" class="hide" style="margin-top:8px">
+          <input id="vMomo" placeholder="Default Mobile Money / Bank Account" />
+          <input id="vWallet" placeholder="Default USDT (TRC20) Wallet" />
+          <button class="btn-copper" style="width:100%;margin-top:8px" onclick="saveVault()">Save to My Vault</button>
+        </div>
+      </div>
+    </div>
         <span class="eyebrow"><span class="dot"></span>Active Desk</span>
       </div>
       <div class="row" style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,.08)">
@@ -122,7 +155,7 @@
       <select id="asset"><option>USDT (TRC20) — Broker &amp; P2P Standard</option><option>USDC (ERC20 / Polygon)</option><option>Bitcoin (BTC)</option><option>Solana (SOL)</option><option>Ethereum (ETH)</option></select>
       <div class="presets"><button class="pre-btn" onclick="setAmt(25)">$25</button><button class="pre-btn" onclick="setAmt(50)">$50</button><button class="pre-btn" onclick="setAmt(100)">$100</button><button class="pre-btn" onclick="setAmt(500)">$500</button></div>
       <input id="amt" type="number" placeholder="Enter Amount in USD (e.g. 100)" oninput="calc()" />
-      <input id="dest" placeholder="Your Destination Wallet Address or Mobile Money Number" />
+      <div class="row" style="margin-top:10px"><input id="dest" placeholder="Destination Wallet or Mobile/Bank Number" style="margin:0" /><button id="fillDestBtn" class="btn-ghost hide" style="white-space:nowrap;padding:12px 10px;border-color:rgba(56,189,248,.4);color:#38bdf8" onclick="fillSavedDest()">⚡ Saved</button></div>
       <div class="bridge">
         <div class="row"><span style="font-size:11px;color:#94a3b8">Desk Benchmark Rate</span><span id="recRate" style="font-size:12px;font-weight:700;color:#e2e8f0">1 USDT = K27.50</span></div>
         <div class="bridge-mid"><span>⚡ Direct Settlement Rail</span><span style="color:#34d399;font-weight:700">$0.00 Hidden Fees</span></div>
@@ -167,7 +200,6 @@
       <h3 style="margin:0 0 8px;font-size:15px;color:#fbbf24">1. Official Receiving Accounts</h3>
       <input id="cfgWallet" placeholder="My USDT (TRC20) Address" /><input id="cfgMomo" placeholder="My Airtel / Zamtel / Bank Details" /><input id="cfgWa" placeholder="My WhatsApp Number" />
 
-cat << 'EOF' >> ~/Desktop/zale/index.html
       <button class="btn-copper" style="width:100%;margin-top:10px" onclick="savePayCfg()">Save Receiving Accounts</button>
       <h3 style="margin:16px 0 6px;font-size:15px;color:#fbbf24">2. Live Corridor Rates</h3>
       <div class="row"><select id="aCty" style="margin:0"><option value="ZM">Zambia (ZM)</option><option value="NG">Nigeria (NG)</option><option value="KE">Kenya (KE)</option><option value="GH">Ghana (GH)</option><option value="ZA">South Africa (ZA)</option></select><input id="aRate" type="number" placeholder="New Rate" style="margin:0" /></div>
@@ -175,6 +207,14 @@ cat << 'EOF' >> ~/Desktop/zale/index.html
       <h3 style="margin:16px 0 6px;font-size:14px;color:#fff">3. Client Settlement Queue</h3><div id="aList"></div>
     </div>
 
+    <div id="memberFeed" class="card hide" style="border-color:rgba(56,189,248,.28)">
+      <div class="row" style="margin-bottom:6px"><span style="font-weight:800;font-size:13.5px;color:#38bdf8">📡 Live Desk Activity &amp; Rate Alert</span><button class="btn-ghost" style="padding:4px 8px;font-size:11px" onclick="tab('ord')">Full Ledger</button></div>
+      <div id="miniFeed"></div>
+      <div style="margin-top:12px;padding-top:10px;border-top:1px dashed rgba(255,255,255,.1)">
+        <div style="font-size:11px;color:#94a3b8;margin-bottom:4px">Set Target Rate Alert (Desk pings you on WhatsApp)</div>
+        <div class="row"><input id="alertRate" type="number" placeholder="Target Rate (e.g. 28.00)" style="margin:0" /><button class="btn-copper" style="white-space:nowrap;padding:12px" onclick="sendRateAlert()">Set Alert</button></div>
+      </div>
+    </div>
     <div id="authBox" class="card" style="border-color:rgba(16,185,129,.4)">
       <div class="seg2"><button id="at-login" class="on" onclick="setAuthTab('login')">Sign In</button><button id="at-signup" class="off" onclick="setAuthTab('signup')">Create Account</button></div>
       <div style="font-size:12px;color:#94a3b8;margin-bottom:4px">Open your personal Zale Trader Passport in seconds.</div>
@@ -190,11 +230,11 @@ cat << 'EOF' >> ~/Desktop/zale/index.html
   <script>
     const ADMIN = "ikatanga40@gmail.com";
     const DEF_RAILS = {
-      ZM:{s:"K",r:27.5,m:["Airtel Money ZM","MTN MoMo ZM","Zamtel Kwacha","Zanaco / Stanbic Bank"],p:{tv:["DStv ZM","GOtv ZM","TopStar"],pow:["ZESCO Prepaid"],air:["Airtel ZM","MTN ZM","Zamtel"],dat:["Airtel Data","MTN Data"]}},
-      NG:{s:"₦",r:1620,m:["OPay / PalmPay","GTBank / Access / Zenith","Kuda Bank"],p:{tv:["DStv NG","GOtv NG","Startimes"],pow:["IKEDC","EKEDC","AEDC"],air:["MTN NG","Airtel NG","Glo"],dat:["MTN SME Data","Airtel Data"]}},
-      KE:{s:"KSh",r:129,m:["M-Pesa Safaricom","Airtel Money KE","Equity / KCB Bank"],p:{tv:["DStv KE","GOtv KE"],pow:["Kenya Power (KPLC)"],air:["Safaricom","Airtel KE"],dat:["Safaricom Bundles"]}},
-      GH:{s:"₵",r:15.8,m:["MTN MoMo GH","Telecel Cash","GCB / Ecobank"],p:{tv:["DStv GH","GOtv GH"],pow:["ECG Prepaid"],air:["MTN GH","Telecel"],dat:["MTN Data GH"]}},
-      ZA:{s:"R",r:18.2,m:["Capitec Pay","FNB eWallet","Standard Bank / Absa"],p:{tv:["DStv SA","OpenView"],pow:["Eskom Prepaid"],air:["Vodacom","MTN SA"],dat:["Vodacom Data"]}}
+      ZM:{s:"K",r:27.5,m:["Airtel Money ZM","MTN MoMo ZM","Zamtel Kwacha","All Zambian Banks (Instant Transfer)"],p:{tv:["DStv ZM","GOtv ZM","TopStar"],pow:["ZESCO Prepaid"],air:["Airtel ZM","MTN ZM","Zamtel"],dat:["Airtel Data","MTN Data"]}},
+      NG:{s:"₦",r:1620,m:["OPay / PalmPay","All Nigerian Banks (NIP Instant)"],p:{tv:["DStv NG","GOtv NG","Startimes"],pow:["IKEDC","EKEDC","AEDC"],air:["MTN NG","Airtel NG","Glo"],dat:["MTN SME Data","Airtel Data"]}},
+      KE:{s:"KSh",r:129,m:["M-Pesa Safaricom","Airtel Money KE","All Kenyan Banks (PesaLink / RTGS)"],p:{tv:["DStv KE","GOtv KE"],pow:["Kenya Power (KPLC)"],air:["Safaricom","Airtel KE"],dat:["Safaricom Bundles"]}},
+      GH:{s:"₵",r:15.8,m:["MTN MoMo GH","Telecel Cash","All Ghanaian Banks (GIP Instant)"],p:{tv:["DStv GH","GOtv GH"],pow:["ECG Prepaid"],air:["MTN GH","Telecel"],dat:["MTN Data GH"]}},
+      ZA:{s:"R",r:18.2,m:["Capitec Pay","FNB eWallet","All South African Banks (EFT / PayShap)"],p:{tv:["DStv SA","OpenView"],pow:["Eskom Prepaid"],air:["Vodacom","MTN SA"],dat:["Vodacom Data"]}}
     };
     let RAILS = JSON.parse(localStorage.getItem("zale_rails") || JSON.stringify(DEF_RAILS));
     let payCfg = JSON.parse(localStorage.getItem("zale_paycfg") || '{"wallet":"TUSrAZrpJLAo1Spv3xqnRXRiWwex3UdPaY","momo":"Airtel: 0779473735 | Zamtel: 0957538263 | Bank: Standard Chartered Bank Acc No 0104314987600 (Isaac Katanga)","wa":"260779473735"}');
@@ -243,12 +283,19 @@ cat << 'EOF' >> ~/Desktop/zale/index.html
       window.scrollTo({top:0, behavior:"smooth"});
     }
     function logout() { localStorage.removeItem("zale_user"); location.reload(); }
+    let vault = JSON.parse(localStorage.getItem("zale_vault") || '{"momo":"","wallet":""}');
+    function quickTrade(m, v){ tab('swap'); setMode(m); setAmt(v); fillSavedDest(); say(`Quick preset loaded: ${m.toUpperCase()} $${v}. Enter or confirm destination below.`); }
+    function toggleVault(){ document.getElementById("vaultEdit").classList.toggle("hide"); document.getElementById("vMomo").value=vault.momo; document.getElementById("vWallet").value=vault.wallet; }
+    function saveVault(){ vault={momo:document.getElementById("vMomo").value.trim(),wallet:document.getElementById("vWallet").value.trim()}; localStorage.setItem("zale_vault",JSON.stringify(vault)); document.getElementById("vaultEdit").classList.add("hide"); updateVaultUI(); say("Saved to your personal Payout Vault!"); }
+    function updateVaultUI(){ const s=document.getElementById("vaultSummary"); if(!s) return; s.textContent=(vault.momo||vault.wallet)?`MoMo/Bank: ${vault.momo||'Not set'} • USDT: ${vault.wallet||'Not set'}`:"Tap Edit to store your default Mobile Money, Bank, or USDT wallet."; }
+    function fillSavedDest(){ const val = mode==="buy" ? (vault.wallet||vault.momo) : (vault.momo||vault.wallet); if(!val) return; document.getElementById("dest").value=val; }
+    function sendRateAlert(){ const r=document.getElementById("alertRate").value.trim(), c=document.getElementById("cty").value; if(!r) return say("Enter your target exchange rate first."); const txt=encodeURIComponent(`Hello Zale App Desk (${user?.email}), please alert me when ${c} USDT rate reaches ${r}.`); window.open(payCfg.wa?`https://wa.me{payCfg.wa}?text=${txt}`:`https://wa.me{txt}`,"_blank"); }
     function boot() {
       if (!user) return;
       document.getElementById("authBox").classList.add("hide");
       document.getElementById("topSignBtn").classList.add("hide");
       document.getElementById("welcomeCard").classList.add("hide");
-      document.getElementById("traderPassport").classList.remove("hide");
+      document.body.classList.add("member-mode"); document.getElementById("traderPassport").classList.remove("hide"); document.getElementById("memberFeed").classList.remove("hide"); document.getElementById("fillDestBtn").classList.remove("hide"); updateVaultUI();
       document.getElementById("userControls").classList.remove("hide");
       document.getElementById("passEmail").textContent = user.email;
       if (user.admin) { document.getElementById("t-adm").classList.remove("hide"); document.getElementById("cfgWallet").value = payCfg.wallet; document.getElementById("cfgMomo").value = payCfg.momo; document.getElementById("cfgWa").value = payCfg.wa; }
@@ -273,7 +320,7 @@ cat << 'EOF' >> ~/Desktop/zale/index.html
     function lockSafe() { if (!requireAuth()) return; const to = document.getElementById("sTo").value.trim(), a = document.getElementById("sAmt").value, pin = document.getElementById("sPin").value; if (!to.startsWith("0x") || !a || pin.length !== 4) return say("Enter a valid 0x address, USDT amount, and 4-digit PIN."); saveOrder("Safe-Claim PIN Escrow", a, `PIN: ${pin}`, to); tab("ord"); say("Escrow logged. Share your 4-digit PIN only after confirming delivery."); }
     function render() {
       const myOrders = user ? orders.filter(o => o.user===user.email) : [];
-      if (user) { document.getElementById("statSettled").textContent = myOrders.filter(o => o.status==="Settled").length; document.getElementById("statPending").textContent = myOrders.filter(o => o.status==="Pending").length; }
+      if (user) { const settledCount = myOrders.filter(o => o.status==="Settled").length; const totalVol = myOrders.reduce((s,o)=>s+(parseFloat(o.usd)||0),0); document.getElementById("statVol").textContent = "$" + totalVol.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}); document.getElementById("tierBadge").textContent = settledCount >= 10 ? "VIP Desk" : settledCount >= 3 ? "Silver" : "Standard"; document.getElementById("statSettled").textContent = settledCount; if(document.getElementById("miniFeed")) document.getElementById("miniFeed").innerHTML = myOrders.slice(0,2).map(card).join("") || "<p style='color:#94a3b8;font-size:11.5px;margin:4px 0'>No active settlements yet. Use a quick shortcut above to start.</p>"; document.getElementById("statPending").textContent = myOrders.filter(o => o.status==="Pending").length; }
       const card = o => `<div class="order-item"><div class="row"><b>#${o.id} • ${o.type}</b><span class="badge ${o.status==='Pending'?'pending':'paid'}">${o.status}</span></div><div style="color:#94a3b8;margin-top:4px">$${o.usd} • ${o.local} • ${o.time}</div><div style="color:#e2e8f0;margin-top:2px;word-break:break-all">Destination: ${o.to}</div><div style="color:#fbbf24;margin-top:2px">Reference: ${o.ref}</div>${user?.admin && o.status==='Pending' ? `<button style="background:#10b981;color:#03120e;padding:8px;margin-top:8px;width:100%" onclick="markPaid(${o.id})">Mark Settled &amp; Complete</button>` : ""}</div>`;
       document.getElementById("oList").innerHTML = user ? (myOrders.map(card).join("") || "<p style='color:#94a3b8;font-size:12px'>Your ledger is empty. Initiate your first trade above.</p>") : "<p style='color:#94a3b8;font-size:12px'>Sign in below to view your personal order ledger.</p>";
       if (user?.admin) document.getElementById("aList").innerHTML = orders.map(card).join("") || "<p style='color:#94a3b8;font-size:12px'>No client orders in queue.</p>";
