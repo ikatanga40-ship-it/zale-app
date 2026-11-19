@@ -68,7 +68,11 @@
     .rb-item{font-size:10px;color:#cbd5e1;font-weight:700}
     .rb-item b{display:block;color:#34d399;font-size:11px;margin-top:2px}
     .user-row{display:flex;justify-content:space-between;align-items:center;background:#050811;border:1px solid rgba(255,255,255,.07);border-radius:11px;padding:9px 11px;margin-top:6px;font-size:11.5px}
+      .modal-bg{position:fixed;inset:0;background:rgba(2,7,5,.86);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:16px;z-index:99}
+    .modal-card{width:100%;max-width:410px;background:linear-gradient(160deg,#0d241e,#06110e);border:1px solid rgba(251,191,36,.45);border-radius:22px;padding:18px;box-shadow:0 24px 48px rgba(0,0,0,.9)}
+    .rcpt-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px dashed rgba(255,255,255,.1);font-size:12px}
   </style>
+
 </head>
 <body>
   <div class="wrap">
@@ -135,7 +139,18 @@
           <div class="tele-box"><div style="font-size:9.5px;color:#94a3b8;text-transform:uppercase">Settled</div><div id="statSettled" style="font-size:15px;font-weight:900;color:#34d399;margin-top:3px">0</div></div>
           <div class="tele-box"><div style="font-size:9.5px;color:#94a3b8;text-transform:uppercase">Desk Tier</div><div id="tierBadge" style="font-size:13px;font-weight:900;color:#fbbf24;margin-top:4px">Standard</div></div>
         </div>
-        <div class="quick-strip"><div class="q-chip" onclick="quickTrade('buy',50)">⚡ Fund Broker $50</div><div class="q-chip" onclick="quickTrade('sell',100)">💵 Cash Out $100</div><div class="q-chip" onclick="tab('bill')">🧾 Split Bill 3+</div></div>
+                <div class="quick-strip">
+          <div class="q-chip" onclick="quickTrade('buy',50)">⚡ Fund Broker $50</div>
+          <div class="q-chip" onclick="openRateSheet()">📊 Today's Rates</div>
+          <div class="q-chip" onclick="togglePinBox()">🔑 Security PIN</div>
+        </div>
+        <div id="pinDrawer" class="vault-drawer hide">
+          <div class="row" style="margin-bottom:6px"><span style="font-size:12px;font-weight:800;color:#fbbf24">🔑 4-Digit Transaction PIN</span><button class="btn-ghost" style="padding:3px 8px;font-size:10px" onclick="togglePinBox()">Close</button></div>
+          <p style="font-size:11px;color:#94a3b8;margin:0 0 6px">Protects wallet withdrawals and instant Zale Wallet payments.</p>
+          <input id="txPinInput" maxlength="4" type="password" placeholder="Set 4-Digit Transaction PIN" />
+          <button class="btn-copper" style="width:100%;margin-top:8px" onclick="saveTxPin()">Save Security PIN</button>
+        </div>
+
         <div id="vaultDrawer" class="vault-drawer hide">
           <div class="row" style="margin-bottom:6px"><span style="font-size:12px;font-weight:800;color:#38bdf8">🔐 Saved Payout Vault</span><button class="btn-ghost" style="padding:3px 8px;font-size:10px" onclick="toggleVault()">Close</button></div>
           <input id="vMomo" placeholder="Default Mobile Money / Bank Account" /><input id="vWallet" placeholder="Default USDT (TRC20) Wallet" />
@@ -150,7 +165,9 @@
       <div id="payTitle" style="font-weight:800;font-size:15px;color:#fff;margin-top:6px"></div>
       <div id="payInstr" style="font-size:12.5px;color:#cbd5e1;margin:4px 0 10px;line-height:1.45"></div>
       <div style="background:#050d0b;border:1px solid rgba(245,158,11,.45);padding:12px;border-radius:12px;font-family:monospace;font-size:12px;color:#6ee7b7;word-break:break-all" id="payTarget"></div>
-      <button class="btn-copper" style="width:100%;margin-top:10px" onclick="copyTarget()">Copy Official Account Details</button>
+            <button class="btn-copper" style="width:100%;margin-top:10px" onclick="copyTarget()">Copy Official Account Details</button>
+      <button id="payWithWalBtn" class="btn hide" style="background:linear-gradient(135deg,#38bdf8,#0284c7);color:#03120e;margin-top:8px" onclick="payFromWallet()">⚡ Pay Instantly From Zale Wallet</button>
+
       <input id="txRef" placeholder="Enter Transaction ID or Mobile Money Reference" />
       <div class="row" style="margin-top:10px"><button class="btn" style="margin:0" onclick="confirmSent()">Confirm Payment</button><button class="btn-copper" style="width:100%;padding:14px" onclick="sendWA()">WhatsApp Concierge</button></div>
     </div>
@@ -307,7 +324,21 @@
       <div id="refCodeText" style="font-size:11.5px;color:#cbd5e1;line-height:1.45">Introduce fellow traders to Zale App and earn $2 cashback when they complete their first $50+ trade.</div>
     </div>
   </div>
+    <div id="rcptModal" class="modal-bg hide" onclick="if(event.target===this)this.classList.add('hide')">
+    <div class="modal-card">
+      <div class="row" style="margin-bottom:8px"><span class="eyebrow">Zale Official Receipt</span><button class="btn-ghost" style="padding:4px 9px;font-size:11px" onclick="document.getElementById('rcptModal').classList.add('hide')">Close</button></div>
+      <div id="rcptBody"></div>
+      <button class="btn" style="margin-top:12px" onclick="shareRcpt()">Share / Copy Receipt</button>
+    </div>
+  </div>
+  <div id="rateModal" class="modal-bg hide" onclick="if(event.target===this)this.classList.add('hide')">
+    <div class="modal-card">
+      <div class="row" style="margin-bottom:8px"><span class="eyebrow">Live Desk &amp; Gift Card Rates</span><button class="btn-ghost" style="padding:4px 9px;font-size:11px" onclick="document.getElementById('rateModal').classList.add('hide')">Close</button></div>
+      <div id="rateSheetBody"></div>
+    </div>
+  </div>
   <script>
+
     const ADMIN = "ikatanga40@gmail.com";
     const SB_URL = "https://supabase.co";
     const SB_KEY = "sb_publishable_XDN1F6gIkJL1JiLS1QRq4w_Tf8tk3qW";
@@ -349,7 +380,7 @@
       document.getElementById("topupDrawer").classList.add("hide");
       openPay(o, `Top Up Zale Wallet — $${v.toFixed(2)} (${locStr})`, railType==="usdt" ? `Send $${v.toFixed(2)} USDT (TRC20) to our official wallet below, then submit your TxID.` : `Send ${locStr} via Airtel, Zamtel, or Bank below, then submit your reference.`, railType==="usdt" ? payCfg.wallet : payCfg.momo);
     }
-    function openWalletWithdraw() {
+    function openWalletWithdraw() { if (!verifyTxPin()) return;
       tab("swap"); setMode("sell");
       if (walletBal > 0) document.getElementById("amt").value = walletBal;
       const sv = JSON.parse(localStorage.getItem("zale_vault") || "{}");
@@ -506,7 +537,74 @@
       const txt = `Zale App Group Split (${ppl} people) for ${note}: Total $${bv} (${c.s}${(bv*c.r).toLocaleString()}). Your share is $${(bv/ppl).toFixed(2)} (${c.s}${((bv/ppl)*c.r).toLocaleString(undefined,{maximumFractionDigits:0})}). Settle via Zale App: ${location.href}`;
       window.open(`https://wa.me/?text=${encodeURIComponent(txt)}`, "_blank");
     }
-    function openPay(o, title, instr, target) { activeOrder = o; document.getElementById("payBox").classList.remove("hide"); document.getElementById("payTitle").textContent = title; document.getElementById("payInstr").textContent = instr; document.getElementById("payTarget").textContent = target; document.getElementById("payBox").scrollIntoView({behavior:"smooth"}); }
+        let userTxPin = localStorage.getItem("zale_tx_pin") || "";
+    let currentRcpt = null;
+    function togglePinBox() { document.getElementById("pinDrawer").classList.toggle("hide"); }
+    function saveTxPin() {
+      const p = document.getElementById("txPinInput").value.trim();
+      if (!/^\d{4}$/.test(p)) return say("Enter a valid 4-digit numeric PIN.");
+      userTxPin = p; localStorage.setItem("zale_tx_pin", p);
+      document.getElementById("txPinInput").value = ""; document.getElementById("pinDrawer").classList.add("hide");
+      say("4-Digit Transaction PIN active! Required for wallet payments & withdrawals.");
+    }
+    function verifyTxPin() {
+      if (!userTxPin) return true;
+      const entered = prompt("Enter your 4-Digit Zale Transaction PIN to authorize:");
+      if (entered !== userTxPin) { say("Incorrect 4-Digit Transaction PIN."); return false; }
+      return true;
+    }
+    function openRateSheet() {
+      const fxRows = Object.keys(RAILS).map(k=>`<div class="rcpt-row"><span style="color:#cbd5e1"><b>${k}</b> Corridor Rate</span><span style="color:#34d399;font-weight:800">1 USDT = ${RAILS[k].s}${RAILS[k].r}</span></div>`).join("");
+      const gcRows = [["Amazon USA","85%"],["Apple / iTunes","82%"],["Steam Wallet","80%"],["Netflix / Google Play","80%"],["Razer Gold / PS","78%"]].map(g=>`<div class="rcpt-row"><span style="color:#cbd5e1">${g[0]}</span><span style="color:#fbbf24;font-weight:800">${g[1]} Cashout</span></div>`).join("");
+      document.getElementById("rateSheetBody").innerHTML = `<div style="font-size:11px;color:#38bdf8;font-weight:800;margin:6px 0">LIVE FX CORRIDORS</div>${fxRows}<div style="font-size:11px;color:#fbbf24;font-weight:800;margin:12px 0 4px">GIFT CARD PAYOUT RATES</div>${gcRows}`;
+      document.getElementById("rateModal").classList.remove("hide");
+    }
+    function openReceipt(id) {
+      const o = orders.find(x=>x.id===id); if (!o) return;
+      currentRcpt = o;
+      document.getElementById("rcptBody").innerHTML = `
+        <div style="text-align:center;padding:10px 0"><div style="font-size:22px;font-weight:900;color:#fff">$${o.usd}</div><div style="font-size:12px;color:#34d399;font-weight:700">${o.local} • ${o.status}</div></div>
+        <div class="rcpt-row"><span style="color:#94a3b8">Receipt ID</span><b>#${o.id}</b></div>
+        <div class="rcpt-row"><span style="color:#94a3b8">Service</span><b>${o.type}</b></div>
+        <div class="rcpt-row"><span style="color:#94a3b8">Destination</span><b style="max-width:210px;text-align:right;word-break:break-all">${o.to}</b></div>
+        <div class="rcpt-row"><span style="color:#94a3b8">Reference</span><b style="color:#fbbf24">${o.ref}</b></div>
+        <div class="rcpt-row" style="border:none"><span style="color:#94a3b8">Time</span><b>${o.time}</b></div>`;
+      document.getElementById("rcptModal").classList.remove("hide");
+    }
+    function shareRcpt() {
+      if (!currentRcpt) return;
+      const txt = `ZALE APP RECEIPT #${currentRcpt.id}\nService: ${currentRcpt.type}\nAmount: $${currentRcpt.usd} (${currentRcpt.local})\nDestination: ${currentRcpt.to}\nStatus: ${currentRcpt.status}\nRef: ${currentRcpt.ref}`;
+      navigator.clipboard?.writeText(txt);
+      say("Official Zale Receipt copied to clipboard!");
+    }
+    async function payFromWallet() {
+      if (!activeOrder || !user) return;
+      const cost = parseFloat(activeOrder.usd)||0;
+      if (walletBal < cost) return say(`Insufficient Zale Wallet balance ($${walletBal.toFixed(2)} available).`);
+      if (!verifyTxPin()) return;
+      walletBal = +(walletBal - cost).toFixed(2);
+      localStorage.setItem("zale_wal_bal", walletBal);
+      activeOrder.ref = "Paid via Zale Wallet ($" + cost.toFixed(2) + ")";
+      save(); pushOrderCloud(activeOrder);
+      try { await fetch(`${SB_URL}/rest/v1/zale_wallets`,{method:"POST",headers:{"apikey":SB_KEY,"Content-Type":"application/json","Prefer":"resolution=merge-duplicates"},body:JSON.stringify({email:user.email,usd_balance:walletBal})}); } catch(e) {}
+      document.getElementById("payBox").classList.add("hide");
+      say(`Paid $${cost.toFixed(2)} instantly from your Zale Wallet! Order #${activeOrder.id} queued for fulfillment.`);
+    }
+    function openPay(o, title, instr, target) {
+      activeOrder = o;
+      document.getElementById("payBox").classList.remove("hide");
+      document.getElementById("payTitle").textContent = title;
+      document.getElementById("payInstr").textContent = instr;
+      document.getElementById("payTarget").textContent = target;
+      const wb = document.getElementById("payWithWalBtn");
+      if (wb) {
+        const canUseWal = user && walletBal >= (parseFloat(o.usd)||0) && o.type !== "Wallet Top-Up";
+        wb.classList.toggle("hide", !canUseWal);
+        if (canUseWal) wb.textContent = `⚡ Pay $${o.usd} Instantly From Zale Wallet ($${walletBal.toFixed(2)})`;
+      }
+      document.getElementById("payBox").scrollIntoView({behavior:"smooth"});
+    }
+
     function copyTarget() { navigator.clipboard?.writeText(document.getElementById("payTarget").textContent); say("Official Zale account details copied to clipboard."); }
     function confirmSent() {
       const ref = document.getElementById("txRef").value.trim(); if (!ref) return say("Please enter your Transaction ID or Mobile Money Reference.");
@@ -576,7 +674,7 @@
         document.getElementById("walUsd").textContent = "$" + walletBal.toFixed(2);
         document.getElementById("walLoc").textContent = "≈ " + c.s + (walletBal*c.r).toLocaleString(undefined,{maximumFractionDigits:0}) + " Local Equivalent";
       }
-      const card = o => `<div class="order-item"><div class="row"><b>#${o.id} • ${o.type}</b><span class="badge ${o.status==='Pending'?'pending':'paid'}">${o.status}</span></div><div style="color:#94a3b8;margin-top:4px">$${o.usd} • ${o.local} • ${o.time}</div><div style="color:#e2e8f0;margin-top:2px;word-break:break-all">Destination: ${o.to}</div><div style="color:#fbbf24;margin-top:2px">Reference: ${o.ref}</div><div class="bar"><div class="${o.status==='Pending'?'fill-p':'fill-d'}"></div></div>${user?.admin && o.status==='Pending' ? `<button style="background:#10b981;color:#03120e;padding:8px;margin-top:8px;width:100%" onclick="markPaid(${o.id})">Mark Settled &amp; Complete</button>` : ""}</div>`;
+      const card = o => `<div class="order-item"><div class="row"><b>#${o.id} • ${o.type}</b><span class="badge ${o.status==='Pending'?'pending':'paid'}">${o.status}</span></div><div style="color:#94a3b8;margin-top:4px">$${o.usd} • ${o.local} • ${o.time}</div><div style="color:#e2e8f0;margin-top:2px;word-break:break-all">Destination: ${o.to}</div><div style="color:#fbbf24;margin-top:2px">Reference: ${o.ref}</div><div class="bar"><div class="${o.status==='Pending'?'fill-p':'fill-d'}"></div></div><div class="row" style="margin-top:8px"><button class="btn-ghost" style="padding:6px 10px;font-size:11px;width:100%" onclick="openReceipt(${o.id})">🧾 View Receipt</button>${user?.admin && o.status==='Pending' ? `<button style="background:#10b981;color:#03120e;padding:6px 10px;font-size:11px;width:100%" onclick="markPaid(${o.id})">✓ Settle</button>` : ""}</div></div>`;
       if (document.getElementById("miniFeed")) document.getElementById("miniFeed").innerHTML = myOrders.slice(0,2).map(card).join("") || "<p style='color:#94a3b8;font-size:11.5px;margin:4px 0'>No active settlements yet. Use a quick shortcut above to start.</p>";
       document.getElementById("oList").innerHTML = user ? (myOrders.map(card).join("") || "<p style='color:#94a3b8;font-size:12px'>Your ledger is empty. Initiate your first trade above.</p>") : "<p style='color:#94a3b8;font-size:12px'>Sign in below to view your personal order ledger.</p>";
       if (user?.admin) {
