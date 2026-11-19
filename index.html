@@ -67,7 +67,12 @@ let sbCfg = JSON.parse(localStorage.getItem("zale_sb") || '{"url":"https://uelap
     .rb-item{font-size:10px;color:#cbd5e1;font-weight:700}
     .rb-item b{display:block;color:#34d399;font-size:11px;margin-top:2px}
     .user-row{display:flex;justify-content:space-between;align-items:center;background:#050811;border:1px solid rgba(255,255,255,.07);border-radius:11px;padding:9px 11px;margin-top:6px;font-size:11.5px}
+      .wallet-banner{background:linear-gradient(135deg,#06241d 0%,#09131f 100%);border:1px solid rgba(16,185,129,.45);border-radius:18px;padding:14px;margin-top:12px}
+    .ticker-bar{display:flex;gap:10px;overflow-x:auto;background:#050811;border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:8px 10px;margin-top:10px;font-size:11px;white-space:nowrap}
+    .tk-item{color:#cbd5e1;font-weight:700}
+    .tk-item b{color:#34d399;margin-left:3px}
   </style>
+
 </head>
 <body>
   <div class="wrap">
@@ -102,6 +107,14 @@ let sbCfg = JSON.parse(localStorage.getItem("zale_sb") || '{"url":"https://uelap
           </div>
           <button class="btn-copper" style="padding:7px 11px;font-size:11px" onclick="window.open('https://wa.me')">💬 Concierge</button>
         </div>
+                <div class="wallet-banner">
+          <div class="row">
+            <div><div style="font-size:10px;color:#6ee7b7;text-transform:uppercase;letter-spacing:.7px;font-weight:800">Zale Multi-Currency Wallet</div><div id="walUsd" style="font-size:24px;font-weight:900;color:#fff;margin-top:2px">$0.00</div><div id="walLoc" style="font-size:11.5px;color:#94a3b8">≈ K0.00 Local Equivalent</div></div>
+            <div style="display:flex;flex-direction:column;gap:6px"><button class="btn-copper" style="padding:7px 11px;font-size:11px" onclick="promptTopup()">+ Top Up</button><button class="btn-ghost" style="padding:6px 11px;font-size:11px" onclick="tab('swap');setMode('sell')">Withdraw</button></div>
+          </div>
+          <div id="liveTicker" class="ticker-bar"><span class="tk-item">USDT <b>$1.00</b></span><span class="tk-item">BTC <b>Live...</b></span><span class="tk-item">SOL <b>Live...</b></span><span class="tk-item">ETH <b>Live...</b></span></div>
+        </div>
+
         <div class="tele-grid">
           <div class="tele-box"><div style="font-size:9.5px;color:#94a3b8;text-transform:uppercase">Volume</div><div id="statVol" style="font-size:15px;font-weight:900;color:#fbbf24;margin-top:2px">$0.00</div></div>
           <div class="tele-box"><div style="font-size:9.5px;color:#94a3b8;text-transform:uppercase">Settled</div><div id="statSettled" style="font-size:15px;font-weight:900;color:#34d399;margin-top:2px">0</div></div>
@@ -152,7 +165,7 @@ let sbCfg = JSON.parse(localStorage.getItem("zale_sb") || '{"url":"https://uelap
     <div id="p-swap" class="card">
       <div class="seg"><button id="m-buy" class="on" onclick="setMode('buy')">Buy / Broker</button><button id="m-sell" class="off" onclick="setMode('sell')">Cash Out</button><button id="m-ex" class="off" onclick="setMode('ex')">Crypto Swap</button></div>
       <div class="row"><select id="cty" onchange="setCty()" style="margin:0"><option value="ZM">Zambia (ZMW)</option><option value="NG">Nigeria (NGN)</option><option value="KE">Kenya (KES)</option><option value="GH">Ghana (GHS)</option><option value="ZA">South Africa (ZAR)</option></select><select id="rail" style="margin:0"></select></div>
-      <select id="asset"><option>USDT (TRC20) — Broker &amp; P2P Standard</option><option>USDC (ERC20 / Polygon)</option><option>Bitcoin (BTC)</option><option>Solana (SOL)</option><option>Ethereum (ETH)</option></select>
+      <select id="asset"><option>USDT (TRC20) — Broker &amp; P2P Standard</option><option>USDC (ERC20 / Polygon)</option><option>Bitcoin (BTC)</option><option>Solana (SOL)</option><option>Ethereum (ETH)</option><option>Virtual USD / Prop-Firm Payout Rail</option></select>
       <div class="presets"><button class="pre-btn" onclick="setAmt(25)">$25</button><button class="pre-btn" onclick="setAmt(50)">$50</button><button class="pre-btn" onclick="setAmt(100)">$100</button><button class="pre-btn" onclick="setAmt(500)">$500</button></div>
       <input id="amt" type="number" placeholder="Enter Amount in USD (e.g. 100)" oninput="calc()" />
       <div class="row" style="margin-top:10px"><input id="dest" placeholder="Destination Wallet or Mobile/Bank Number" style="margin:0" /><button id="fillDestBtn" class="btn-ghost hide" style="white-space:nowrap;padding:12px 10px;border-color:rgba(56,189,248,.4);color:#38bdf8" onclick="fillSavedDest()">⚡ Saved</button></div>
@@ -164,14 +177,18 @@ let sbCfg = JSON.parse(localStorage.getItem("zale_sb") || '{"url":"https://uelap
       <button id="swapBtn" class="btn" onclick="placeSwap()">Initiate Desk Order</button>
     </div>
 
-    <div id="p-card" class="card hide">
-      <div class="row" style="margin-bottom:6px"><h3 style="margin:0;font-size:15.5px">Gift Card Redemption</h3><span class="eyebrow">Up to 85%</span></div>
-      <p style="font-size:12px;color:#94a3b8;margin:0 0 8px">Convert unused retail gift cards into instant mobile money, bank transfer, or USDT.</p>
-      <select id="brand" onchange="calc()"><option value="0.85">Amazon USA Gift Card (85%)</option><option value="0.82">Apple / iTunes Card (82%)</option><option value="0.80">Steam Wallet Card (80%)</option><option value="0.78">Razer Gold / PlayStation (78%)</option></select>
-      <input id="cAmt" type="number" placeholder="Card Face Value in USD (e.g. 100)" oninput="calc()" /><input id="cCode" placeholder="Enter Card E-Code / PIN or Receipt Link" /><input id="cDest" placeholder="Your Payout Account or USDT Wallet" />
-      <div class="bridge"><div class="row"><span style="font-size:12px;color:#cbd5e1">Net Cashout Value</span><span id="cEst" style="font-size:15px;font-weight:900;color:#34d399">$0.00 USDT (K0)</span></div></div>
-      <button class="btn" onclick="placeCard()">Submit Gift Card for Review</button>
+        <div id="p-card" class="card hide">
+      <div class="row" style="margin-bottom:8px"><h3 style="margin:0;font-size:15.5px">Two-Way Gift Card Hub</h3><span class="eyebrow">BBIT &amp; Jeroid Rail</span></div>
+      <div class="seg"><button id="gc-sell" class="on" onclick="setGcMode('sell')">Sell Gift Card</button><button id="gc-buy" class="off" onclick="setGcMode('buy')">Buy Gift Card</button></div>
+      <p id="gcDesc" style="font-size:12px;color:#94a3b8;margin:0 0 8px">Redeem unused gift cards for instant Mobile Money, Bank, or Zale Wallet credit.</p>
+      <select id="brand" onchange="calc()"><option value="0.85">Amazon USA Gift Card (85%)</option><option value="0.82">Apple / iTunes Card (82%)</option><option value="0.80">Steam Wallet Card (80%)</option><option value="0.78">Razer Gold / PlayStation (78%)</option><option value="0.80">Netflix / Google Play (80%)</option></select>
+      <input id="cAmt" type="number" placeholder="Card Face Value in USD (e.g. 100)" oninput="calc()" />
+      <input id="cCode" placeholder="Enter Card E-Code / PIN or Receipt Link" />
+      <input id="cDest" placeholder="Your Payout Account, Email, or 'Zale Wallet'" />
+      <div class="bridge"><div class="row"><span id="gcEstLbl" style="font-size:12px;color:#cbd5e1">Net Cashout Value</span><span id="cEst" style="font-size:15px;font-weight:900;color:#34d399">$0.00 (K0)</span></div></div>
+      <button id="gcBtn" class="btn" onclick="placeCard()">Submit Gift Card for Cashout</button>
     </div>
+
 
     <div id="p-bill" class="card hide">
       <h3 style="margin:0 0 6px;font-size:15.5px">Utilities &amp; Group Bill Split (3+)</h3>
@@ -222,7 +239,11 @@ let sbCfg = JSON.parse(localStorage.getItem("zale_sb") || '{"url":"https://uelap
       <div id="aList"></div>
       <h3 style="margin:16px 0 6px;font-size:14px;color:#38bdf8">3. Registered Traders Directory</h3>
       <div id="uList"></div>
+            <h3 style="margin:16px 0 6px;font-size:14px;color:#34d399">3B. Credit / Debit User Zale Wallet</h3>
+      <div class="row"><input id="admWalEmail" placeholder="Trader Email" style="margin:0" /><input id="admWalDelta" type="number" placeholder="+/- USD (e.g. 50)" style="margin:0" /></div>
+      <button class="btn" style="margin-top:8px" onclick="adminAdjustWallet()">Update User Wallet Balance</button>
       <h3 style="margin:16px 0 6px;font-size:14px;color:#fbbf24">4. Official Receiving Accounts</h3>
+
       <input id="cfgWallet" placeholder="My USDT (TRC20) Address" /><input id="cfgMomo" placeholder="My Airtel / Zamtel / Bank Details" /><input id="cfgWa" placeholder="My WhatsApp Number" />
       <button class="btn-copper" style="width:100%;margin-top:8px" onclick="savePayCfg()">Save Receiving Accounts</button>
       <h3 style="margin:16px 0 6px;font-size:14px;color:#94a3b8">5. Live Multi-Device Cloud Sync (Optional)</h3>
@@ -280,7 +301,7 @@ let sbCfg = JSON.parse(localStorage.getItem("zale_sb") || '{"url":"https://uelap
       document.getElementById("recRate").textContent = `1 USDT = ${d.s}${d.r.toLocaleString()}`;
       document.getElementById("est").textContent = mode==="buy" ? `Pay ${d.s}${loc} -> $${a.toFixed(2)} Crypto` : mode==="sell" ? `$${a.toFixed(2)} -> ${d.s}${loc}` : `$${a.toFixed(2)} -> $${(a*0.992).toFixed(2)} Net`;
       const c = (parseFloat(document.getElementById("cAmt").value) || 0) * parseFloat(document.getElementById("brand").value);
-      document.getElementById("cEst").textContent = `$${c.toFixed(2)} USDT (${d.s}${(c * d.r).toLocaleString()})`;
+      document.getElementById("cEst").textContent = `$${net.toFixed(2)} (${c.s}${(net*c.r).toLocaleString(undefined,{maximumFractionDigits:0})})`;
       const b = parseFloat(document.getElementById("bAmt").value) || 0;
       document.getElementById("bEst").textContent = `${d.s}${(b * d.r).toLocaleString()}`;
     }
@@ -394,7 +415,7 @@ let sbCfg = JSON.parse(localStorage.getItem("zale_sb") || '{"url":"https://uelap
         const totalVol = myOrders.reduce((s,o)=>s+(parseFloat(o.usd)||0),0);
         document.getElementById("statVol").textContent = "$" + totalVol.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
         document.getElementById("tierBadge").textContent = settledCount >= 10 ? "VIP Desk" : settledCount >= 3 ? "Silver" : "Standard";
-        document.getElementById("statSettled").textContent = settledCount;
+        document.getElementById("statSettled").textContent = settledCount; const c=RAILS[document.getElementById("cty").value]; if(document.getElementById("walUsd")){ document.getElementById("walUsd").textContent="$"+walletBal.toFixed(2); document.getElementById("walLoc").textContent="≈ "+c.s+(walletBal*c.r).toLocaleString(undefined,{maximumFractionDigits:0})+" Local Equivalent"; }
         document.getElementById("statPending").textContent = myOrders.filter(o => o.status==="Pending").length;
       }
       const card = o => `<div class="order-item"><div class="row"><b>#${o.id} • ${o.type}</b><span class="badge ${o.status==='Pending'?'pending':'paid'}">${o.status}</span></div><div style="color:#94a3b8;margin-top:4px">$${o.usd} • ${o.local} • ${o.time}</div><div style="color:#e2e8f0;margin-top:2px;word-break:break-all">Destination: ${o.to}</div><div style="color:#fbbf24;margin-top:2px">Reference: ${o.ref}</div><div class="bar"><div class="${o.status==='Pending'?'fill-p':'fill-d'}"></div></div>${user?.admin && o.status==='Pending' ? `<button style="background:#10b981;color:#03120e;padding:8px;margin-top:8px;width:100%" onclick="markPaid(${o.id})">Mark Settled &amp; Complete</button>` : ""}</div>`;
