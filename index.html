@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+let sbCfg = JSON.parse(localStorage.getItem("zale_sb") || '{"url":"https://uelaprtqdglwveuppefs.supabase.co","key":"sb_publishable_XDN1F6gIkJL1JiLS1QRq4w_Tf8tk3qW"}'); if(!sbCfg.url){ sbCfg={url:"https://supabase.co",key:"sb_publishable_XDN1F6gIkJL1JiLS1QRq4w_Tf8tk3qW"}; }<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -316,7 +316,7 @@
       if (!e || p.length < 4) return say("Please enter a valid email and password (4+ characters).");
       user = {email:e, admin: e === ADMIN};
       localStorage.setItem("zale_user", JSON.stringify(user)); pushUserCloud(e);
-      boot();
+      boot(); syncCloud(); syncCloud();
       say(type==="signup" ? "Your Zale Trader Passport is ready." : "Welcome back to your Zale Trader Passport.");
       window.scrollTo({top:0, behavior:"smooth"});
     }
@@ -329,7 +329,7 @@
     function fillSavedDest(){ const val = mode==="buy" ? (vault.wallet||vault.momo) : (vault.momo||vault.wallet); if(!val) return; document.getElementById("dest").value=val; }
     function sendRateAlert(){ const r=document.getElementById("alertRate").value.trim(), c=document.getElementById("cty").value; if(!r) return say("Enter your target exchange rate first."); const txt=encodeURIComponent(`Hello Zale App Desk (${user?.email}), please alert me when ${c} USDT rate reaches ${r}.`); window.open(payCfg.wa?`https://wa.me{payCfg.wa}?text=${txt}`:`https://wa.me{txt}`,"_blank"); }
     let usersDir = JSON.parse(localStorage.getItem("zale_users_dir") || "[]");
-    let sbCfg = JSON.parse(localStorage.getItem("zale_sb") || '{"url":"","key":""}');
+    let sbCfg = JSON.parse(localStorage.getItem("zale_sb") || '{"url":"https://uelaprtqdglwveuppefs.supabase.co","key":"sb_publishable_XDN1F6gIkJL1JiLS1QRq4w_Tf8tk3qW"}');
     let admFilter = "all";
     function setAdmFilter(f){ admFilter=f; ["all","Pending","Settled"].forEach(k=>{const el=document.getElementById("af-"+k); if(el) el.className=k===f?"on":"off";}); render(); }
     function rejectOrder(id){ const o=orders.find(x=>x.id===id); if(o){ o.status="Rejected"; save(); pushOrderCloud(o); say(`Order #${id} marked Rejected.`); } }
@@ -344,11 +344,11 @@
     async function pushUserCloud(email){
       if(!usersDir.find(u=>u.email===email)){ usersDir.unshift({email,date:new Date().toLocaleDateString()}); localStorage.setItem("zale_users_dir",JSON.stringify(usersDir)); }
       if(!sbCfg.url||!sbCfg.key) return;
-      try{ await fetch(`${sbCfg.url}/rest/v1/zale_users`,{method:"POST",headers:{"apikey":sbCfg.key,"Authorization":"Bearer "+sbCfg.key,"Content-Type":"application/json","Prefer":"resolution=merge-duplicates"},body:JSON.stringify({email})}); }catch(e){}
+      try{ await fetch(`${sbCfg.url}/rest/v1/zale_users`,{method:"POST",headers:{"apikey":sbCfg.key,"Content-Type":"application/json","Prefer":"resolution=merge-duplicates"},body:JSON.stringify({email})}); }catch(e){}
     }
     async function pushOrderCloud(o){
       if(!sbCfg.url||!sbCfg.key) return;
-      try{ await fetch(`${sbCfg.url}/rest/v1/zale_orders`,{method:"POST",headers:{"apikey":sbCfg.key,"Authorization":"Bearer "+sbCfg.key,"Content-Type":"application/json","Prefer":"resolution=merge-duplicates"},body:JSON.stringify({id:o.id,user_email:o.user,type:o.type,usd:o.usd,local:o.local,destination:o.to,ref:o.ref,status:o.status,time:o.time})}); }catch(e){}
+      try{ await fetch(`${sbCfg.url}/rest/v1/zale_orders`,{method:"POST",headers:{"apikey":sbCfg.key,"Content-Type":"application/json","Prefer":"resolution=merge-duplicates"},body:JSON.stringify({id:o.id,user_email:o.user,type:o.type,usd:o.usd,local:o.local,destination:o.to,ref:o.ref,status:o.status,time:o.time})}); }catch(e){}
     }
     async function syncCloud(){
       if(!sbCfg.url||!sbCfg.key) return;
@@ -415,7 +415,7 @@
       }
     }
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js");
-    setCty(); boot();
+    setCty(); boot(); syncCloud();
   </script>
 </body>
 </html>
