@@ -63,14 +63,14 @@
   </style>
 </head>
 <body>
-  <div class="wrap"><div class="desk-top"><div class="row">
+  <div class="wrap"><div class="row">
       <div style="display:flex;align-items:center;gap:11px">
         <img src="./icon-192.png" alt="Zale App" style="width:44px;height:44px;border-radius:13px;object-fit:cover;border:1px solid rgba(245,158,11,.45)" />
         <div>
           <h1 class="brand-title">Zale App</h1>
           <p class="brand-tag">Pan-African FX, Crypto &amp; Utility Desk</p>
         </div>
-      </div></div><div class="desk-left">
+      </div></div>
       <div style="display:flex;gap:6px">
         <button class="btn-copper" onclick="shareApp()">Share</button>
         <button id="topSignBtn" class="btn-ghost" onclick="scrollAuth()">Sign In</button>
@@ -137,7 +137,7 @@
       <div class="row" style="margin-top:10px"><button class="btn" style="margin:0" onclick="confirmSent()">Confirm Payment</button><button class="btn-copper" style="width:100%;padding:14px" onclick="sendWA()">WhatsApp Concierge</button></div>
     </div>
 
-    <div id="leftEnd"></div></div><div class="desk-right"><div class="pillars">
+    <div class="pillars">
       <div id="nav-swap" class="pillar active" onclick="tab('swap')"><span class="pillar-ico">💱</span><span class="pillar-lbl">FX Bridge</span></div>
       <div id="nav-card" class="pillar" onclick="tab('card')"><span class="pillar-ico">💳</span><span class="pillar-lbl">Gift Cards</span></div>
       <div id="nav-bill" class="pillar" onclick="tab('bill')"><span class="pillar-ico">🧾</span><span class="pillar-lbl">Bills &amp; 3+</span></div>
@@ -328,5 +328,5 @@
     if ("serviceWorker" in navigator) navigator.serviceWorker.register("./sw.js");
     setCty(); boot();
   </script>
-</div></body>
+</body>
 </html>
