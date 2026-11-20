@@ -192,6 +192,15 @@
             </div>
 
           </div>
+                  <div id="escrowDrawer" class="hide" style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--brd)">
+            <div style="font-weight:800;font-size:13px;color:var(--gold)">🔐 Safe-Claim 4-Digit PIN Escrow (P2P Protection)</div>
+            <p style="font-size:11.5px;color:var(--mut);margin:4px 0 8px">Funds stay locked in Zale Escrow until you share your secret 4-digit PIN with the recipient.</p>
+            <input id="escTo" placeholder="Recipient Wallet Address or Phone Number" />
+            <input id="escAmt" type="number" placeholder="Amount in USDT (e.g. 50)" />
+            <input id="escPin" maxlength="4" placeholder="Create Secret 4-Digit Release PIN" />
+            <button class="btn" onclick="placeEscrowOrder()">Lock Funds in 4-Digit PIN Escrow</button>
+          </div>
+
         </div>
 
                 <div class="card" style="cursor:pointer;border-color:rgba(245,158,11,.45);background:linear-gradient(135deg,rgba(245,158,11,.12),var(--card))" onclick="nav('rates')">
@@ -232,24 +241,25 @@
           <button class="btn-gold" style="width:100%;margin-top:10px;padding:13px" onclick="sendUsernameTransfer()">Send Instant Username Transfer</button>
         </div>
       </div>
-      <div id="tab-wallet" class="hide">
+            <div id="tab-wallet" class="hide">
         <div class="card" style="background:linear-gradient(145deg,#0c2e24,#071612);color:#fff">
           <div style="font-size:11px;color:#6ee7b7;font-weight:800;text-transform:uppercase">Zale Spot &amp; Fiat Wallet</div>
           <div id="walTabBal" style="font-size:26px;font-weight:900;margin-top:4px">$0.00</div>
-                    <div class="act3" style="margin-top:14px">
-            <button class="act-btn" style="background:rgba(16,185,129,.22);color:#fff;border-color:rgba(16,185,129,.5)" onclick="openWalletAction('deposit')"><span>⬇️</span>Deposit</button>
-            <button class="act-btn" style="background:rgba(245,158,11,.22);color:#fff;border-color:rgba(245,158,11,.5)" onclick="nav('trade');setTradeMode('sell')"><span>⬆️</span>Sell</button>
+          <div class="act4" style="margin-top:14px">
+            <button class="act-btn" style="background:rgba(16,185,129,.22);color:#fff;border-color:rgba(16,185,129,.5)" onclick="nav('trade');setTradeMode('buy')"><span>🟢</span>Buy</button>
+            <button class="act-btn" style="background:rgba(245,158,11,.22);color:#fff;border-color:rgba(245,158,11,.5)" onclick="nav('trade');setTradeMode('sell')"><span>🟠</span>Sell</button>
+            <button class="act-btn" style="background:rgba(52,211,153,.22);color:#fff;border-color:rgba(52,211,153,.5)" onclick="openWalletAction('deposit')"><span>⬇️</span>Deposit</button>
             <button class="act-btn" style="background:rgba(56,189,248,.22);color:#fff;border-color:rgba(56,189,248,.5)" onclick="openWalletAction('withdraw')"><span>🏦</span>Withdraw</button>
           </div>
         </div>
 
-        <div id="depositBox" class="card hide" style="border-color:rgba(16,185,129,.5)">
+        <div id="depositBox" class="card hide" style="border-color:rgba(16,185,129,.55)">
           <div class="row" style="margin-bottom:4px"><h3 style="margin:0;font-size:15px;color:var(--acc)">⬇️ Deposit Funds</h3><button class="btn-ghost" style="padding:4px 8px;font-size:10px" onclick="document.getElementById('depositBox').classList.add('hide')">Close</button></div>
           <input id="depUsd" type="number" placeholder="Deposit Amount in USD (e.g. 50)" />
           <button class="btn" onclick="initiateBankDeposit()">Get Bank / MoMo Deposit Details</button>
         </div>
 
-        <div id="withdrawBox" class="card hide" style="border-color:rgba(56,189,248,.5)">
+        <div id="withdrawBox" class="card hide" style="border-color:rgba(56,189,248,.55)">
           <div class="row" style="margin-bottom:4px"><h3 style="margin:0;font-size:15px;color:#38bdf8">🏦 Withdraw / Transfer Funds</h3><button class="btn-ghost" style="padding:4px 8px;font-size:10px" onclick="document.getElementById('withdrawBox').classList.add('hide')">Close</button></div>
           <input id="wdUsd" type="number" placeholder="Withdraw Amount in USD (e.g. 50)" />
           <input id="depAcct" placeholder="Bank Account or Mobile Money Number" />
@@ -259,7 +269,8 @@
         <div class="card"><div class="row" style="margin-bottom:8px"><h3 style="margin:0;font-size:15px">Recent Transactions</h3><span style="font-size:12px;color:var(--acc);font-weight:800;cursor:pointer" onclick="toast('Showing all wallet transactions.')">See All</span></div><div id="walletOrders"></div></div>
       </div>
 
-      <div id="tab-giftcards" class="hide">
+      <div id="tab-giftcards"
+ class="hide">
         <div class="card">
           <h2 style="margin:0;font-size:19px">Trade Gift Card</h2>
           <p style="margin:4px 0 8px;font-size:12px;color:var(--mut)">Click any coin or gift card to start trading</p>
@@ -576,7 +587,7 @@
     }
 
     function shareApp() { const u = location.href; navigator.clipboard?.writeText(u); if (navigator.share) navigator.share({title:"Zale App v3.0.3",text:"Pan-African & Global FX, Crypto & Gift Cards",url:u}); else toast("Zale App link copied! Ready to paste on WhatsApp."); }
-    function handleWalletSelect(v) { if (v === "add") { document.getElementById("walletSelector").value = "fiat"; nav("trade"); } }
+    function handleWalletSelect(v) { if (v === "add") {  nav("trade"); } }
     function nav(t) {
       ["home","trade","wallet","giftcards","account","refer","rates","limits","admin"].forEach(k => document.getElementById("tab-"+k).classList.toggle("hide", k!==t));
       ["home","trade","wallet","giftcards","account"].forEach(k => document.getElementById("bn-"+k).classList.toggle("on", k===t));
@@ -714,32 +725,56 @@
       ];
       document.getElementById("limitsList").innerHTML = items.map(it => `<div class="acc-row"><span>${it[0]}</span><b>${c.s} 0.00 / ${c.s} ${(it[1]*c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})} (Daily)</b></div>`).join("");
     }
-        function selectSvcTile(id, title) {
+            function selectSvcTile(id, title) {
       ["sv-elec","sv-tv","sv-air","sv-esc"].forEach(k => {
         const el = document.getElementById(k);
-        if (el) el.style.borderColor = (k === id) ? "#10b981" : "var(--brd)";
-        if (el) el.style.background = (k === id) ? "rgba(16,185,129,.12)" : "var(--card2)";
+        if (el) {
+          el.style.borderColor = (k === id) ? "#10b981" : "var(--brd)";
+          el.style.background = (k === id) ? "rgba(16,185,129,.12)" : "var(--card2)";
+        }
       });
+      const bd = document.getElementById("billDrawer");
+      const ed = document.getElementById("escrowDrawer");
       if (title === "ESCROW") {
-        document.getElementById("billDrawer").classList.add("hide");
-        document.getElementById("escrowDrawer").classList.remove("hide");
+        if (bd) bd.classList.add("hide");
+        if (ed) ed.classList.remove("hide");
       } else {
-        document.getElementById("escrowDrawer").classList.add("hide");
-        openBillBox(title);
+        if (ed) ed.classList.add("hide");
+        if (bd) bd.classList.remove("hide");
+        const bt = document.getElementById("billTitle");
+        if (bt) bt.textContent = title;
       }
     }
-    function openWalletAction(mode) {
+
+        function openWalletAction(mode) {
       nav("wallet");
-      document.getElementById("depositBox").classList.toggle("hide", mode !== "deposit");
-      document.getElementById("withdrawBox").classList.toggle("hide", mode !== "withdraw");
+      const db = document.getElementById("depositBox");
+      const wb = document.getElementById("withdrawBox");
+      if (db) db.classList.toggle("hide", mode !== "deposit");
+      if (wb) wb.classList.toggle("hide", mode !== "withdraw");
     }
+
     function initiateWithdrawOrder() {
       const v = parseFloat(document.getElementById("wdUsd")?.value || document.getElementById("depUsd")?.value);
       const a = document.getElementById("depAcct").value.trim();
       if (!v || !a) return toast("Enter withdrawal amount and bank/mobile money account.");
       createOrder("Wallet Withdrawal", v, a, "Desk payout to: " + a);
     }
+        async function syncCloudAdmin() {
+      try {
+        const res = await fetch(`${SB_URL}/rest/v1/zale_orders?select=*&order=id.desc`,{headers:{"apikey":SB_KEY}});
+        if (res.ok) {
+          const rows = await res.json();
+          if (Array.isArray(rows) && rows.length) {
+            orders = rows.map(r => ({id:r.id,user:r.user_email,type:r.type,usd:r.usd,local:r.local,to:r.destination,ref:r.ref,status:r.status,time:r.time}));
+            localStorage.setItem("zale_orders", JSON.stringify(orders));
+          }
+        }
+        toast("Cloud orders synced!"); renderAll();
+      } catch(e) { toast("Local desk queue active."); }
+    }
     function applyTheme(t) {
+
 
 
 
@@ -753,10 +788,10 @@
       if (user.kycVerified) {
         document.getElementById("kycBanner").classList.add("hide"); document.getElementById("kycBadge").textContent = "Tier 2 • Verified"; document.getElementById("kycBadge").className = "pill-ok";
         document.getElementById("faceStatus").textContent = "Verified"; document.getElementById("faceStatus").className = "pill-ok";
-        document.getElementById("bvnStatus").textContent = "Verified"; document.getElementById("bvnStatus").className = "pill-ok"; document.getElementById("dailyLimit").textContent = "$25,000 / day";
+        document.getElementById("bvnStatus").textContent = "Verified"; document.getElementById("bvnStatus").className = "pill-ok"; 
       }
 
-      document.getElementById("homeRatesList").innerHTML = [["USDT / Local", `1 USDT = ${c.s}${c.r}`],["Binance Coin (BNB)", "$587"],["Bitcoin (BTC)", "$91,450"],["Solana (SOL)", "$215"]].map(r=>`<div class="acc-row"><span>${r[0]}</span><b>${r[1]}</b></div>`).join("");
+      
       const my = orders.filter(o=>o.user===user.email);
       document.getElementById("walletOrders").innerHTML = my.length ? my.map(o=>`<div class="order-item"><div class="row"><b>#${o.id} • ${o.type}</b><span>${o.status}</span></div><div style="color:var(--mut);margin-top:3px">$${o.usd} (${o.local}) • ${o.ref}</div></div>`).join("") : "<div style='text-align:center;padding:18px 8px;color:var(--mut);font-size:12.5px'>You currently do not have any transactions</div>";
       if (user.email === ADMIN) document.getElementById("admOrdersList").innerHTML = orders.map(o=>`<div class="order-item"><div class="row"><b>#${o.id} • ${o.type}</b><span>${o.status}</span></div><div>${o.user} • $${o.usd} • ${o.ref}</div></div>`).join("") || "<p style='font-size:12px'>No orders yet.</p>";
