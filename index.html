@@ -140,7 +140,7 @@
               <span style="font-size:10px;color:var(--mut)">▼</span>
             </div>
           </div>
-          <div style="display:flex;gap:6px"><button class="btn-ghost" onclick="shareApp()">📤 Share</button><button id="adminTopBtn" class="btn-gold hide" onclick="nav('admin')">⚙️ Admin</button></div>
+          <div style="display:flex;gap:6px"><button class="btn-ghost" onclick="shareApp()">📤 Share</button><button id="adminTopBtn" class="btn-gold hide" onclick="nav('admin');syncCloudAdmin()">⚙️ Admin</button></div>
         </div>
         <div id="walletDropMenu" class="card hide" style="padding:12px 14px;border-color:rgba(16,185,129,.45)">
           <div style="font-size:10.5px;color:var(--mut);font-weight:800;text-transform:uppercase;margin-bottom:8px">Select Wallet</div>
@@ -183,8 +183,13 @@
           </div>
 
           <div id="billDrawer" class="hide" style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--brd)">
-            <div id="billTitle" style="font-weight:800;font-size:13px;color:var(--acc)"></div>
-            <input id="billMeter" placeholder="Meter / Smartcard / Phone Number" /><input id="billUsd" type="number" placeholder="Amount in USD (e.g. 20)" />
+                        <div id="billTitle" style="font-weight:800;font-size:13px;color:var(--acc)"></div>
+            <input id="billMeter" placeholder="Meter / Smartcard / Phone Number" />
+            <div class="row" style="margin-top:8px">
+              <select id="billCurrSel" style="margin:0;width:115px" onchange="updateBillCurrLbl()"><option value="USD">USD ($)</option><option value="LOC">Local</option></select>
+              <input id="billUsd" type="number" placeholder="Enter Amount" oninput="calcSplitV3()" style="margin:0" />
+            </div>
+
                         <button class="btn" onclick="placeBillOrder()">Pay Utility Bill</button>
             <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--brd)">
               <div class="row" style="margin-bottom:6px"><span style="font-size:12px;font-weight:800;color:var(--gold)">🧾 Split Bill With 3+ Friends</span><span class="eyebrow">Zale Exclusive</span></div>
@@ -196,10 +201,19 @@
           </div>
         </div>
 
-        <div class="card"><div class="row" style="margin-bottom:8px"><h3 style="margin:0;font-size:14.5px">Live Rates</h3><span class="eyebrow">Live Feed</span></div>          <div id="homeRatesList"></div>
-          <div style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--brd)">
-            <div class="row"><input id="v3AlertRate" type="number" placeholder="🔔 Target Rate Alert (e.g. 28.00)" style="margin:0;padding:10px 12px;font-size:12.5px" /><button class="btn-gold" style="white-space:nowrap;padding:10px 12px" onclick="sendRateAlertV3()">Alert</button></div>
+                <div class="card" style="cursor:pointer;border-color:rgba(245,158,11,.45);background:linear-gradient(135deg,rgba(245,158,11,.12),var(--card))" onclick="nav('rates')">
+          <div class="row">
+            <div>
+              <div style="font-size:15.5px;font-weight:900;color:var(--txt)">Zale Rates</div>
+              <div style="font-size:12px;color:var(--mut);margin-top:2px">Stay up to date with our rates</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:8px">
+              <span style="font-size:22px;background:rgba(16,185,129,.15);border:1px solid var(--brd);padding:6px 10px;border-radius:14px">₿🤝</span>
+              <span style="font-weight:900;color:var(--acc)">→</span>
+            </div>
           </div>
+        </div>
+
 </div>
       </div>
 
@@ -261,14 +275,20 @@
       </div>
 
             <div id="tab-account" class="hide">
-        <div class="card"><div style="display:flex;align-items:center;gap:12px"><div id="accInitials" class="avatar">IK</div><div><div id="accFullName" style="font-size:17px;font-weight:900">Isaac Katanga</div><div id="accEmailDisp" style="font-size:12px;color:var(--acc);font-weight:700;margin-top:2px"></div><div id="accPhoneDisp" style="font-size:11.5px;color:var(--mut);margin-top:2px"></div></div></div></div>
+        <div class="card">          <div style="display:flex;align-items:center;gap:12px">
+            <div style="position:relative;cursor:pointer" onclick="document.getElementById('picInput').click()">
+              <div id="accInitials" class="avatar" style="overflow:hidden">IK</div>
+              <span style="position:absolute;bottom:-2px;right:-2px;background:var(--acc);color:#03120e;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center">📷</span>
+              <input id="picInput" type="file" accept="image/*" class="hide" onchange="uploadProfilePic(this)" />
+            </div>
+<div><div id="accFullName" style="font-size:17px;font-weight:900">Isaac Katanga</div><div id="accEmailDisp" style="font-size:12px;color:var(--acc);font-weight:700;margin-top:2px"></div><div id="accPhoneDisp" style="font-size:11.5px;color:var(--mut);margin-top:2px"></div></div></div></div>
         <div style="font-size:12px;font-weight:900;color:var(--mut);text-transform:uppercase;letter-spacing:.8px;margin:16px 4px 0">Settings</div>
         <div class="card">
           <div class="row"><h3 style="margin:0;font-size:14.5px">KYC Verification Level</h3><span id="kycBadge" class="pill-pend">Tier 1 • Pending</span></div>
           <div class="acc-row"><span>Email &amp; Phone Verification</span><span class="pill-ok">Verified</span></div>
           <div class="acc-row"><span>Face Verification</span><span id="faceStatus" class="pill-pend">Pending</span></div>
           <div class="acc-row"><span>BVN Verification</span><span id="bvnStatus" class="pill-pend">Pending</span></div>
-          <div class="acc-row"><span>Transfer Limits</span><b id="dailyLimit">$1,000 / day</b></div>
+          <div class="acc-row" style="cursor:pointer" onclick="nav('limits')"><span>Transfer Limits</span><b style="color:var(--acc)">View Limits →</b></div>
           <button class="btn-gold" style="width:100%;margin-top:8px" onclick="document.getElementById('kycModalBox').classList.toggle('hide')">Update KYC</button>
           <div id="kycModalBox" class="hide" style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--brd)"><input id="kycIdNum" placeholder="Enter BVN or National ID / NRC Number" /><select id="kycDocType"><option>National ID / NRC</option><option>BVN Verification</option><option>International Passport</option></select><button class="btn" onclick="submitKycUpdate()">Submit Face &amp; BVN Verification</button></div>
         </div>
@@ -303,7 +323,73 @@
           <div style="font-size:10.5px;color:var(--mut);text-align:center;margin-top:8px">Terms and conditions applied</div>
         </div>
       </div>
+            <!-- RATE CALCULATOR SCREEN -->
+      <div id="tab-rates" class="hide">
+        <div class="card" style="border-color:rgba(245,158,11,.5)">
+          <div class="row" style="margin-bottom:10px">
+            <h2 style="margin:0;font-size:19px">Rate Calculator</h2>
+            <button class="btn-ghost" style="padding:5px 10px;font-size:11px" onclick="nav('home')">← Home</button>
+          </div>
+          <div class="row" style="margin-bottom:12px">
+            <button id="rcTabCrypto" class="btn" style="margin:0;padding:10px" onclick="setRcTab('crypto')">Crypto</button>
+            <button id="rcTabGc" class="btn-ghost" style="width:100%;padding:10px" onclick="setRcTab('gc')">Gift Cards</button>
+          </div>
+          <div id="rcCryptoPane">
+            <div style="font-size:11.5px;color:var(--mut);font-weight:800">Crypto Wallet</div>
+            <input id="rcSearch" placeholder="🔍 Search crypto..." oninput="filterRcCoins()" style="margin-top:6px" />
+            <select id="rcCoinSel" onchange="calcRateBox()" style="font-weight:700">
+              <option value="BNB (BEP20)|587">BNB (BEP20)</option>
+              <option value="BTC|91450">BTC</option>
+              <option value="ETH (ERC 20)|3250">ETH (ERC 20)</option>
+              <option value="USDT (ERC20)|1">USDT (ERC20)</option>
+              <option value="USDT|1">USDT</option>
+              <option value="USDC (ERC20)|1">USDC (ERC20)</option>
+              <option value="USDT (TRC20)|1" selected>USDT (TRC20)</option>
+              <option value="USDT (SOL)|1">USDT (SOL)</option>
+              <option value="USDT (BEP20)|1">USDT (BEP20)</option>
+            </select>
+            <input id="rcAmt" type="number" placeholder="Enter Amount in USD (e.g. 100)" oninput="calcRateBox()" />
+            <div style="background:var(--card2);border:1px solid var(--brd);border-radius:13px;padding:12px;margin-top:10px" class="row">
+              <span style="font-size:12px;color:var(--mut)">Estimated Payout</span>
+              <b id="rcResult" style="font-size:15px;color:var(--gold)">K0.00</b>
+            </div>
+          </div>
+          <div id="rcGcPane" class="hide">
+            <div style="font-size:11.5px;color:var(--mut);font-weight:800">Select Gift Card</div>
+            <select id="rcGcSel" onchange="calcGcRateBox()" style="font-weight:700;margin-top:6px">
+              <option value="Amazon USA|85">Amazon USA (85%)</option>
+              <option value="Apple / iTunes|82">Apple / iTunes (82%)</option>
+              <option value="Steam Wallet|80">Steam Wallet (80%)</option>
+              <option value="Google Play|80">Google Play (80%)</option>
+              <option value="Netflix|80">Netflix (80%)</option>
+              <option value="PlayStation|78">PlayStation (78%)</option>
+              <option value="Razer Gold|78">Razer Gold (78%)</option>
+              <option value="Xbox Live|77">Xbox Live (77%)</option>
+              <option value="Nike|76">Nike (76%)</option>
+              <option value="Sephora|75">Sephora (75%)</option>
+            </select>
+            <input id="rcGcAmt" type="number" placeholder="Card Value in USD (e.g. 100)" oninput="calcGcRateBox()" />
+            <div style="background:var(--card2);border:1px solid var(--brd);border-radius:13px;padding:12px;margin-top:10px" class="row">
+              <span style="font-size:12px;color:var(--mut)">Cashout Value</span>
+              <b id="rcGcResult" style="font-size:15px;color:var(--acc)">$0.00 (K0)</b>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRANSFER LIMITS SCREEN -->
+      <div id="tab-limits" class="hide">
+        <div class="card">
+          <div class="row" style="margin-bottom:8px">
+            <h2 style="margin:0;font-size:19px">Transfer Limits</h2>
+            <button class="btn-ghost" style="padding:5px 10px;font-size:11px" onclick="nav('account')">← Account</button>
+          </div>
+          <div id="limitsList"></div>
+        </div>
+      </div>
+
       <div id="tab-admin"
+
  class="hide"><div class="card" style="border-color:rgba(245,158,11,.6)"><div class="row"><span class="eyebrow">Executive Admin Workspace</span><button class="btn-ghost" onclick="nav('home')">← Home</button></div><div id="admOrdersList" style="margin-top:10px"></div></div></div>
     </div>
   </div>
@@ -420,22 +506,41 @@
       document.getElementById("emailSimBanner").textContent = `📧 Email Notification (${tempReg.email}): Your Zale verification code is ${genOtp}`;
       showAuthStep("viewReg3");
     }
+        function getAccounts() {
+      const db = JSON.parse(localStorage.getItem("zale_accounts_db") || "{}");
+      db[ADMIN] = {first:"Isaac", last:"Katanga", email:ADMIN, pass:"zaleAdmin2026pay", cty:"ZM", phone:"+260 77 947 3735", kycVerified:true, bal:db[ADMIN]?.bal || 0};
+      localStorage.setItem("zale_accounts_db", JSON.stringify(db));
+      return db;
+    }
+    function saveAccount(u) {
+      const db = getAccounts();
+      db[u.email.toLowerCase()] = u;
+      localStorage.setItem("zale_accounts_db", JSON.stringify(db));
+      localStorage.setItem("zale_v3_user", JSON.stringify(u));
+    }
     function verifyOtpAndEnter() {
       const code = ["o1","o2","o3","o4"].map(id => document.getElementById(id).value.trim()).join("");
       if (code !== genOtp) return alert("Incorrect 4-digit code. Check the notification banner above.");
-      user = tempReg; localStorage.setItem("zale_v3_user", JSON.stringify(user));
+      const db = getAccounts();
+      if (db[tempReg.email]) return alert("An account with this email already exists. Please sign in.");
+      user = tempReg;
+      saveAccount(user);
       try { fetch(`${SB_URL}/rest/v1/zale_users`,{method:"POST",headers:{"apikey":SB_KEY,"Content-Type":"application/json","Prefer":"resolution=merge-duplicates"},body:JSON.stringify({email:user.email})}); } catch(e) {}
       enterDashboard();
     }
     function doLogin() {
-      const e = document.getElementById("lEmail").value.trim().toLowerCase(), p = document.getElementById("lPass").value.trim();
-      if (!e || p.length < 4) return alert("Enter your email and password.");
-      const saved = JSON.parse(localStorage.getItem("zale_v3_user") || "null");
-      if (saved && saved.email === e) user = saved;
-      else if (e === ADMIN) user = {first:"Isaac", last:"Katanga", email:e, cty:"ZM", phone:"+260 77 947 3735", kycVerified:false, bal:0};
-      else user = {first:e.split("@"), last:"Member", email:e, cty:"ZM", phone:"+260 77 000 0000", kycVerified:false, bal:0};
-      localStorage.setItem("zale_v3_user", JSON.stringify(user)); enterDashboard();
+      const e = document.getElementById("lEmail").value.trim().toLowerCase();
+      const p = document.getElementById("lPass").value;
+      if (!e || !p) return alert("Please enter both your exact Email Address and Password.");
+      const db = getAccounts();
+      const acct = db[e];
+      if (!acct) return alert("No account found for this exact email address. Check for typos or create an account.");
+      if (acct.pass !== p) return alert("Incorrect password. Access denied.");
+      user = acct;
+      localStorage.setItem("zale_v3_user", JSON.stringify(user));
+      enterDashboard();
     }
+
     function doLogout() { localStorage.removeItem("zale_v3_user"); location.reload(); }
         function copyRefCodeOnly() { const c = document.getElementById("userRefCode").textContent; navigator.clipboard?.writeText(c); toast("Referral code " + c + " copied!"); }
     function enterDashboard() {
@@ -453,13 +558,13 @@
       const c = CURR[user.cty] || CURR.ZM;
       document.getElementById("homeCountryBadge").textContent = c.flag + " " + c.name;
       if (document.getElementById("dropCountryLabel")) document.getElementById("dropCountryLabel").textContent = c.flag + " " + c.name;
-      renderCoins(); renderBrands(); renderAll();
+      renderAvatarPic(); updateBillCurrLbl(); renderLimitsScreen(); renderCoins(); renderBrands(); renderAll();
     }
 
     function shareApp() { const u = location.href; navigator.clipboard?.writeText(u); if (navigator.share) navigator.share({title:"Zale App v3.0.3",text:"Pan-African & Global FX, Crypto & Gift Cards",url:u}); else toast("Zale App link copied! Ready to paste on WhatsApp."); }
     function handleWalletSelect(v) { if (v === "add") { document.getElementById("walletSelector").value = "fiat"; nav("trade"); } }
     function nav(t) {
-      ["home","trade","wallet","giftcards","account","refer","admin"].forEach(k => document.getElementById("tab-"+k).classList.toggle("hide", k!==t));
+      ["home","trade","wallet","giftcards","account","refer","rates","limits","admin"].forEach(k => document.getElementById("tab-"+k).classList.toggle("hide", k!==t));
       ["home","trade","wallet","giftcards","account"].forEach(k => document.getElementById("bn-"+k).classList.toggle("on", k===t));
       renderAll();
     }
@@ -482,7 +587,14 @@
       document.getElementById("gcBrandGrid").innerHTML = list.map(b => `<div class="gc-card ${selGc.name===b.name?'sel':''}" onclick="pickGc('${b.name}')"><div style="width:36px;height:36px;border-radius:10px;background:${b.color};color:#fff;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:14px">${b.svg}</div><div><div style="font-size:12px;font-weight:800">${b.name}</div><div style="font-size:10.5px;color:var(--acc)">Rate: ${b.rate}%</div></div></div>`).join("");
     }
     function pickGc(name) { selGc = GC_BRANDS.find(x => x.name === name) || GC_BRANDS; renderBrands(); document.getElementById("gcTradeDrawer").classList.remove("hide"); document.getElementById("selGcTitle").textContent = `Trade ${selGc.name} (${selGc.rate}%)`; }
-    function createOrder(type, usd, to, target) {
+        function createOrder(type, usd, to, target) {
+      if (!user || (!user.kycVerified && user.email !== ADMIN)) {
+        toast("⚠️ Mandatory KYC Required: Complete Face & BVN/ID verification before transacting.");
+        nav("account");
+        document.getElementById("kycModalBox").classList.remove("hide");
+        return;
+      }
+
       const c = CURR[user.cty] || CURR.ZM, loc = `${c.s}${(usd*c.r).toLocaleString(undefined,{maximumFractionDigits:0})}`;
       const o = {id:Math.floor(100000+Math.random()*900000), user:user.email, type, usd, local:loc, to, ref:"Pending Proof", status:"Pending", time:new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})};
       orders.unshift(o); localStorage.setItem("zale_orders", JSON.stringify(orders)); activeOrd = o;
@@ -492,7 +604,7 @@
     }
     function submitProof() { const r = document.getElementById("stRef").value.trim(); if (!r) return toast("Enter your payment reference first."); if (activeOrd) { activeOrd.ref = r; localStorage.setItem("zale_orders", JSON.stringify(orders)); } document.getElementById("stRef").value = ""; document.getElementById("settleCard").classList.add("hide"); toast("Payment proof submitted! Your order is in verification."); }
     function waConcierge() { if (activeOrd) window.open(`https://wa.me{PAY.wa}?text=${encodeURIComponent("Zale v3.0.3 Order #" + activeOrd.id + " | " + activeOrd.type + " | $" + activeOrd.usd)}`, "_blank"); }
-    function placeBillOrder() { const m = document.getElementById("billMeter").value.trim(), v = parseFloat(document.getElementById("billUsd").value); if (!m || !v) return toast("Enter meter/account number and USD amount."); createOrder(document.getElementById("billTitle").textContent, v, m, `${PAY.momo} | USDT: ${PAY.wallet}`); }
+    function placeBillOrder() { const c = CURR[user?.cty] || CURR.ZM, m = document.getElementById("billMeter").value.trim(), raw = parseFloat(document.getElementById("billUsd").value), mode = document.getElementById("billCurrSel")?.value || "USD"; if (!m || !raw) return toast("Enter meter/account number and amount."); const v = mode === "LOC" ? +(raw / c.r).toFixed(2) : raw; createOrder(document.getElementById("billTitle").textContent, v, m, PAY.momo + " | USDT: " + PAY.wallet); }
     function placeCryptoOrder() { const v = parseFloat(document.getElementById("trAmt").value), d = document.getElementById("trDest").value.trim(); if (!v || !d) return toast("Enter USD amount and destination."); createOrder(`${document.getElementById("trRailType")?.value.includes("Broker")?"Broker Funding":document.getElementById("trRailType")?.value.includes("Prop")?"Prop-Firm Payout":"Crypto "+tradeMode.toUpperCase()} (${selCoin.name} ${selCoin.sym})`, v, d, tradeMode==="buy" ? PAY.momo : PAY.wallet); }
     function sendUsernameTransfer() { const to = document.getElementById("uToName").value.trim(), v = parseFloat(document.getElementById("uToAmt").value); if (!to || !v) return toast("Enter recipient username and USD amount."); createOrder("Zale Username Transfer", v, to, "Internal Zale Ledger Transfer ($0 Fee)"); }
     function initiateBankDeposit() { const v = parseFloat(document.getElementById("depUsd").value); if (!v) return toast("Enter deposit amount in USD."); createOrder("Bank / First Deposit", v, user.email, PAY.momo); }
@@ -500,8 +612,22 @@
     function submitGiftCard() { const act = document.getElementById("gcAction").value, v = parseFloat(document.getElementById("gcVal").value), c = document.getElementById("gcCode").value.trim(); if (!v || !c) return toast("Enter gift card USD value and code/email."); createOrder(`${act} Gift Card (${selGc.name})`, v, c, act==="Sell" ? "Submit code for verification" : `${PAY.momo} | USDT: ${PAY.wallet}`); }
     function copyRefLink() { const c = document.getElementById("userRefCode").textContent; navigator.clipboard?.writeText(`${location.href}?ref=${c}`); toast(`Referral link (${c}) copied!`); }
     function shareRefLink() { const c = document.getElementById("userRefCode").textContent; const t = `Join me on Zale App v3.0.3! Use my referral code ${c} at ${location.href}?ref=${c}`; if (navigator.share) navigator.share({title:"Zale App",text:t}); else { navigator.clipboard?.writeText(t); toast("Referral invite copied!"); } }
-    function submitKycUpdate() { const idn = document.getElementById("kycIdNum").value.trim(); if (!idn) return toast("Enter your BVN or National ID number."); user.kycVerified = true; localStorage.setItem("zale_v3_user", JSON.stringify(user)); document.getElementById("kycModalBox").classList.add("hide"); toast("KYC submitted! Face & BVN verification updated."); renderAll(); }
-    function changePassPrompt() { const np = prompt("Enter new password:"); if (np && np.length>=4) toast("Password updated successfully."); }
+        function submitKycUpdate() {
+      const idn = document.getElementById("kycIdNum").value.trim();
+      if (!idn || idn.length < 5) return toast("Enter a valid BVN or National ID / NRC number.");
+      user.kycVerified = true; user.kycId = idn;
+      saveAccount(user);
+      document.getElementById("kycModalBox").classList.add("hide");
+      toast("KYC Verified! All Zale App trading & wallet services are now unlocked.");
+      renderAll();
+    }
+    function changePassPrompt() {
+      const np = prompt("Enter new password (minimum 6 characters):");
+      if (!np || np.length < 6) return toast("Password must be at least 6 characters.");
+      user.pass = np; saveAccount(user);
+      toast("Password updated! Use your new password on next login.");
+    }
+
     function savePrefs() { toast("Security & notification preferences saved."); }
         function calcSplitV3() {
       const c = CURR[user?.cty] || CURR.ZM, v = parseFloat(document.getElementById("billUsd")?.value)||0, p = Math.max(2, parseInt(document.getElementById("spPpl")?.value)||3);
@@ -530,7 +656,52 @@
       document.getElementById("escTo").value = ""; document.getElementById("escAmt").value = ""; document.getElementById("escPin").value = "";
       toast("Escrow created! Deposit $" + v + " USDT & share PIN [" + pin + "] only after delivery.");
     }
+        function setRcTab(t) {
+      document.getElementById("rcCryptoPane").classList.toggle("hide", t!=="crypto");
+      document.getElementById("rcGcPane").classList.toggle("hide", t!=="gc");
+      document.getElementById("rcTabCrypto").className = t==="crypto" ? "btn" : "btn-ghost";
+      document.getElementById("rcTabGc").className = t==="gc" ? "btn" : "btn-ghost";
+      if (t==="crypto") calcRateBox(); else calcGcRateBox();
+    }
+    function filterRcCoins() {
+      const q = document.getElementById("rcSearch").value.toLowerCase();
+      Array.from(document.getElementById("rcCoinSel").options).forEach(o => o.style.display = o.text.toLowerCase().includes(q) ? "" : "none");
+    }
+    function calcRateBox() {
+      const c = CURR[user?.cty] || CURR.ZM, v = parseFloat(document.getElementById("rcAmt")?.value)||0;
+      document.getElementById("rcResult").textContent = `${c.s}${(v*c.r).toLocaleString(undefined,{maximumFractionDigits:2})} ($${v.toFixed(2)})`;
+    }
+    function calcGcRateBox() {
+      const c = CURR[user?.cty] || CURR.ZM, [,pct] = (document.getElementById("rcGcSel")?.value||"A|85").split("|"), v = parseFloat(document.getElementById("rcGcAmt")?.value)||0;
+      const net = v * (parseFloat(pct)/100);
+      document.getElementById("rcGcResult").textContent = `$${net.toFixed(2)} (${c.s}${(net*c.r).toLocaleString(undefined,{maximumFractionDigits:0})})`;
+    }
+    function uploadProfilePic(inp) {
+      const f = inp.files?.[0]; if (!f) return;
+      const r = new FileReader();
+      r.onload = e => { localStorage.setItem("zale_avatar_pic", e.target.result); renderAvatarPic(); toast("Profile picture updated!"); };
+      r.readAsDataURL(f);
+    }
+    function renderAvatarPic() {
+      const pic = localStorage.getItem("zale_avatar_pic");
+      if (!pic) return;
+      ["homeInitials","accInitials"].forEach(id => { const el = document.getElementById(id); if(el) el.innerHTML = `<img src="${pic}" style="width:100%;height:100%;object-fit:cover;border-radius:50%" />`; });
+    }
+    function updateBillCurrLbl() {
+      const c = CURR[user?.cty] || CURR.ZM, sel = document.getElementById("billCurrSel");
+      if (sel && sel.options[1]) sel.options[1].text = `${c.name} (${c.s})`;
+    }
+    function renderLimitsScreen() {
+      const c = CURR[user?.cty] || CURR.ZM, mult = user?.kycVerified ? 5 : 1;
+      const items = [
+        ["Fiat Deposit", 1000*mult], ["Fiat Withdraw", 550*mult], ["Crypto Transfer", 2500*mult],
+        ["Crypto Username Transfer", 1500*mult], ["Crypto Buy", 2000*mult], ["Crypto Sell", 2000*mult],
+        ["Crypto Swap", 3000*mult], ["Utility Bills", 400*mult]
+      ];
+      document.getElementById("limitsList").innerHTML = items.map(it => `<div class="acc-row"><span>${it[0]}</span><b>${c.s} 0.00 / ${c.s} ${(it[1]*c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})} (Daily)</b></div>`).join("");
+    }
     function applyTheme(t) {
+
 
  localStorage.setItem("zale_theme", t); const sysLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches; document.body.classList.toggle("light", t==="light" || (t==="system" && sysLight)); }
     function renderAll() {
