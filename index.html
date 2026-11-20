@@ -60,7 +60,7 @@
     .order-item{background:var(--card2);border:1px solid var(--brd);padding:11px;border-radius:13px;margin-top:8px;font-size:12px}
     .ref-stat{background:var(--card2);border:1px solid var(--brd);border-radius:13px;padding:10px;text-align:center;width:100%}
   </style>
-</head>
+<link rel="stylesheet" href="https://googleapis.com"><style>body,button,input,select,textarea{font-family:'Plus Jakarta Sans',-apple-system,sans-serif!important}</style></head>
 <body>
   <div id="splashScreen" class="splash">
     <svg width="68" height="68" viewBox="0 0 64 64" fill="none"><rect width="64" height="64" rx="18" fill="#10b981"/><path d="M18 20H46L22 44H46" stroke="#fde68a" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -217,7 +217,7 @@
           <div style="font-size:11px;font-weight:800;color:var(--acc);margin-top:12px;text-transform:uppercase">ALL</div>
           <div id="coinsList"></div>
         </div>
-        <div id="coinTradeBox" class="card hide" style="border-color:rgba(16,185,129,.55)">
+        <div id="coinTradeBox" class="card hide" style="border-color:rgba(16,185,129,.55)"><div id="ctTitle" style="font-size:14px;font-weight:800;color:var(--gold);margin-bottom:6px">Selected Asset</div>
           <div class="row" style="margin-bottom:8px"><h3 id="selCoinTitle" style="margin:0;font-size:15.5px">Trade Tether (USDT)</h3><button class="btn-ghost" style="padding:4px 8px;font-size:10px" onclick="document.getElementById('coinTradeBox').classList.add('hide')">Close</button></div>
           <div class="seg"><button id="tm-buy" class="on" onclick="setTradeMode('buy')">Crypto Buy</button><button id="tm-sell" class="off" onclick="setTradeMode('sell')">Crypto Sell</button><button id="tm-swap" class="off" onclick="setTradeMode('swap')">Crypto Swap</button></div>
                     <select id="trRailType"><option>Standard Crypto Wallet / Mobile Money</option><option>Forex Broker Funding (XM / Exness / Deriv / HFM)</option><option>Prop-Firm Payout Settlement (FTMO / FundedNext)</option></select>
@@ -312,8 +312,8 @@
           <div class="acc-row"><span>Change Password</span><button class="btn-ghost" onclick="changePassPrompt()">Update</button></div>
           <div class="acc-row"><span>🔐 Saved Payout Vault</span><button class="btn-ghost" onclick="document.getElementById('vaultBoxV3').classList.toggle('hide')">Manage</button></div>
           <div id="vaultBoxV3" class="hide" style="padding:10px 0;border-bottom:1px solid var(--brd)"><input id="v3VaultMomo" placeholder="Default Mobile Money / Bank Account" style="margin-top:4px" /><input id="v3VaultWallet" placeholder="Default USDT (TRC20) Address" /><button class="btn" style="padding:11px;margin-top:8px" onclick="saveVaultV3()">Save Payout Details</button></div>
-          <div class="acc-row"><span>Two-Factor Authentication</span><input type="checkbox" id="tog2fa" style="width:auto;margin:0" onchange="savePrefs()" /></div>
-          <div class="acc-row"><span>Fingerprint Enabler</span><input type="checkbox" id="togBio" style="width:auto;margin:0" onchange="savePrefs()" /></div>
+          <div class="acc-row"><span><div id="pwInlineBox" class="hide" style="background:var(--card2);border:1px solid var(--brd);border-radius:12px;padding:11px;margin:8px 0"><input id="curPwInp" type="password" placeholder="Enter Current Password" style="margin-top:0" /><input id="newPwInp1" type="password" placeholder="Enter New Password (min 6 chars)" /><input id="newPwInp2" type="password" placeholder="Re-enter New Password" /><button class="btn" style="padding:10px;font-size:12px" onclick="saveNewPasswordInline()">Update Password</button></div><div class="acc-row"><span>Two-Factor Authentication</span><button id="btn2faStatus" class="btn-ghost" style="padding:5px 10px;font-size:11px;color:var(--acc)" onclick="nav('2fa')">Setup 2FA →</button></div>
+          <div class="acc-row"><span>Fingerprint Enabler</span><input type="checkbox" id="togBio" onchange="if(this.checked){this.checked=false;openBioModal();}else{togglePref('bio',false);}"></div>
         </div>
         <div class="card">
           <h3 style="margin:0 0 6px;font-size:14.5px">Preferences</h3>
@@ -471,6 +471,46 @@
     <button id="bn-giftcards" onclick="nav('giftcards')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg></span>Gift Cards</button>
     <button id="bn-account" onclick="nav('account')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>Account</button>
   </div>
+
+  <div id="tab-2fa" class="hide">
+      <div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Security</button><span style="font-size:11px;color:var(--acc);font-weight:800">2FA Protection</span></div>
+      <div id="tfaStep1" class="card"><h2 style="margin:0 0 6px;font-size:19px">Secure your account</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 14px">Add a second step when signing in to keep your account safe. Choose how you'd like to confirm it's you.</p><div style="border:1.5px solid var(--acc);background:rgba(16,185,129,.07);border-radius:14px;padding:14px"><span style="display:inline-block;background:var(--acc);color:#03120e;font-size:10px;font-weight:900;padding:3px 8px;border-radius:6px;margin-bottom:8px">RECOMMENDED</span><div style="font-size:15px;font-weight:800">Authenticator App</div><p style="font-size:12px;color:var(--mut);margin:5px 0 12px">Generate codes with Google Authenticator, Authy, or similar. Works offline and is the most secure.</p><button class="btn" style="padding:11px" onclick="show2faStep(2)">Authenticator App →</button></div></div>
+      <div id="tfaStep2" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Authenticator App</h2><div style="background:var(--card2);border:1px solid var(--brd);border-radius:12px;padding:11px;margin:10px 0"><div style="font-size:12px;font-weight:800;color:var(--gold);margin-bottom:4px">How it works</div><div style="font-size:12px;color:var(--mut)">An authenticator app generates a new 6-digit code every 30 seconds, even offline. On the next screen, you'll link it to your Zale account.</div></div><div style="font-size:12.5px;font-weight:800;margin:12px 0 8px">Install an app</div><div class="acc-row"><b>Google Authenticator</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('google')">Get</button></div><div class="acc-row"><b>Authy</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('authy')">Get</button></div><div class="acc-row"><b>Microsoft Authenticator</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('ms')">Get</button></div><button style="width:100%;margin-top:14px;padding:13px;border:none;border-radius:12px;background:#2563eb;color:#fff;font-weight:800;font-size:13px;cursor:pointer" onclick="show2faStep(3)">I have an app, continue</button></div>
+      <div id="tfaStep3" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Link Authenticator</h2><p style="font-size:12px;color:var(--mut);margin:0 0 12px">Add Zale to your authenticator app, then enter the 6-digit code on the next step.</p><div style="background:var(--card2);border:1px solid var(--brd);border-radius:12px;padding:11px;margin-bottom:10px"><div style="font-size:11.5px;font-weight:800;color:var(--acc);margin-bottom:6px">Open the authenticator app</div><div class="row" style="background:var(--bg);padding:8px 10px;border-radius:9px;border:1px solid var(--brd)"><code style="font-size:12px;color:var(--gold);font-weight:800">ZALE-2FA9-K84M-77XQ</code><button class="btn-ghost" style="padding:4px 8px;font-size:10.5px" onclick="copyVal('ZALE2FA9K84M77XQ','Setup Key')">Copy Key</button></div><div style="font-size:10.5px;color:var(--mut);margin-top:5px">One-tap add to Zale or enter key manually.</div></div><div style="background:#fff;color:#0f172a;border-radius:12px;padding:12px;text-align:center;margin-bottom:12px"><svg width="88" height="88" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="1.8"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM18 18h3v3h-3zM14 20h2M20 14v2"/></svg><div style="font-size:11.5px;font-weight:800;margin-top:4px">Setting up with another device?</div><div style="font-size:10.5px;color:#475569">Scan with authenticator</div></div><button style="width:100%;padding:13px;border:none;border-radius:12px;background:#2563eb;color:#fff;font-weight:800;font-size:13px;cursor:pointer" onclick="show2faStep(4)">Continue</button></div>
+      <div id="tfaStep4" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Verify 6-Digit Code</h2><p style="font-size:12px;color:var(--mut);margin:0 0 12px">Enter the 6-digit code from your authenticator app to enable 2FA.</p><input id="tfaCodeInp" type="text" maxlength="6" placeholder="000000" style="text-align:center;font-size:22px;letter-spacing:8px;font-weight:900" /><button class="btn" style="margin-top:12px" onclick="confirmEnable2fa()">Enable 2FA</button></div>
+    </div>
+    <div id="bioSensorModal" class="hide" style="position:fixed;inset:0;background:rgba(2,6,23,.84);z-index:9999;display:flex;align-items:center;justify-content:center;padding:18px"><div class="card" style="max-width:340px;width:100%;text-align:center;border-color:var(--acc)"><div style="font-size:11px;font-weight:900;color:var(--acc)">AUTHENTICATION REQUIRED</div><h3 style="margin:6px 0 4px;font-size:18px">Verify Identity</h3><p style="font-size:12px;color:var(--mut);margin:0 0 14px">Scan your fingerprint to authenticate.<br>Touch the fingerprint sensor.</p><div onclick="completeFingerprintScan()" style="width:80px;height:80px;margin:0 auto 12px;border-radius:50%;background:rgba(16,185,129,.14);border:2px solid var(--acc);display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8"><path d="M2 12C2 6.5 6.5 2 12 2a10 10 0 0 1 8 4"/><path d="M5 19.5C5.5 18 6 15 6 12c0-.7.12-1.37.34-2"/><path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"/><path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"/><path d="M8.65 22c.21-.66.45-1.32.57-2"/><path d="M14 13.12c0 2.38 0 6.38-1 8.88"/></svg></div><button class="btn-ghost" style="width:100%;padding:10px" onclick="document.getElementById('bioSensorModal').classList.add('hide')">Cancel</button></div></div>
+
+    <div id="tab-support-hub" class="hide">
+      <div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">← Home</button><span style="font-size:11px;color:var(--acc);font-weight:800">Zale Help Desk</span></div>
+      <div class="card"><h2 style="margin:0 0 12px;font-size:20px">How can we help you?</h2>
+        <div onclick="nav('zale-chat')" style="background:var(--card2);border:1px solid var(--brd);border-radius:14px;padding:14px;margin-bottom:10px;cursor:pointer"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:22px">💬</span><div><div style="font-size:15px;font-weight:800">Support</div><div style="font-size:12px;color:var(--acc);font-weight:700">Chat with someone</div><div style="font-size:11px;color:var(--mut);margin-top:2px">We'll respond as soon as we can</div></div></div></div>
+        <div onclick="nav('faq')" style="background:var(--card2);border:1px solid var(--brd);border-radius:14px;padding:14px;cursor:pointer"><div style="display:flex;align-items:center;gap:10px"><span style="font-size:22px">📘</span><div><div style="font-size:15px;font-weight:800">FAQ</div><div style="font-size:12px;color:var(--gold);font-weight:700">Resolve issues quicker</div><div style="font-size:11px;color:var(--mut);margin-top:2px">Help yourself with our support articles</div></div></div></div>
+      </div>
+    </div>
+    <div id="tab-faq" class="hide">
+      <div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('support-hub')">← Help Center</button><span style="font-size:11px;color:var(--gold);font-weight:800">Support Articles</span></div>
+      <div class="card"><h2 style="margin:0 0 4px;font-size:18px">Zale Knowledge Base</h2><p style="font-size:11.5px;color:var(--mut);margin:0 0 12px">Tap any topic below to read our support articles:</p><div id="faqTopicsList"></div></div>
+      <div id="faqArticleReader" class="card hide" style="border-color:var(--acc)"><div class="row" style="margin-bottom:6px"><span id="faqArtCat" style="font-size:10.5px;font-weight:800;color:var(--acc)"></span><button class="btn-ghost" style="padding:4px 8px;font-size:10px" onclick="document.getElementById('faqArticleReader').classList.add('hide')">Close</button></div><h3 id="faqArtTitle" style="margin:0 0 8px;font-size:16px"></h3><div id="faqArtBody" style="font-size:12.5px;color:var(--txt);line-height:1.55"></div></div>
+    </div>
+    <div id="tab-zale-chat" class="hide">
+      <div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('support-hub')">← Back</button><span class="pill-ok">● Desk Online</span></div>
+      <div class="card" style="text-align:center;border-color:rgba(16,185,129,.45);background:linear-gradient(160deg,rgba(16,185,129,.14),var(--card))">
+        <div style="font-size:32px;font-weight:900;letter-spacing:-1px;background:linear-gradient(90deg,#10b981,#fbbf24,#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px">✦ Zale ✦</div>
+        <h2 style="margin:4px 0;font-size:18px">Hi there 👋 How can we help you?</h2>
+        <p style="font-size:11.5px;color:var(--mut);margin:0 0 14px">Connect directly with our live desk on WhatsApp or send a message straight to our support email.</p>
+        <a href="https://wa.me" target="_blank" class="btn" style="display:block;text-decoration:none;margin-bottom:12px">💬 Chat on WhatsApp (+260 77 947 3735)</a>
+        <div style="text-align:left;background:var(--card2);border:1px solid var(--brd);border-radius:12px;padding:11px">
+          <div style="font-size:12px;font-weight:800;color:var(--gold);margin-bottom:4px">✉️ Send us a message (Direct to support@zaleapp.com)</div>
+          <input id="supMsgSubj" placeholder="Subject (e.g. Order Inquiry)" style="margin-top:4px" />
+          <textarea id="supMsgBody" rows="3" placeholder="Write your message here..." style="width:100%;margin-top:8px;padding:10px;border-radius:11px;border:1px solid var(--brd);background:var(--bg);color:var(--txt);font-size:12.5px;box-sizing:border-box"></textarea>
+          <button class="btn-gold" style="width:100%;margin-top:8px;padding:11px" onclick="sendSupportEmail()">Send Message to Zale Support</button>
+        </div>
+        <div style="margin-top:14px;padding-top:12px;border-top:1px solid var(--brd);font-size:11.5px;color:var(--mut);font-weight:700">Welcome to <b style="color:var(--acc)">Zale</b> — Your Global synergy for fast and secure Digital transactions.</div>
+      </div>
+    </div>
+
+
 
   <script>
     const ADMIN = "ikatanga40@gmail.com";
@@ -647,7 +687,7 @@
 
     function shareApp() { const u = location.href; navigator.clipboard?.writeText(u); if (navigator.share) navigator.share({title:"Zale App v3.0.3",text:"Pan-African & Global FX, Crypto & Gift Cards",url:u}); else toast("Zale App link copied! Ready to paste on WhatsApp."); }
     function handleWalletSelect(v) { if (v === "add") {  nav("trade"); } }
-    function nav(t) { ["settleBox","depositBox","withdrawBox","tradeCoinBox","gcOrderBox","kycModalBox","vaultBoxV3","walletDropMenu"].forEach(x => document.getElementById(x)?.classList.add("hide")); ["home","trade","wallet","giftcards","account","refer","rates","limits","utilities","vcard","xborder","escrow","admin"].forEach(k => { const el = document.getElementById("tab-"+k); if (el) el.classList.toggle("hide", k !== t); }); ["home","trade","wallet","giftcards","account"].forEach(k => { const el = document.getElementById("bn-"+k); if (el) el.classList.toggle("on", k === t); }); if (t === 'trade') fetchLiveCryptoPrices(); renderAll(); }
+    function nav(t) { ["settleBox","depositBox","withdrawBox","coinTradeBox","gcOrderBox","kycModalBox","vaultBoxV3","walletDropMenu"].forEach(x => document.getElementById(x)?.classList.add("hide")); ["home","trade","wallet","giftcards","account","refer","rates","limits","utilities","vcard","xborder","escrow","admin","2fa","support-hub","faq","zale-chat"].forEach(k => { const el = document.getElementById("tab-"+k); if (el) el.classList.toggle("hide", k !== t); }); ["home","trade","wallet","giftcards","account"].forEach(k => { const el = document.getElementById("bn-"+k); if (el) el.classList.toggle("on", k === t); }); if (t === 'trade') fetchLiveCryptoPrices(); if (t === 'faq') renderFaqHub(); renderAll(); }
     function toggleBal() { balHidden = !balHidden; document.getElementById("balToggleLbl").textContent = balHidden ? "Show Balance" : "Hide Balance"; renderAll(); }
     function setTradeMode(m) { tradeMode = m; ["buy","sell","swap"].forEach(k => document.getElementById("tm-"+k).className = k===m ? "on" : "off"); }
     
@@ -671,7 +711,7 @@
         </div>`).join("");
     }
 
-    function selectCoin(id) { selCoin = COINS.find(x => x.id === id) || COINS.at(0); const box = document.getElementById("tradeCoinBox"); if (box) { box.classList.remove("hide"); box.scrollIntoView({behavior:"smooth",block:"nearest"}); } const tit = document.getElementById("tcTitle"); if (tit && selCoin) tit.textContent = selCoin.name + " ($" + selCoin.price.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}) + ")"; }
+    function selectCoin(id) { selCoin = COINS.find(x => x.id === id) || COINS.at(0); const box = document.getElementById("coinTradeBox"); if (box) { box.classList.remove("hide"); box.scrollIntoView({behavior:"smooth",block:"nearest"}); } const tit = document.getElementById("ctTitle"); if (tit && selCoin) tit.textContent = selCoin.name + " ($" + selCoin.price.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}) + ")"; }
     function setGcFilter(f) { gcFilter = f; ["all","trend","top","high"].forEach(k => document.getElementById("gf-"+k).className = k===f ? "chip on" : "chip"); renderBrands(); }
     function renderBrands() {
       const q = (document.getElementById("gcSearch")?.value || "").toLowerCase();
@@ -947,6 +987,111 @@
       r.onload = e => { const img = document.getElementById("gcPhotoPrev"); if (img) { img.src = e.target.result; img.classList.remove("hide"); } };
       r.readAsDataURL(f);
     }
+        const FAQ_DATA = [
+      { cat: "Getting Started with Zale", articles: [
+        { t: "How to create and verify your Zale Tier 1 account", b: "Sign up using your full name, active email address, and WhatsApp phone number. Once your email and phone are confirmed, your Tier 1 account is immediately active for instant rate checks and starter trades up to $50/day." },
+        { t: "Upgrading to Tier 2 (ID & Facial Recognition)", b: "Open Account -> KYC Verification Level. Enter your National ID/NRC/Passport number, capture clear photos of the Front and Back of your ID using your phone camera, and complete the live selfie scan to unlock up to $10,000/day limits." },
+        { t: "Understanding Zale Rates & Zero-Hidden-Fee Quotes", b: "Tap Zale Rates on your Home screen anytime to preview live USD and local currency payouts before submitting an order. The rate displayed on your confirmation screen is locked for your settlement." }
+      ]},
+      { cat: "Crypto Trading", articles: [
+        { t: "How to buy USDT, BTC, ETH, SOL & BNB on Zale", b: "Go to Trade -> select your coin and network (TRC20 or BEP20 recommended for lowest fees) -> choose Buy -> enter your USD amount and destination wallet or Forex broker ID, then complete local payment." },
+        { t: "How to sell Crypto for instant Bank or Mobile Money payout", b: "Select Sell on Trade -> enter the USD value -> transfer the exact crypto to our displayed Zale settlement wallet and paste your TxID. Once confirmed on-chain (1-3 mins), cash is sent directly to your payout account." },
+        { t: "Funding Forex Brokers & Prop Firms (XM, Exness, Deriv, FTMO)", b: "Choose Broker / Prop-Firm Funding under Trade, enter your broker account/wallet ID, and settle in local currency or USDT. Most broker deposits reflect within 3-8 minutes." }
+      ]},
+      { cat: "Trading Gift Cards", articles: [
+        { t: "How to sell Gift Cards for instant cashout", b: "Open Gift Cards -> select your brand (Amazon, Apple, Steam, Razer Gold, etc.) -> enter the USD face value to preview your live cashout -> enter the E-Code and upload a clear photo of the card." },
+        { t: "Tips for fast Gift Card verification (10-20 mins)", b: "Ensure the 16-digit claim code is clearly visible without glare and that the card has not been previously redeemed. Clear photos of physical cards and receipts speed up approval." },
+        { t: "Buying Digital Gift Cards on Zale", b: "Switch to Buy on Gift Cards, select your preferred brand and USD amount, enter your recipient email address, and pay via mobile money, bank, or USDT for rapid digital delivery." }
+      ]},
+      { cat: "Utility Bills on Zale", articles: [
+        { t: "Paying Electricity (ZESCO / Prepaid Power) & Cable TV", b: "Tap Utility Bills on Home -> select Electricity or Cable TV -> enter your meter or smartcard number, choose USD or Local Currency, and receive your token/subscription renewal within minutes." },
+        { t: "Instant Airtime & Data Top-Ups", b: "Select Airtime/Data inside Utility Bills, enter the mobile number and amount, and confirm payment for instant airtime or bundle credit." },
+        { t: "How to use Split Bill with friends or teammates", b: "Inside Utility Bills, open Split Bill (3+ Friends), enter the total bill amount and each person's share so everyone contributes transparently toward a single utility or group payment." }
+      ]},
+      { cat: "Account Security", articles: [
+        { t: "Setting up Authenticator App 2FA (Google Authenticator / Authy)", b: "Go to Account -> Security -> Two-Factor Authentication. Install Google Authenticator, Authy, or Microsoft Authenticator, scan the Zale QR code or copy the setup key, and verify your 6-digit code." },
+        { t: "Enabling Biometric Fingerprint Authentication", b: "Toggle Biometric Fingerprint in Account -> Security and touch the fingerprint sensor prompt to bind quick biometric verification to your device." },
+        { t: "Safe-Claim 4-Digit PIN Digital Escrow", b: "When trading peer-to-peer with a new counterparty, use Digital Escrow on Home. Funds stay safely locked until the buyer shares the secret 4-digit release PIN." }
+      ]},
+      { cat: "About Zale & Account Issues", articles: [
+        { t: "About Zale, Settlement Hours & Resolving Account Issues", b: "Zale is your global synergy for fast and secure digital transactions—connecting crypto, forex broker rails, gift cards, virtual dollar cards, and cross-border payouts. If you ever enter a wrong wallet, miss a reference, or need a password reset, message our live desk via WhatsApp (+260 77 947 3735) or email support@zaleapp.com with your Order ID." }
+      ]}
+    ];
+    function renderFaqHub() {
+      const box = document.getElementById("faqTopicsList");
+      if (!box) return;
+      box.innerHTML = FAQ_DATA.map((g, gi) => `<div style="margin-bottom:12px"><div style="font-size:12px;font-weight:800;color:var(--acc);margin-bottom:6px">${g.cat}</div>${g.articles.map((a, ai) => `<div onclick="openFaqArticle(${gi},${ai})" style="background:var(--card2);border:1px solid var(--brd);border-radius:10px;padding:9px 11px;margin-bottom:5px;font-size:12px;font-weight:700;cursor:pointer;display:flex;justify-content:space-between;align-items:center"><span>${a.t}</span><span style="color:var(--acc)">→</span></div>`).join("")}</div>`).join("");
+    }
+    function openFaqArticle(gi, ai) {
+      const g = FAQ_DATA.at(gi), a = g && g.articles.at(ai);
+      if (!a) return;
+      document.getElementById("faqArtCat").textContent = g.cat.toUpperCase();
+      document.getElementById("faqArtTitle").textContent = a.t;
+      document.getElementById("faqArtBody").textContent = a.b;
+      const rd = document.getElementById("faqArticleReader");
+      if (rd) { rd.classList.remove("hide"); rd.scrollIntoView({behavior:"smooth",block:"nearest"}); }
+    }
+    function sendSupportEmail() {
+      const subj = (document.getElementById("supMsgSubj")?.value || "").trim();
+      const body = (document.getElementById("supMsgBody")?.value || "").trim();
+      if (!subj || !body) return toast("Please enter both a subject and your message.");
+      const mailto = "mailto:support" + "@" + "://zaleapp.com" + encodeURIComponent("[Zale Support] " + subj) + "&body=" + encodeURIComponent("From: " + (user?.email || "Client") + "\n\n" + body);
+      window.open(mailto, "_blank");
+      document.getElementById("supMsgSubj").value = ""; document.getElementById("supMsgBody").value = "";
+      toast("Message prepared for support@zaleapp.com!");
+    }
+
+            function togglePref(key, val) {
+      const prefs = JSON.parse(localStorage.getItem("zale_prefs") || "{}");
+      prefs[key] = val; localStorage.setItem("zale_prefs", JSON.stringify(prefs));
+      if (key === "bio") toast(val ? "Biometric Fingerprint Login Enabled." : "Fingerprint Login Disabled.");
+      else if (key === "em") toast(val ? "Email Notifications Enabled." : "Email Notifications Muted.");
+      else if (key === "push") toast(val ? "Push Alerts Enabled." : "Push Alerts Muted.");
+      else if (key === "rate") toast(val ? "Daily Rates Updates Subscribed." : "Daily Rates Updates Paused.");
+    }
+    function openBioModal()
+ { document.getElementById("bioSensorModal")?.classList.remove("hide"); }
+    function completeFingerprintScan() {
+      document.getElementById("bioSensorModal")?.classList.add("hide");
+      const cb = document.getElementById("togBio"); if (cb) cb.checked = true;
+      togglePref("bio", true); toast("Fingerprint verified & Biometric Login enabled!");
+    }
+    function show2faStep(step) { Array.of(1,2,3,4).forEach(n => document.getElementById("tfaStep" + n)?.classList.toggle("hide", n !== step)); }
+    function openAppStore(app) {
+      const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent || "");
+      const urls = {
+        google: isIOS ? "https://apple.com" : "https://google.com",
+        authy: isIOS ? "https://apple.com" : "https://google.com",
+        ms: isIOS ? "https://apple.com" : "https://google.com"
+      };
+      window.open(urls[app] || urls.google, "_blank");
+    }
+    function confirmEnable2fa() {
+      const code = (document.getElementById("tfaCodeInp")?.value || "").trim();
+      if (!/^\d{6}$/.test(code)) return toast("Enter the valid 6-digit code from your authenticator app.");
+      localStorage.setItem("zale_2fa_enabled", "1");
+      if (document.getElementById("btn2faStatus")) document.getElementById("btn2faStatus").textContent = "Enabled ✓";
+      toast("Two-Factor Authentication (2FA) is now Enabled!");
+      show2faStep(1); nav("account");
+    }
+    function saveNewPasswordInline() {
+      const cur = (document.getElementById("curPwInp")?.value || "").trim();
+      const p1 = (document.getElementById("newPwInp1")?.value || "").trim();
+      const p2 = (document.getElementById("newPwInp2")?.value || "").trim();
+      if (!cur) return toast("Enter your current password first.");
+      if (user && user.pass && cur !== user.pass) return toast("Current password is incorrect.");
+      if (p1.length < 6) return toast("New password must be at least 6 characters.");
+      if (p1 !== p2) return toast("New passwords do not match.");
+      if (user) {
+        user.pass = p1; localStorage.setItem("zale_user", JSON.stringify(user));
+        let db = JSON.parse(localStorage.getItem("zale_users") || "{}");
+        if (db[user.email]) { db[user.email].pass = p1; localStorage.setItem("zale_users", JSON.stringify(db)); }
+      }
+      document.getElementById("curPwInp").value = ""; document.getElementById("newPwInp1").value = ""; document.getElementById("newPwInp2").value = "";
+      document.getElementById("pwInlineBox")?.classList.add("hide");
+      toast("Password updated securely!");
+    }
+
     function applyTheme(t) {
 
 
@@ -988,5 +1133,5 @@
     applyTheme(localStorage.getItem("zale_theme") || "dark");
     if (user) enterDashboard();
   </script>
-</body>
+    </body>
 </html>
