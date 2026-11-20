@@ -215,7 +215,7 @@
           <p style="margin:4px 0 8px;font-size:12px;color:var(--mut)">Click any coins to start trading</p>
           <input id="coinSearch" placeholder="🔍 Search for a coin..." oninput="renderCoins()" style="margin-top:4px" />
           <div style="font-size:11px;font-weight:800;color:var(--acc);margin-top:12px;text-transform:uppercase">ALL</div>
-          <div id="coinList"></div>
+          <div id="coinsList"></div>
         </div>
         <div id="coinTradeBox" class="card hide" style="border-color:rgba(16,185,129,.55)">
           <div class="row" style="margin-bottom:8px"><h3 id="selCoinTitle" style="margin:0;font-size:15.5px">Trade Tether (USDT)</h3><button class="btn-ghost" style="padding:4px 8px;font-size:10px" onclick="document.getElementById('coinTradeBox').classList.add('hide')">Close</button></div>
@@ -283,7 +283,7 @@
           <div id="gcTradeDrawer" class="hide" style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--brd)">
             <div id="selGcTitle" style="font-weight:800;font-size:14px;color:var(--acc)"></div>
             <select id="gcAction"><option value="Sell">Sell Gift Card for Cash</option><option value="Buy">Buy Digital Gift Card</option></select>
-            <input id="gcVal" type="number" placeholder="Card Face Value in USD (e.g. 50)" /><input id="gcCode" placeholder="Card E-Code (if selling) or Delivery Email (if buying)" />
+            <input id="gcVal" type="number" placeholder="Card Face Value in USD (e.g. 50)" /><input id="gcUsd" type="number" placeholder="Card Amount in USD (e.g. 100)" oninput="previewGcPayout()" /><div id="gcLivePreview" style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:9px 12px;margin-top:8px;font-size:12px;font-weight:800;color:var(--gold)">Estimated Cashout: $0.00 (K0)</div><input id="gcCode" placeholder="Card E-Code (if selling) or Delivery Email (if buying)" /><div style="margin-top:8px"><label style="font-size:11px;color:var(--mut);font-weight:800;display:block;margin-bottom:4px">📷 Upload Gift Card Photo (Optional)</label><input id="gcPhotoInp" type="file" accept="image/*" style="padding:8px;font-size:11.5px" onchange="previewGcImg(this)" /><img id="gcPhotoPrev" class="hide" style="width:100%;max-height:130px;object-fit:cover;border-radius:11px;margin-top:6px;border:1px solid var(--brd)" /></div>
             <button class="btn" onclick="submitGiftCard()">Confirm Gift Card Trade</button>
           </div>
         </div>
@@ -324,7 +324,7 @@
         </div>
         <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Appearance</h3><select id="themeSel" onchange="applyTheme(this.value)" style="margin-top:4px"><option value="dark">Dark Theme</option><option value="light">Light Theme</option><option value="system">System (Phone System)</option></select></div>
         <div class="card" style="border-color:rgba(245,158,11,.45);cursor:pointer" onclick="nav('refer')"><div class="row"><div><div style="font-weight:800;font-size:14.5px;color:var(--gold)">🎁 Refer &amp; Earn</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Number of referrals, code &amp; share link</div></div><span style="font-weight:900;color:var(--acc)">Open →</span></div></div>
-        <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Support</h3><div class="acc-row"><span>Company Email</span><div style="display:flex;align-items:center;gap:6px"><b>support.com</b><button class="btn-ghost" style="padding:4px 8px;font-size:10.5px" onclick="copyVal('support.com','Support Email')">Copy</button></div></div><div class="acc-row"><span>WhatsApp Support</span><a href="https://wa.me" target="_blank" class="btn-gold" style="text-decoration:none;padding:6px 11px;font-size:11.5px">💬 Chat (+260 77 947 3735)</a></div><button class="btn-ghost" style="width:100%;margin-top:10px" onclick="shareApp()">📤 Share Zale App</button><button class="btn" style="background:#ef4444;color:#fff;margin-top:10px" onclick="doLogout()">Sign Out</button></div>
+        <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Support</h3><div class="acc-row"><span>Company Email</span><div style="display:flex;align-items:center;gap:6px"><b>support@zaleapp.com</b><button class="btn-ghost" style="padding:4px 8px;font-size:10.5px" onclick="copyVal('support@zaleapp.com','Support Email')">Copy</button></div></div><div class="acc-row"><span>WhatsApp Support</span><a href="https://wa.me" target="_blank" class="btn-gold" style="text-decoration:none;padding:6px 11px;font-size:11.5px">💬 Chat (+260 77 947 3735)</a></div><button class="btn-ghost" style="width:100%;margin-top:10px" onclick="shareApp()">📤 Share Zale App</button><button class="btn" style="background:#ef4444;color:#fff;margin-top:10px" onclick="doLogout()">Sign Out</button></div>
       </div>
       <div id="tab-refer" class="hide">
         <div class="card" style="border-color:rgba(245,158,11,.5)">
@@ -461,7 +461,7 @@
       <div id="tab-admin"
 
 
- class="hide"><div class="card" style="border-color:rgba(245,158,11,.6)"><div class="row"><span class="eyebrow">Executive Admin Workspace</span><button class="btn-ghost" onclick="nav('home')">← Home</button></div><div id="admOrdersList" style="margin-top:10px"></div></div></div>
+ class="hide"><div class="card" style="border-color:rgba(245,158,11,.6)"><div class="row"><span class="eyebrow">Executive Admin Workspace</span><button class="btn-ghost" onclick="nav('home')">← Home</button></div><div class="row" style="margin-bottom:8px"><div style="font-size:12px;font-weight:800;color:var(--gold)">Approval Queue</div><div style="display:flex;gap:6px"><button id="af-pend" class="chip on" style="padding:4px 10px;font-size:11px" onclick="setAdmFilter('pend')">Pending</button><button id="af-all" class="chip" style="padding:4px 10px;font-size:11px" onclick="setAdmFilter('all')">All History</button><button class="chip" style="padding:4px 10px;font-size:11px;color:#f87171" onclick="clearTestOrders()">Clear Tests</button></div></div><div id="admOrdersList" style="margin-top:10px"></div></div></div>
     </div>
   </div>
   <div id="bottomNav" class="bnav hide">
@@ -497,17 +497,18 @@
       IE:{name:"Ireland",flag:"🇮🇪",fiat:"Euro (EUR)",s:"€",r:0.92},
       CH:{name:"Switzerland",flag:"🇨🇭",fiat:"Swiss Franc (CHF)",s:"CHF",r:0.88}
     };
-        const COINS = [
-      {id:"BNB", sym:"BNB", name:"Binance Coin", net:"BEP20", price:587.00, icon:"🟡"},
-      {id:"BTC", sym:"BTC", name:"Bitcoin", net:"BTC", price:91450.00, icon:"🟠"},
-      {id:"ETH", sym:"ETH", name:"Ethereum", net:"ERC20", price:3250.00, icon:"🔷"},
-      {id:"SOL", sym:"SOL", name:"Solana", net:"SOL", price:192.40, icon:"🟣"},
-      {id:"USDC", sym:"USDC", name:"USD Coin", net:"ERC20", price:1.00, icon:"🔵"},
-      {id:"USDT-ERC20", sym:"USDT", name:"USD Tether (ERC20)", net:"ERC20", price:1.00, icon:"🟢"},
-      {id:"USDT-TRC20", sym:"USDT", name:"USD Tether (TRC20)", net:"TRC20", price:1.00, icon:"🟢"},
-      {id:"USDT-SOL", sym:"USDT", name:"USD Tether (SOL)", net:"SOL", price:1.00, icon:"🟢"},
-      {id:"USDT-BEP20", sym:"USDT", name:"USD Tether (BEP20)", net:"BEP20", price:1.00, icon:"🟢"}
+            const COINS = [
+      {id:"BNB", sym:"BNB", name:"Binance Coin", net:"BEP20", price:587.00, badge:"BNB", color:"#f59e0b"},
+      {id:"BTC", sym:"BTC", name:"Bitcoin", net:"BTC", price:91450.00, badge:"₿", color:"#f97316"},
+      {id:"ETH", sym:"ETH", name:"Ethereum", net:"ERC20", price:3250.00, badge:"Ξ", color:"#38bdf8"},
+      {id:"SOL", sym:"SOL", name:"Solana", net:"SOL", price:192.40, badge:"◎", color:"#c084fc"},
+      {id:"USDC", sym:"USDC", name:"USD Coin", net:"ERC20", price:1.00, badge:"$", color:"#2563eb"},
+      {id:"USDT-ERC20", sym:"USDT", name:"USD Tether (ERC20)", net:"ERC20", price:1.00, badge:"₮", color:"#10b981"},
+      {id:"USDT-TRC20", sym:"USDT", name:"USD Tether (TRC20)", net:"TRC20", price:1.00, badge:"₮", color:"#10b981"},
+      {id:"USDT-SOL", sym:"USDT", name:"USD Tether (SOL)", net:"SOL", price:1.00, badge:"₮", color:"#10b981"},
+      {id:"USDT-BEP20", sym:"USDT", name:"USD Tether (BEP20)", net:"BEP20", price:1.00, badge:"₮", color:"#10b981"}
     ];
+
 
     const GC_BRANDS = [
       {name:"Amazon USA",rate:85,tag:"top",color:"#f59e0b",svg:"a"},
@@ -646,16 +647,31 @@
 
     function shareApp() { const u = location.href; navigator.clipboard?.writeText(u); if (navigator.share) navigator.share({title:"Zale App v3.0.3",text:"Pan-African & Global FX, Crypto & Gift Cards",url:u}); else toast("Zale App link copied! Ready to paste on WhatsApp."); }
     function handleWalletSelect(v) { if (v === "add") {  nav("trade"); } }
-    function nav(t) { ["depositBox","withdrawBox","tradeCoinBox","gcOrderBox","kycModalBox","vaultBoxV3","walletDropMenu"].forEach(x => document.getElementById(x)?.classList.add("hide")); ["home","trade","wallet","giftcards","account","refer","rates","limits","utilities","vcard","xborder","escrow","admin"].forEach(k => { const el = document.getElementById("tab-"+k); if (el) el.classList.toggle("hide", k !== t); }); ["home","trade","wallet","giftcards","account"].forEach(k => { const el = document.getElementById("bn-"+k); if (el) el.classList.toggle("on", k === t); }); renderAll(); }
+    function nav(t) { ["settleBox","depositBox","withdrawBox","tradeCoinBox","gcOrderBox","kycModalBox","vaultBoxV3","walletDropMenu"].forEach(x => document.getElementById(x)?.classList.add("hide")); ["home","trade","wallet","giftcards","account","refer","rates","limits","utilities","vcard","xborder","escrow","admin"].forEach(k => { const el = document.getElementById("tab-"+k); if (el) el.classList.toggle("hide", k !== t); }); ["home","trade","wallet","giftcards","account"].forEach(k => { const el = document.getElementById("bn-"+k); if (el) el.classList.toggle("on", k === t); }); renderAll(); }
     function toggleBal() { balHidden = !balHidden; document.getElementById("balToggleLbl").textContent = balHidden ? "Show Balance" : "Hide Balance"; renderAll(); }
     function setTradeMode(m) { tradeMode = m; ["buy","sell","swap"].forEach(k => document.getElementById("tm-"+k).className = k===m ? "on" : "off"); }
     
-    function renderCoins() {
-      const q = (document.getElementById("coinSearch")?.value || "").toLowerCase();
-      const list = COINS.filter(c => c.name.toLowerCase().includes(q) || c.sym.toLowerCase().includes(q));
-      document.getElementById("coinList").innerHTML = list.map((c,i) => `<div class="coin-row" onclick="selectCoin(${i})"><div style="display:flex;align-items:center;gap:10px"><div class="coin-ico" style="background:${c.color}">${c.ico}</div><div><div style="font-size:13.5px;font-weight:800">${c.name} <span style="color:var(--mut);font-size:11px">${c.sym}</span></div><div style="font-size:11px;color:var(--mut)">${c.net}</div></div></div><div style="text-align:right"><div style="font-size:13.5px;font-weight:900">$${c.price.toLocaleString()}</div><div style="font-size:10.5px;color:var(--acc)">Trade →</div></div></div>`).join("");
+        function renderCoins() {
+      const c = CURR[user?.cty] || CURR.ZM;
+      const box = document.getElementById("coinsList");
+      if (!box) return;
+      box.innerHTML = COINS.map(x => `
+        <div class="coin-row" onclick="selectCoin('${x.id}')">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:36px;height:36px;border-radius:12px;background:${x.color}22;border:1px solid ${x.color}55;color:${x.color};display:flex;align-items:center;justify-content:center;font-weight:900;font-size:15px">${x.badge}</div>
+            <div>
+              <div style="font-weight:800;font-size:13.5px;color:var(--txt)">${x.name}</div>
+              <div style="font-size:11px;color:var(--mut)">${x.sym} • Network: <b style="color:var(--acc)">${x.net}</b></div>
+            </div>
+          </div>
+          <div style="text-align:right">
+            <div style="font-weight:900;font-size:13.5px;color:var(--txt)">$${x.price.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}</div>
+            <div style="font-size:11px;color:var(--gold);font-weight:700">${c.s}${(x.price * c.r).toLocaleString(undefined,{maximumFractionDigits:0})}</div>
+          </div>
+        </div>`).join("");
     }
-    function selectCoin(i) { selCoin = COINS[i]; document.getElementById("coinTradeBox").classList.remove("hide"); document.getElementById("selCoinTitle").textContent = `Trade ${selCoin.name} (${selCoin.sym})`; document.getElementById("coinTradeBox").scrollIntoView({behavior:"smooth"}); }
+
+    function selectCoin(id) { selCoin = COINS.find(x => x.id === id) || COINS.at(0); const box = document.getElementById("tradeCoinBox"); if (box) { box.classList.remove("hide"); box.scrollIntoView({behavior:"smooth",block:"nearest"}); } const tit = document.getElementById("tcTitle"); if (tit && selCoin) tit.textContent = selCoin.name + " ($" + selCoin.price.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}) + ")"; }
     function setGcFilter(f) { gcFilter = f; ["all","trend","top","high"].forEach(k => document.getElementById("gf-"+k).className = k===f ? "chip on" : "chip"); renderBrands(); }
     function renderBrands() {
       const q = (document.getElementById("gcSearch")?.value || "").toLowerCase();
@@ -787,8 +803,6 @@
           el.style.background = (k === id) ? "rgba(16,185,129,.12)" : "var(--card2)";
         }
       });
-      const bd = document.getElementById("billDrawer");
-      const ed = document.getElementById("escrowDrawer");
       if (title === "ESCROW") {
         if (bd) bd.classList.add("hide");
         if (ed) ed.classList.remove("hide");
@@ -865,19 +879,14 @@
       renderAll();
       toast("Pre-launch test orders cleared!");
     }
-        async function fetchLiveCryptoPrices() {
+            async function fetchLiveCryptoPrices() {
       try {
-        const res = await fetch("https://binance.com");
+        const res = await fetch("https://cryptocompare.com");
         if (res.ok) {
-          const list = await res.json();
-          const map = {}; list.forEach(x => map[x.symbol] = parseFloat(x.price));
-          COINS.forEach(c => {
-            if (c.sym === "BNB" && map.BNBUSDT) c.price = map.BNBUSDT;
-            if (c.sym === "BTC" && map.BTCUSDT) c.price = map.BTCUSDT;
-            if (c.sym === "ETH" && map.ETHUSDT) c.price = map.ETHUSDT;
-            if (c.sym === "SOL" && map.SOLUSDT) c.price = map.SOLUSDT;
-          });
-          renderCoins(); return;
+          const d = await res.json();
+          COINS.forEach(c => { if (d[c.sym]?.USD) c.price = parseFloat(d[c.sym].USD); });
+          renderCoins();
+          return;
         }
       } catch(e) {}
       try {
@@ -889,11 +898,14 @@
             if (c.sym === "BTC" && d.bitcoin?.usd) c.price = d.bitcoin.usd;
             if (c.sym === "ETH" && d.ethereum?.usd) c.price = d.ethereum.usd;
             if (c.sym === "SOL" && d.solana?.usd) c.price = d.solana.usd;
+            if (c.sym === "USDC" && d["usd-coin"]?.usd) c.price = d["usd-coin"].usd;
+            if (c.sym === "USDT" && d.tether?.usd) c.price = d.tether.usd;
           });
           renderCoins();
         }
       } catch(e) {}
     }
+
     function toggleRecentTx() {
       const box = document.getElementById("walletOrders"), btn = document.getElementById("txToggleBtn");
       if (!box || !btn) return;
