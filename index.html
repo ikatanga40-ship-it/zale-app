@@ -161,30 +161,30 @@
         </div>
 
                   <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:14px">
-            <button class="act-btn" style="padding:9px 2px;font-size:10.5px" onclick="openWalletAction('deposit')"><span>⬇️</span>Deposit</button>
-            <button class="act-btn" style="padding:9px 2px;font-size:10.5px" onclick="openWalletAction('withdraw')"><span>↗️</span>Transfer</button>
-            <button class="act-btn" style="padding:9px 2px;font-size:10.5px" onclick="nav('trade');setTradeMode('buy')"><span>🟢</span>Buy</button>
-            <button class="act-btn" style="padding:9px 2px;font-size:10.5px" onclick="nav('trade');setTradeMode('sell')"><span>🟠</span>Sell</button>
-            <button class="act-btn" style="padding:9px 2px;font-size:10.5px" onclick="nav('trade');setTradeMode('swap')"><span>🔄</span>Swap</button>
+            <button class="act-btn" style="padding:9px 2px;font-size:10.5px" onclick="openWalletAction('deposit')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></span>Deposit</button>
+            <button class="act-btn" style="padding:9px 2px;font-size:10.5px" onclick="openWalletAction('withdraw')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg></span>Transfer</button>
+            <button class="act-btn" style="padding:9px 2px;font-size:10.5px" onclick="nav('trade');setTradeMode('buy')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><circle cx="12" cy="12" r="9"/><path d="M12 8v8"/><path d="M8 12h8"/></svg></span>Buy</button>
+            <button class="act-btn" style="padding:9px 2px;font-size:10.5px" onclick="nav('trade');setTradeMode('sell')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></span>Sell</button>
+            <button class="act-btn" style="padding:9px 2px;font-size:10.5px" onclick="nav('trade');setTradeMode('swap')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg></span>Swap</button>
           </div>
 
 
                 <div class="card">
           <div class="row" style="margin-bottom:4px"><h3 style="margin:0;font-size:15px">Services</h3><span style="font-size:11px;color:var(--mut)">Instant Desk</span></div>
           <div class="acc-row" style="cursor:pointer" onclick="nav('utilities')">
-            <div style="display:flex;align-items:center;gap:10px"><span style="font-size:18px;background:rgba(16,185,129,.15);padding:7px 9px;border-radius:12px">🧾</span><div><div style="font-weight:800;font-size:13.5px">Utility Bills</div><div style="font-size:11px;color:var(--mut)">Electricity, Cable TV, Airtime &amp; Split Bill</div></div></div>
+            <div style="display:flex;align-items:center;gap:10px"><span style="background:rgba(16,185,129,.15);padding:8px;border-radius:12px;display:flex"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1Z"/><path d="M8 7h8"/><path d="M8 11h8"/><path d="M8 15h5"/></svg></span><div><div style="font-weight:800;font-size:13.5px">Utility Bills</div><div style="font-size:11px;color:var(--mut)">Electricity, Cable TV, Airtime &amp; Split Bill</div></div></div>
             <span style="color:var(--acc);font-weight:900">→</span>
           </div>
           <div class="acc-row" style="cursor:pointer" onclick="nav('vcard')">
-            <div style="display:flex;align-items:center;gap:10px"><span style="font-size:18px;background:rgba(56,189,248,.15);padding:7px 9px;border-radius:12px">💳</span><div><div style="font-weight:800;font-size:13.5px">Virtual Dollar Cards</div><div style="font-size:11px;color:var(--mut)">Ads, Netflix, AliExpress &amp; Global Payments</div></div></div>
+            <div style="display:flex;align-items:center;gap:10px"><span style="background:rgba(56,189,248,.15);padding:8px;border-radius:12px;display:flex"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg></span><div><div style="font-weight:800;font-size:13.5px">Virtual Dollar Cards</div><div style="font-size:11px;color:var(--mut)">Ads, Netflix, AliExpress &amp; Global Payments</div></div></div>
             <span style="color:#38bdf8;font-weight:900">→</span>
           </div>
           <div class="acc-row" style="cursor:pointer" onclick="nav('xborder')">
-            <div style="display:flex;align-items:center;gap:10px"><span style="font-size:18px;background:rgba(168,85,247,.15);padding:7px 9px;border-radius:12px">🌍</span><div><div style="font-weight:800;font-size:13.5px">Cross-Border Payout</div><div style="font-size:11px;color:var(--mut)">Send to SA, Nigeria, Kenya &amp; UK Banks/MoMo</div></div></div>
+            <div style="display:flex;align-items:center;gap:10px"><span style="background:rgba(168,85,247,.15);padding:8px;border-radius:12px;display:flex"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c084fc" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></span><div><div style="font-weight:800;font-size:13.5px">Cross-Border Payout</div><div style="font-size:11px;color:var(--mut)">Send to SA, Nigeria, Kenya &amp; UK Banks/MoMo</div></div></div>
             <span style="color:#c084fc;font-weight:900">→</span>
           </div>
           <div class="acc-row" style="cursor:pointer;border:none" onclick="nav('escrow')">
-            <div style="display:flex;align-items:center;gap:10px"><span style="font-size:18px;background:rgba(245,158,11,.15);padding:7px 9px;border-radius:12px">🔐</span><div><div style="font-weight:800;font-size:13.5px">Digital Escrow</div><div style="font-size:11px;color:var(--mut)">Safe-Claim 4-Digit PIN P2P Protection</div></div></div>
+            <div style="display:flex;align-items:center;gap:10px"><span style="background:rgba(245,158,11,.15);padding:8px;border-radius:12px;display:flex"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></span><div><div style="font-weight:800;font-size:13.5px">Digital Escrow</div><div style="font-size:11px;color:var(--mut)">Safe-Claim 4-Digit PIN P2P Protection</div></div></div>
             <span style="color:var(--gold);font-weight:900">→</span>
           </div>
         </div>
@@ -236,10 +236,10 @@
           <div style="font-size:11px;color:#6ee7b7;font-weight:800;text-transform:uppercase">Zale Spot &amp; Fiat Wallet</div>
           <div id="walTabBal" style="font-size:26px;font-weight:900;margin-top:4px">$0.00</div>
           <div class="act4" style="margin-top:14px">
-            <button class="act-btn" style="background:rgba(16,185,129,.22);color:#fff;border-color:rgba(16,185,129,.5)" onclick="nav('trade');setTradeMode('buy')"><span>🟢</span>Buy</button>
-            <button class="act-btn" style="background:rgba(245,158,11,.22);color:#fff;border-color:rgba(245,158,11,.5)" onclick="nav('trade');setTradeMode('sell')"><span>🟠</span>Sell</button>
-            <button class="act-btn" style="background:rgba(52,211,153,.22);color:#fff;border-color:rgba(52,211,153,.5)" onclick="openWalletAction('deposit')"><span>⬇️</span>Deposit</button>
-            <button class="act-btn" style="background:rgba(56,189,248,.22);color:#fff;border-color:rgba(56,189,248,.5)" onclick="openWalletAction('withdraw')"><span>🏦</span>Withdraw</button>
+            <button class="act-btn" style="background:rgba(16,185,129,.22);color:#fff;border-color:rgba(16,185,129,.5)" onclick="nav('trade');setTradeMode('buy')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><circle cx="12" cy="12" r="9"/><path d="M12 8v8"/><path d="M8 12h8"/></svg></span>Buy</button>
+            <button class="act-btn" style="background:rgba(245,158,11,.22);color:#fff;border-color:rgba(245,158,11,.5)" onclick="nav('trade');setTradeMode('sell')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></span>Sell</button>
+            <button class="act-btn" style="background:rgba(52,211,153,.22);color:#fff;border-color:rgba(52,211,153,.5)" onclick="openWalletAction('deposit')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></span>Deposit</button>
+            <button class="act-btn" style="background:rgba(56,189,248,.22);color:#fff;border-color:rgba(56,189,248,.5)" onclick="openWalletAction('withdraw')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="M3 21h18"/><path d="M3 10h18"/><path d="M5 6l7-3 7 3"/><path d="M4 10v11"/><path d="M20 10v11"/><path d="M8 14v3"/><path d="M12 14v3"/><path d="M16 14v3"/></svg></span>Withdraw</button>
           </div>
         </div>
 
@@ -412,9 +412,9 @@
         <div class="card">
           <div class="row" style="margin-bottom:10px"><h2 style="margin:0;font-size:19px">🧾 Utility Bills</h2><button class="btn-ghost" style="padding:5px 10px;font-size:11px" onclick="nav('home')">← Home</button></div>
           <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
-            <div id="ut-elec" class="svc-item" style="border-color:#10b981;background:rgba(16,185,129,.12)" onclick="pickUtility('ut-elec','Electricity (ZESCO / Eskom / IKEDC / KPLC)')"><span>⚡</span>Electricity</div>
-            <div id="ut-tv" class="svc-item" onclick="pickUtility('ut-tv','Cable TV (DStv / GOtv)')"><span>📺</span>Cable TV</div>
-            <div id="ut-air" class="svc-item" onclick="pickUtility('ut-air','Airtime &amp; Mobile Data')"><span>📱</span>Airtime/Data</div>
+            <div id="ut-elec" class="svc-item" style="border-color:#10b981;background:rgba(16,185,129,.12)" onclick="pickUtility('ut-elec','Electricity (ZESCO / Eskom / IKEDC / KPLC)')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></span>Electricity</div>
+            <div id="ut-tv" class="svc-item" onclick="pickUtility('ut-tv','Cable TV (DStv / GOtv)')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><rect width="20" height="15" x="2" y="7" rx="2"/><polyline points="17 2 12 7 7 2"/></svg></span>Cable TV</div>
+            <div id="ut-air" class="svc-item" onclick="pickUtility('ut-air','Airtime &amp; Mobile Data')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><rect width="14" height="20" x="5" y="2" rx="2"/><path d="M12 18h.01"/></svg></span>Airtime/Data</div>
           </div>
           <div id="billTitle" style="font-weight:800;font-size:13.5px;color:var(--acc)">Electricity (ZESCO / Eskom / IKEDC / KPLC)</div>
           <input id="billMeter" placeholder="Meter / Smartcard / Phone Number" />
@@ -465,11 +465,11 @@
     </div>
   </div>
   <div id="bottomNav" class="bnav hide">
-    <button id="bn-home" class="on" onclick="nav('home')"><span>🏠</span>Home</button>
-    <button id="bn-trade" onclick="nav('trade')"><span>📈</span>Trade</button>
-    <button id="bn-wallet" onclick="nav('wallet');document.getElementById('withdrawBox').classList.remove('hide')"><span>👛</span>Wallet</button>
-    <button id="bn-giftcards" onclick="nav('giftcards')"><span>🎁</span>Gift Cards</button>
-    <button id="bn-account" onclick="nav('account')"><span>👤</span>Account</button>
+    <button id="bn-home" class="on" onclick="nav('home')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>Home</button>
+    <button id="bn-trade" onclick="nav('trade')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg></span>Trade</button>
+    <button id="bn-wallet" onclick="nav('wallet');document.getElementById('withdrawBox').classList.remove('hide')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg></span>Wallet</button>
+    <button id="bn-giftcards" onclick="nav('giftcards')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg></span>Gift Cards</button>
+    <button id="bn-account" onclick="nav('account')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>Account</button>
   </div>
 
   <script>
@@ -498,15 +498,15 @@
       CH:{name:"Switzerland",flag:"🇨🇭",fiat:"Swiss Franc (CHF)",s:"CHF",r:0.88}
     };
         const COINS = [
-      {id:"BNB", sym:"BNB", name:"Binance Coin", net:"BEP20", p:587.00, icon:"🟡"},
-      {id:"BTC", sym:"BTC", name:"Bitcoin", net:"BTC", p:91450.00, icon:"🟠"},
-      {id:"ETH", sym:"ETH", name:"Ethereum", net:"ERC20", p:3250.00, icon:"🔷"},
-      {id:"SOL", sym:"SOL", name:"Solana", net:"SOL", p:192.40, icon:"🟣"},
-      {id:"USDC", sym:"USDC", name:"USD Coin", net:"ERC20", p:1.00, icon:"🔵"},
-      {id:"USDT-ERC20", sym:"USDT", name:"USD Tether (ERC20)", net:"ERC20", p:1.00, icon:"🟢"},
-      {id:"USDT-TRC20", sym:"USDT", name:"USD Tether (TRC20)", net:"TRC20", p:1.00, icon:"🟢"},
-      {id:"USDT-SOL", sym:"USDT", name:"USD Tether (SOL)", net:"SOL", p:1.00, icon:"🟢"},
-      {id:"USDT-BEP20", sym:"USDT", name:"USD Tether (BEP20)", net:"BEP20", p:1.00, icon:"🟢"}
+      {id:"BNB", sym:"BNB", name:"Binance Coin", net:"BEP20", price:587.00, icon:"🟡"},
+      {id:"BTC", sym:"BTC", name:"Bitcoin", net:"BTC", price:91450.00, icon:"🟠"},
+      {id:"ETH", sym:"ETH", name:"Ethereum", net:"ERC20", price:3250.00, icon:"🔷"},
+      {id:"SOL", sym:"SOL", name:"Solana", net:"SOL", price:192.40, icon:"🟣"},
+      {id:"USDC", sym:"USDC", name:"USD Coin", net:"ERC20", price:1.00, icon:"🔵"},
+      {id:"USDT-ERC20", sym:"USDT", name:"USD Tether (ERC20)", net:"ERC20", price:1.00, icon:"🟢"},
+      {id:"USDT-TRC20", sym:"USDT", name:"USD Tether (TRC20)", net:"TRC20", price:1.00, icon:"🟢"},
+      {id:"USDT-SOL", sym:"USDT", name:"USD Tether (SOL)", net:"SOL", price:1.00, icon:"🟢"},
+      {id:"USDT-BEP20", sym:"USDT", name:"USD Tether (BEP20)", net:"BEP20", price:1.00, icon:"🟢"}
     ];
 
     const GC_BRANDS = [
@@ -872,10 +872,10 @@
           const list = await res.json();
           const map = {}; list.forEach(x => map[x.symbol] = parseFloat(x.price));
           COINS.forEach(c => {
-            if (c.sym === "BNB" && map.BNBUSDT) c.p = map.BNBUSDT;
-            if (c.sym === "BTC" && map.BTCUSDT) c.p = map.BTCUSDT;
-            if (c.sym === "ETH" && map.ETHUSDT) c.p = map.ETHUSDT;
-            if (c.sym === "SOL" && map.SOLUSDT) c.p = map.SOLUSDT;
+            if (c.sym === "BNB" && map.BNBUSDT) c.price = map.BNBUSDT;
+            if (c.sym === "BTC" && map.BTCUSDT) c.price = map.BTCUSDT;
+            if (c.sym === "ETH" && map.ETHUSDT) c.price = map.ETHUSDT;
+            if (c.sym === "SOL" && map.SOLUSDT) c.price = map.SOLUSDT;
           });
           renderCoins(); return;
         }
@@ -885,10 +885,10 @@
         if (cg.ok) {
           const d = await cg.json();
           COINS.forEach(c => {
-            if (c.sym === "BNB" && d.binancecoin?.usd) c.p = d.binancecoin.usd;
-            if (c.sym === "BTC" && d.bitcoin?.usd) c.p = d.bitcoin.usd;
-            if (c.sym === "ETH" && d.ethereum?.usd) c.p = d.ethereum.usd;
-            if (c.sym === "SOL" && d.solana?.usd) c.p = d.solana.usd;
+            if (c.sym === "BNB" && d.binancecoin?.usd) c.price = d.binancecoin.usd;
+            if (c.sym === "BTC" && d.bitcoin?.usd) c.price = d.bitcoin.usd;
+            if (c.sym === "ETH" && d.ethereum?.usd) c.price = d.ethereum.usd;
+            if (c.sym === "SOL" && d.solana?.usd) c.price = d.solana.usd;
           });
           renderCoins();
         }
@@ -907,7 +907,14 @@
       if (el) el.textContent = `Estimated Cashout (${rate}%): $${net.toFixed(2)} (${c.s}${(net * c.r).toLocaleString(undefined,{maximumFractionDigits:0})})`;
     }
     let gcPhotoAttached = false;
+        function placeGcOrder() {
+      const v = parseFloat(document.getElementById("gcUsd").value), code = document.getElementById("gcCode").value.trim();
+      if (!v || !code) return toast("Enter gift card USD amount and E-Code/email.");
+      const tag = gcPhotoAttached ? " [Photo Attached]" : "";
+      createOrder("Gift Card " + ((typeof gcSide!=="undefined"?gcSide:"sell").toUpperCase()) + " (" + selBrand.n + ")", v, code + tag, (typeof gcSide==="undefined"||gcSide==="sell") ? "Submit code & photo on WhatsApp for instant cashout" : PAY.momo + " | USDT: " + PAY.wallet);
+    }
     function previewGcImg(inp) {
+
       const f = inp.files?.[0]; if (!f) return;
       gcPhotoAttached = true;
       const r = new FileReader();
