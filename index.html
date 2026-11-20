@@ -160,12 +160,14 @@
           <div id="homeBalUsd" style="font-size:12px;color:#a7f3d0;margin-top:2px">≈ $0.00 USD Equivalent</div>
         </div>
 
-        <div class="act4">
-          <button class="act-btn" onclick="openWalletAction('deposit')"><span>⬇️</span>Deposit</button>
-          <button class="act-btn" onclick="openWalletAction('withdraw')"><span>↗️</span>Transfer</button>
-          <button class="act-btn" onclick="nav('trade')"><span>💱</span>Buy / Sell</button>
-          <button class="act-btn" onclick="nav('trade');setTradeMode('swap')"><span>🔄</span>Swap</button>
-        </div>
+                  <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:14px">
+            <button class="act-btn" style="padding:9px 2px;font-size:10.5px" onclick="openWalletAction('deposit')"><span>⬇️</span>Deposit</button>
+            <button class="act-btn" style="padding:9px 2px;font-size:10.5px" onclick="openWalletAction('withdraw')"><span>↗️</span>Transfer</button>
+            <button class="act-btn" style="padding:9px 2px;font-size:10.5px" onclick="nav('trade');setTradeMode('buy')"><span>🟢</span>Buy</button>
+            <button class="act-btn" style="padding:9px 2px;font-size:10.5px" onclick="nav('trade');setTradeMode('sell')"><span>🟠</span>Sell</button>
+            <button class="act-btn" style="padding:9px 2px;font-size:10.5px" onclick="nav('trade');setTradeMode('swap')"><span>🔄</span>Swap</button>
+          </div>
+
 
                 <div class="card">
           <div class="row" style="margin-bottom:4px"><h3 style="margin:0;font-size:15px">Services</h3><span style="font-size:11px;color:var(--mut)">Instant Desk</span></div>
@@ -193,10 +195,14 @@
               <div style="font-size:15.5px;font-weight:900;color:var(--txt)">Zale Rates</div>
               <div style="font-size:12px;color:var(--mut);margin-top:2px">Stay up to date with our rates</div>
             </div>
-            <div style="display:flex;align-items:center;gap:8px">
-              <span style="font-size:22px;background:rgba(16,185,129,.15);border:1px solid var(--brd);padding:6px 10px;border-radius:14px">₿🤝</span>
-              <span style="font-weight:900;color:var(--acc)">→</span>
+                        <div style="display:flex;flex-direction:column;align-items:flex-end;gap:5px">
+              <a href="https://wa.me" target="_blank" onclick="event.stopPropagation()" style="background:#10b981;color:#03120e;font-size:10.5px;font-weight:900;padding:4px 9px;border-radius:999px;text-decoration:none">💬 Chat</a>
+              <div style="display:flex;align-items:center;gap:6px">
+                <span style="font-size:20px;background:rgba(16,185,129,.15);border:1px solid var(--brd);padding:5px 9px;border-radius:12px">₿🤝</span>
+                <span style="font-weight:900;color:var(--acc)">→</span>
+              </div>
             </div>
+
           </div>
         </div>
 
@@ -243,14 +249,26 @@
           <button class="btn" onclick="initiateBankDeposit()">Get Bank / MoMo Deposit Details</button>
         </div>
 
-        <div id="withdrawBox" class="card hide" style="border-color:rgba(56,189,248,.55)">
+                <div id="withdrawBox" class="card hide" style="border-color:rgba(56,189,248,.55)">
           <div class="row" style="margin-bottom:4px"><h3 style="margin:0;font-size:15px;color:#38bdf8">🏦 Withdraw / Transfer Funds</h3><button class="btn-ghost" style="padding:4px 8px;font-size:10px" onclick="document.getElementById('withdrawBox').classList.add('hide')">Close</button></div>
           <input id="wdUsd" type="number" placeholder="Withdraw Amount in USD (e.g. 50)" />
-          <input id="depAcct" placeholder="Bank Account or Mobile Money Number" />
+          <input id="wdNet" placeholder="Payout Network / Bank (e.g. Airtel, MTN, FNB, OPay)" />
+          <input id="wdHolder" placeholder="Account Holder Full Name" />
+          <input id="depAcct" placeholder="Account or Mobile Money Number" />
           <button class="btn-gold" style="width:100%;margin-top:10px;padding:13px" onclick="initiateWithdrawOrder()">Submit Withdrawal / Transfer</button>
         </div>
 
-        <div class="card"><div class="row" style="margin-bottom:8px"><h3 style="margin:0;font-size:15px">Recent Transactions</h3><span style="font-size:12px;color:var(--acc);font-weight:800;cursor:pointer" onclick="toast('Showing all wallet transactions.')">See All</span></div><div id="walletOrders"></div></div>
+        <div class="card">
+          <div class="row" style="margin-bottom:8px">
+            <h3 style="margin:0;font-size:15px">Recent Transactions</h3>
+            <div style="display:flex;gap:8px;align-items:center">
+              <span style="font-size:11.5px;color:var(--acc);font-weight:800;cursor:pointer" onclick="toast('Showing all wallet transactions.')">See All</span>
+              <button id="txToggleBtn" class="btn-ghost" style="padding:4px 8px;font-size:10.5px" onclick="toggleRecentTx()">Hide</button>
+            </div>
+          </div>
+          <div id="walletOrders"></div>
+        </div>
+
       </div>
 
       <div id="tab-giftcards"
@@ -284,10 +302,10 @@
           <div class="row"><h3 style="margin:0;font-size:14.5px">KYC Verification Level</h3><span id="kycBadge" class="pill-pend">Tier 1 • Pending</span></div>
           <div class="acc-row"><span>Email &amp; Phone Verification</span><span class="pill-ok">Verified</span></div>
           <div class="acc-row"><span>Face Verification</span><span id="faceStatus" class="pill-pend">Pending</span></div>
-          <div class="acc-row"><span>BVN Verification</span><span id="bvnStatus" class="pill-pend">Pending</span></div>
+          <div class="acc-row"><span>Identity / ID Verification</span><span id="bvnStatus" class="pill-pend">Pending</span></div>
           <div class="acc-row" style="cursor:pointer" onclick="nav('limits')"><span>Transfer Limits</span><b style="color:var(--acc)">View Limits →</b></div>
           <button class="btn-gold" style="width:100%;margin-top:8px" onclick="document.getElementById('kycModalBox').classList.toggle('hide')">Update KYC</button>
-          <div id="kycModalBox" class="hide" style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--brd)"><input id="kycIdNum" placeholder="Enter BVN or National ID / NRC Number" /><select id="kycDocType"><option>National ID / NRC</option><option>BVN Verification</option><option>International Passport</option></select><button class="btn" onclick="submitKycUpdate()">Submit Face &amp; BVN Verification</button></div>
+          <div id="kycModalBox" class="hide" style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--brd)"><input id="kycIdNum" placeholder="Enter BVN or National ID / NRC Number" /><select id="kycDocType"><option>National ID / NRC</option><option>Identity / ID Verification</option><option>International Passport</option></select><button class="btn" onclick="submitKycUpdate()">Submit Face &amp; Identity / ID Verification</button></div>
         </div>
         <div class="card">
           <h3 style="margin:0 0 6px;font-size:14.5px">Security</h3>
@@ -306,7 +324,7 @@
         </div>
         <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Appearance</h3><select id="themeSel" onchange="applyTheme(this.value)" style="margin-top:4px"><option value="dark">Dark Theme</option><option value="light">Light Theme</option><option value="system">System (Phone System)</option></select></div>
         <div class="card" style="border-color:rgba(245,158,11,.45);cursor:pointer" onclick="nav('refer')"><div class="row"><div><div style="font-weight:800;font-size:14.5px;color:var(--gold)">🎁 Refer &amp; Earn</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Number of referrals, code &amp; share link</div></div><span style="font-weight:900;color:var(--acc)">Open →</span></div></div>
-        <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Support</h3><div class="acc-row"><span>Company Email</span><div style="display:flex;align-items:center;gap:6px"><b>helpdesk20@gmail.com</b><button class="btn-ghost" style="padding:4px 8px;font-size:10.5px" onclick="copyVal('helpdesk20@gmail.com','Support Email')">Copy</button></div></div><div class="acc-row"><span>WhatsApp Support</span><a href="https://wa.me" target="_blank" style="color:var(--acc);font-weight:800;text-decoration:none">+260 77 947 3735</a></div><button class="btn-ghost" style="width:100%;margin-top:10px" onclick="shareApp()">📤 Share Zale App</button><button class="btn" style="background:#ef4444;color:#fff;margin-top:10px" onclick="doLogout()">Sign Out</button></div>
+        <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Support</h3><div class="acc-row"><span>Company Email</span><div style="display:flex;align-items:center;gap:6px"><b>support.com</b><button class="btn-ghost" style="padding:4px 8px;font-size:10.5px" onclick="copyVal('support.com','Support Email')">Copy</button></div></div><div class="acc-row"><span>WhatsApp Support</span><a href="https://wa.me" target="_blank" class="btn-gold" style="text-decoration:none;padding:6px 11px;font-size:11.5px">💬 Chat (+260 77 947 3735)</a></div><button class="btn-ghost" style="width:100%;margin-top:10px" onclick="shareApp()">📤 Share Zale App</button><button class="btn" style="background:#ef4444;color:#fff;margin-top:10px" onclick="doLogout()">Sign Out</button></div>
       </div>
       <div id="tab-refer" class="hide">
         <div class="card" style="border-color:rgba(245,158,11,.5)">
@@ -479,13 +497,18 @@
       IE:{name:"Ireland",flag:"🇮🇪",fiat:"Euro (EUR)",s:"€",r:0.92},
       CH:{name:"Switzerland",flag:"🇨🇭",fiat:"Swiss Franc (CHF)",s:"CHF",r:0.88}
     };
-    const COINS = [
-      {name:"Binance Coin",sym:"BNB",net:"BNB (BEP20)",price:587,color:"#f59e0b",ico:"BNB"},
-      {name:"Bitcoin",sym:"BTC",net:"Bitcoin Network",price:91450,color:"#f97316",ico:"₿"},
-      {name:"Solana",sym:"SOL",net:"Solana (SOL)",price:215,color:"#8b5cf6",ico:"SOL"},
-      {name:"USD Coin",sym:"USDC",net:"USDC (ERC20 / Polygon)",price:1.00,color:"#2563eb",ico:"$"},
-      {name:"Tether",sym:"USDT",net:"USDT (TRC20 / BEP20)",price:1.00,color:"#10b981",ico:"₮"}
+        const COINS = [
+      {id:"BNB", sym:"BNB", name:"Binance Coin", net:"BEP20", p:587.00, icon:"🟡"},
+      {id:"BTC", sym:"BTC", name:"Bitcoin", net:"BTC", p:91450.00, icon:"🟠"},
+      {id:"ETH", sym:"ETH", name:"Ethereum", net:"ERC20", p:3250.00, icon:"🔷"},
+      {id:"SOL", sym:"SOL", name:"Solana", net:"SOL", p:192.40, icon:"🟣"},
+      {id:"USDC", sym:"USDC", name:"USD Coin", net:"ERC20", p:1.00, icon:"🔵"},
+      {id:"USDT-ERC20", sym:"USDT", name:"USD Tether (ERC20)", net:"ERC20", p:1.00, icon:"🟢"},
+      {id:"USDT-TRC20", sym:"USDT", name:"USD Tether (TRC20)", net:"TRC20", p:1.00, icon:"🟢"},
+      {id:"USDT-SOL", sym:"USDT", name:"USD Tether (SOL)", net:"SOL", p:1.00, icon:"🟢"},
+      {id:"USDT-BEP20", sym:"USDT", name:"USD Tether (BEP20)", net:"BEP20", p:1.00, icon:"🟢"}
     ];
+
     const GC_BRANDS = [
       {name:"Amazon USA",rate:85,tag:"top",color:"#f59e0b",svg:"a"},
       {name:"Apple / iTunes",rate:82,tag:"trend",color:"#38bdf8",svg:""},
@@ -618,16 +641,12 @@
       const c = CURR[user.cty] || CURR.ZM;
       document.getElementById("homeCountryBadge").textContent = c.flag + " " + c.name;
       if (document.getElementById("dropCountryLabel")) document.getElementById("dropCountryLabel").textContent = c.flag + " " + c.name;
-      renderAvatarPic(); updateBillCurrLbl(); renderLimitsScreen(); renderCoins(); renderBrands(); renderAll();
+      renderAvatarPic(); updateBillCurrLbl(); renderLimitsScreen(); renderCoins(); fetchLiveCryptoPrices(); renderBrands(); renderAll();
     }
 
     function shareApp() { const u = location.href; navigator.clipboard?.writeText(u); if (navigator.share) navigator.share({title:"Zale App v3.0.3",text:"Pan-African & Global FX, Crypto & Gift Cards",url:u}); else toast("Zale App link copied! Ready to paste on WhatsApp."); }
     function handleWalletSelect(v) { if (v === "add") {  nav("trade"); } }
-    function nav(t) {
-      ["home","trade","wallet","giftcards","account","refer","rates","limits","utilities","vcard","xborder","escrow","admin"].forEach(k => document.getElementById("tab-"+k).classList.toggle("hide", k!==t));
-      ["home","trade","wallet","giftcards","account"].forEach(k => document.getElementById("bn-"+k).classList.toggle("on", k===t));
-      renderAll();
-    }
+    function nav(t) { ["depositBox","withdrawBox","tradeCoinBox","gcOrderBox","kycModalBox","vaultBoxV3","walletDropMenu"].forEach(x => document.getElementById(x)?.classList.add("hide")); ["home","trade","wallet","giftcards","account","refer","rates","limits","utilities","vcard","xborder","escrow","admin"].forEach(k => { const el = document.getElementById("tab-"+k); if (el) el.classList.toggle("hide", k !== t); }); ["home","trade","wallet","giftcards","account"].forEach(k => { const el = document.getElementById("bn-"+k); if (el) el.classList.toggle("on", k === t); }); renderAll(); }
     function toggleBal() { balHidden = !balHidden; document.getElementById("balToggleLbl").textContent = balHidden ? "Show Balance" : "Hide Balance"; renderAll(); }
     function setTradeMode(m) { tradeMode = m; ["buy","sell","swap"].forEach(k => document.getElementById("tm-"+k).className = k===m ? "on" : "off"); }
     
@@ -789,12 +808,7 @@
       if (wb) wb.classList.toggle("hide", mode !== "withdraw");
     }
 
-    function initiateWithdrawOrder() {
-      const v = parseFloat(document.getElementById("wdUsd")?.value || document.getElementById("depUsd")?.value);
-      const a = document.getElementById("depAcct").value.trim();
-      if (!v || !a) return toast("Enter withdrawal amount and bank/mobile money account.");
-      createOrder("Wallet Withdrawal", v, a, "Desk payout to: " + a);
-    }
+    function initiateWithdrawOrder() { const v = parseFloat(document.getElementById("wdUsd")?.value), net = document.getElementById("wdNet")?.value.trim(), holder = document.getElementById("wdHolder")?.value.trim(), a = document.getElementById("depAcct").value.trim(); if (!v || !net || !holder || !a) return toast("Enter USD amount, network/bank, account holder name, and account number."); const dest = `${net} | ${holder} (${a})`; createOrder("Wallet Withdrawal", v, dest, "Desk payout to: " + dest); }
         async function syncCloudAdmin() {
       try {
         const res = await fetch(`${SB_URL}/rest/v1/zale_orders?select=*&order=id.desc`,{headers:{"apikey":SB_KEY}});
@@ -851,7 +865,57 @@
       renderAll();
       toast("Pre-launch test orders cleared!");
     }
+        async function fetchLiveCryptoPrices() {
+      try {
+        const res = await fetch("https://binance.com");
+        if (res.ok) {
+          const list = await res.json();
+          const map = {}; list.forEach(x => map[x.symbol] = parseFloat(x.price));
+          COINS.forEach(c => {
+            if (c.sym === "BNB" && map.BNBUSDT) c.p = map.BNBUSDT;
+            if (c.sym === "BTC" && map.BTCUSDT) c.p = map.BTCUSDT;
+            if (c.sym === "ETH" && map.ETHUSDT) c.p = map.ETHUSDT;
+            if (c.sym === "SOL" && map.SOLUSDT) c.p = map.SOLUSDT;
+          });
+          renderCoins(); return;
+        }
+      } catch(e) {}
+      try {
+        const cg = await fetch("https://coingecko.com");
+        if (cg.ok) {
+          const d = await cg.json();
+          COINS.forEach(c => {
+            if (c.sym === "BNB" && d.binancecoin?.usd) c.p = d.binancecoin.usd;
+            if (c.sym === "BTC" && d.bitcoin?.usd) c.p = d.bitcoin.usd;
+            if (c.sym === "ETH" && d.ethereum?.usd) c.p = d.ethereum.usd;
+            if (c.sym === "SOL" && d.solana?.usd) c.p = d.solana.usd;
+          });
+          renderCoins();
+        }
+      } catch(e) {}
+    }
+    function toggleRecentTx() {
+      const box = document.getElementById("walletOrders"), btn = document.getElementById("txToggleBtn");
+      if (!box || !btn) return;
+      const hidden = box.classList.toggle("hide");
+      btn.textContent = hidden ? "Show" : "Hide";
+    }
+    function previewGcPayout() {
+      const c = CURR[user?.cty] || CURR.ZM, v = parseFloat(document.getElementById("gcUsd")?.value) || 0, rate = selBrand?.r || 80;
+      const net = v * (rate / 100);
+      const el = document.getElementById("gcLivePreview");
+      if (el) el.textContent = `Estimated Cashout (${rate}%): $${net.toFixed(2)} (${c.s}${(net * c.r).toLocaleString(undefined,{maximumFractionDigits:0})})`;
+    }
+    let gcPhotoAttached = false;
+    function previewGcImg(inp) {
+      const f = inp.files?.[0]; if (!f) return;
+      gcPhotoAttached = true;
+      const r = new FileReader();
+      r.onload = e => { const img = document.getElementById("gcPhotoPrev"); if (img) { img.src = e.target.result; img.classList.remove("hide"); } };
+      r.readAsDataURL(f);
+    }
     function applyTheme(t) {
+
 
 
 
