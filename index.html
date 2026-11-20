@@ -879,32 +879,43 @@
       renderAll();
       toast("Pre-launch test orders cleared!");
     }
-            async function fetchLiveCryptoPrices() {
-      try {
-        const res = await fetch("https://cryptocompare.com");
-        if (res.ok) {
-          const d = await res.json();
-          COINS.forEach(c => { if (d[c.sym]?.USD) c.price = parseFloat(d[c.sym].USD); });
-          renderCoins();
-          return;
-        }
-      } catch(e) {}
-      try {
-        const cg = await fetch("https://coingecko.com");
-        if (cg.ok) {
-          const d = await cg.json();
-          COINS.forEach(c => {
-            if (c.sym === "BNB" && d.binancecoin?.usd) c.price = d.binancecoin.usd;
-            if (c.sym === "BTC" && d.bitcoin?.usd) c.price = d.bitcoin.usd;
-            if (c.sym === "ETH" && d.ethereum?.usd) c.price = d.ethereum.usd;
-            if (c.sym === "SOL" && d.solana?.usd) c.price = d.solana.usd;
-            if (c.sym === "USDC" && d["usd-coin"]?.usd) c.price = d["usd-coin"].usd;
-            if (c.sym === "USDT" && d.tether?.usd) c.price = d.tether.usd;
-          });
-          renderCoins();
-        }
-      } catch(e) {}
+                async function fetchLiveCryptoPrices() {
+      const pairs = ["BNB-USD","BTC-USD","ETH-USD","SOL-USD","USDC-USD","USDT-USD"];
+      let updated = false;
+      await Promise.all(pairs.map(async p => {
+        try {
+          const r = await fetch("https://coinbase.com" + p + "/spot", {cache:"no-store"});
+          if (r.ok) {
+            const j = await r.json();
+            const val = parseFloat(j?.data?.amount);
+            const sym = p.split("-").at(0);
+            if (val > 0) {
+              COINS.forEach(c => { if (c.sym === sym) c.price = val; });
+              updated = true;
+            }
+          }
+        } catch(e) {}
+      }));
+      if (!updated) {
+        try {
+          const cg = await fetch("https://coingecko.com", {cache:"no-store"});
+          if (cg.ok) {
+            const d = await cg.json();
+            COINS.forEach(c => {
+              if (c.sym === "BNB" && d.binancecoin?.usd) c.price = d.binancecoin.usd;
+              if (c.sym === "BTC" && d.bitcoin?.usd) c.price = d.bitcoin.usd;
+              if (c.sym === "ETH" && d.ethereum?.usd) c.price = d.ethereum.usd;
+              if (c.sym === "SOL" && d.solana?.usd) c.price = d.solana.usd;
+              if (c.sym === "USDC" && d["usd-coin"]?.usd) c.price = d["usd-coin"].usd;
+              if (c.sym === "USDT" && d.tether?.usd) c.price = d.tether.usd;
+            });
+          }
+        } catch(e) {}
+      }
+      renderCoins();
     }
+    setInterval(fetchLiveCryptoPrices, 15000);
+
 
     function toggleRecentTx() {
       const box = document.getElementById("walletOrders"), btn = document.getElementById("txToggleBtn");
