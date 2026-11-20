@@ -822,7 +822,38 @@
       if (!v || !rec) return toast("Enter USD amount and recipient bank/MoMo details.");
       createOrder("Cross-Border Payout", v, cty + " | " + rec, PAY.momo + " | USDT: " + PAY.wallet);
     }
+        async function adminSettle(id) {
+      const o = orders.find(x => x.id === id);
+      if (o) {
+        o.status = "Approved & Settled"; localStorage.setItem("zale_orders", JSON.stringify(orders)); renderAll();
+        try { await fetch(`${SB_URL}/rest/v1/zale_orders?id=eq.${id}`,{method:"PATCH",headers:{"apikey":SB_KEY,"Content-Type":"application/json"},body:JSON.stringify({status:"Approved & Settled"})}); } catch(e) {}
+        toast("Order #" + id + " Approved & Settled!");
+      }
+    }
+    async function adminReject(id) {
+      const o = orders.find(x => x.id === id);
+      if (o) {
+        o.status = "Rejected"; localStorage.setItem("zale_orders", JSON.stringify(orders)); renderAll();
+        try { await fetch(`${SB_URL}/rest/v1/zale_orders?id=eq.${id}`,{method:"PATCH",headers:{"apikey":SB_KEY,"Content-Type":"application/json"},body:JSON.stringify({status:"Rejected"})}); } catch(e) {}
+        toast("Order #" + id + " Rejected.");
+      }
+    }
+        let admFilter = "pend";
+    function setAdmFilter(f) {
+      admFilter = f;
+      document.getElementById("af-pend").className = f === "pend" ? "chip on" : "chip";
+      document.getElementById("af-all").className = f === "all" ? "chip on" : "chip";
+      renderAll();
+    }
+    function clearTestOrders() {
+      orders = [];
+      localStorage.setItem("zale_orders", "[]");
+      renderAll();
+      toast("Pre-launch test orders cleared!");
+    }
     function applyTheme(t) {
+
+
 
 
 
@@ -844,7 +875,18 @@
       
       const my = orders.filter(o=>o.user===user.email);
       document.getElementById("walletOrders").innerHTML = my.length ? my.map(o=>`<div class="order-item"><div class="row"><b>#${o.id} • ${o.type}</b><span>${o.status}</span></div><div style="color:var(--mut);margin-top:3px">$${o.usd} (${o.local}) • ${o.ref}</div></div>`).join("") : "<div style='text-align:center;padding:18px 8px;color:var(--mut);font-size:12.5px'>You currently do not have any transactions</div>";
-      if (user.email === ADMIN) document.getElementById("admOrdersList").innerHTML = orders.map(o=>`<div class="order-item"><div class="row"><b>#${o.id} • ${o.type}</b><span>${o.status}</span></div><div>${o.user} • $${o.usd} • ${o.ref}</div></div>`).join("") || "<p style='font-size:12px'>No orders yet.</p>";
+      if (user.email === ADMIN && document.getElementById("admOrdersList")) {
+        document.getElementById("admOrdersList").innerHTML = (admFilter === "pend" ? orders.filter(x => (x.status||"Pending") === "Pending") : orders).length ? (admFilter === "pend" ? orders.filter(x => (x.status||"Pending") === "Pending") : orders).map(o => `
+          <div class="order-item">
+            <div class="row"><b>#${o.id} • ${o.type}</b><span class="${(o.status||'Pending').includes('Approved')||o.status==='Settled'?'pill-ok':'pill-pend'}">${o.status||'Pending'}</span></div>
+            <div style="color:var(--mut);margin-top:4px">${o.user} • $${o.usd} (${o.local})</div>
+            <div style="margin-top:2px;word-break:break-all">To: ${o.to} • Ref: <b style="color:var(--gold)">${o.ref}</b></div>
+            <div class="row" style="margin-top:8px">
+              ${(o.status||'Pending')==='Pending' ? `<button class="btn" style="margin:0;padding:8px" onclick="adminSettle(${o.id})">✓ Approve</button><button class="btn-ghost" style="padding:8px;color:#f87171;border-color:rgba(239,68,68,.5)" onclick="adminReject(${o.id})">✕ Reject</button>` : ""}
+              <a href="https://wa.me{encodeURIComponent('Zale Desk Update for Order #'+o.id+': '+(o.status||'Pending'))}" target="_blank" class="btn-gold" style="text-decoration:none;text-align:center;padding:8px 10px">💬 WhatsApp</a>
+            </div>
+          </div>`).join("") : "<p style='font-size:12px;color:var(--mut)'>No orders in queue yet.</p>";
+      }
     }
     applyTheme(localStorage.getItem("zale_theme") || "dark");
     if (user) enterDashboard();
