@@ -647,7 +647,7 @@
 
     function shareApp() { const u = location.href; navigator.clipboard?.writeText(u); if (navigator.share) navigator.share({title:"Zale App v3.0.3",text:"Pan-African & Global FX, Crypto & Gift Cards",url:u}); else toast("Zale App link copied! Ready to paste on WhatsApp."); }
     function handleWalletSelect(v) { if (v === "add") {  nav("trade"); } }
-    function nav(t) { ["settleBox","depositBox","withdrawBox","tradeCoinBox","gcOrderBox","kycModalBox","vaultBoxV3","walletDropMenu"].forEach(x => document.getElementById(x)?.classList.add("hide")); ["home","trade","wallet","giftcards","account","refer","rates","limits","utilities","vcard","xborder","escrow","admin"].forEach(k => { const el = document.getElementById("tab-"+k); if (el) el.classList.toggle("hide", k !== t); }); ["home","trade","wallet","giftcards","account"].forEach(k => { const el = document.getElementById("bn-"+k); if (el) el.classList.toggle("on", k === t); }); renderAll(); }
+    function nav(t) { ["settleBox","depositBox","withdrawBox","tradeCoinBox","gcOrderBox","kycModalBox","vaultBoxV3","walletDropMenu"].forEach(x => document.getElementById(x)?.classList.add("hide")); ["home","trade","wallet","giftcards","account","refer","rates","limits","utilities","vcard","xborder","escrow","admin"].forEach(k => { const el = document.getElementById("tab-"+k); if (el) el.classList.toggle("hide", k !== t); }); ["home","trade","wallet","giftcards","account"].forEach(k => { const el = document.getElementById("bn-"+k); if (el) el.classList.toggle("on", k === t); }); if (t === 'trade') fetchLiveCryptoPrices(); renderAll(); }
     function toggleBal() { balHidden = !balHidden; document.getElementById("balToggleLbl").textContent = balHidden ? "Show Balance" : "Hide Balance"; renderAll(); }
     function setTradeMode(m) { tradeMode = m; ["buy","sell","swap"].forEach(k => document.getElementById("tm-"+k).className = k===m ? "on" : "off"); }
     
@@ -879,41 +879,44 @@
       renderAll();
       toast("Pre-launch test orders cleared!");
     }
-                async function fetchLiveCryptoPrices() {
+                    async function fetchLiveCryptoPrices() {
+      const host = ["api","coinbase","com"].join(".");
+      const cgHost = ["api","coingecko","com"].join(".");
+      let okCount = 0;
       const pairs = ["BNB-USD","BTC-USD","ETH-USD","SOL-USD","USDC-USD","USDT-USD"];
-      let updated = false;
       await Promise.all(pairs.map(async p => {
         try {
-          const r = await fetch("https://coinbase.com" + p + "/spot", {cache:"no-store"});
+          const r = await fetch("https://" + host + "/v2/prices/" + p + "/spot", {cache:"no-store"});
           if (r.ok) {
             const j = await r.json();
-            const val = parseFloat(j?.data?.amount);
+            const val = parseFloat(j && j.data && j.data.amount);
             const sym = p.split("-").at(0);
             if (val > 0) {
               COINS.forEach(c => { if (c.sym === sym) c.price = val; });
-              updated = true;
+              okCount++;
             }
           }
         } catch(e) {}
       }));
-      if (!updated) {
+      if (okCount < 4) {
         try {
-          const cg = await fetch("https://coingecko.com", {cache:"no-store"});
+          const cg = await fetch("https://" + cgHost + "/api/v3/simple/price?ids=binancecoin,bitcoin,ethereum,solana,usd-coin,tether&vs_currencies=usd", {cache:"no-store"});
           if (cg.ok) {
             const d = await cg.json();
             COINS.forEach(c => {
-              if (c.sym === "BNB" && d.binancecoin?.usd) c.price = d.binancecoin.usd;
-              if (c.sym === "BTC" && d.bitcoin?.usd) c.price = d.bitcoin.usd;
-              if (c.sym === "ETH" && d.ethereum?.usd) c.price = d.ethereum.usd;
-              if (c.sym === "SOL" && d.solana?.usd) c.price = d.solana.usd;
-              if (c.sym === "USDC" && d["usd-coin"]?.usd) c.price = d["usd-coin"].usd;
-              if (c.sym === "USDT" && d.tether?.usd) c.price = d.tether.usd;
+              if (c.sym === "BNB" && d.binancecoin && d.binancecoin.usd) c.price = d.binancecoin.usd;
+              if (c.sym === "BTC" && d.bitcoin && d.bitcoin.usd) c.price = d.bitcoin.usd;
+              if (c.sym === "ETH" && d.ethereum && d.ethereum.usd) c.price = d.ethereum.usd;
+              if (c.sym === "SOL" && d.solana && d.solana.usd) c.price = d.solana.usd;
+              if (c.sym === "USDC" && d["usd-coin"] && d["usd-coin"].usd) c.price = d["usd-coin"].usd;
+              if (c.sym === "USDT" && d.tether && d.tether.usd) c.price = d.tether.usd;
             });
           }
         } catch(e) {}
       }
       renderCoins();
     }
+
     setInterval(fetchLiveCryptoPrices, 15000);
 
 
