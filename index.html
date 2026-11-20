@@ -78,8 +78,10 @@
         <span class="eyebrow">v3.0.3</span>
       </div>
       <div id="viewLogin" class="card">
-        <h2 style="margin:0 0 4px;font-size:20px">Welcome Back</h2>
+                <h2 style="margin:0 0 4px;font-size:20px">Welcome Back</h2>
         <p style="margin:0 0 10px;font-size:12.5px;color:var(--mut)">Sign in to access your Zale wallet, crypto coins, and gift cards.</p>
+        <div id="loginErrBanner" class="hide" style="background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.5);color:#f87171;padding:10px 12px;border-radius:12px;font-size:12.5px;font-weight:800;margin-bottom:4px"></div>
+
         <input id="lEmail" type="email" placeholder="Email Address" />
         <input id="lPass" type="password" placeholder="Password" />
         <button class="btn" onclick="doLogin()">Sign In</button>
@@ -159,29 +161,20 @@
         </div>
 
         <div class="act4">
-          <button class="act-btn" onclick="nav('wallet');document.getElementById('withdrawBox').classList.remove('hide')"><span>⬇️</span>Deposit</button>
-          <button class="act-btn" onclick="nav('wallet');document.getElementById('withdrawBox').classList.remove('hide')"><span>↗️</span>Transfer</button>
+          <button class="act-btn" onclick="openWalletAction('deposit')"><span>⬇️</span>Deposit</button>
+          <button class="act-btn" onclick="openWalletAction('withdraw')"><span>↗️</span>Transfer</button>
           <button class="act-btn" onclick="nav('trade')"><span>💱</span>Buy / Sell</button>
           <button class="act-btn" onclick="nav('trade');setTradeMode('swap')"><span>🔄</span>Swap</button>
         </div>
 
         <div class="card">
           <div class="row"><h3 style="margin:0;font-size:14.5px">Services &amp; Utility Bills</h3><span style="font-size:11px;color:var(--mut)">Instant Vending</span></div>
-          <div class="svc-grid">
-            <div class="svc-item" onclick="openBillBox('Electricity (ZESCO/Eskom/IKEDC/KPLC)')"><span>⚡</span>Electricity</div>
-            <div class="svc-item" onclick="openBillBox('Cable TV (DStv/GOtv)')"><span>📺</span>Cable TV</div>
-                        <div class="svc-item" onclick="openBillBox('Airtime &amp; Mobile Data')"><span>📱</span>Airtime/Data</div>
-            <div class="svc-item" style="border-color:rgba(245,158,11,.55)" onclick="document.getElementById('escrowDrawer').classList.toggle('hide')"><span>🔐</span>4-Digit PIN Escrow</div>
+                    <div class="svc-grid">
+            <div id="sv-elec" class="svc-item" onclick="selectSvcTile('sv-elec','Electricity (ZESCO/Eskom/IKEDC/KPLC)')"><span>⚡</span>Electricity</div>
+            <div id="sv-tv" class="svc-item" onclick="selectSvcTile('sv-tv','Cable TV (DStv/GOtv)')"><span>📺</span>Cable TV</div>
+            <div id="sv-air" class="svc-item" onclick="selectSvcTile('sv-air','Airtime &amp; Mobile Data')"><span>📱</span>Airtime/Data</div>
+            <div id="sv-esc" class="svc-item" onclick="selectSvcTile('sv-esc','ESCROW')"><span>🔐</span>4-Digit PIN Escrow</div>
           </div>
-          <div id="escrowDrawer" class="hide" style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--brd)">
-            <div style="font-weight:800;font-size:13px;color:var(--gold)">🔐 Safe-Claim 4-Digit PIN Escrow (P2P Protection)</div>
-            <p style="font-size:11.5px;color:var(--mut);margin:4px 0 8px">Funds stay locked in Zale Escrow until you share your secret 4-digit PIN with the recipient.</p>
-            <input id="escTo" placeholder="Recipient Wallet Address or Phone Number" />
-            <input id="escAmt" type="number" placeholder="Amount in USDT (e.g. 50)" />
-            <input id="escPin" maxlength="4" placeholder="Create Secret 4-Digit Release PIN" />
-            <button class="btn" onclick="placeEscrowOrder()">Lock Funds in 4-Digit PIN Escrow</button>
-          </div>
-
           <div id="billDrawer" class="hide" style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--brd)">
                         <div id="billTitle" style="font-weight:800;font-size:13px;color:var(--acc)"></div>
             <input id="billMeter" placeholder="Meter / Smartcard / Phone Number" />
@@ -243,17 +236,26 @@
         <div class="card" style="background:linear-gradient(145deg,#0c2e24,#071612);color:#fff">
           <div style="font-size:11px;color:#6ee7b7;font-weight:800;text-transform:uppercase">Zale Spot &amp; Fiat Wallet</div>
           <div id="walTabBal" style="font-size:26px;font-weight:900;margin-top:4px">$0.00</div>
-          <div class="act3" style="margin-top:14px">
-            <button class="act-btn" style="background:rgba(16,185,129,.22);color:#fff;border-color:rgba(16,185,129,.5)" onclick="nav('trade')"><span>⬇️</span>Buy</button>
+                    <div class="act3" style="margin-top:14px">
+            <button class="act-btn" style="background:rgba(16,185,129,.22);color:#fff;border-color:rgba(16,185,129,.5)" onclick="openWalletAction('deposit')"><span>⬇️</span>Deposit</button>
             <button class="act-btn" style="background:rgba(245,158,11,.22);color:#fff;border-color:rgba(245,158,11,.5)" onclick="nav('trade');setTradeMode('sell')"><span>⬆️</span>Sell</button>
-            <button class="act-btn" style="background:rgba(56,189,248,.22);color:#fff;border-color:rgba(56,189,248,.5)" onclick="document.getElementById('withdrawBox').classList.toggle('hide')"><span>🏦</span>Withdraw</button>
+            <button class="act-btn" style="background:rgba(56,189,248,.22);color:#fff;border-color:rgba(56,189,248,.5)" onclick="openWalletAction('withdraw')"><span>🏦</span>Withdraw</button>
           </div>
         </div>
-        <div id="withdrawBox" class="card hide">
-          <h3 style="margin:0 0 6px;font-size:15px">Bank Account &amp; First Deposit / Withdraw</h3>
-          <input id="depUsd" type="number" placeholder="Amount in USD (e.g. 50)" /><input id="depAcct" placeholder="Bank Account or Mobile Money Number" />
-          <div class="row" style="margin-top:8px"><button class="btn" style="margin:0" onclick="initiateBankDeposit()">Deposit Funds</button><button class="btn-gold" style="width:100%;padding:14px" onclick="initiateWithdrawOrder()">Withdraw Funds</button></div>
+
+        <div id="depositBox" class="card hide" style="border-color:rgba(16,185,129,.5)">
+          <div class="row" style="margin-bottom:4px"><h3 style="margin:0;font-size:15px;color:var(--acc)">⬇️ Deposit Funds</h3><button class="btn-ghost" style="padding:4px 8px;font-size:10px" onclick="document.getElementById('depositBox').classList.add('hide')">Close</button></div>
+          <input id="depUsd" type="number" placeholder="Deposit Amount in USD (e.g. 50)" />
+          <button class="btn" onclick="initiateBankDeposit()">Get Bank / MoMo Deposit Details</button>
         </div>
+
+        <div id="withdrawBox" class="card hide" style="border-color:rgba(56,189,248,.5)">
+          <div class="row" style="margin-bottom:4px"><h3 style="margin:0;font-size:15px;color:#38bdf8">🏦 Withdraw / Transfer Funds</h3><button class="btn-ghost" style="padding:4px 8px;font-size:10px" onclick="document.getElementById('withdrawBox').classList.add('hide')">Close</button></div>
+          <input id="wdUsd" type="number" placeholder="Withdraw Amount in USD (e.g. 50)" />
+          <input id="depAcct" placeholder="Bank Account or Mobile Money Number" />
+          <button class="btn-gold" style="width:100%;margin-top:10px;padding:13px" onclick="initiateWithdrawOrder()">Submit Withdrawal / Transfer</button>
+        </div>
+
         <div class="card"><div class="row" style="margin-bottom:8px"><h3 style="margin:0;font-size:15px">Recent Transactions</h3><span style="font-size:12px;color:var(--acc);font-weight:800;cursor:pointer" onclick="toast('Showing all wallet transactions.')">See All</span></div><div id="walletOrders"></div></div>
       </div>
 
@@ -309,7 +311,7 @@
         </div>
         <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Appearance</h3><select id="themeSel" onchange="applyTheme(this.value)" style="margin-top:4px"><option value="dark">Dark Theme</option><option value="light">Light Theme</option><option value="system">System (Phone System)</option></select></div>
         <div class="card" style="border-color:rgba(245,158,11,.45);cursor:pointer" onclick="nav('refer')"><div class="row"><div><div style="font-weight:800;font-size:14.5px;color:var(--gold)">🎁 Refer &amp; Earn</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Number of referrals, code &amp; share link</div></div><span style="font-weight:900;color:var(--acc)">Open →</span></div></div>
-        <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Support</h3><div class="acc-row"><span>Company Email</span><b>ikatanga40@gmail.com</b></div><div class="acc-row"><span>WhatsApp Support</span><a href="https://wa.me" target="_blank" style="color:var(--acc);font-weight:800;text-decoration:none">+260 77 947 3735</a></div><button class="btn-ghost" style="width:100%;margin-top:10px" onclick="shareApp()">📤 Share Zale App</button><button class="btn" style="background:#ef4444;color:#fff;margin-top:10px" onclick="doLogout()">Sign Out</button></div>
+        <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Support</h3><div class="acc-row"><span>Company Email</span><div style="display:flex;align-items:center;gap:6px"><b>helpdesk20@gmail.com</b><button class="btn-ghost" style="padding:4px 8px;font-size:10.5px" onclick="copyVal('helpdesk20@gmail.com','Support Email')">Copy</button></div></div><div class="acc-row"><span>WhatsApp Support</span><a href="https://wa.me" target="_blank" style="color:var(--acc);font-weight:800;text-decoration:none">+260 77 947 3735</a></div><button class="btn-ghost" style="width:100%;margin-top:10px" onclick="shareApp()">📤 Share Zale App</button><button class="btn" style="background:#ef4444;color:#fff;margin-top:10px" onclick="doLogout()">Sign Out</button></div>
       </div>
       <div id="tab-refer" class="hide">
         <div class="card" style="border-color:rgba(245,158,11,.5)">
@@ -374,10 +376,15 @@
               <b id="rcGcResult" style="font-size:15px;color:var(--acc)">$0.00 (K0)</b>
             </div>
           </div>
+          <div style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--brd)">
+            <div style="font-size:11.5px;font-weight:800;color:var(--gold);margin-bottom:6px">🔔 Target Rate Alert (WhatsApp Ping)</div>
+            <div class="row"><input id="v3AlertRate" type="number" placeholder="Enter Target Rate (e.g. 28.00)" style="margin:0;padding:10px 12px;font-size:12.5px" /><button class="btn-gold" style="white-space:nowrap;padding:10px 14px" onclick="sendRateAlertV3()">Set Alert</button></div>
+          </div>
         </div>
       </div>
 
       <!-- TRANSFER LIMITS SCREEN -->
+
       <div id="tab-limits" class="hide">
         <div class="card">
           <div class="row" style="margin-bottom:8px">
@@ -528,18 +535,25 @@
       try { fetch(`${SB_URL}/rest/v1/zale_users`,{method:"POST",headers:{"apikey":SB_KEY,"Content-Type":"application/json","Prefer":"resolution=merge-duplicates"},body:JSON.stringify({email:user.email})}); } catch(e) {}
       enterDashboard();
     }
+        function showLoginErr(msg) {
+      const b = document.getElementById("loginErrBanner");
+      if (b) { b.textContent = msg; b.classList.remove("hide"); }
+    }
     function doLogin() {
       const e = document.getElementById("lEmail").value.trim().toLowerCase();
       const p = document.getElementById("lPass").value;
-      if (!e || !p) return alert("Please enter both your exact Email Address and Password.");
+      if (!e) return showLoginErr("Incorrect email");
+      if (!p) return showLoginErr("Incorrect password");
       const db = getAccounts();
       const acct = db[e];
-      if (!acct) return alert("No account found for this exact email address. Check for typos or create an account.");
-      if (acct.pass !== p) return alert("Incorrect password. Access denied.");
+      if (!acct) return showLoginErr("Incorrect email");
+      if (acct.pass !== p) return showLoginErr("Incorrect password");
+      document.getElementById("loginErrBanner")?.classList.add("hide");
       user = acct;
       localStorage.setItem("zale_v3_user", JSON.stringify(user));
       enterDashboard();
     }
+
 
     function doLogout() { localStorage.removeItem("zale_v3_user"); location.reload(); }
         function copyRefCodeOnly() { const c = document.getElementById("userRefCode").textContent; navigator.clipboard?.writeText(c); toast("Referral code " + c + " copied!"); }
@@ -608,7 +622,7 @@
     function placeCryptoOrder() { const v = parseFloat(document.getElementById("trAmt").value), d = document.getElementById("trDest").value.trim(); if (!v || !d) return toast("Enter USD amount and destination."); createOrder(`${document.getElementById("trRailType")?.value.includes("Broker")?"Broker Funding":document.getElementById("trRailType")?.value.includes("Prop")?"Prop-Firm Payout":"Crypto "+tradeMode.toUpperCase()} (${selCoin.name} ${selCoin.sym})`, v, d, tradeMode==="buy" ? PAY.momo : PAY.wallet); }
     function sendUsernameTransfer() { const to = document.getElementById("uToName").value.trim(), v = parseFloat(document.getElementById("uToAmt").value); if (!to || !v) return toast("Enter recipient username and USD amount."); createOrder("Zale Username Transfer", v, to, "Internal Zale Ledger Transfer ($0 Fee)"); }
     function initiateBankDeposit() { const v = parseFloat(document.getElementById("depUsd").value); if (!v) return toast("Enter deposit amount in USD."); createOrder("Bank / First Deposit", v, user.email, PAY.momo); }
-    function initiateWithdrawOrder() { const v = parseFloat(document.getElementById("depUsd").value), a = document.getElementById("depAcct").value.trim(); if (!v || !a) return toast("Enter amount and bank/mobile money account."); createOrder("Wallet Withdrawal", v, a, "Desk payout to: " + a); }
+    
     function submitGiftCard() { const act = document.getElementById("gcAction").value, v = parseFloat(document.getElementById("gcVal").value), c = document.getElementById("gcCode").value.trim(); if (!v || !c) return toast("Enter gift card USD value and code/email."); createOrder(`${act} Gift Card (${selGc.name})`, v, c, act==="Sell" ? "Submit code for verification" : `${PAY.momo} | USDT: ${PAY.wallet}`); }
     function copyRefLink() { const c = document.getElementById("userRefCode").textContent; navigator.clipboard?.writeText(`${location.href}?ref=${c}`); toast(`Referral link (${c}) copied!`); }
     function shareRefLink() { const c = document.getElementById("userRefCode").textContent; const t = `Join me on Zale App v3.0.3! Use my referral code ${c} at ${location.href}?ref=${c}`; if (navigator.share) navigator.share({title:"Zale App",text:t}); else { navigator.clipboard?.writeText(t); toast("Referral invite copied!"); } }
@@ -700,7 +714,33 @@
       ];
       document.getElementById("limitsList").innerHTML = items.map(it => `<div class="acc-row"><span>${it[0]}</span><b>${c.s} 0.00 / ${c.s} ${(it[1]*c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})} (Daily)</b></div>`).join("");
     }
+        function selectSvcTile(id, title) {
+      ["sv-elec","sv-tv","sv-air","sv-esc"].forEach(k => {
+        const el = document.getElementById(k);
+        if (el) el.style.borderColor = (k === id) ? "#10b981" : "var(--brd)";
+        if (el) el.style.background = (k === id) ? "rgba(16,185,129,.12)" : "var(--card2)";
+      });
+      if (title === "ESCROW") {
+        document.getElementById("billDrawer").classList.add("hide");
+        document.getElementById("escrowDrawer").classList.remove("hide");
+      } else {
+        document.getElementById("escrowDrawer").classList.add("hide");
+        openBillBox(title);
+      }
+    }
+    function openWalletAction(mode) {
+      nav("wallet");
+      document.getElementById("depositBox").classList.toggle("hide", mode !== "deposit");
+      document.getElementById("withdrawBox").classList.toggle("hide", mode !== "withdraw");
+    }
+    function initiateWithdrawOrder() {
+      const v = parseFloat(document.getElementById("wdUsd")?.value || document.getElementById("depUsd")?.value);
+      const a = document.getElementById("depAcct").value.trim();
+      if (!v || !a) return toast("Enter withdrawal amount and bank/mobile money account.");
+      createOrder("Wallet Withdrawal", v, a, "Desk payout to: " + a);
+    }
     function applyTheme(t) {
+
 
 
  localStorage.setItem("zale_theme", t); const sysLight = window.matchMedia && window.matchMedia("(prefers-color-scheme: light)").matches; document.body.classList.toggle("light", t==="light" || (t==="system" && sysLight)); }
