@@ -167,43 +167,27 @@
           <button class="act-btn" onclick="nav('trade');setTradeMode('swap')"><span>🔄</span>Swap</button>
         </div>
 
-        <div class="card">
-          <div class="row"><h3 style="margin:0;font-size:14.5px">Services &amp; Utility Bills</h3><span style="font-size:11px;color:var(--mut)">Instant Vending</span></div>
-                    <div class="svc-grid">
-            <div id="sv-elec" class="svc-item" onclick="selectSvcTile('sv-elec','Electricity (ZESCO/Eskom/IKEDC/KPLC)')"><span>⚡</span>Electricity</div>
-            <div id="sv-tv" class="svc-item" onclick="selectSvcTile('sv-tv','Cable TV (DStv/GOtv)')"><span>📺</span>Cable TV</div>
-            <div id="sv-air" class="svc-item" onclick="selectSvcTile('sv-air','Airtime &amp; Mobile Data')"><span>📱</span>Airtime/Data</div>
-            <div id="sv-esc" class="svc-item" onclick="selectSvcTile('sv-esc','ESCROW')"><span>🔐</span>4-Digit PIN Escrow</div>
+                <div class="card">
+          <div class="row" style="margin-bottom:4px"><h3 style="margin:0;font-size:15px">Services</h3><span style="font-size:11px;color:var(--mut)">Instant Desk</span></div>
+          <div class="acc-row" style="cursor:pointer" onclick="nav('utilities')">
+            <div style="display:flex;align-items:center;gap:10px"><span style="font-size:18px;background:rgba(16,185,129,.15);padding:7px 9px;border-radius:12px">🧾</span><div><div style="font-weight:800;font-size:13.5px">Utility Bills</div><div style="font-size:11px;color:var(--mut)">Electricity, Cable TV, Airtime &amp; Split Bill</div></div></div>
+            <span style="color:var(--acc);font-weight:900">→</span>
           </div>
-          <div id="billDrawer" class="hide" style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--brd)">
-                        <div id="billTitle" style="font-weight:800;font-size:13px;color:var(--acc)"></div>
-            <input id="billMeter" placeholder="Meter / Smartcard / Phone Number" />
-            <div class="row" style="margin-top:8px">
-              <select id="billCurrSel" style="margin:0;width:115px" onchange="updateBillCurrLbl()"><option value="USD">USD ($)</option><option value="LOC">Local</option></select>
-              <input id="billUsd" type="number" placeholder="Enter Amount" oninput="calcSplitV3()" style="margin:0" />
-            </div>
-
-                        <button class="btn" onclick="placeBillOrder()">Pay Utility Bill</button>
-            <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--brd)">
-              <div class="row" style="margin-bottom:6px"><span style="font-size:12px;font-weight:800;color:var(--gold)">🧾 Split Bill With 3+ Friends</span><span class="eyebrow">Zale Exclusive</span></div>
-              <div class="row"><input id="spPpl" type="number" min="2" value="3" placeholder="People" oninput="calcSplitV3()" style="margin:0" /><input id="spNote" placeholder="Note (e.g. DStv)" style="margin:0" /></div>
-              <div id="spEachLbl" style="font-size:12px;font-weight:800;color:var(--acc);margin-top:6px">Each pays: $0.00 (K0)</div>
-              <button class="btn-gold" style="width:100%;margin-top:8px" onclick="shareSplitV3()">Send Split Request to 3+ Friends</button>
-            </div>
-
+          <div class="acc-row" style="cursor:pointer" onclick="nav('vcard')">
+            <div style="display:flex;align-items:center;gap:10px"><span style="font-size:18px;background:rgba(56,189,248,.15);padding:7px 9px;border-radius:12px">💳</span><div><div style="font-weight:800;font-size:13.5px">Virtual Dollar Cards</div><div style="font-size:11px;color:var(--mut)">Ads, Netflix, AliExpress &amp; Global Payments</div></div></div>
+            <span style="color:#38bdf8;font-weight:900">→</span>
           </div>
-                  <div id="escrowDrawer" class="hide" style="margin-top:12px;padding-top:12px;border-top:1px dashed var(--brd)">
-            <div style="font-weight:800;font-size:13px;color:var(--gold)">🔐 Safe-Claim 4-Digit PIN Escrow (P2P Protection)</div>
-            <p style="font-size:11.5px;color:var(--mut);margin:4px 0 8px">Funds stay locked in Zale Escrow until you share your secret 4-digit PIN with the recipient.</p>
-            <input id="escTo" placeholder="Recipient Wallet Address or Phone Number" />
-            <input id="escAmt" type="number" placeholder="Amount in USDT (e.g. 50)" />
-            <input id="escPin" maxlength="4" placeholder="Create Secret 4-Digit Release PIN" />
-            <button class="btn" onclick="placeEscrowOrder()">Lock Funds in 4-Digit PIN Escrow</button>
+          <div class="acc-row" style="cursor:pointer" onclick="nav('xborder')">
+            <div style="display:flex;align-items:center;gap:10px"><span style="font-size:18px;background:rgba(168,85,247,.15);padding:7px 9px;border-radius:12px">🌍</span><div><div style="font-weight:800;font-size:13.5px">Cross-Border Payout</div><div style="font-size:11px;color:var(--mut)">Send to SA, Nigeria, Kenya &amp; UK Banks/MoMo</div></div></div>
+            <span style="color:#c084fc;font-weight:900">→</span>
           </div>
-
+          <div class="acc-row" style="cursor:pointer;border:none" onclick="nav('escrow')">
+            <div style="display:flex;align-items:center;gap:10px"><span style="font-size:18px;background:rgba(245,158,11,.15);padding:7px 9px;border-radius:12px">🔐</span><div><div style="font-weight:800;font-size:13.5px">Digital Escrow</div><div style="font-size:11px;color:var(--mut)">Safe-Claim 4-Digit PIN P2P Protection</div></div></div>
+            <span style="color:var(--gold);font-weight:900">→</span>
+          </div>
         </div>
 
-                <div class="card" style="cursor:pointer;border-color:rgba(245,158,11,.45);background:linear-gradient(135deg,rgba(245,158,11,.12),var(--card))" onclick="nav('rates')">
+        <div class="card" style="cursor:pointer;border-color:rgba(245,158,11,.45);background:linear-gradient(135deg,rgba(245,158,11,.12),var(--card))" onclick="nav('rates')">
           <div class="row">
             <div>
               <div style="font-size:15.5px;font-weight:900;color:var(--txt)">Zale Rates</div>
@@ -406,7 +390,58 @@
         </div>
       </div>
 
+            <div id="tab-utilities" class="hide">
+        <div class="card">
+          <div class="row" style="margin-bottom:10px"><h2 style="margin:0;font-size:19px">🧾 Utility Bills</h2><button class="btn-ghost" style="padding:5px 10px;font-size:11px" onclick="nav('home')">← Home</button></div>
+          <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px">
+            <div id="ut-elec" class="svc-item" style="border-color:#10b981;background:rgba(16,185,129,.12)" onclick="pickUtility('ut-elec','Electricity (ZESCO / Eskom / IKEDC / KPLC)')"><span>⚡</span>Electricity</div>
+            <div id="ut-tv" class="svc-item" onclick="pickUtility('ut-tv','Cable TV (DStv / GOtv)')"><span>📺</span>Cable TV</div>
+            <div id="ut-air" class="svc-item" onclick="pickUtility('ut-air','Airtime &amp; Mobile Data')"><span>📱</span>Airtime/Data</div>
+          </div>
+          <div id="billTitle" style="font-weight:800;font-size:13.5px;color:var(--acc)">Electricity (ZESCO / Eskom / IKEDC / KPLC)</div>
+          <input id="billMeter" placeholder="Meter / Smartcard / Phone Number" />
+          <div class="row" style="margin-top:8px"><select id="billCurrSel" style="margin:0;width:115px" onchange="updateBillCurrLbl()"><option value="USD">USD ($)</option><option value="LOC">Local</option></select><input id="billUsd" type="number" placeholder="Enter Amount" oninput="calcSplitV3()" style="margin:0" /></div>
+          <button class="btn" onclick="placeBillOrder()">Pay Utility Bill</button>
+          <div style="margin-top:12px;padding-top:10px;border-top:1px dashed var(--brd)">
+            <div class="row" style="margin-bottom:6px"><span style="font-size:12px;font-weight:800;color:var(--gold)">🧾 Split Bill With 3+ Friends</span><span class="eyebrow">Zale Exclusive</span></div>
+            <div class="row"><input id="spPpl" type="number" min="2" value="3" placeholder="People" oninput="calcSplitV3()" style="margin:0" /><input id="spNote" placeholder="Note (e.g. DStv)" style="margin:0" /></div>
+            <div id="spEachLbl" style="font-size:12px;font-weight:800;color:var(--acc);margin-top:6px">Each pays: $0.00 (K0)</div>
+            <button class="btn-gold" style="width:100%;margin-top:8px" onclick="shareSplitV3()">Send Split Request to 3+ Friends</button>
+          </div>
+        </div>
+      </div>
+
+      <div id="tab-vcard" class="hide">
+        <div class="card" style="border-color:rgba(56,189,248,.45)">
+          <div class="row" style="margin-bottom:8px"><h2 style="margin:0;font-size:19px;color:#38bdf8">💳 Virtual Dollar Cards</h2><button class="btn-ghost" style="padding:5px 10px;font-size:11px" onclick="nav('home')">← Home</button></div>
+          <p style="font-size:12px;color:var(--mut);margin:0 0 10px">Instant USD Virtual Visa/Mastercard issuance &amp; top-up for Facebook/TikTok Ads, Netflix, Apple, and international checkouts.</p>
+          <select id="vcType"><option>Create New Virtual Dollar Card ($5 Fee + Load)</option><option>Top-Up Existing Zale Dollar Card</option><option>Direct Checkout Payment Link</option></select>
+          <input id="vcAmt" type="number" placeholder="Load Amount in USD (e.g. 25)" /><input id="vcEmail" placeholder="Cardholder Email or Checkout Link" />
+          <button class="btn" onclick="placeVcardOrder()">Request Virtual Dollar Card</button>
+        </div>
+      </div>
+
+      <div id="tab-xborder" class="hide">
+        <div class="card" style="border-color:rgba(168,85,247,.45)">
+          <div class="row" style="margin-bottom:8px"><h2 style="margin:0;font-size:19px;color:#c084fc">🌍 Cross-Border Payout</h2><button class="btn-ghost" style="padding:5px 10px;font-size:11px" onclick="nav('home')">← Home</button></div>
+          <p style="font-size:12px;color:var(--mut);margin:0 0 10px">Pay in local currency or USDT—your recipient receives local bank or mobile money directly with zero crypto setup needed.</p>
+          <select id="xbDestCty"><option>🇿🇦 South Africa (ZAR — FNB / Capitec / Standard Bank)</option><option>🇳🇬 Nigeria (NGN — GTBank / OPay / Access)</option><option>🇰🇪 Kenya (KES — M-Pesa / Equity Bank)</option><option>🇬🇧 United Kingdom (GBP — Faster Payments)</option><option>🇬🇭 Ghana (GHS — MTN MoMo / Ecobank)</option></select>
+          <input id="xbAmt" type="number" placeholder="Amount to Send in USD (e.g. 100)" /><input id="xbRecip" placeholder="Recipient Full Name, Bank/MoMo & Account Number" />
+          <button class="btn" onclick="placeXborderOrder()">Initiate Cross-Border Payout</button>
+        </div>
+      </div>
+
+      <div id="tab-escrow" class="hide">
+        <div class="card" style="border-color:rgba(245,158,11,.5)">
+          <div class="row" style="margin-bottom:8px"><h2 style="margin:0;font-size:19px;color:var(--gold)">🔐 Digital Escrow</h2><button class="btn-ghost" style="padding:5px 10px;font-size:11px" onclick="nav('home')">← Home</button></div>
+          <p style="font-size:12px;color:var(--mut);margin:0 0 10px">Safe-Claim 4-Digit PIN Protection: Funds remain held in Zale Escrow until you share your secret 4-digit PIN with the recipient.</p>
+          <input id="escTo" placeholder="Recipient Wallet Address or Phone Number" /><input id="escAmt" type="number" placeholder="Amount in USDT (e.g. 50)" /><input id="escPin" maxlength="4" placeholder="Create Secret 4-Digit Release PIN" />
+          <button class="btn" onclick="placeEscrowOrder()">Lock Funds in Digital Escrow</button>
+        </div>
+      </div>
+
       <div id="tab-admin"
+
 
  class="hide"><div class="card" style="border-color:rgba(245,158,11,.6)"><div class="row"><span class="eyebrow">Executive Admin Workspace</span><button class="btn-ghost" onclick="nav('home')">← Home</button></div><div id="admOrdersList" style="margin-top:10px"></div></div></div>
     </div>
@@ -589,13 +624,13 @@
     function shareApp() { const u = location.href; navigator.clipboard?.writeText(u); if (navigator.share) navigator.share({title:"Zale App v3.0.3",text:"Pan-African & Global FX, Crypto & Gift Cards",url:u}); else toast("Zale App link copied! Ready to paste on WhatsApp."); }
     function handleWalletSelect(v) { if (v === "add") {  nav("trade"); } }
     function nav(t) {
-      ["home","trade","wallet","giftcards","account","refer","rates","limits","admin"].forEach(k => document.getElementById("tab-"+k).classList.toggle("hide", k!==t));
+      ["home","trade","wallet","giftcards","account","refer","rates","limits","utilities","vcard","xborder","escrow","admin"].forEach(k => document.getElementById("tab-"+k).classList.toggle("hide", k!==t));
       ["home","trade","wallet","giftcards","account"].forEach(k => document.getElementById("bn-"+k).classList.toggle("on", k===t));
       renderAll();
     }
     function toggleBal() { balHidden = !balHidden; document.getElementById("balToggleLbl").textContent = balHidden ? "Show Balance" : "Hide Balance"; renderAll(); }
     function setTradeMode(m) { tradeMode = m; ["buy","sell","swap"].forEach(k => document.getElementById("tm-"+k).className = k===m ? "on" : "off"); }
-    function openBillBox(title) { document.getElementById("billDrawer").classList.remove("hide"); document.getElementById("billTitle").textContent = title; }
+    
     function renderCoins() {
       const q = (document.getElementById("coinSearch")?.value || "").toLowerCase();
       const list = COINS.filter(c => c.name.toLowerCase().includes(q) || c.sym.toLowerCase().includes(q));
@@ -773,7 +808,22 @@
         toast("Cloud orders synced!"); renderAll();
       } catch(e) { toast("Local desk queue active."); }
     }
+        function pickUtility(id, title) {
+      ["ut-elec","ut-tv","ut-air"].forEach(k => { const el = document.getElementById(k); if (el) { el.style.borderColor = (k === id) ? "#10b981" : "var(--brd)"; el.style.background = (k === id) ? "rgba(16,185,129,.12)" : "var(--card2)"; } });
+      const bt = document.getElementById("billTitle"); if (bt) bt.textContent = title;
+    }
+    function placeVcardOrder() {
+      const t = document.getElementById("vcType").value, v = parseFloat(document.getElementById("vcAmt").value), em = document.getElementById("vcEmail").value.trim();
+      if (!v || !em) return toast("Enter USD load amount and email/link.");
+      createOrder("Virtual Dollar Card", v, em, PAY.momo + " | USDT: " + PAY.wallet);
+    }
+    function placeXborderOrder() {
+      const cty = document.getElementById("xbDestCty").value, v = parseFloat(document.getElementById("xbAmt").value), rec = document.getElementById("xbRecip").value.trim();
+      if (!v || !rec) return toast("Enter USD amount and recipient bank/MoMo details.");
+      createOrder("Cross-Border Payout", v, cty + " | " + rec, PAY.momo + " | USDT: " + PAY.wallet);
+    }
     function applyTheme(t) {
+
 
 
 
