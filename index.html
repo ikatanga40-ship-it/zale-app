@@ -82,11 +82,24 @@
       border-color: rgba(234,179,8,.38) !important;
     }
     body.dark .rates-card .rc-title { color: #f8fafc !important; }
-    body.dark .rates-card .rc-sub   { color: #cbd5e1 !important; }
+    body.dark .rates-card .rc-sub   { color: #cbd5e1 !important; }"
+    body.sovereign{--bg:#080d1a;--card:#10182c;--card2:#16203a;--brd:rgba(148,163,184,.2);--txt:#f8fafc;--mut:#94a3b8;--acc:#10b981;--gold:#d4af37;--obs:#f8fafc}
+    body.alabaster{--bg:#faf9f6;--card:#ffffff;--card2:#f3f1ec;--brd:#e2dfd7;--txt:#0f172a;--mut:#57534e;--acc:#047857;--gold:#b45309;--obs:#047857}
+    body.sovereign .btn{background:linear-gradient(135deg,#d4af37,#b48811);color:#080d1a;font-weight:800}
+    body.alabaster .btn{background:#047857;color:#ffffff}
+    body.alabaster .bnav button.on{color:#047857}
+    body.sovereign .bnav button.on{color:#d4af37}
+    #hdrFlagSvg,#walFlagSvg,#dropFlagSvg{border:1px solid rgba(19,34,87,.16);box-sizing:border-box}
+    .bnav{background:rgba(255,255,255,.82) !important;backdrop-filter:blur(22px) saturate(180%);-webkit-backdrop-filter:blur(22px) saturate(180%)}
+    body.dark .bnav,body.sovereign .bnav{background:rgba(16,24,44,.82) !important}
+    .btn:active,.btn-ghost:active,.qa-circle:active,.svc-item:active{transform:scale(.965);transition:transform .12s ease}
+    .island-pill.live-act{background:#0b0d12 !important;color:#ffffff !important;border-color:#10b981 !important;padding:6px 16px !important;box-shadow:0 10px 26px rgba(16,185,129,.28) !important}
+    #tab-vcard .card{transition:transform .18s ease-out;transform-style:preserve-3d}
 
 
 
-  </style>"</head>
+
+  </style>""</head>
 <body>
   <div id="zaleBootSplash"><div style="font-size:38px;font-weight:900;color:#10b981">✦ Zale</div><div style="font-size:11.5px;color:#94a3b8;margin-top:4px">Initializing Secure Desk...</div><div class="boot-bar"><div class="boot-fill"></div></div></div>
   <div id="toastBox" class="hide"></div>
@@ -301,7 +314,7 @@
         <div class="acc-row" style="cursor:pointer" onclick="nav('password')"><span>Change Password</span><span style="color:#132257;font-weight:700">Update &rarr;</span></div>
         <div class="acc-row" style="cursor:pointer" onclick="nav('2fa')"><span>Two-Factor Authentication (2FA)</span><span id="tfaStatusBadge" style="color:#132257;font-weight:700">Setup 2FA &rarr;</span></div>
         <div class="acc-row" style="cursor:pointer" onclick="nav('biometric')"><span>Fingerprint Enabler</span><span id="bioStatusBadge" style="color:#132257;font-weight:700">Scan &rarr;</span></div>
-        <div class="acc-row"><span>Theme Mode</span><select id="themeSel" onchange="setTheme(this.value)" style="width:auto;margin:0;padding:5px 10px;font-size:12px"><option value="light">Light Mode</option><option value="dark">Dark Mode</option><option value="system">System Mode</option></select></div>
+        <div class="acc-row"><span>Theme Mode</span><select id="themeSel" onchange="setTheme(this.value)" style="width:auto;margin:0;padding:5px 10px;font-size:12px"><option value="light">Light Mode</option><option value="alabaster">Alabaster &amp; Emerald</option><option value="sovereign">Midnight Sovereign</option><option value="dark">Dark Mode</option><option value="system">System Mode</option></select></div>
       </div>
 
       <div class="card">
@@ -373,7 +386,7 @@
   <script>
     const ADMIN="ikatanga40@gmail.com";
     const CURR={ZM:{s:"K",r:26.8,name:"Zambian Kwacha",label:"Zambia (ZMW)"},ZA:{s:"R",r:18.2,name:"South African Rand",label:"South Africa (ZAR)"},NG:{s:"N",r:1580,name:"Nigerian Naira",label:"Nigeria (NGN)"},KE:{s:"KSh",r:129,name:"Kenyan Shilling",label:"Kenya (KES)"},GH:{s:"GHS ",r:15.6,name:"Ghanaian Cedi",label:"Ghana (GHS)"},GB:{s:"GBP ",r:0.79,name:"British Pound",label:"United Kingdom (GBP)"}};
-    const FLAG_SVGS={ZM:'<svg viewBox="0 0 36 36" width="20" height="20"><rect width="36" height="36" fill="#198a00"/><rect x="22" y="14" width="4.6" height="22" fill="#de2010"/><rect x="26.6" y="14" width="4.6" height="22" fill="#000"/><rect x="31.2" y="14" width="4.8" height="22" fill="#ef7d00"/><ellipse cx="29" cy="9" rx="5" ry="2.2" fill="#ef7d00"/></svg>',ZA:'<svg viewBox="0 0 36 36" width="20" height="20"><rect width="36" height="18" fill="#e03c31"/><rect y="18" width="36" height="18" fill="#001489"/><polygon points="0,0 18,18 0,36" fill="#000"/><path d="M0,4 L14,18 L0,32 M14,18 L36,18" stroke="#007749" stroke-width="6" fill="none"/></svg>',NG:'<svg viewBox="0 0 36 36" width="20" height="20"><rect width="12" height="36" fill="#008751"/><rect x="12" width="12" height="36" fill="#fff"/><rect x="24" width="12" height="36" fill="#008751"/></svg>',KE:'<svg viewBox="0 0 36 36" width="20" height="20"><rect width="36" height="11" fill="#000"/><rect y="12.5" width="36" height="11" fill="#bb0000"/><rect y="25" width="36" height="11" fill="#006600"/><ellipse cx="18" cy="18" rx="4" ry="8" fill="#bb0000" stroke="#fff" stroke-width="1.2"/></svg>',GH:'<svg viewBox="0 0 36 36" width="20" height="20"><rect width="36" height="12" fill="#ce1126"/><rect y="12" width="36" height="12" fill="#fcd116"/><rect y="24" width="36" height="12" fill="#006b3f"/></svg>',GB:'<svg viewBox="0 0 36 36" width="20" height="20"><rect width="36" height="36" fill="#012169"/><path d="M18,0 V36 M0,18 H36" stroke="#fff" stroke-width="8"/><path d="M18,0 V36 M0,18 H36" stroke="#c8102e" stroke-width="5"/></svg>'};
+    const FLAG_SVGS={ZM:'<svg viewBox="0 0 36 36" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block"><rect width="36" height="36" fill="#198a00"/><rect x="22" y="14" width="4.6" height="22" fill="#de2010"/><rect x="26.6" y="14" width="4.6" height="22" fill="#000"/><rect x="31.2" y="14" width="4.8" height="22" fill="#ef7d00"/><ellipse cx="29" cy="9" rx="5" ry="2.2" fill="#ef7d00"/></svg>',ZA:'<svg viewBox="0 0 36 36" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block"><rect width="36" height="18" fill="#e03c31"/><rect y="18" width="36" height="18" fill="#001489"/><polygon points="0,0 18,18 0,36" fill="#000"/><path d="M0,4 L14,18 L0,32 M14,18 L36,18" stroke="#007749" stroke-width="6" fill="none"/></svg>',NG:'<svg viewBox="0 0 36 36" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block"><rect width="12" height="36" fill="#008751"/><rect x="12" width="12" height="36" fill="#fff"/><rect x="24" width="12" height="36" fill="#008751"/></svg>',KE:'<svg viewBox="0 0 36 36" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block"><rect width="36" height="11" fill="#000"/><rect y="12.5" width="36" height="11" fill="#bb0000"/><rect y="25" width="36" height="11" fill="#006600"/><ellipse cx="18" cy="18" rx="4" ry="8" fill="#bb0000" stroke="#fff" stroke-width="1.2"/></svg>',GH:'<svg viewBox="0 0 36 36" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block"><rect width="36" height="12" fill="#ce1126"/><rect y="12" width="36" height="12" fill="#fcd116"/><rect y="24" width="36" height="12" fill="#006b3f"/></svg>',GB:'<svg viewBox="0 0 36 36" preserveAspectRatio="xMidYMid slice" style="width:100%;height:100%;display:block"><rect width="36" height="36" fill="#012169"/><path d="M18,0 V36 M0,18 H36" stroke="#fff" stroke-width="8"/><path d="M18,0 V36 M0,18 H36" stroke="#c8102e" stroke-width="5"/></svg>'};
     const COINS=[{id:"BTC",sym:"BTC",name:"Bitcoin",price:91450,chg:"+1.84%"},{id:"ETH",sym:"ETH",name:"Ethereum",price:3180,chg:"+2.15%"},{id:"SOL",sym:"SOL",name:"Solana",price:214,chg:"+3.42%"},{id:"BNB",sym:"BNB",name:"BNB Smart Chain",price:645,chg:"+0.95%"},{id:"USDC",sym:"USDC",name:"USD Coin",price:1.00,chg:"+0.01%"},{id:"USDT-ERC20",sym:"USDT",name:"USD Tether (ERC20)",price:1.00,chg:"+0.02%"},{id:"USDT-TRC20",sym:"USDT",name:"USD Tether (TRC20)",price:1.00,chg:"+0.02%"},{id:"USDT-SOL",sym:"USDT",name:"USD Tether (Solana)",price:1.00,chg:"+0.02%"},{id:"USDT-BEP20",sym:"USDT",name:"USD Tether (BEP20)",price:1.00,chg:"+0.02%"}];
     const ZALE_GC_BRANDS=[{id:"Apple / iTunes",label:"APPLE STORE",rate:84,tag:"top",bg:"#f8fafc",fg:"#0f172a",mark:"APL"},{id:"Amazon",label:"AMAZON",rate:82,tag:"trend",bg:"#fffbeb",fg:"#0f172a",mark:"AMZ"},{id:"Steam",label:"STEAM",rate:85,tag:"high",bg:"#eff6ff",fg:"#1e3a8a",mark:"STM"},{id:"Razer Gold",label:"RAZER GOLD",rate:86,tag:"high",bg:"#ecfdf5",fg:"#1d3b8b",mark:"RZR"},{id:"American Express",label:"AMERICAN EXPRESS",rate:80,tag:"top",bg:"#eff6ff",fg:"#1d4ed8",mark:"AMEX"},{id:"eBay",label:"EBAY",rate:81,tag:"trend",bg:"#fef2f2",fg:"#dc2626",mark:"EBAY"},{id:"Best Buy",label:"BESTBUY",rate:79,tag:"top",bg:"#fefce8",fg:"#1e293b",mark:"BBY"},{id:"Google Play",label:"GOOGLE PLAY",rate:80,tag:"trend",bg:"#f0fdf4",fg:"#15803d",mark:"PLAY"}];
     const FAQ_DATA=[{cat:"Getting Started with Zale",items:[{q:"How do I verify my Zale account?",a:"Tier 1 (\$50/day) unlocks on signup. Complete Tier 2 Camera & Facial KYC under Account -> Update KYC for \$10,000/day limits."},{q:"Which countries are supported?",a:"Zambia (ZMW), South Africa (ZAR), Nigeria (NGN), Kenya (KES), Ghana (GHS), and United Kingdom (GBP)."}]},{cat:"Crypto & Gift Card Trading",items:[{q:"Which USDT networks are supported?",a:"USDT on TRC20, ERC20, BEP20, and Solana - plus BTC, ETH, SOL, BNB, and USDC."},{q:"Which gift cards pay the highest rates?",a:"Razer Gold (86%), Steam (85%), Apple/iTunes (84%), and Amazon (82%)."}]},{cat:"Security & Support",items:[{q:"How do I enable 2FA?",a:"Go to Account -> Two-Factor Authentication (2FA) and pick Authenticator App or Email OTP."},{q:"How do I contact Zale Support?",a:"Tap Chat on Home for WhatsApp (+260 77 947 3735) or email support@zaleapp.com."}]}];
@@ -427,7 +440,7 @@
       const v=parseFloat(document.getElementById("ctUsd").value)||0,d=(document.getElementById("ctDest").value||"").trim();
       if(!v||(coinSide!=="Swap"&&!d))return toast("Enter USD amount and destination.");
       const label=coinSide==="Swap"?`Swap ${selCoin.id} -> ${document.getElementById("ctSwapTo")?.value||"USDT-TRC20"}`:`${coinSide} ${selCoin.id}`;
-      createOrder(label,v,d||"Zale Instant Swap Wallet");
+      createOrder(label,v,d||"Zale Instant Swap Wallet");window.triggerIslandActivity("Order Live",45);
       document.getElementById("coinTradeBox").classList.add("hide");
     }
 
@@ -509,8 +522,8 @@ function toggleHideBalance(){balHidden=!balHidden;document.querySelectorAll(".hi
     function renderGcGrid(){const g=document.getElementById("gcBrandGrid");if(!g)return;const q=(document.getElementById("gcSearchInp")?.value||"").toLowerCase();let l=ZALE_GC_BRANDS.filter(b=>b.label.toLowerCase().includes(q)||b.id.toLowerCase().includes(q));if(gcFilter==="trend")l=l.filter(b=>b.tag==="trend");else if(gcFilter==="top")l=l.filter(b=>b.tag==="top");else if(gcFilter==="high")l=[...l].sort((a,b)=>b.rate-a.rate);document.getElementById("gcHistBadge").textContent=`Transaction History (${orders.filter(o=>(o.type||"").includes("Gift")).length})`;g.innerHTML=l.map(b=>`<div onclick="selectGcBrand('${b.id}')" style="background:var(--card2);border:1px solid var(--brd);border-radius:14px;padding:12px 8px;text-align:center;cursor:pointer"><div style="width:48px;height:48px;margin:0 auto 7px;border-radius:12px;background:${b.bg};color:${b.fg};font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center">${b.mark}</div><div style="font-size:11px;font-weight:800">${b.label}</div><div style="font-size:10px;color:var(--acc);font-weight:700;margin-top:2px">Rate: ${b.rate}%</div></div>`).join("");}
     function updateGcPreview(){const c=CURR[user?.cty]||CURR.ZM,b=document.getElementById("gcBrand")?.value||"Apple / iTunes",v=parseFloat(document.getElementById("gcUsd")?.value)||0,pay=v*((ZALE_GC_BRANDS.find(x=>x.id===b)?.rate||82)/100);document.getElementById("gcLivePreview").textContent=`Instant Payout: $${pay.toFixed(2)} (${c.s}${(pay*c.r).toLocaleString(undefined,{maximumFractionDigits:0})})`;}
     function previewGcPhoto(i){const f=i.files&&i.files;if(!f)return;const r=new FileReader();r.onload=e=>{const m=document.getElementById("gcPhotoPrev");m.src=e.target.result;m.classList.remove("hide");};r.readAsDataURL(f);}
-    function submitGiftCardOrder(){const b=document.getElementById("gcBrand").value,v=parseFloat(document.getElementById("gcUsd").value)||0,c=(document.getElementById("gcCode").value||"").trim();if(!v||!c)return toast("Enter USD amount & E-Code.");createOrder("Gift Card: "+b,v,"Code: "+c);}
-    function createOrder(type,usd,details){const o={id:"ZL-"+Math.floor(100000+Math.random()*900000),email:user?.email||"guest",type,usd,details,status:"Pending",date:new Date().toLocaleString()};orders.unshift(o);localStorage.setItem("zale_orders",JSON.stringify(orders));renderAll();toast("Order "+o.id+" submitted!");}
+    function submitGiftCardOrder(){const b=document.getElementById("gcBrand").value,v=parseFloat(document.getElementById("gcUsd").value)||0,c=(document.getElementById("gcCode").value||"").trim();if(!v||!c)return toast("Enter USD amount & E-Code.");createOrder("Gift Card: "+b,v,"Code: "+c);window.triggerIslandActivity("Order Live",45);}
+    function createOrder(type,usd,details){const o={id:"ZL-"+Math.floor(100000+Math.random()*900000),email:user?.email||"guest",type,usd,details,status:"Pending",date:new Date().toLocaleString()};window.triggerIslandActivity("Order Live",45);orders.unshift(o);localStorage.setItem("zale_orders",JSON.stringify(orders));renderAll();toast("Order "+o.id+" submitted!");}
     function renderDailyLimits(){const box=document.getElementById("dailyLimitsList");if(!box)return;const c=CURR[user?.cty]||CURR.ZM,sym=user?.cty==="ZM"?"K ":(c.s+" "),t2=(user?.kyc||1)>=2,fDep=t2?(5000*c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}):"0.00",util=t2?(2000*c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}):"0.00";const rows=[{name:"Fiat Deposit",val:`${sym}0.00 / ${sym}${fDep} (Daily)`},{name:"Fiat Withdraw",val:`${sym}0.00 / ${sym}${user?.cty==="ZM"?"15,000.00":(560*c.r).toFixed(2)} (Daily)`},{name:"Crypto Transfer",val:`$0.00 / $${t2?"5,000.00":"200.00"} (Daily)`},{name:"Crypto Username Transfer",val:`$0.00 / $${t2?"5,000.00":"200.00"} (Daily)`},{name:"Crypto Buy",val:`$0.00 / $${t2?"10,000.00":"1,000.00"} (Daily)`},{name:"Crypto Sell",val:`$0.00 / $${t2?"10,000.00":"100.00"} (Daily)`},{name:"Crypto Swap",val:`$0.00 / $${t2?"25,000.00":"5,000.00"} (Daily)`},{name:"Utility Bills",val:`${sym}0.00 / ${sym}${util} (Daily)`}];box.innerHTML=rows.map(r=>`<div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:10px 12px;margin-bottom:7px"><div class="row" style="font-size:12.5px"><b>${r.name}</b><span class="mono" style="font-size:11.5px;color:var(--gold);font-weight:800">${r.val}</span></div></div>`).join("");}
     function handleIncreaseLimits(){if((user?.kyc||1)<2)nav("kyc");else toast("Tier 2 Active! Contact Zale OTC Desk for VIP limits.");}
     function handleKycCam(s,i){const f=i.files&&i.files;if(!f)return;kycProofs[s]=true;const r=new FileReader();r.onload=e=>{const m=document.getElementById(s==="front"?"kycFrontPrev":s==="back"?"kycBackPrev":"kycFacePrev");if(m){m.src=e.target.result;m.classList.remove("hide");}};r.readAsDataURL(f);}
@@ -530,28 +543,74 @@ function toggleHideBalance(){balHidden=!balHidden;document.querySelectorAll(".hi
     function syncSetupScreen(){const c=CURR[user?.cty]||CURR.ZM,t2=(user?.kyc||1)>=2;if(document.getElementById("setupFlagSvg"))document.getElementById("setupFlagSvg").innerHTML=FLAG_SVGS[user?.cty||"ZM"];if(document.getElementById("setupCurrName"))document.getElementById("setupCurrName").textContent=c.name;if(document.getElementById("setupTierBadge"))document.getElementById("setupTierBadge").textContent=t2?"Tier 2":"Tier 1";if(document.getElementById("setupAvatar")&&user?.name){const p=user.name.trim().split(/\s+/);document.getElementById("setupAvatar").textContent=((p?p:"Z")+(p?p:"")).toUpperCase();}const done=(user?.username?1:0)+(user?.txPin?1:0)+(user?.bank?1:0)+(t2?1:0),pct=Math.max(25,Math.round((done/4)*100));if(document.getElementById("setupPctRing"))document.getElementById("setupPctRing").textContent=pct+"%";if(document.getElementById("setupMacBar"))document.getElementById("setupMacBar").style.width=pct+"%";if(document.getElementById("setupKycPctTxt"))document.getElementById("setupKycPctTxt").textContent=pct+"% Completed";const mu=document.getElementById("markUserPill");if(mu){mu.textContent=user?.username?"Marked ✓":"Set →";mu.className=user?.username?"pill-ok":"pill-pend";}const mp=document.getElementById("markPinPill");if(mp){mp.textContent=user?.txPin?"Marked ✓":"Create →";mp.className=user?.txPin?"pill-ok":"pill-pend";}const mb=document.getElementById("markBankPill");if(mb){mb.textContent=user?.bank?"Marked ✓":"Add →";mb.className=user?.bank?"pill-ok":"pill-pend";}}
     function setRateMode(m){rcMode=m;document.getElementById("rcTabCrypto")?.classList.toggle("on",m==="crypto");document.getElementById("rcTabGc")?.classList.toggle("on",m==="gc");document.getElementById("rcCryptoPane")?.classList.toggle("hide",m!=="crypto");document.getElementById("rcGcPane")?.classList.toggle("hide",m!=="gc");calcZaleRate();}
     function calcZaleRate(){const c=CURR[user?.cty]||CURR.ZM,sym=user?.cty==="ZM"?"K ":(c.s+" "),v=parseFloat(document.getElementById("rcUsd")?.value)||0;if(rcMode==="gc"){const b=document.getElementById("rcGcSel")?.value||"Apple / iTunes",pct=ZALE_GC_BRANDS.find(x=>x.id===b)?.rate||82,usdOut=v*(pct/100);document.getElementById("rcOutput").textContent=`$${v.toFixed(2)} ($${pct}%) = $${sym}${(usdOut*c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}`;document.getElementById("rcSubNote").textContent=`Net USD Payout: $$${usdOut.toFixed(2)} • Instant Gift Card Settlement`;}else{const cid=document.getElementById("rcCoinSel")?.value||"USDT-TRC20",act=document.getElementById("rcActionSel")?.value||"Buy",rate=act==="Sell"?(c.r*0.985):c.r,coinObj=COINS.find(x=>x.id===cid)||COINS,qty=v/(coinObj.price||1);document.getElementById("rcOutput").textContent=`${act} $$${v.toFixed(2)} ${cid} = ${sym}${(v*rate).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}`;document.getElementById("rcSubNote").textContent=`Est. ${qty.toFixed(coinObj.price<5?2:6)} ${coinObj.sym} • Desk Rate: ${sym}${rate.toFixed(2)}/$`;}}
-    function proceedFromRateCalc(){const v=parseFloat(document.getElementById("rcUsd")?.value)||100;if(rcMode==="gc"){const b=document.getElementById("rcGcSel")?.value||"Apple / iTunes";nav("giftcards");document.getElementById("gcBrand").value=b;document.getElementById("gcUsd").value=v;updateGcPreview();}else{const cid=document.getElementById("rcCoinSel")?.value||"USDT-TRC20",act=document.getElementById("rcActionSel")?.value||"Buy";nav("trade");selectCoin(cid);setCoinSide(act);document.getElementById("ctUsd").value=v;updateCoinPreview();}}
+    function proceedFromRateCalc(){window.triggerIslandActivity("Rate Locked",60);const v=parseFloat(document.getElementById("rcUsd")?.value)||100;if(rcMode==="gc"){const b=document.getElementById("rcGcSel")?.value||"Apple / iTunes";nav("giftcards");document.getElementById("gcBrand").value=b;document.getElementById("gcUsd").value=v;updateGcPreview();}else{const cid=document.getElementById("rcCoinSel")?.value||"USDT-TRC20",act=document.getElementById("rcActionSel")?.value||"Buy";nav("trade");selectCoin(cid);setCoinSide(act);document.getElementById("ctUsd").value=v;updateCoinPreview();}}
         function setTheme(t){applyTheme(t);}
-    function applyTheme(t){
-      const mode=t||localStorage.getItem("zale_theme")||"light";
-      localStorage.setItem("zale_theme",mode);
-      const isDark=mode==="dark"||(mode==="system"&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches);
-      document.body.classList.toggle("dark",isDark);
-      const sel=document.getElementById("themeSel");if(sel)sel.value=mode;
+        function applyTheme(t){
+      const m=t||localStorage.getItem("zale_theme")||"light";
+      localStorage.setItem("zale_theme",m);
+      document.body.classList.remove("dark","sovereign","alabaster");
+      if(m==="sovereign")document.body.classList.add("sovereign");
+      else if(m==="alabaster")document.body.classList.add("alabaster");
+      else{
+        const isD=m==="dark"||(m==="system"&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches);
+        if(isD)document.body.classList.add("dark");
+      }
+      const sel=document.getElementById("themeSel");if(sel)sel.value=m;
     }
+    let diTimer=null;
+    window.triggerIslandActivity=function(label,secs){
+      clearInterval(diTimer);
+      let left=secs||60;
+      const pills=[document.getElementById("homeCtyPill"),document.getElementById("walCtyPill")].filter(Boolean);
+      pills.forEach(p=>{p.classList.add("live-act");pulseIsland(p.id);});
+      const tick=()=>{
+        if(left<=0){clearInterval(diTimer);pills.forEach(p=>p.classList.remove("live-act"));renderAll();return;}
+        const txt=document.getElementById("hdrCurrName");if(txt)txt.textContent=label+" • "+left+"s";
+        left--;
+      };
+      tick();diTimer=setInterval(tick,1000);
+    };
+    let touchX0=0;
+    document.addEventListener("touchstart",e=>{touchX0=e.touches?e.touches[0].clientX:0;},{passive:true});
+    document.addEventListener("touchend",e=>{const dx=(e.changedTouches?e.changedTouches[0].clientX:0)-touchX0;if(touchX0<32&&dx>75)nav("home");},{passive:true});
+    document.addEventListener("mousemove",e=>{const vc=document.querySelector("#tab-vcard:not(.hide) .card");if(!vc)return;const r=vc.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;vc.style.transform=`perspective(700px) rotateY(${(x*10).toFixed(1)}deg) rotateX(${(-y*10).toFixed(1)}deg)`;});
+    window.pullLiveCoinsAndFx=async function(manual){
+      try{
+        const [cc,fx]=await Promise.allSettled([
+          fetch("https://cryptocompare.com").then(r=>r.json()),
+          fetch("https://er-api.com").then(r=>r.json())
+        ]);
+        let ok=false;
+        if(cc.status==="fulfilled"&&cc.value?.RAW){
+          COINS.forEach(c=>{const r=cc.value.RAW[c.sym]?.USD;if(r&&r.PRICE>0){c.price=+r.PRICE;const ch=+r.CHANGEPCT24HOUR||0;c.chg=(ch>=0?"+":"")+ch.toFixed(2)+"%";ok=true;}});
+        }
+        if(fx.status==="fulfilled"&&fx.value?.rates){
+          const rt=fx.value.rates;
+          if(rt.ZMW)CURR.ZM.r=+rt.ZMW.toFixed(2);if(rt.ZA)CURR.ZA.r=+rt.ZA.toFixed(2);if(rt.NGN)CURR.NG.r=+rt.NGN.toFixed(2);
+          if(rt.KE)CURR.KE.r=+rt.KE.toFixed(2);if(rt.GH)CURR.GH.r=+rt.GH.toFixed(2);if(rt.GB)CURR.GB.r=+rt.GB.toFixed(3);
+          ok=true;
+        }
+        if(ok){
+          const b=document.getElementById("liveRateStatus");if(b)b.textContent="● Live "+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'})+" ↻";
+          renderCoins();renderAll();if(typeof calcZaleRate==="function")calcZaleRate();
+          if(manual)toast("Live market prices updated!");
+        }
+      }catch(e){}
+    };
+
     if(window.matchMedia){window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{if((localStorage.getItem("zale_theme")||"light")==="system")applyTheme("system");});}
 
     (function(){const saved=localStorage.getItem("zale_theme")||"light";applyTheme(saved);})();
 
     function previewVcardCost(){const c=CURR[user?.cty]||CURR.ZM,a=parseFloat(document.getElementById("vcUsd")?.value)||0,f=(document.getElementById("vcAction")?.value==="issue"&&a>0)?5:0,t=a+f;document.getElementById("vcCostPreview").textContent=`Total Payable: $${t.toFixed(2)} = ${c.s}${(t*c.r).toLocaleString(undefined,{maximumFractionDigits:0})}`;}
-    function submitVcardOrder(){const v=parseFloat(document.getElementById("vcUsd")?.value)||0,l=(document.getElementById("vcLabel")?.value||"").trim();if(v<5||!l)return toast("Enter at least \$5 USD & name.");createOrder(document.getElementById("vcNet").value,v,l);}
-    function submitUtilityBill(){const m=document.getElementById("billMeter").value.trim(),v=parseFloat(document.getElementById("billAmt").value);if(!m||!v)return toast("Enter meter/account & amount.");createOrder("Utility: "+document.getElementById("billType").value,v,m);}
-    function submitXborderOrder(){const r=document.getElementById("xbRecip").value.trim(),v=parseFloat(document.getElementById("xbUsd").value);if(!r||!v)return toast("Enter amount & recipient.");createOrder("Cross-Border: "+document.getElementById("xbCorridor").value,v,r);}
-    function submitEscrowOrder(){const cp=document.getElementById("escCounter").value.trim(),v=parseFloat(document.getElementById("escUsd").value),p=document.getElementById("escPin").value.trim();if(!cp||!v||p.length!==4)return toast("Enter counterparty, amount & 4-digit PIN.");createOrder("Digital Escrow",v,cp+" (PIN:"+p+")");}
+    function submitVcardOrder(){const v=parseFloat(document.getElementById("vcUsd")?.value)||0,l=(document.getElementById("vcLabel")?.value||"").trim();if(v<5||!l)return toast("Enter at least \$5 USD & name.");createOrder(document.getElementById("vcNet").value,v,l);window.triggerIslandActivity("Order Live",45);}
+    function submitUtilityBill(){const m=document.getElementById("billMeter").value.trim(),v=parseFloat(document.getElementById("billAmt").value);if(!m||!v)return toast("Enter meter/account & amount.");createOrder("Utility: "+document.getElementById("billType").value,v,m);window.triggerIslandActivity("Order Live",45);}
+    function submitXborderOrder(){const r=document.getElementById("xbRecip").value.trim(),v=parseFloat(document.getElementById("xbUsd").value);if(!r||!v)return toast("Enter amount & recipient.");createOrder("Cross-Border: "+document.getElementById("xbCorridor").value,v,r);window.triggerIslandActivity("Order Live",45);}
+    function submitEscrowOrder(){const cp=document.getElementById("escCounter").value.trim(),v=parseFloat(document.getElementById("escUsd").value),p=document.getElementById("escPin").value.trim();if(!cp||!v||p.length!==4)return toast("Enter counterparty, amount & 4-digit PIN.");createOrder("Digital Escrow",v,cp+" (PIN:"+p+")");window.triggerIslandActivity("Order Live",45);}
         function copyRefLink(){copyVal("https://github.io"+(user?.email||"ZALE").split("@").toUpperCase(),"Referral Link");}
     function shareRefWhatsApp(){window.open("https://wa.me"+encodeURIComponent("Trade Crypto & Gift Cards in 5-15 mins on Zale App: https://github.io"),"_blank");}
-    function submitDepositOrder(){const v=parseFloat(document.getElementById("depUsd").value)||0,r=document.getElementById("depRef").value.trim();if(!v||!r)return toast("Enter amount & reference.");createOrder("Deposit: "+document.getElementById("depMethod").value,v,r);}
-    function submitWithdrawOrder(){const v=parseFloat(document.getElementById("wdUsd").value)||0,a=document.getElementById("wdAcct").value.trim(),h=document.getElementById("wdHolder").value.trim();if(!v||!a||!h)return toast("Complete all fields.");createOrder("Withdraw: "+document.getElementById("wdNet").value,v,`${h} (${a})`);}
+    function submitDepositOrder(){const v=parseFloat(document.getElementById("depUsd").value)||0,r=document.getElementById("depRef").value.trim();if(!v||!r)return toast("Enter amount & reference.");createOrder("Deposit: "+document.getElementById("depMethod").value,v,r);window.triggerIslandActivity("Order Live",45);}
+    function submitWithdrawOrder(){const v=parseFloat(document.getElementById("wdUsd").value)||0,a=document.getElementById("wdAcct").value.trim(),h=document.getElementById("wdHolder").value.trim();if(!v||!a||!h)return toast("Complete all fields.");createOrder("Withdraw: "+document.getElementById("wdNet").value,v,`${h} (${a})`);window.triggerIslandActivity("Order Live",45);}
     function renderFaqHub(){const b=document.getElementById("faqTopicsList");if(!b)return;b.innerHTML=FAQ_DATA.map((cat,ci)=>`<div style="margin-bottom:10px"><div style="font-size:12px;font-weight:800;color:var(--gold);margin-bottom:4px">${cat.cat}</div>${cat.items.map((it,ii)=>`<div onclick="openFaqArticle(${ci},${ii})" class="acc-row" style="cursor:pointer;padding:8px 6px"><span style="font-size:12.5px">${it.q}</span><span style="color:var(--acc);font-weight:800">&rarr;</span></div>`).join("")}</div>`).join("");}
     function openFaqArticle(ci,ii){const cat=FAQ_DATA[ci],it=cat.items[ii];document.getElementById("faqArtCat").textContent=cat.cat;document.getElementById("faqArtTitle").textContent=it.q;document.getElementById("faqArtBody").textContent=it.a;document.getElementById("faqArticleReader").classList.remove("hide");}
     function sendSupportEmail(){const s=document.getElementById("supMsgSubj").value.trim(),b=document.getElementById("supMsgBody").value.trim();if(!s||!b)return toast("Enter subject & message.");window.open(`mailto:support@://zaleapp.com${encodeURIComponent(s)}&body=${encodeURIComponent(b)}`);}
