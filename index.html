@@ -4,41 +4,49 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no" />
   <title>Zale — Global Digital Transactions</title>
-  <style>
-    @import url('https://googleapis.com');
-    :root{--bg:#070d19;--card:#0f172a;--card2:#162036;--brd:rgba(148,163,184,.16);--txt:#f8fafc;--mut:#94a3b8;--acc:#10b981;--gold:#fbbf24}
-    body.light{--bg:#f1f5f9;--card:#fff;--card2:#f8fafc;--brd:rgba(15,23,42,.12);--txt:#0f172a;--mut:#64748b}
-    *{box-sizing:border-box;font-family:'Inter',-apple-system,sans-serif !important;letter-spacing:-0.015em}
+    <link rel="preconnect" href="https://googleapis.com">
+  <link rel="preconnect" href="https://gstatic.com" crossorigin>
+  <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght;600;700;800&family=JetBrains+Mono:wght;700&display=swap" rel="stylesheet">
+"<style>
+    :root{--bg:#f6f5f0;--card:#ffffff;--card2:#faf9f5;--brd:#e7e5de;--txt:#0f172a;--mut:#64748b;--acc:#0d9488;--gold:#c59b27;--obs:#0f172a}
+    body.dark{--bg:#090b0e;--card:#12151b;--card2:#181c24;--brd:rgba(255,255,255,.08);--txt:#f8fafc;--mut:#94a3b8;--acc:#10b981;--gold:#eab308;--obs:#f8fafc}
+    *{box-sizing:border-box;font-family:'Plus Jakarta Sans',-apple-system,sans-serif !important;letter-spacing:-0.018em}
     code,.mono{font-family:'JetBrains Mono',monospace !important;font-variant-numeric:tabular-nums}
-    body{margin:0;background:var(--bg);color:var(--txt);padding-bottom:88px}
-    .wrap{max-width:460px;margin:0 auto;padding:12px 14px}
-    .card{background:var(--card);border:1px solid var(--brd);border-radius:16px;padding:14px;margin-bottom:11px}
+    body{margin:0;background:var(--bg);color:var(--txt);padding-bottom:84px;transition:background .25s,color .25s}
+    .wrap{max-width:460px;margin:0 auto;padding:12px 16px}
+    .card{background:var(--card);border:1px solid var(--brd);border-radius:18px;padding:15px;margin-bottom:13px;box-shadow:0 4px 20px rgba(15,23,42,.035)}
     .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
     .hide{display:none !important}
-    input,select,textarea{width:100%;padding:11px 12px;margin-top:8px;border-radius:12px;border:1px solid var(--brd);background:var(--card2);color:var(--txt);font-size:13px;outline:none}
-    .btn{width:100%;padding:12px;border:none;border-radius:12px;background:var(--acc);color:#03120e;font-weight:800;font-size:13.5px;cursor:pointer}
-    .btn-gold{border:none;border-radius:12px;background:var(--gold);color:#1c1300;font-weight:800;font-size:13px;cursor:pointer}
+    input,select,textarea{width:100%;padding:11px 13px;margin-top:8px;border-radius:12px;border:1px solid var(--brd);background:var(--card2);color:var(--txt);font-size:13px;outline:none}
+    .btn{width:100%;padding:13px;border:none;border-radius:12px;background:#0f172a;color:#ffffff;font-weight:700;font-size:13.5px;cursor:pointer}
+    body.dark .btn{background:#eab308;color:#090b0e;font-weight:800}
+    .btn-gold{width:100%;padding:13px;border:none;border-radius:12px;background:linear-gradient(135deg,#d4af37,#b48811);color:#fff;font-weight:700;font-size:13.5px;cursor:pointer}
     .btn-ghost{background:var(--card2);border:1px solid var(--brd);color:var(--txt);border-radius:10px;font-weight:700;cursor:pointer}
     .chip{background:var(--card2);border:1px solid var(--brd);color:var(--mut);border-radius:999px;font-weight:700;cursor:pointer}
-    .chip.on{background:var(--acc);color:#03120e;border-color:var(--acc)}
-    .pill-ok{background:rgba(16,185,129,.16);color:#34d399;padding:3px 9px;border-radius:999px;font-size:10.5px;font-weight:800}
-    .pill-pend{background:rgba(251,191,36,.16);color:#fbbf24;padding:3px 9px;border-radius:999px;font-size:10.5px;font-weight:800}
-    .acc-row{display:flex;align-items:center;justify-content:space-between;padding:10px 4px;border-bottom:1px solid var(--brd);font-size:13px}
+    .chip.on{background:#0f172a;color:#ffffff;border-color:#0f172a}
+    body.dark .chip.on{background:#eab308;color:#090b0e;border-color:#eab308}
+    .pill-ok{background:rgba(13,148,136,.12);color:#0d9488;padding:3px 10px;border-radius:999px;font-size:10.5px;font-weight:700}
+    .pill-pend{background:rgba(197,155,39,.14);color:#b48811;padding:3px 10px;border-radius:999px;font-size:10.5px;font-weight:700}
+    .acc-row{display:flex;align-items:center;justify-content:space-between;padding:11px 4px;border-bottom:1px solid var(--brd);font-size:13px}
     .acc-row:last-child{border-bottom:none}
-    .qa-circle{width:46px;height:46px;margin:0 auto 6px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px}
-    .svc-horiz{display:flex;gap:8px;overflow-x:auto;padding-bottom:4px;scrollbar-width:none}
-    .svc-horiz::-webkit-scrollbar{display:none}
-    .svc-pill{flex:0 0 auto;background:var(--card2);border:1px solid var(--brd);border-radius:12px;padding:10px 13px;color:var(--txt);font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
-    .bnav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--brd);display:grid;grid-template-columns:repeat(5,1fr);padding:7px 4px 10px;z-index:900;max-width:460px;margin:0 auto}
-    .bnav button{background:none;border:none;color:var(--mut);font-size:10.5px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer}
-    .bnav button.on{color:var(--acc)}
-    #toastBox{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:#10b981;color:#03120e;font-weight:800;font-size:12px;padding:9px 16px;border-radius:999px;z-index:9999}
-    #zaleBootSplash{position:fixed;inset:0;background:#050914;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s ease,visibility .5s ease}
+    .qa-circle{width:50px;height:50px;margin:0 auto 7px;border-radius:50%;background:var(--card);border:1px solid var(--brd);color:var(--obs);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(15,23,42,.04)}
+    .svc-item{display:flex;align-items:center;justify-content:space-between;padding:14px 2px;border-bottom:1px solid var(--brd);cursor:pointer;gap:12px}
+    .svc-item:first-of-type{padding-top:8px}
+    .svc-item:last-child{border-bottom:none;padding-bottom:4px}
+    .svc-ico{width:42px;height:42px;border-radius:13px;background:var(--card2);border:1px solid var(--brd);color:var(--obs);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .fab-chat{position:fixed;right:18px;bottom:82px;width:50px;height:50px;border-radius:50%;background:#0f172a;color:#f8fafc;border:1.5px solid rgba(212,175,55,.55);box-shadow:0 10px 25px rgba(15,23,42,.28);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:890}
+    .bnav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--brd);display:grid;grid-template-columns:repeat(5,1fr);padding:8px 4px 11px;z-index:900;max-width:460px;margin:0 auto}
+    .bnav button{background:none;border:none;color:var(--mut);font-size:10.5px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
+    .bnav button.on{color:var(--obs)}
+    #toastBox{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;font-weight:700;font-size:12px;padding:9px 16px;border-radius:999px;z-index:9999;box-shadow:0 8px 20px rgba(0,0,0,.2)}
+    #zaleBootSplash{position:fixed;inset:0;background:#090b0e;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s ease,visibility .5s ease}
     #zaleBootSplash.done{opacity:0;visibility:hidden;pointer-events:none}
     .boot-bar{width:180px;height:4px;background:rgba(255,255,255,.12);border-radius:999px;overflow:hidden;margin-top:16px}
-    .boot-fill{width:0;height:100%;background:linear-gradient(90deg,#10b981,#38bdf8);animation:macBoot 1.1s ease forwards}
+    .boot-fill{width:0;height:100%;background:linear-gradient(90deg,#d4af37,#10b981);animation:macBoot 1.1s ease forwards}
     @keyframes macBoot{to{width:100%}}
-  </style>
+    .mac-track{width:100%;height:7px;background:rgba(15,23,42,.1);border-radius:999px;overflow:hidden;margin:10px 0 6px}
+    .mac-fill{height:100%;background:linear-gradient(90deg,#0f172a,#c59b27);border-radius:999px;transition:width .45s cubic-bezier(.22,1,.36,1)}
+  </style>"
 </head>
 <body>
   <div id="zaleBootSplash"><div style="font-size:38px;font-weight:900;color:#10b981">✦ Zale</div><div style="font-size:11.5px;color:#94a3b8;margin-top:4px">Initializing Secure Desk...</div><div class="boot-bar"><div class="boot-fill"></div></div></div>
@@ -62,61 +70,69 @@
     </div>
   </div>
   <div id="appBox" class="wrap hide">
-    "    <div id="tab-home">
-      <div class="row" style="padding:4px 0 12px;gap:8px;position:relative">
-        <div id="hdrAvatar" style="width:38px;height:38px;border-radius:50%;background:#1e3a8a;color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;pointer-events:none;user-select:none">IK</div>
+    "    "    <div id="tab-home">
+      <div class="row" style="padding:4px 0 14px;gap:8px;position:relative">
+        <div id="hdrAvatar" style="width:38px;height:38px;border-radius:50%;background:#0f172a;color:#f8fafc;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;pointer-events:none;user-select:none;border:1.5px solid rgba(212,175,55,.45)">IK</div>
         <div style="position:relative;flex:1;display:flex;justify-content:center">
-          <button type="button" onclick="document.getElementById('ctyPillMenu').classList.toggle('hide')" style="display:inline-flex;align-items:center;justify-content:space-between;gap:10px;background:#0b0f19;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 15px 7px 9px;color:#ffffff;font-size:12.5px;font-weight:700;cursor:pointer;min-width:176px;box-shadow:0 8px 20px rgba(11,15,25,.22),inset 0 1px 0 rgba(255,255,255,.14);transition:transform .2s ease"><span id="hdrFlagSvg" style="width:22px;height:22px;border-radius:50%;overflow:hidden;display:inline-flex;flex-shrink:0;box-shadow:0 0 0 1.5px rgba(255,255,255,.2)"></span><span id="hdrCurrName" style="letter-spacing:-0.01em">Zambian Kwacha</span><span style="width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.12);display:inline-flex;align-items:center;justify-content:center;font-size:10px;color:#cbd5e1">&#9662;</span></button>
+          <button type="button" onclick="document.getElementById('ctyPillMenu').classList.toggle('hide')" style="display:inline-flex;align-items:center;justify-content:space-between;gap:10px;background:#0b0f19;border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:7px 15px 7px 9px;color:#ffffff;font-size:12.5px;font-weight:700;cursor:pointer;min-width:176px;box-shadow:0 8px 20px rgba(11,15,25,.2),inset 0 1px 0 rgba(255,255,255,.14)"><span id="hdrFlagSvg" style="width:22px;height:22px;border-radius:50%;overflow:hidden;display:inline-flex;flex-shrink:0"></span><span id="hdrCurrName">Zambian Kwacha</span><span style="width:18px;height:18px;border-radius:50%;background:rgba(255,255,255,.12);display:inline-flex;align-items:center;justify-content:center"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#cbd5e1" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span></button>
           <div id="ctyPillMenu" class="hide" style="position:absolute;top:44px;z-index:999;background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:10px;min-width:240px;box-shadow:0 14px 32px rgba(15,23,42,.15)">
             <div style="font-size:10.5px;font-weight:800;color:var(--mut);text-transform:uppercase;padding:2px 6px 8px">Select Wallet</div>
-            <div onclick="document.getElementById('ctyPillMenu').classList.add('hide');nav('trade')" style="padding:9px 10px;cursor:pointer;border-radius:9px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);margin-bottom:6px;font-weight:800;color:#059669;font-size:12.5px">+ Add Crypto Asset</div>
+            <div onclick="document.getElementById('ctyPillMenu').classList.add('hide');nav('trade')" style="padding:9px 10px;cursor:pointer;border-radius:9px;background:rgba(13,148,136,.1);border:1px solid rgba(13,148,136,.3);margin-bottom:6px;font-weight:800;color:#0d9488;font-size:12.5px">+ Add Crypto Asset</div>
             <div onclick="document.getElementById('ctyPillMenu').classList.add('hide');nav('wallet')" style="padding:8px 10px;cursor:pointer;border-radius:9px;display:flex;align-items:center;gap:9px"><span id="dropFlagSvg" style="width:20px;height:20px;border-radius:50%;overflow:hidden;display:inline-flex"></span><div><div id="dropCtyName" style="font-weight:800;font-size:12.5px">Zambia (ZMW)</div><div style="font-size:10.5px;color:var(--mut)">Local Fiat Wallet</div></div></div>
           </div>
         </div>
         <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
-          <button id="adminBtn" class="btn-ghost hide" style="padding:5px 9px;font-size:10.5px;border-color:#d97706;color:#d97706" onclick="nav('admin')">Admin</button>
-          <button type="button" onclick="toast('All system rates & notifications are up to date!')" style="width:38px;height:38px;border-radius:50%;background:var(--card);border:1px solid var(--brd);color:var(--txt);display:flex;align-items:center;justify-content:center;cursor:pointer">&#128276;</button>
+          <button id="adminBtn" class="btn-ghost hide" style="padding:5px 9px;font-size:10.5px;border-color:#c59b27;color:#b48811" onclick="nav('admin')">Admin</button>
+          <button type="button" onclick="nav('notifications')" aria-label="Notifications" style="position:relative;width:38px;height:38px;border-radius:50%;background:var(--card);border:1px solid var(--brd);color:var(--txt);display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span style="position:absolute;top:8px;right:9px;width:7px;height:7px;border-radius:50%;background:#c59b27"></span></button>
         </div>
       </div>
 
-      <div onclick="nav('setup')" class="card" style="padding:12px 15px;cursor:pointer;display:flex;align-items:center;justify-content:space-between">
-        <div><div style="font-size:13.5px;font-weight:800">Complete Account Setup</div><div style="font-size:11px;color:var(--mut);margin-top:2px">Username, Transaction PIN, Bank &amp; KYC</div></div>
-        <div style="display:flex;align-items:center;gap:8px"><div id="setupPctRing" class="mono" style="width:42px;height:42px;border-radius:50%;border:2.5px solid #1e3a8a;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:#1e3a8a">25%</div><span style="color:#64748b;font-weight:800">&rsaquo;</span></div>
+      <div onclick="nav('setup')" class="card" style="padding:13px 16px;cursor:pointer;display:flex;align-items:center;justify-content:space-between">
+        <div style="font-size:14px;font-weight:800;color:var(--obs)">Complete Account Setup</div>
+        <div style="display:flex;align-items:center;gap:9px"><div id="setupPctRing" class="mono" style="width:40px;height:40px;border-radius:50%;border:2.5px solid #c59b27;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:var(--obs)">25%</div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
       </div>
 
-      <div style="text-align:center;padding:14px 10px 18px">
-        <div id="homeLocalBal" class="mono" style="font-size:32px;font-weight:900;color:#1e3a8a">K 0.00</div>
-        <div id="homeUsdBal" class="mono" style="font-size:14px;color:var(--txt);font-weight:700;margin-top:4px">0.00 USD</div>
-        <button type="button" onclick="toggleHideBalance()" style="margin-top:8px;background:none;border:none;color:var(--mut);font-size:12px;font-weight:700;cursor:pointer">&#128065; <span class="hideBalLbl">Hide Balance</span></button>
-        <div style="margin-top:8px"><span style="background:rgba(16,185,129,.1);color:#059669;padding:4px 11px;border-radius:999px;font-size:10.5px;font-weight:800">Avg. Settlement: 4 Mins &bull; Bank-Grade Encryption</span></div>
+      <div style="text-align:center;padding:18px 10px 22px">
+        <div id="homeLocalBal" class="mono" style="font-size:35px;font-weight:800;color:var(--obs)">K 0.00</div>
+        <div id="homeUsdBal" class="mono" style="font-size:14px;color:var(--mut);font-weight:600;margin-top:5px">0.00 USD</div>
+        <button type="button" onclick="toggleHideBalance()" style="margin-top:10px;background:none;border:none;color:var(--mut);font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg><span class="hideBalLbl">Hide Balance</span></button>
       </div>
 
-      <div style="margin-bottom:14px">
-        <div style="font-size:14px;font-weight:800;margin-bottom:11px">Quick Actions</div>
+      <div style="margin-bottom:18px">
+        <div style="font-size:14px;font-weight:800;margin-bottom:12px">Quick Actions</div>
         <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;text-align:center">
-          <div onclick="nav('deposit')" style="cursor:pointer"><div class="qa-circle">+</div><div style="font-size:11.5px;font-weight:700">Deposit</div></div>
-          <div onclick="nav('withdraw')" style="cursor:pointer"><div class="qa-circle">&#8599;</div><div style="font-size:11.5px;font-weight:700">Transfer</div></div>
-          <div onclick="nav('trade')" style="cursor:pointer"><div class="qa-circle">$</div><div style="font-size:11.5px;font-weight:700">Buy</div></div>
-          <div onclick="nav('trade')" style="cursor:pointer"><div class="qa-circle">&#8593;</div><div style="font-size:11.5px;font-weight:700">Sell</div></div>
-          <div onclick="nav('trade')" style="cursor:pointer"><div class="qa-circle">&#8644;</div><div style="font-size:11.5px;font-weight:700">Swap</div></div>
+          <div onclick="nav('deposit')" style="cursor:pointer"><div class="qa-circle"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 5v14"/><path d="m19 12-7 7-7-7"/></svg></div><div style="font-size:11.5px;font-weight:700">Deposit</div></div>
+          <div onclick="nav('withdraw')" style="cursor:pointer"><div class="qa-circle"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div><div style="font-size:11.5px;font-weight:700">Transfer</div></div>
+          <div onclick="nav('trade')" style="cursor:pointer"><div class="qa-circle"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg></div><div style="font-size:11.5px;font-weight:700">Buy</div></div>
+          <div onclick="nav('trade')" style="cursor:pointer"><div class="qa-circle"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 19V5"/><path d="m5 12 7-7 7 7"/></svg></div><div style="font-size:11.5px;font-weight:700">Sell</div></div>
+          <div onclick="nav('trade')" style="cursor:pointer"><div class="qa-circle"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg></div><div style="font-size:11.5px;font-weight:700">Swap</div></div>
         </div>
       </div>
-
-      <div class="card" style="padding:14px 15px">
-        <div style="font-size:14.5px;font-weight:800;margin-bottom:6px">Services</div>
-        <div class="svc-item" onclick="nav('utilities')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico">&#9889;</div><div><div style="font-size:13.5px;font-weight:800;color:#1e3a8a">Utility Bills</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Pay your bills easily with the Zale app</div></div></div><span style="color:#64748b;font-weight:800">&rsaquo;</span></div>
-        <div class="svc-item" onclick="nav('vcard')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico">&#128179;</div><div><div style="font-size:13.5px;font-weight:800;color:#1e3a8a">Virtual Cards</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Shop globally &amp; pay ads with 3D Secure USD cards</div></div></div><span style="color:#64748b;font-weight:800">&rsaquo;</span></div>
-        <div class="svc-item" onclick="nav('xborder')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico">&#127757;</div><div><div style="font-size:13.5px;font-weight:800;color:#1e3a8a">Cross-Border</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Send instant payouts across Zambia, SA, Nigeria &amp; Kenya</div></div></div><span style="color:#64748b;font-weight:800">&rsaquo;</span></div>
-        <div class="svc-item" onclick="nav('escrow')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico">&#128274;</div><div><div style="font-size:13.5px;font-weight:800;color:#1e3a8a">Digital Escrow</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Protect P2P deals with Zale Safe-Claim 4-digit PIN</div></div></div><span style="color:#64748b;font-weight:800">&rsaquo;</span></div>
+      "      <div class="card" style="padding:16px">
+        <div style="font-size:14.5px;font-weight:800;margin-bottom:4px">Services</div>
+        <div class="svc-item" onclick="nav('utilities')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div style="font-size:13.5px;font-weight:800;color:var(--obs)">Utility Bills</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Pay your bills easily with the Zale app</div></div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        <div class="svc-item" onclick="nav('vcard')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><div><div style="font-size:13.5px;font-weight:800;color:var(--obs)">Virtual Cards</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Shop globally &amp; pay ads with 3D Secure USD cards</div></div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        <div class="svc-item" onclick="nav('xborder')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><div style="font-size:13.5px;font-weight:800;color:var(--obs)">Cross-Border</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Send instant payouts across Zambia, SA, Nigeria &amp; Kenya</div></div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+        <div class="svc-item" onclick="nav('escrow')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div style="font-size:13.5px;font-weight:800;color:var(--obs)">Digital Escrow</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Protect P2P deals with Zale Safe-Claim 4-digit PIN</div></div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
       </div>
 
-      <div onclick="nav('rates')" class="card" style="padding:15px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#fffbeb,#fef3c7);border-color:#fde68a">
-        <div style="max-width:66%"><div style="font-size:15px;font-weight:900;color:#1e3a8a">Zale Rates</div><div style="font-size:12px;color:#475569;margin-top:3px">Stay up to date with our rates</div></div>
-        <svg width="64" height="46" viewBox="0 0 80 56" fill="none"><circle cx="58" cy="18" r="14" fill="#f59e0b"/><text x="58" y="23" text-anchor="middle" fill="#fff" font-size="15" font-weight="900">&#8383;</text><path d="M10 34 L26 24 L40 31 L54 23 L66 31 L50 44 L34 44 L18 39 Z" fill="#f59e0b" opacity=".9"/><path d="M22 33 L34 27 L46 34 L36 42 Z" fill="#1e3a8a"/></svg>
+      <div onclick="nav('rates')" class="card" style="padding:18px 16px;margin-bottom:4px;cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#0f172a,#1e293b);border-color:rgba(212,175,55,.4)">
+        <div style="max-width:65%"><div style="font-size:15.5px;font-weight:800;color:#f8fafc">Zale Rates</div><div style="font-size:12px;color:#cbd5e1;margin-top:4px;line-height:1.4">Stay up to date with our rates</div></div>
+        <svg width="64" height="48" viewBox="0 0 64 48" fill="none"><rect x="4" y="14" width="44" height="28" rx="10" fill="rgba(255,255,255,.07)" stroke="rgba(212,175,55,.45)" stroke-width="1.2"/><path d="M14 29l7-6 6 5 9-7 7 6" stroke="#eab308" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M18 33l8 4 10-5" stroke="#f8fafc" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><circle cx="48" cy="14" r="11" fill="#d4af37"/><path d="M46 10v8M50 10v8M45 11h4.5a1.5 1.5 0 0 1 0 3H45h5a1.5 1.5 0 0 1 0 3H45" stroke="#0f172a" stroke-width="1.6" stroke-linecap="round"/></svg>
       </div>
     </div>
 
-    "    <div id="tab-setup" class="hide">
+    <div id="tab-notifications" class="hide">
+      <div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">&larr; Home</button><span class="pill-ok">All Caught Up</span></div>
+      <div class="card">
+        <h2 style="margin:0 0 10px;font-size:19px">Notifications</h2>
+        <div class="acc-row"><div><b>Live Desk Rates Updated</b><div style="font-size:11.5px;color:var(--mut);margin-top:2px">USDT TRC20, BTC, ETH &amp; Gift Card rates refreshed.</div></div><span style="font-size:10.5px;color:var(--mut)">Just now</span></div>
+        <div class="acc-row"><div><b>Tier 2 KYC &amp; Security Ready</b><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Complete your account setup for $10,000/day limits.</div></div><span style="font-size:10.5px;color:var(--mut)">Today</span></div>
+        <div class="acc-row"><div><b>Welcome to Zale</b><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Your multi-currency crypto &amp; fiat wallet is active.</div></div><span style="font-size:10.5px;color:var(--mut)">Account</span></div>
+      </div>
+    </div>
+
+    <div id="tab-setup" class="hide">"
       <div class="row" style="padding:4px 0 12px;gap:8px">
         <div style="display:flex;align-items:center;gap:8px">
           <button type="button" onclick="nav('home')" class="btn-ghost" style="padding:6px 10px;font-size:12px">&larr;</button>
@@ -191,7 +207,7 @@
     <div id="tab-admin" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">← Home</button><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px;color:var(--acc)" onclick="toast('Synced!')">🔄 Sync Cloud</button></div><div class="card" style="border-color:rgba(56,189,248,.45)"><div class="row" style="margin-bottom:8px"><h3 style="margin:0;font-size:15px;color:#38bdf8">👥 Registered Clients Tracker</h3><span id="admClientBadge" class="pill-ok">0 Registered</span></div><div id="admClientsList"></div></div><div class="card" style="border-color:rgba(245,158,11,.5)"><h3 style="margin:0 0 8px;font-size:15px;color:var(--gold)">Executive OTC Desk &amp; Wallet Credit</h3><input id="admTargetEmail" placeholder="Client Email Address" /><input id="admAdjAmt" type="number" placeholder="USD Amount (+ to Credit, - to Debit)" /><button class="btn" style="margin-top:8px" onclick="adminAdjustWallet()">Apply Wallet Adjustment</button><div style="font-size:12px;font-weight:800;color:var(--gold);margin:14px 0 8px">Live Orders Queue</div><div id="admOrdersList"></div></div></div>
   </div>
   <div id="bioSensorModal" class="hide" style="position:fixed;inset:0;background:rgba(2,6,23,.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:18px"><div class="card" style="max-width:340px;width:100%;text-align:center;border-color:var(--acc)"><div style="font-size:11px;font-weight:900;color:var(--acc)">AUTHENTICATION REQUIRED</div><h3 style="margin:6px 0 4px;font-size:18px">Verify Identity</h3><p style="font-size:12px;color:var(--mut);margin:0 0 14px">Scan your fingerprint to authenticate.</p><div onclick="completeFingerprintScan()" style="width:76px;height:76px;margin:0 auto 12px;border-radius:50%;background:rgba(16,185,129,.14);border:2px solid var(--acc);display:flex;align-items:center;justify-content:center;font-size:32px;cursor:pointer">👆</div><button class="btn-ghost" style="width:100%;padding:10px" onclick="document.getElementById('bioSensorModal').classList.add('hide')">Cancel</button></div></div>
-    <button id="fabChatBtn" type="button" class="fab-chat hide" onclick="nav('support-hub')">&#128172;</button>
+    <button id="fabChatBtn" type="button" class="fab-chat hide" onclick="nav('support-hub')" aria-label="Support Chat"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></button>
 <nav id="bottomNav" class="bnav hide">
     <button id="bn-home" class="on" onclick="nav('home')">🏠<span>Home</span></button>
     <button id="bn-trade" onclick="nav('trade')">📈<span>Trade</span></button>
@@ -214,7 +230,7 @@
     function handleAuthSubmit(){const email=(document.getElementById("lEmail").value||"").trim().toLowerCase(),pass=(document.getElementById("lPass").value||"").trim();if(!email||pass.length<6)return toast("Enter valid email & password (min 6 chars).");let db=JSON.parse(localStorage.getItem("zale_users")||"{}");if(authMode==="up"){db[email]={name:(document.getElementById("rName").value||"").trim()||email.split("@"),email,phone:(document.getElementById("rPhone").value||"").trim(),cty:document.getElementById("rCty").value||"ZM",pass,bal:0,kyc:1};localStorage.setItem("zale_users",JSON.stringify(db));user=db[email];}else if(email===ADMIN&&pass==="zaleAdmin2026pay"){user=db[email]||{name:"Isaac Katanga (Admin)",email:ADMIN,cty:"ZM",pass,bal:0,kyc:2};}else if(db[email]&&db[email].pass===pass){user=db[email];}else return toast("Invalid email or password.");localStorage.setItem("zale_user",JSON.stringify(user));enterApp();}
     function doLogout(){localStorage.removeItem("zale_user");user=null;document.getElementById("appBox").classList.add("hide");document.getElementById("bottomNav").classList.add("hide");document.getElementById("fabChatBtn")?.classList.add("hide");document.getElementById("authBox").classList.remove("hide");}
     function enterApp(){document.getElementById("authBox").classList.add("hide");document.getElementById("appBox").classList.remove("hide");document.getElementById("bottomNav").classList.remove("hide");document.getElementById("fabChatBtn")?.classList.remove("hide");document.getElementById("adminBtn")?.classList.toggle("hide",user?.email!==ADMIN);nav("home");}
-    function nav(t){["home","setup","trade","wallet","giftcards","account","limits","kyc","password","2fa","vcard","utilities","xborder","escrow","rates","refer","deposit","withdraw","support-hub","faq","zale-chat","admin"].forEach(k=>document.getElementById("tab-"+k)?.classList.toggle("hide",k!==t));["home","trade","wallet","giftcards","account"].forEach(k=>document.getElementById("bn-"+k)?.classList.toggle("on",k===t));if(t==="faq")renderFaqHub();if(t==="limits")renderDailyLimits();renderAll();}
+    function nav(t){["home","notifications","setup","trade","wallet","giftcards","account","limits","kyc","password","2fa","vcard","utilities","xborder","escrow","rates","refer","deposit","withdraw","support-hub","faq","zale-chat","admin"].forEach(k=>document.getElementById("tab-"+k)?.classList.toggle("hide",k!==t));["home","trade","wallet","giftcards","account"].forEach(k=>document.getElementById("bn-"+k)?.classList.toggle("on",k===t));if(t==="faq")renderFaqHub();if(t==="limits")renderDailyLimits();renderAll();}
     function toggleHideBalance(){balHidden=!balHidden;document.querySelectorAll(".hideBalLbl").forEach(el=>el.textContent=balHidden?"Show Balance":"Hide Balance");renderAll();}
     function getCoinSvg(c){const badge=(col,txt)=>`<span style="position:absolute;right:-3px;bottom:-3px;width:15px;height:15px;border-radius:50%;background:${col};color:#fff;font-size:7px;font-weight:900;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--card)">${txt}</span>`;const bg={BTC:"#f7931a",ETH:"#3b49df",SOL:"#14f195",BNB:"#f3ba2f",USDC:"#2775ca",USDT:"#26a17b"}[c.sym]||"#10b981";let b=c.id==="USDT-ERC20"?badge("#627eea","E"):c.id==="USDT-TRC20"?badge("#ef4444","T"):c.id==="USDT-SOL"?badge("#9945ff","S"):c.id==="USDT-BEP20"?badge("#f59e0b","B"):"";return `<div style="position:relative;width:38px;height:38px;border-radius:50%;background:${bg};color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">${c.sym}${b}</div>`;}
     function renderCoins(){const box=document.getElementById("coinList");if(!box)return;const q=(document.getElementById("coinSearchInp")?.value||"").toLowerCase();box.innerHTML=COINS.filter(x=>x.name.toLowerCase().includes(q)||x.id.toLowerCase().includes(q)).map(x=>`<div class="acc-row" style="cursor:pointer;padding:10px 4px" onclick="selectCoin('${x.id}')"><div style="display:flex;align-items:center;gap:10px">${getCoinSvg(x)}<div><div style="font-weight:800;font-size:13.5px">${x.name}</div><div style="font-size:11px;color:var(--mut)">${x.id}</div></div></div><div style="text-align:right"><div class="mono" style="font-weight:800;font-size:13.5px">${x.price.toLocaleString(undefined,{minimumFractionDigits:x.price<5?2:0,maximumFractionDigits:2})} USD</div><div style="font-size:11px;font-weight:700;color:#10b981">+${x.chg.replace('+','')}</div></div></div>`).join("");}
