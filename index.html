@@ -6,7 +6,7 @@
   <title>Zale App v3.0.3 — Pan-African &amp; Global FX, Crypto &amp; Gift Cards</title>
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#040d0a" />
-  <style>@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;800&family=Inter:wght@400;500;600;700;800;900&display=swap");html,body,div,span,p,a,h1,h2,h3,h4,button,input,select,textarea,label,b,strong{font-family:"Inter",-apple-system,BlinkMacSystemFont,sans-serif !important;letter-spacing:-0.015em;font-variant-numeric:tabular-nums;}code,.mono{font-family:"JetBrains Mono",monospace !important;}
+  <style>@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@600;800&family=Inter:wght@400;500;600;700;800;900&display=swap");*{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif !important;letter-spacing:-0.015em;}code,.mono{font-family:"JetBrains Mono",monospace !important;}
     :root{--bg:#040d0a;--card:#091713;--card2:#050e0b;--txt:#f8fafc;--mut:#94a3b8;--brd:rgba(16,185,129,.24);--acc:#10b981;--gold:#fbbf24}
     body.light{--bg:#f1f5f9;--card:#ffffff;--card2:#f8fafc;--txt:#0f172a;--mut:#475569;--brd:rgba(15,23,42,.12);--acc:#059669;--gold:#d97706}
     *{box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Inter','Segoe UI',Roboto,sans-serif;-webkit-tap-highlight-color:transparent}
@@ -144,23 +144,7 @@
         <div class="row" style="margin-top:8px"><button class="btn" style="margin:0" onclick="submitProof()">Confirm Paid</button><button class="btn-gold" style="width:100%;padding:14px" onclick="waConcierge()">WhatsApp Desk</button></div>
       </div>
 
-              <div id="topPillHeader" class="row" style="padding:10px 14px 6px;gap:8px;position:relative">
-    <div id="hdrAvatar" onclick="nav('account')" style="width:36px;height:36px;border-radius:50%;background:#1e3a8a;color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">IK</div>
-    <div style="position:relative;flex:1;display:flex;justify-content:center">
-      <button type="button" onclick="document.getElementById('ctyPillMenu').classList.toggle('hide')" style="display:inline-flex;align-items:center;gap:8px;background:var(--card2);border:1px solid var(--brd);border-radius:999px;padding:6px 14px;color:var(--txt);font-size:12.5px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18)">
-        <span id="hdrFlagSvg" style="width:20px;height:20px;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0"></span>
-        <span id="hdrCurrName">Zambian Kwacha</span>
-        <span style="font-size:11px;color:var(--mut)">▾</span>
-      </button>
-      <div id="ctyPillMenu" class="hide" style="position:absolute;top:42px;z-index:999;background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:6px;min-width:215px;box-shadow:0 12px 28px rgba(0,0,0,.45)">
-        <div onclick="pickCountryPill('ZM')" class="acc-row" style="padding:8px 10px;cursor:pointer;border-radius:9px"><span>🇿🇲 Zambian Kwacha (ZMW)</span></div>
-        <div onclick="pickCountryPill('ZA')" class="acc-row" style="padding:8px 10px;cursor:pointer;border-radius:9px"><span>🇿🇦 South African Rand (ZAR)</span></div>
-        <div onclick="pickCountryPill('NG')" class="acc-row" style="padding:8px 10px;cursor:pointer;border-radius:9px"><span>🇳🇬 Nigerian Naira (NGN)</span></div>
-        <div onclick="pickCountryPill('KE')" class="acc-row" style="padding:8px 10px;cursor:pointer;border-radius:9px"><span>🇰🇪 Kenyan Shilling (KES)</span></div>
-        <div onclick="pickCountryPill('GH')" class="acc-row" style="padding:8px 10px;cursor:pointer;border-radius:9px"><span>🇬🇭 Ghanaian Cedi (GHS)</span></div>
-        <div onclick="pickCountryPill('GB')" class="acc-row" style="padding:8px 10px;cursor:pointer;border-radius:9px;border:none"><span>🇬🇧 British Pound (GBP)</span></div>
-      </div>
-    </div>
+              
     <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
       <button id="adminBtn" class="btn-ghost hide" style="padding:5px 9px;font-size:10.5px;border-color:#f59e0b;color:#fbbf24" onclick="nav('admin')">⚙️ Admin</button>
       <button type="button" onclick="toast('All system alerts & rates are up to date!')" style="width:36px;height:36px;border-radius:50%;background:var(--card2);border:1px solid var(--brd);color:var(--txt);display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
@@ -168,6 +152,34 @@
   </div>
 
   <div id="tab-home" style="display:flex;flex-direction:column;justify-content:space-between;min-height:calc(100vh - 110px)">
+      <div id="topPillHeader" class="row" style="padding:2px 0 10px;gap:8px;position:relative">
+        <div id="hdrAvatar" onclick="nav('account')" style="width:36px;height:36px;border-radius:50%;background:#1e3a8a;color:#fff;font-weight:800;font-size:13px;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0">IK</div>
+        <div style="position:relative;flex:1;display:flex;justify-content:center">
+          <button type="button" onclick="document.getElementById('ctyPillMenu').classList.toggle('hide')" style="display:inline-flex;align-items:center;gap:8px;background:var(--card2);border:1px solid var(--brd);border-radius:999px;padding:6px 14px;color:var(--txt);font-size:12.5px;font-weight:700;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.18)">
+            <span id="hdrFlagSvg" style="width:20px;height:20px;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0"></span>
+            <span id="hdrCurrName">Zambian Kwacha</span>
+            <span style="font-size:11px;color:var(--mut)">▾</span>
+          </button>
+          <div id="ctyPillMenu" class="hide" style="position:absolute;top:42px;z-index:999;background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:10px;min-width:235px;box-shadow:0 12px 28px rgba(0,0,0,.45)">
+            <div style="font-size:11px;font-weight:800;color:var(--mut);text-transform:uppercase;letter-spacing:.5px;padding:2px 6px 8px">Select Wallet</div>
+            <div onclick="document.getElementById('ctyPillMenu').classList.add('hide');nav('trade')" class="acc-row" style="padding:9px 8px;cursor:pointer;border-radius:9px;background:rgba(16,185,129,.1);border:1px solid rgba(16,185,129,.3);margin-bottom:6px">
+              <span style="font-weight:800;color:var(--acc);font-size:12.5px">+ Add Crypto Asset</span>
+            </div>
+            <div onclick="document.getElementById('ctyPillMenu').classList.add('hide');nav('wallet')" class="acc-row" style="padding:9px 8px;cursor:pointer;border-radius:9px;border:none;display:flex;align-items:center;gap:8px">
+              <span id="dropFlagSvg" style="width:20px;height:20px;border-radius:50%;overflow:hidden;display:inline-flex;align-items:center;justify-content:center;flex-shrink:0"></span>
+              <div>
+                <div id="dropCtyName" style="font-weight:800;font-size:12.5px">Zambia (ZMW)</div>
+                <div style="font-size:10.5px;color:var(--mut)">Primary Local Fiat Wallet</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
+          <button id="adminBtn" class="btn-ghost hide" style="padding:5px 9px;font-size:10.5px;border-color:#f59e0b;color:#fbbf24" onclick="nav('admin')">⚙️ Admin</button>
+          <button type="button" onclick="toast('All system alerts & rates are up to date!')" style="width:36px;height:36px;border-radius:50%;background:var(--card2);border:1px solid var(--brd);color:var(--txt);display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg></button>
+        </div>
+      </div>
+
       <div onclick="nav('kyc')" class="card" style="padding:11px 14px;margin-bottom:10px;cursor:pointer;display:flex;align-items:center;justify-content:space-between">
         <div>
           <div style="font-size:13px;font-weight:800">Complete Account Setup</div>
@@ -257,11 +269,12 @@
 </div>
       </div>
 
-      <div id="tab-trade" class="hide">
+      <div class="shell-pad">
+    <div id="tab-trade" class="hide">
         <div class="card"><input id="coinSearchInp" placeholder="🔍 Search for a coin (e.g. BTC, USDT, TRC20)" oninput="renderCoins()" style="margin:6px 0 10px" />
           <h2 style="margin:0;font-size:19px">Trade Coins</h2>
           <p style="margin:4px 0 8px;font-size:12px;color:var(--mut)">Click any coins to start trading</p>
-          <input id="coinSearch" placeholder="🔍 Search for a coin..." oninput="renderCoins()" style="margin-top:4px" />
+          
           <div style="font-size:11px;font-weight:800;color:var(--acc);margin-top:12px;text-transform:uppercase">ALL</div>
           <div id="coinsList"></div>
         </div>
@@ -311,102 +324,55 @@
           <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="1.4"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
           <div style="font-size:12px;color:var(--mut);margin-top:8px">You currently do not have any transactions</div>
         </div>
-
-        <div class="card" style="background:linear-gradient(145deg,#0c2e24,#071612);color:#fff">
-          <div style="font-size:11px;color:#6ee7b7;font-weight:800;text-transform:uppercase">Zale Spot &amp; Fiat Wallet</div>
-          <div id="walTabBal" style="font-size:26px;font-weight:900;margin-top:4px">$0.00</div>
-          <div class="act4" style="margin-top:14px">
-            <button class="act-btn" style="background:rgba(16,185,129,.22);color:#fff;border-color:rgba(16,185,129,.5)" onclick="nav('trade');setTradeMode('buy')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><circle cx="12" cy="12" r="9"/><path d="M12 8v8"/><path d="M8 12h8"/></svg></span>Buy</button>
-            <button class="act-btn" style="background:rgba(245,158,11,.22);color:#fff;border-color:rgba(245,158,11,.5)" onclick="nav('trade');setTradeMode('sell')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><circle cx="12" cy="12" r="9"/><path d="M8 12h8"/></svg></span>Sell</button>
-            <button class="act-btn" style="background:rgba(52,211,153,.22);color:#fff;border-color:rgba(52,211,153,.5)" onclick="openWalletAction('deposit')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="M12 3v12"/><path d="m7 10 5 5 5-5"/><path d="M5 21h14"/></svg></span>Deposit</button>
-            <button class="act-btn" style="background:rgba(56,189,248,.22);color:#fff;border-color:rgba(56,189,248,.5)" onclick="openWalletAction('withdraw')"><span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38bdf8" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" style="display:inline-block;vertical-align:middle"><path d="M3 21h18"/><path d="M3 10h18"/><path d="M5 6l7-3 7 3"/><path d="M4 10v11"/><path d="M20 10v11"/><path d="M8 14v3"/><path d="M12 14v3"/><path d="M16 14v3"/></svg></span>Withdraw</button>
-          </div>
+        </div></div>
+    <div id="tab-giftcards" class="hide">
+      <div class="card">
+        <div class="row" style="margin-bottom:4px"><h2 style="margin:0;font-size:18px">Trade Gift Card</h2><span id="gcHistBadge" style="font-size:11px;color:var(--acc);font-weight:800">Transaction History (0)</span></div>
+        <div style="font-size:12px;color:var(--mut);margin-bottom:8px">Click any gift card brand to start trading</div>
+        <input id="gcSearchInp" placeholder="🔍 Search for a card (Apple, Amazon, Steam...)" oninput="renderGcGrid()" style="margin-bottom:8px" />
+        <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px">
+          <button type="button" id="gcf-all" class="chip on" style="padding:5px 10px;font-size:10.5px;white-space:nowrap" onclick="setGcFilter('all')">ALL</button>
+          <button type="button" id="gcf-trend" class="chip" style="padding:5px 10px;font-size:10.5px;white-space:nowrap" onclick="setGcFilter('trend')">TRENDING</button>
+          <button type="button" id="gcf-top" class="chip" style="padding:5px 10px;font-size:10.5px;white-space:nowrap" onclick="setGcFilter('top')">TOP CARDS</button>
+          <button type="button" id="gcf-high" class="chip" style="padding:5px 10px;font-size:10.5px;white-space:nowrap" onclick="setGcFilter('high')">HIGHEST RATE</button>
         </div>
-
-        <div id="depositBox" class="card hide" style="border-color:rgba(16,185,129,.55)">
-          <div class="row" style="margin-bottom:4px"><h3 style="margin:0;font-size:15px;color:var(--acc)">⬇️ Deposit Funds</h3><button class="btn-ghost" style="padding:4px 8px;font-size:10px" onclick="document.getElementById('depositBox').classList.add('hide')">Close</button></div>
-          <input id="depUsd" type="number" placeholder="Deposit Amount in USD (e.g. 50)" />
-          <button class="btn" onclick="initiateBankDeposit()">Get Bank / MoMo Deposit Details</button>
+        <div id="gcBrandGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:12px"></div>
+        <select id="gcBrand" onchange="updateGcPreview()"><option value="Apple / iTunes">Apple / iTunes (84%)</option><option value="Amazon">Amazon (82%)</option><option value="Steam">Steam (85%)</option><option value="Razer Gold">Razer Gold (86%)</option><option value="American Express">American Express (80%)</option><option value="eBay">eBay (81%)</option><option value="Best Buy">Best Buy (79%)</option><option value="Google Play">Google Play (80%)</option></select>
+        <input id="gcUsd" type="number" placeholder="Card Face Value in USD (e.g. 100)" oninput="updateGcPreview()" />
+        <div id="gcLivePreview" style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:9px 12px;margin-top:8px;font-size:12px;font-weight:800;color:var(--gold)">Instant Payout: $0.00 (K0)</div>
+        <input id="gcCode" placeholder="Enter Gift Card E-Code or PIN" />
+        <div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:8px;margin-top:8px">
+          <div style="font-size:11px;font-weight:800;color:var(--acc);margin-bottom:4px">Upload Gift Card Photo (Optional / Faster Approval)</div>
+          <input id="gcPhotoInp" type="file" accept="image/*" style="padding:4px;font-size:10.5px" onchange="previewGcPhoto(this)" />
+          <img id="gcPhotoPrev" class="hide" style="width:100%;max-height:90px;object-fit:cover;border-radius:8px;margin-top:6px" />
         </div>
-
-                <div id="withdrawBox" class="card hide" style="border-color:rgba(56,189,248,.55)">
-          <div class="row" style="margin-bottom:4px"><h3 style="margin:0;font-size:15px;color:#38bdf8">🏦 Withdraw / Transfer Funds</h3><button class="btn-ghost" style="padding:4px 8px;font-size:10px" onclick="document.getElementById('withdrawBox').classList.add('hide')">Close</button></div>
-          <input id="wdUsd" type="number" placeholder="Withdraw Amount in USD (e.g. 50)" />
-          <input id="wdNet" placeholder="Payout Network / Bank (e.g. Airtel, MTN, FNB, OPay)" />
-          <input id="wdHolder" placeholder="Account Holder Full Name" />
-          <input id="depAcct" placeholder="Account or Mobile Money Number" />
-          <button class="btn-gold" style="width:100%;margin-top:10px;padding:13px" onclick="initiateWithdrawOrder()">Submit Withdrawal / Transfer</button>
-        </div>
-
-        <div class="card">
-          <div class="row" style="margin-bottom:8px">
-            <h3 style="margin:0;font-size:15px">Recent Transactions</h3>
-            <div style="display:flex;gap:8px;align-items:center">
-              <span style="font-size:11.5px;color:var(--acc);font-weight:800;cursor:pointer" onclick="toast('Showing all wallet transactions.')">See All</span>
-              <button id="txToggleBtn" class="btn-ghost" style="padding:4px 8px;font-size:10.5px" onclick="toggleRecentTx()">Hide</button>
-            </div>
-          </div>
-          <div id="walletOrders"></div>
-        </div>
-
+        <button class="btn" style="margin-top:10px" onclick="submitGiftCardOrder()">Sell Gift Card Now</button>
       </div>
+    </div>
 
-      </div>
-    <div id="tab-giftcards"
- class="hide"><div class="card"><div class="row" style="margin-bottom:4px"><h2 style="margin:0;font-size:18px">Trade Gift Card</h2><span id="gcHistBadge" style="font-size:11px;color:var(--acc);font-weight:800">Transaction History (0)</span></div><div style="font-size:12px;color:var(--mut);margin-bottom:8px">Click any gift card brand to start trading</div><input id="gcSearchInp" placeholder="🔍 Search for a card (Apple, Amazon, Steam...)" oninput="renderGcGrid()" style="margin-bottom:8px" /><div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px"><button type="button" id="gcf-all" class="chip on" style="padding:5px 10px;font-size:10.5px;white-space:nowrap" onclick="setGcFilter('all')">ALL</button><button type="button" id="gcf-trend" class="chip" style="padding:5px 10px;font-size:10.5px;white-space:nowrap" onclick="setGcFilter('trend')">TRENDING</button><button type="button" id="gcf-top" class="chip" style="padding:5px 10px;font-size:10.5px;white-space:nowrap" onclick="setGcFilter('top')">TOP CARDS</button><button type="button" id="gcf-high" class="chip" style="padding:5px 10px;font-size:10.5px;white-space:nowrap" onclick="setGcFilter('high')">HIGHEST RATE</button></div><div id="gcBrandGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:9px"></div></div>
-        <div class="card">
-          <h2 style="margin:0;font-size:19px">Trade Gift Card</h2>
-          <p style="margin:4px 0 8px;font-size:12px;color:var(--mut)">Click any coin or gift card to start trading</p>
-          <input id="gcSearch" placeholder="🔍 Search for a card..." oninput="renderBrands()" style="margin-top:4px" />
-          <div class="chips"><button id="gf-all" class="chip on" onclick="setGcFilter('all')">All</button><button id="gf-trend" class="chip" onclick="setGcFilter('trend')">Trending</button><button id="gf-top" class="chip" onclick="setGcFilter('top')">Top Cards</button><button id="gf-high" class="chip" onclick="setGcFilter('high')">Highest to Lowest</button></div>
-          <div class="row" style="margin-top:14px"><span style="font-size:12px;color:var(--acc);font-weight:800;cursor:pointer" onclick="nav('wallet');document.getElementById('withdrawBox').classList.remove('hide')">Transaction History</span><span style="font-size:12px;font-weight:900;color:var(--gold)">TOP Cards</span></div>
-          <div id="gcBrandGrid" class="gc-grid"></div>
-          <div id="gcTradeDrawer" class="hide" style="margin-top:14px;padding-top:12px;border-top:1px dashed var(--brd)">
-            <div id="selGcTitle" style="font-weight:800;font-size:14px;color:var(--acc)"></div>
-            <select id="gcAction"><option value="Sell">Sell Gift Card for Cash</option><option value="Buy">Buy Digital Gift Card</option></select>
-            <input id="gcVal" type="number" placeholder="Card Face Value in USD (e.g. 50)" /><input id="gcUsd" type="number" placeholder="Card Amount in USD (e.g. 100)" oninput="previewGcPayout()" /><div id="gcLivePreview" style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:9px 12px;margin-top:8px;font-size:12px;font-weight:800;color:var(--gold)">Estimated Cashout: $0.00 (K0)</div><input id="gcCode" placeholder="Card E-Code (if selling) or Delivery Email (if buying)" /><div style="margin-top:8px"><label style="font-size:11px;color:var(--mut);font-weight:800;display:block;margin-bottom:4px">📷 Upload Gift Card Photo (Optional)</label><input id="gcPhotoInp" type="file" accept="image/*" style="padding:8px;font-size:11.5px" onchange="previewGcImg(this)" /><img id="gcPhotoPrev" class="hide" style="width:100%;max-height:130px;object-fit:cover;border-radius:11px;margin-top:6px;border:1px solid var(--brd)" /></div>
-            <button class="btn" onclick="submitGiftCard()">Confirm Gift Card Trade</button>
-          </div>
+    <div id="tab-account" class="hide">
+      <div class="card">
+        <div class="row" style="margin-bottom:8px"><div><div id="accName" style="font-size:17px;font-weight:900">Zale Client</div><div id="accEmail" style="font-size:11.5px;color:var(--mut)">client@zaleapp.com</div></div><span id="accTierPill" class="pill-ok">Tier 1 Verified</span></div>
+        <div style="background:var(--card2);border:1px solid var(--brd);border-radius:12px;padding:10px 12px;margin-top:8px">
+          <div style="font-size:11.5px;font-weight:800;color:var(--gold);margin-bottom:6px">KYC Verification Level</div>
+          <div class="acc-row" style="padding:6px 0"><span>Tier 1 — Email Verification</span><span class="pill-ok">Verified ✓</span></div>
+          <div class="acc-row" style="padding:6px 0"><span>Identity / ID Verification</span><span id="accIdStat" style="font-size:11px;color:var(--mut);font-weight:700">Pending</span></div>
+          <div class="acc-row" style="padding:6px 0;border:none"><span>Face Verification</span><span id="accFaceStat" style="font-size:11px;color:var(--mut);font-weight:700">Pending</span></div>
         </div>
       </div>
+      <div class="card">
+        <h3 style="margin:0 0 8px;font-size:15px">Identity, Limits &amp; Security</h3>
+        <div class="acc-row" style="cursor:pointer" onclick="nav('kyc')"><span>Identity &amp; Verification (Update KYC)</span><button type="button" class="btn-ghost" style="padding:5px 10px;font-size:11px;color:var(--acc)" onclick="nav('kyc')">Verify →</button></div>
+        <div class="acc-row" style="cursor:pointer" onclick="nav('limits')"><span>Transfer Limits</span><button type="button" class="btn-ghost" style="padding:5px 10px;font-size:11px" onclick="nav('limits')">View Limits →</button></div>
+        <div class="acc-row"><span>Change Password</span><button type="button" class="btn-ghost" style="padding:5px 10px;font-size:11px" onclick="nav('password')">Update</button></div>
+        <div class="acc-row"><span>Two-Factor Authentication (2FA)</span><button type="button" id="btn2faStatus" class="btn-ghost" style="padding:5px 10px;font-size:11px;color:var(--acc)" onclick="nav('2fa')">Setup 2FA →</button></div>
+        <div class="acc-row"><span>Fingerprint Enabler</span><input type="checkbox" id="togBio" onchange="if(this.checked){this.checked=false;openBioModal();}else{togglePref('bio',false);}"></div>
+        <div class="acc-row"><span>Theme Mode</span><select id="themeSel" style="width:auto;margin:0;padding:5px 9px;font-size:11.5px" onchange="applyTheme(this.value)"><option value="dark">Dark Mode</option><option value="light">Light Mode</option></select></div>
+        <button class="btn-ghost" style="width:100%;margin-top:12px;color:#f87171;border-color:rgba(248,113,113,.35)" onclick="doLogout()">Sign Out</button>
+      </div>
+    </div>
 
-            <div id="tab-account" class="hide">
-        <div class="card">          <div style="display:flex;align-items:center;gap:12px">
-            <div style="position:relative;cursor:pointer" onclick="document.getElementById('picInput').click()">
-              <div id="accInitials" class="avatar" style="overflow:hidden">IK</div>
-              <span style="position:absolute;bottom:-2px;right:-2px;background:var(--acc);color:#03120e;border-radius:50%;width:18px;height:18px;font-size:10px;font-weight:900;display:flex;align-items:center;justify-content:center">📷</span>
-              <input id="picInput" type="file" accept="image/*" class="hide" onchange="uploadProfilePic(this)" />
-            </div>
-<div><div id="accFullName" style="font-size:17px;font-weight:900">Isaac Katanga</div><div id="accEmailDisp" style="font-size:12px;color:var(--acc);font-weight:700;margin-top:2px"></div><div id="accPhoneDisp" style="font-size:11.5px;color:var(--mut);margin-top:2px"></div></div></div></div>
-        <div style="font-size:12px;font-weight:900;color:var(--mut);text-transform:uppercase;letter-spacing:.8px;margin:16px 4px 0">Settings</div>
-        <div class="card">
-          <div class="row"><h3 style="margin:0;font-size:14.5px">KYC Verification Level</h3><span id="kycBadge" class="pill-pend">Tier 1 • Pending</span></div>
-          <div class="acc-row"><span>Email &amp; Phone Verification</span><span class="pill-ok">Verified</span></div>
-          <div class="acc-row"><span>Face Verification</span><span id="faceStatus" class="pill-pend">Pending</span></div>
-          <div class="acc-row"><span>Identity / ID Verification</span><span id="bvnStatus" class="pill-pend">Pending</span></div>
-          <div class="acc-row" style="cursor:pointer" onclick="nav('limits')"><span>Transfer Limits</span><b style="color:var(--acc)">View Limits →</b></div>
-          <button class="btn-gold" style="width:100%;margin-top:8px" onclick="nav('limits')">Update KYC</button>
-          <div id="kycModalBox" class="hide" style="margin-top:10px;padding-top:10px;border-top:1px dashed var(--brd)"><input id="kycIdNum" placeholder="Enter BVN or National ID / NRC Number" /><select id="kycDocType"><option>National ID / NRC</option><option>Identity / ID Verification</option><option>International Passport</option></select><button class="btn" onclick="submitKycUpdate()">Submit Face &amp; Identity / ID Verification</button></div>
-        </div>
-        <div class="card">
-          <h3 style="margin:0 0 6px;font-size:14.5px">Security</h3>
-          <div class="acc-row"><span>Change Password</span><button class="btn-ghost" onclick="nav('password')">Update</button></div>
-          <div class="acc-row"><span>🔐 Saved Payout Vault</span><button class="btn-ghost" onclick="document.getElementById('vaultBoxV3').classList.toggle('hide')">Manage</button></div>
-          <div id="vaultBoxV3" class="hide" style="padding:10px 0;border-bottom:1px solid var(--brd)"><input id="v3VaultMomo" placeholder="Default Mobile Money / Bank Account" style="margin-top:4px" /><input id="v3VaultWallet" placeholder="Default USDT (TRC20) Address" /><button class="btn" style="padding:11px;margin-top:8px" onclick="saveVaultV3()">Save Payout Details</button></div>
-          <div class="acc-row"><span><div id="pwInlineBox" class="hide" style="background:var(--card2);border:1px solid var(--brd);border-radius:12px;padding:11px;margin:8px 0"><input id="curPwInp" type="password" placeholder="Enter Current Password" style="margin-top:0" /><input id="newPwInp1" type="password" placeholder="Enter New Password (min 6 chars)" /><input id="newPwInp2" type="password" placeholder="Re-enter New Password" /><button class="btn" style="padding:10px;font-size:12px" onclick="saveNewPasswordInline()">Update Password</button></div><div class="acc-row"><span>Two-Factor Authentication</span><button id="btn2faStatus" class="btn-ghost" style="padding:5px 10px;font-size:11px;color:var(--acc)" onclick="nav('2fa')">Setup 2FA →</button></div>
-          <div class="acc-row"><span>Fingerprint Enabler</span><input type="checkbox" id="togBio" onchange="if(this.checked){this.checked=false;openBioModal();}else{togglePref('bio',false);}"></div>
-        </div>
-        <div class="card">
-          <h3 style="margin:0 0 6px;font-size:14.5px">Preferences</h3>
-          <div class="acc-row"><span>Newsletters</span><input type="checkbox" id="prefNews" checked style="width:auto;margin:0" onchange="savePrefs()" /></div>
-          <div class="acc-row"><span>Push Notification</span><input type="checkbox" id="prefPush" checked style="width:auto;margin:0" onchange="savePrefs()" /></div>
-          <div class="acc-row"><span>Email Notification</span><input type="checkbox" id="prefEmail" checked style="width:auto;margin:0" onchange="savePrefs()" /></div>
-          <div class="acc-row"><span>Daily Rates Update</span><input type="checkbox" id="prefRates" checked style="width:auto;margin:0" onchange="savePrefs()" /></div>
-        </div>
-        <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Appearance</h3><select id="themeSel" onchange="applyTheme(this.value)" style="margin-top:4px"><option value="dark">Dark Theme</option><option value="light">Light Theme</option><option value="system">System (Phone System)</option></select></div>
-        <div class="card" style="border-color:rgba(245,158,11,.45);cursor:pointer" onclick="nav('refer')"><div class="row"><div><div style="font-weight:800;font-size:14.5px;color:var(--gold)">🎁 Refer &amp; Earn</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Number of referrals, code &amp; share link</div></div><span style="font-weight:900;color:var(--acc)">Open →</span></div></div>
-        <div class="card"><h3 style="margin:0 0 6px;font-size:14.5px">Support</h3><div class="acc-row"><span>Company Email</span><div style="display:flex;align-items:center;gap:6px"><b>support@zaleapp.com</b><button class="btn-ghost" style="padding:4px 8px;font-size:10.5px" onclick="copyVal('support@zaleapp.com','Support Email')">Copy</button></div></div><div class="acc-row"><span>WhatsApp Support</span><a href="https://wa.me" target="_blank" class="btn-gold" style="text-decoration:none;padding:6px 11px;font-size:11.5px">💬 Chat (+260 77 947 3735)</a></div><button class="btn-ghost" style="width:100%;margin-top:10px" onclick="shareApp()">📤 Share Zale App</button><button class="btn" style="background:#ef4444;color:#fff;margin-top:10px" onclick="doLogout()">Sign Out</button></div>
-      </div></div>
+
 
           <!-- REFER & EARN -->
     <div id="tab-refer" class="hide">
@@ -687,12 +653,18 @@
     function toggleBal() { balHidden = !balHidden; document.getElementById("balToggleLbl").textContent = balHidden ? "Show Balance" : "Hide Balance"; renderAll(); }
     function setTradeMode(m) { tradeMode = m; ["buy","sell","swap"].forEach(k => document.getElementById("tm-"+k).className = k===m ? "on" : "off"); }
     
-            function renderCoins() {
+                function renderCoins() {
       const box = document.getElementById("coinList");
-      if (!box) return;
+      if (!box || typeof COINS === "undefined") return;
       const q = (document.getElementById("coinSearchInp")?.value || "").toLowerCase();
       const chgMap = { BTC: "+1.84%", ETH: "+2.15%", SOL: "+3.42%", BNB: "+0.95%", USDC: "+0.01%", "USDT-ERC20": "+0.02%", "USDT-TRC20": "+0.02%", "USDT-SOL": "+0.02%", "USDT-BEP20": "+0.02%" };
-      const filtered = COINS.filter(x => x.name.toLowerCase().includes(q) || x.sym.toLowerCase().includes(q) || x.id.toLowerCase().includes(q));
+      const norm = COINS.map(raw => ({
+        id: raw.id || raw.c || raw.sym || "USDT",
+        sym: raw.sym || raw.s || (raw.id || "").split("-").at(0) || "USDT",
+        name: raw.name || raw.n || raw.id || "Asset",
+        price: Number(raw.price ?? raw.p ?? 1)
+      }));
+      const filtered = norm.filter(x => x.name.toLowerCase().includes(q) || x.sym.toLowerCase().includes(q) || x.id.toLowerCase().includes(q));
       box.innerHTML = filtered.map(x => {
         const chg = chgMap[x.id] || "+0.45%";
         const isUp = chg.startsWith("+");
@@ -708,6 +680,7 @@
         </div>`;
       }).join("");
     }
+
 
 
     function selectCoin(id) { selCoin = COINS.find(x => x.id === id) || COINS.at(0); const box = document.getElementById("coinTradeBox"); if (box) { box.classList.remove("hide"); box.scrollIntoView({behavior:"smooth",block:"nearest"}); } const tit = document.getElementById("ctTitle"); if (tit && selCoin) tit.textContent = selCoin.name + " ($" + selCoin.price.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}) + ")"; }
@@ -1230,7 +1203,7 @@
       const nameEl = document.getElementById("hdrCurrName");
       const avEl = document.getElementById("hdrAvatar");
       const ringEl = document.getElementById("setupPctRing");
-      if (flagEl) flagEl.innerHTML = FLAG_SVGS[code] || FLAG_SVGS.ZM;
+      if (flagEl) flagEl.innerHTML = FLAG_SVGS[code] || FLAG_SVGS.ZM; const df = document.getElementById("dropFlagSvg"), dn = document.getElementById("dropCtyName"); const ctyLabels = {ZM:"Zambia (ZMW)",ZA:"South Africa (ZAR)",NG:"Nigeria (NGN)",KE:"Kenya (KES)",GH:"Ghana (GHS)",GB:"United Kingdom (GBP)"}; if (df) df.innerHTML = FLAG_SVGS[code] || FLAG_SVGS.ZM; if (dn) dn.textContent = ctyLabels[code] || "Zambia (ZMW)";
       if (nameEl) nameEl.textContent = CURR_NAMES[code] || "Zambian Kwacha";
       if (avEl && user?.name) {
         const parts = user.name.trim().split(/\s+/);
