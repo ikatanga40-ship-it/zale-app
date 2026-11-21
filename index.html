@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://googleapis.com">
   <link rel="preconnect" href="https://gstatic.com" crossorigin>
   <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght;600;700;800&family=JetBrains+Mono:wght;700&display=swap" rel="stylesheet"><style>
-    :root{--bg:#f6f5f0;--card:#ffffff;--card2:#faf9f5;--brd:#e7e5de;--txt:#0f172a;--mut:#64748b;--acc:#0d9488;--gold:#c59b27;--obs:#0f172a}
+    :root{--bg:#f8f7f4;--card:#ffffff;--card2:#f3f4f1;--brd:#e6e4dd;--txt:#0f172a;--mut:#64748b;--acc:#059669;--gold:#b45309;--obs:#064e3b}
     body.dark{--bg:#090b0e;--card:#12151b;--card2:#181c24;--brd:rgba(255,255,255,.08);--txt:#f8fafc;--mut:#94a3b8;--acc:#10b981;--gold:#eab308;--obs:#f8fafc}
     *{box-sizing:border-box;font-family:'Plus Jakarta Sans',-apple-system,sans-serif !important;letter-spacing:-0.018em}
     code,.mono{font-family:'JetBrains Mono',monospace !important;font-variant-numeric:tabular-nums}
@@ -17,29 +17,28 @@
     .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
     .hide{display:none !important}
     input,select,textarea{width:100%;padding:11px 13px;margin-top:8px;border-radius:12px;border:1px solid var(--brd);background:var(--card2);color:var(--txt);font-size:13px;outline:none}
-    .btn{width:100%;padding:13px;border:none;border-radius:12px;background:#0f172a;color:#ffffff;font-weight:700;font-size:13.5px;cursor:pointer}
+    .btn{width:100%;padding:13px;border:none;border-radius:13px;background:#064e3b;color:#ffffff;font-weight:700;font-size:13.5px;cursor:pointer;box-shadow:0 4px 12px rgba(6,78,59,.18)}
     body.dark .btn{background:#eab308;color:#090b0e;font-weight:800}
     .btn-gold{width:100%;padding:13px;border:none;border-radius:12px;background:linear-gradient(135deg,#d4af37,#b48811);color:#fff;font-weight:700;font-size:13.5px;cursor:pointer}
     .btn-ghost{background:var(--card2);border:1px solid var(--brd);color:var(--txt);border-radius:10px;font-weight:700;cursor:pointer}
     .chip{background:var(--card2);border:1px solid var(--brd);color:var(--mut);border-radius:999px;font-weight:700;cursor:pointer}
-    .chip.on{background:#0f172a;color:#ffffff;border-color:#0f172a}
+    .chip.on{background:#064e3b;color:#ffffff;border-color:#064e3b}
     body.dark .chip.on{background:#eab308;color:#090b0e;border-color:#eab308}
     .pill-ok{background:rgba(13,148,136,.12);color:#0d9488;padding:3px 10px;border-radius:999px;font-size:10.5px;font-weight:700}
     .pill-pend{background:rgba(197,155,39,.14);color:#b48811;padding:3px 10px;border-radius:999px;font-size:10.5px;font-weight:700}
     .acc-row{display:flex;align-items:center;justify-content:space-between;padding:11px 4px;border-bottom:1px solid var(--brd);font-size:13px}
     .acc-row:last-child{border-bottom:none}
-    .qa-circle{width:50px;height:50px;margin:0 auto 7px;border-radius:50%;background:var(--card);border:1px solid var(--brd);color:var(--obs);display:flex;align-items:center;justify-content:center;box-shadow:0 2px 8px rgba(15,23,42,.04)}
+    .qa-circle{width:50px;height:50px;margin:0 auto 7px;border-radius:16px;background:#ecfdf5;border:1px solid #d1fae5;color:#064e3b;display:flex;align-items:center;justify-content:center}
     .svc-item{display:flex;align-items:center;justify-content:space-between;padding:14px 2px;border-bottom:1px solid var(--brd);cursor:pointer;gap:12px}
     .svc-item:first-of-type{padding-top:8px}
     .svc-item:last-child{border-bottom:none;padding-bottom:4px}
-    .svc-ico{width:42px;height:42px;border-radius:13px;background:var(--card2);border:1px solid var(--brd);color:var(--obs);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .svc-ico{width:42px;height:42px;border-radius:13px;background:#ecfdf5;border:1px solid #d1fae5;color:#064e3b;display:flex;align-items:center;justify-content:center;flex-shrink:0}
     .fab-chat{position:fixed;right:22px;bottom:112px;width:48px;height:48px;border-radius:50%;background:#0f766e;color:#ffffff;border:2px solid #ffffff;box-shadow:0 10px 24px rgba(15,118,110,.38);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:895}
-        .bnav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--brd);display:grid;grid-template-columns:repeat(5,1fr);padding:8px 4px 10px;z-index:900;max-width:460px;margin:0 auto}
-    .bnav button{position:relative;background:none;border:none;color:var(--mut);font-size:10.5px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;padding-bottom:6px;transition:color .2s}
-    .bnav button svg .duotone{fill:transparent;transition:fill .2s}
-    .bnav button.on{color:var(--obs)}
-    .bnav button.on svg .duotone{fill:rgba(212,175,55,.24)}
-    .bnav button.on::after{content:"";position:absolute;bottom:0;width:14px;height:2.5px;border-radius:999px;background:#d4af37}
+            .bnav{position:fixed;bottom:0;left:0;right:0;background:var(--card);border-top:1px solid var(--brd);display:grid;grid-template-columns:repeat(5,1fr);padding:9px 4px 12px;z-index:900;max-width:460px;margin:0 auto}
+    .bnav button{background:none;border:none;color:#64748b;font-size:10.5px;font-weight:700;display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer}
+    .bnav button.on{color:#064e3b}
+    body.dark .bnav button.on{color:#34d399}
+
 
     #toastBox{position:fixed;top:14px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;font-weight:700;font-size:12px;padding:9px 16px;border-radius:999px;z-index:9999;box-shadow:0 8px 20px rgba(0,0,0,.2)}
     #zaleBootSplash{position:fixed;inset:0;background:#090b0e;z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;transition:opacity .5s ease,visibility .5s ease}
@@ -99,18 +98,18 @@
         <button type="button" onclick="toggleHideBalance()" style="margin-top:10px;background:none;border:none;color:var(--mut);font-size:12px;font-weight:700;cursor:pointer;display:inline-flex;align-items:center;gap:6px"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"/><path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"/><line x1="1" y1="1" x2="23" y2="23"/></svg><span class="hideBalLbl">Hide Balance</span></button>
       </div>
 
-                  <div style="margin-bottom:18px">
+                        <div style="margin-bottom:18px">
         <div style="font-size:14px;font-weight:800;margin-bottom:12px">Quick Actions</div>
         <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;text-align:center">
-          <div onclick="nav('deposit')" style="cursor:pointer"><div class="qa-circle" style="background:#0f172a;border:1.5px solid #d4af37;color:#fbbf24;box-shadow:0 6px 14px rgba(15,23,42,.15)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9"/><path d="m8.5 9.5 3.5 3.5 3.5-3.5"/><path d="M4 14v3a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-3"/><circle cx="12" cy="17" r="1" fill="#fbbf24" stroke="none"/></svg></div><div style="font-size:11.5px;font-weight:700">Deposit</div></div>
-          <div onclick="nav('withdraw')" style="cursor:pointer"><div class="qa-circle" style="background:#0f172a;border:1.5px solid #d4af37;color:#fbbf24;box-shadow:0 6px 14px rgba(15,23,42,.15)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 3 10.5l7.2 2.8L13 20.5 21 3Z"/><path d="M10.2 13.3 21 3"/><path d="M4 18.5c2.2-.8 4.2-1 6-.5"/></svg></div><div style="font-size:11.5px;font-weight:700">Transfer</div></div>
-          <div onclick="nav('trade','Buy')" style="cursor:pointer"><div class="qa-circle" style="background:#0f172a;border:1.5px solid #d4af37;color:#fbbf24;box-shadow:0 6px 14px rgba(15,23,42,.15)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="16" height="12" rx="2.5"/><path d="M2.5 10.5h16"/><path d="M19 3v4M17 5h4"/><circle cx="6.5" cy="14.5" r="1" fill="#fbbf24" stroke="none"/></svg></div><div style="font-size:11.5px;font-weight:700">Buy</div></div>
-          <div onclick="nav('trade','Sell')" style="cursor:pointer"><div class="qa-circle" style="background:#0f172a;border:1.5px solid #d4af37;color:#fbbf24;box-shadow:0 6px 14px rgba(15,23,42,.15)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="11" rx="2.5"/><circle cx="12" cy="14.5" r="2"/><path d="M12 6V2.5M9.5 4.8 12 2.3l2.5 2.5"/></svg></div><div style="font-size:11.5px;font-weight:700">Sell</div></div>
-          <div onclick="nav('trade','Swap')" style="cursor:pointer"><div class="qa-circle" style="background:#0f172a;border:1.5px solid #d4af37;color:#fbbf24;box-shadow:0 6px 14px rgba(15,23,42,.15)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a8 8 0 0 1 13.6-5.7L20 7.5"/><path d="M20 3.5v4h-4"/><path d="M20 13a8 8 0 0 1-13.6 5.7L4 16.5"/><path d="M4 20.5v-4h4"/><polygon points="12 9.8 14.2 12 12 14.2 9.8 12" fill="#fbbf24" stroke="none"/></svg></div><div style="font-size:11.5px;font-weight:700">Swap</div></div>
+          <div onclick="nav('deposit')" style="cursor:pointer"><div class="qa-circle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 4v12"/><path d="m7.5 11.5 4.5 4.5 4.5-4.5"/><path d="M5 20h14"/></svg></div><div style="font-size:11.5px;font-weight:700">Deposit</div></div>
+          <div onclick="nav('withdraw')" style="cursor:pointer"><div class="qa-circle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="7" y1="17" x2="17" y2="7"/><polyline points="7 7 17 7 17 17"/></svg></div><div style="font-size:11.5px;font-weight:700">Transfer</div></div>
+          <div onclick="nav('trade','Buy')" style="cursor:pointer"><div class="qa-circle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div><div style="font-size:11.5px;font-weight:700">Buy</div></div>
+          <div onclick="nav('trade','Sell')" style="cursor:pointer"><div class="qa-circle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V4"/><path d="m6 10 6-6 6 6"/></svg></div><div style="font-size:11.5px;font-weight:700">Sell</div></div>
+          <div onclick="nav('trade','Swap')" style="cursor:pointer"><div class="qa-circle"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="m17 3 4 4-4 4"/><path d="M3 7h18"/><path d="m7 21-4-4 4-4"/><path d="M21 17H3"/></svg></div><div style="font-size:11.5px;font-weight:700">Swap</div></div>
         </div>
       </div>
 
-      <div class="card" style="padding:16px">"
+      <div class="card" style="padding:16px">""
         <div style="font-size:14.5px;font-weight:800;margin-bottom:4px">Services</div>
         <div class="svc-item" onclick="nav('utilities')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico" style="background:#fffbeb;border-color:#fde68a;color:#d97706"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div style="font-size:13.5px;font-weight:800;color:var(--obs)">Utility Bills</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Pay your bills easily with the Zale app</div></div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
         <div class="svc-item" onclick="nav('vcard')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico" style="background:#eff6ff;border-color:#bfdbfe;color:#2563eb"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><div><div style="font-size:13.5px;font-weight:800;color:var(--obs)">Virtual Cards</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Shop globally &amp; pay ads with 3D Secure USD cards</div></div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
@@ -118,29 +117,25 @@
         <div class="svc-item" onclick="nav('escrow')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico" style="background:#ecfdf5;border-color:#a7f3d0;color:#059669"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div style="font-size:13.5px;font-weight:800;color:var(--obs)">Digital Escrow</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Protect P2P deals with Zale Safe-Claim 4-digit PIN</div></div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
       </div>
 
-                      <div style="position:relative;margin-top:20px;margin-bottom:6px">
-        <button type="button" onclick="event.stopPropagation();nav('support-hub')" aria-label="VIP Concierge Chat" style="position:absolute;top:-23px;right:14px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#0f172a,#1e293b);color:#fbbf24;border:2px solid #fbbf24;box-shadow:0 10px 24px rgba(15,23,42,.35);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:20">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3h-1l-2.5 2v-2" stroke-opacity=".55"/><path d="M4 9a3 3 0 0 1 3-3h7a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3H9l-3.5 2.5V16H7a3 3 0 0 1-3-3V9Z" fill="rgba(251,191,36,.14)"/><path d="M10.5 9.2v3.6M8.7 11h3.6" stroke="#fbbf24" stroke-width="1.7"/></svg>
+                            <div style="position:relative;margin-top:20px;margin-bottom:6px">
+        <button type="button" onclick="event.stopPropagation();nav('support-hub')" aria-label="Support Chat" style="position:absolute;top:-22px;right:14px;width:46px;height:46px;border-radius:50%;background:#ffffff;color:#064e3b;border:1.5px solid #d1fae5;box-shadow:0 8px 20px rgba(6,78,59,.18);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:20">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         </button>
-        <div onclick="nav('rates')" class="card" style="padding:18px 16px;margin:0;cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#0f172a,#1e293b);border:1.5px solid rgba(251,191,36,.42)">
-          <div style="max-width:56%">
-            <div style="font-size:16px;font-weight:800;color:#f8fafc">Zale Rates</div>
-            <div style="font-size:12px;color:#cbd5e1;margin-top:4px;line-height:1.4">Stay up to date with our rates</div>
+        <div onclick="nav('rates')" class="card" style="padding:18px 16px;margin:0;cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#064e3b,#065f46);border:none;box-shadow:0 10px 24px rgba(6,78,59,.18)">
+          <div style="max-width:62%">
+            <div style="font-size:16px;font-weight:800;color:#ffffff">Zale Rates</div>
+            <div style="font-size:12px;color:#d1fae5;margin-top:4px;line-height:1.4">Stay up to date with our live rates</div>
           </div>
-          <svg width="108" height="66" viewBox="0 0 108 66" fill="none">
-            <circle cx="84" cy="18" r="14.5" fill="#f59e0b" stroke="#fef08a" stroke-width="1.4"/>
-            <path d="M81.5 11.5v13M86.5 11.5v13M79.5 14h5a1.7 1.7 0 0 1 0 3.4h-5h5.5a1.7 1.7 0 0 1 0 3.4h-5.5" stroke="#0f172a" stroke-width="1.9" stroke-linecap="round"/>
-            <path d="M10 35l12-10 13 10-8 10-17-10Z" fill="#fbbf24" fill-opacity=".28" stroke="#fbbf24" stroke-width="2" stroke-linejoin="round"/>
-            <path d="M74 35L62 25 49 35l8 10 17-10Z" fill="#ffffff" fill-opacity=".16" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
-            <path d="M31 35c4.5-3.5 9.5-3.5 14 0l4 3.5c2 1.8 2 4.8 0 6.5-2 1.8-5 1.8-7 0l-11-10Z" fill="#fbbf24" stroke="#0f172a" stroke-width="1.2"/>
-            <path d="M30 44l4-3.5M34.5 47.5l4-3.5M39 50.5l3.5-3" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/>
-          </svg>
+          <div style="position:relative;width:68px;height:44px;flex-shrink:0">
+            <div style="position:absolute;left:0;top:4px;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.35);display:flex;align-items:center;justify-content:center;color:#ffffff;font-weight:800;font-size:14px">$</div>
+            <div style="position:absolute;right:2px;top:2px;width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#fbbf24,#d97706);border:2px solid #064e3b;display:flex;align-items:center;justify-content:center;color:#064e3b;font-weight:900;font-size:17px;box-shadow:0 4px 12px rgba(0,0,0,.2)">&#8383;</div>
+          </div>
         </div>
       </div>
 
     </div>
 
-    <div id="tab-notifications"""" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">&larr; Home</button><span class="pill-ok">All Caught Up</span></div>
+    <div id="tab-notifications""""" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">&larr; Home</button><span class="pill-ok">All Caught Up</span></div>
       <div class="card">
         <h2 style="margin:0 0 10px;font-size:19px">Notifications</h2>
         <div class="acc-row"><div><b>Live Desk Rates Updated</b><div style="font-size:11.5px;color:var(--mut);margin-top:2px">USDT TRC20, BTC, ETH &amp; Gift Card rates refreshed.</div></div><span style="font-size:10.5px;color:var(--mut)">Just now</span></div>
@@ -267,13 +262,14 @@
   </div>
   <div id="bioSensorModal" class="hide" style="position:fixed;inset:0;background:rgba(2,6,23,.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:18px"><div class="card" style="max-width:340px;width:100%;text-align:center;border-color:var(--acc)"><div style="font-size:11px;font-weight:900;color:var(--acc)">AUTHENTICATION REQUIRED</div><h3 style="margin:6px 0 4px;font-size:18px">Verify Identity</h3><p style="font-size:12px;color:var(--mut);margin:0 0 14px">Scan your fingerprint to authenticate.</p><div onclick="completeFingerprintScan()" style="width:76px;height:76px;margin:0 auto 12px;border-radius:50%;background:rgba(16,185,129,.14);border:2px solid var(--acc);display:flex;align-items:center;justify-content:center;font-size:32px;cursor:pointer">👆</div><button class="btn-ghost" style="width:100%;padding:10px" onclick="document.getElementById('bioSensorModal').classList.add('hide')">Cancel</button></div></div>
     
-    <nav id="bottomNav" class="bnav hide">
-    <button id="bn-home" class="on" onclick="nav('home')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path class="duotone" d="M5 10.5 12 5l7 5.5V19a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8.5Z"/><path d="M3 10.5 12 3.5l9 7"/><path d="M5.5 9.5V19a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V9.5"/><path d="M9.5 20v-4.5a2.5 2.5 0 0 1 5 0V20"/><path d="M8 20h8" stroke="#d4af37" stroke-width="2"/></svg><span>Home</span></button>
-    <button id="bn-trade" onclick="nav('trade')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><rect class="duotone" x="5" y="10" width="3.5" height="7" rx="1"/><rect class="duotone" x="11" y="7" width="3.5" height="8" rx="1"/><path d="M6.75 7v3M6.75 17v3M5 10h3.5v7H5z"/><path d="M12.75 4v3M12.75 15v4M11 7h3.5v8H11z"/><path d="M4 18.5 19.5 6"/><polygon points="19.5 3.5 21.8 5.8 19.5 8.1 17.2 5.8" fill="#d4af37" stroke="none"/></svg><span>Trade</span></button>
-    <button id="bn-wallet" onclick="nav('wallet')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><rect class="duotone" x="3" y="6" width="18" height="13" rx="3"/><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/><path d="M15 13h6v3.5h-6a1.75 1.75 0 0 1 0-3.5Z"/><circle cx="15.5" cy="14.75" r="1" fill="#d4af37" stroke="none"/></svg><span>Wallet</span></button>
-    <button id="bn-giftcards" onclick="nav('giftcards')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><rect class="duotone" x="3" y="6.5" width="18" height="12.5" rx="2.5"/><rect x="3" y="6.5" width="18" height="12.5" rx="2.5"/><path d="M9.5 6.5v12.5M3 12h18"/><path d="M9.5 12 7 9.5a1.5 1.5 0 1 1 2.1-2.1L9.5 12Zm0 0 2.5-2.5a1.5 1.5 0 1 0-2.1-2.1L9.5 12Z"/><circle cx="17" cy="15.5" r="1" fill="#d4af37" stroke="none"/></svg><span>Gift Cards</span></button>
-    <button id="bn-account" onclick="nav('account')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><circle class="duotone" cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="9"/><circle cx="12" cy="9.5" r="2.7"/><path d="M6.8 18.2a6 6 0 0 1 10.4 0"/><circle cx="18.5" cy="5.5" r="1.5" fill="#d4af37" stroke="none"/></svg><span>Account</span></button>
+      <nav id="bottomNav" class="bnav hide">
+    <button id="bn-home" class="on" onclick="nav('home')"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span>Home</span></button>
+    <button id="bn-trade" onclick="nav('trade')"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg><span>Trade</span></button>
+    <button id="bn-wallet" onclick="nav('wallet')"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12V7H5a2 2 0 0 1 0-4h14v4"/><path d="M3 5v14a2 2 0 0 0 2 2h16v-5"/><path d="M18 12a2 2 0 0 0 0 4h4v-4Z"/></svg><span>Wallet</span></button>
+    <button id="bn-giftcards" onclick="nav('giftcards')"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg><span>Gift Cards</span></button>
+    <button id="bn-account" onclick="nav('account')"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M5 20a7 7 0 0 1 14 0"/></svg><span>Account</span></button>
   </nav>
+
 
 
   <script>
