@@ -112,8 +112,7 @@
         </div>
       </div>
 
-      <div class="card" style="padding:16px">"""
-        <div style="font-size:14.5px;font-weight:800;margin-bottom:4px">Services</div>
+      <div class="card" style="padding:16px"><div style="font-size:14.5px;font-weight:800;margin-bottom:4px">Services</div>
         <div class="svc-item" onclick="nav('utilities')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div style="font-size:13.5px;font-weight:800;color:var(--obs)">Utility Bills</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Pay your bills easily with the Zale app</div></div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
         <div class="svc-item" onclick="nav('vcard')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><div><div style="font-size:13.5px;font-weight:800;color:var(--obs)">Virtual Cards</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Shop globally &amp; pay ads with 3D Secure USD cards</div></div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
         <div class="svc-item" onclick="nav('xborder')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><div style="font-size:13.5px;font-weight:800;color:var(--obs)">Cross-Border</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Send instant payouts across Zambia, SA, Nigeria &amp; Kenya</div></div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
@@ -133,7 +132,19 @@
               <circle cx="22" cy="18" r="10.5" fill="rgba(255,255,255,.26)"/>
               <path d="M20.2 12v12M23.8 12v12M18.5 14.3h4.5a1.6 1.6 0 0 1 0 3.2h-4.5h5a1.6 1.6 0 0 1 0 3.2h-5" stroke="#ffffff" stroke-width="1.9" stroke-linecap="round"/>
             </svg>
-            <span style="font-size:42px;line-height:1;margin-right:16px;filter:drop-shadow(0 6px 10px rgba(11,30,107,.16));user-select:none">&#129309;</span>
+                        <svg width="78" height="46" viewBox="0 0 78 46" fill="none" style="margin-right:10px">
+              <defs>
+                <linearGradient id="slvB" x1="4" y1="8" x2="74" y2="30" gradientUnits="userSpaceOnUse"><stop stop-color="#8b9cf6"/><stop offset="1" stop-color="#5b6ee1"/></linearGradient>
+                <linearGradient id="skn3" x1="22" y1="14" x2="58" y2="38" gradientUnits="userSpaceOnUse"><stop stop-color="#f7cbb2"/><stop offset="1" stop-color="#e5a382"/></linearGradient>
+              </defs>
+              <rect x="4" y="6" width="18" height="12" rx="6" transform="rotate(24 4 6)" fill="url(#slvB)"/>
+              <rect x="17" y="13" width="5" height="11" rx="2.5" transform="rotate(24 17 13)" fill="#67e8f9"/>
+              <rect x="56" y="11" width="18" height="12" rx="6" transform="rotate(-12 56 11)" fill="url(#slvB)"/>
+              <rect x="52" y="12" width="5" height="11" rx="2.5" transform="rotate(-12 52 12)" fill="#67e8f9"/>
+              <path d="M21 18c3.5-2.5 7.5-2.5 11 0l5-2.5c3.5-1.6 7.5-.8 10.5 1.8l5 4c1.6 1.6 1.6 4 0 5.6l-9 6.5c-3.2 2.4-7.4 2.4-10.6 0l-11.5-8.2c-1.6-1.6-1.6-4.8-.4-7.2Z" fill="url(#skn3)"/>
+              <path d="M30 25l2.5 2M33.5 27.5l2.5 2M37 29.5l2 1.6" stroke="#c98263" stroke-width="1.4" stroke-linecap="round"/>
+            </svg>
+
           </div>
 
 
@@ -204,14 +215,10 @@
     <div id="tab-wallet" class="hide">
       <div class="row" style="padding:4px 0 14px;gap:8px;position:relative">
         <div id="walAvatar" style="width:36px;height:36px;border-radius:50%;background:#132257;color:#ffffff;font-weight:700;font-size:12.5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;pointer-events:none;user-select:none">IK</div>
-        <div style="position:relative;flex:1;display:flex;justify-content:center">
-          <button id="walCtyPill" type="button" class="island-pill" onclick="pulseIsland('walCtyPill');document.getElementById('walCtyMenu').classList.toggle('hide')" style="display:inline-flex;align-items:center;justify-content:space-between;gap:10px;background:#f4f6f9;border:1px solid #e5e9f2;border-radius:999px;padding:6px 14px 6px 8px;color:#132257;font-size:12.5px;font-weight:700;cursor:pointer;min-width:176px"><span id="walFlagSvg" style="width:22px;height:22px;border-radius:50%;overflow:hidden;display:inline-flex;flex-shrink:0"></span><span id="walCurrName">Zambian Kwacha</span><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#132257" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg></button>
-          <div id="walCtyMenu" class="hide" style="position:absolute;top:44px;z-index:999;background:var(--card);border:1px solid var(--brd);border-radius:14px;padding:8px;min-width:220px;box-shadow:0 14px 32px rgba(19,34,87,.14)">
-            <div onclick="switchWalletCty('ZM')" style="padding:8px 10px;cursor:pointer;border-radius:9px;font-weight:700;font-size:12.5px">Zambian Kwacha (ZMW)</div>
-            <div onclick="switchWalletCty('ZA')" style="padding:8px 10px;cursor:pointer;border-radius:9px;font-weight:700;font-size:12.5px">South African Rand (ZAR)</div>
-            <div onclick="switchWalletCty('NG')" style="padding:8px 10px;cursor:pointer;border-radius:9px;font-weight:700;font-size:12.5px">Nigerian Naira (NGN)</div>
-            <div onclick="switchWalletCty('KE')" style="padding:8px 10px;cursor:pointer;border-radius:9px;font-weight:700;font-size:12.5px">Kenyan Shilling (KES)</div>
-          </div>
+                <div style="flex:1;display:flex;justify-content:center">
+          <button id="walCtyPill" type="button" class="island-pill" onclick="pulseIsland('walCtyPill')" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#f4f6f9;border:1px solid #e5e9f2;border-radius:999px;padding:6px 16px 6px 8px;color:#132257;font-size:12.5px;font-weight:700;cursor:pointer;min-width:172px"><span id="walFlagSvg" style="width:22px;height:22px;border-radius:50%;overflow:hidden;display:inline-flex;flex-shrink:0"></span><span id="walCurrName">Zambian Kwacha</span></button>
+        </div>
+
         </div>
         <button type="button" onclick="nav('notifications')" aria-label="Notifications" style="width:36px;height:36px;border-radius:50%;background:transparent;border:none;color:#132257;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
       </div>
@@ -233,11 +240,9 @@
         <div id="walEmptyBox" style="text-align:center;padding:34px 12px 20px"><svg width="78" height="78" viewBox="0 0 78 78" fill="none" style="margin:0 auto 12px;display:block;color:#1d3b8b;opacity:.72"><rect x="14" y="26" width="50" height="10" rx="2.5" stroke="currentColor" stroke-width="2.2"/><path d="M18 36v26a3 3 0 0 0 3 3h36a3 3 0 0 0 3-3V36" stroke="currentColor" stroke-width="2.2"/><line x1="39" y1="26" x2="39" y2="65" stroke="currentColor" stroke-width="2.2"/><path d="M39 26H28.5a6.5 6.5 0 1 1 0-13C36 13 39 26 39 26Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/><path d="M39 26h10.5a6.5 6.5 0 1 0 0-13C42 13 39 26 39 26Z" stroke="currentColor" stroke-width="2.2" stroke-linejoin="round"/></svg><div style="font-size:12.5px;color:var(--mut);font-weight:600">You currently do not have any transactions</div></div>
         <div id="walTxList"></div>
       </div>
-    </div>
 
 
-    <div id="tab-giftcards" class="hide">"
-      <div class="card">
+    <div id="tab-giftcards" class="hide"><div class="card">
         <div class="row" style="margin-bottom:4px"><h2 style="margin:0;font-size:18px">Trade Gift Card</h2><span id="gcHistBadge" style="font-size:11px;color:var(--acc);font-weight:800">Transaction History (0)</span></div>
         <div style="font-size:12px;color:var(--mut);margin-bottom:8px">Tap any gift card brand below to open instant payout valuation</div>
         <input id="gcSearchInp" placeholder="Search for a card (Apple, Amazon, Steam...)" oninput="renderGcGrid()" style="margin-bottom:8px" />
@@ -268,22 +273,20 @@
       </div>
     </div>
     <div id="tab-account" class="hide">
-      <div class="card" style="padding:16px">
-        <div style="display:flex;align-items:center;gap:14px">
-          <div style="position:relative;width:62px;height:62px;flex-shrink:0">
-            <div id="accAvatarCircle" style="width:62px;height:62px;border-radius:50%;background:#1a2b6d;color:#ffffff;font-weight:800;font-size:20px;display:flex;align-items:center;justify-content:center;overflow:hidden;border:2px solid #dbe4f3">IK</div>
-            <img id="accAvatarImg" class="hide" style="position:absolute;inset:0;width:62px;height:62px;border-radius:50%;object-fit:cover;border:2px solid #1a2b6d" />
-            <label for="accPhotoInp" title="Upload Photo" style="position:absolute;right:-2px;bottom:-2px;width:24px;height:24px;border-radius:50%;background:#1a2b6d;color:#ffffff;border:2px solid #ffffff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 2px 6px rgba(0,0,0,.2)">
-              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
-            </label>
-            <input id="accPhotoInp" type="file" accept="image/*" class="hide" onchange="uploadProfilePhoto(this)" />
-          </div>
-          <div style="flex:1;min-width:0">
-            <div id="accName" style="font-size:17px;font-weight:800;color:var(--txt);white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Isaac Katanga</div>
-            <div id="accEmail" style="font-size:12.5px;color:var(--mut);margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">ikatanga40@gmail.com</div>
-            <div id="accPhone" style="font-size:12px;color:#1a2b6d;font-weight:700;margin-top:2px">+260 97 000 0000</div>
-          </div>
+      <div style="text-align:center;padding:8px 12px 18px">
+        <div style="position:relative;width:72px;height:72px;margin:0 auto 10px">
+          <div id="accAvatarCircle" style="width:72px;height:72px;border-radius:50%;background:#132257;color:#ffffff;font-weight:800;font-size:23px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 8px 20px rgba(19,34,87,.18)">IK</div>
+          <img id="accAvatarImg" class="hide" style="position:absolute;inset:0;width:72px;height:72px;border-radius:50%;object-fit:cover;border:2px solid #132257" />
+          <label for="accPhotoInp" title="Change Profile Photo" style="position:absolute;right:0;bottom:0;width:26px;height:26px;border-radius:50%;background:#132257;color:#ffffff;border:2px solid #ffffff;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 3px 8px rgba(0,0,0,.22)">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>
+          </label>
+          <input id="accPhotoInp" type="file" accept="image/*" class="hide" onchange="uploadProfilePhoto(this)" />
         </div>
+        <div id="accName" style="font-size:18px;font-weight:800;color:var(--txt)">Isaac Katanga</div>
+        <div id="accEmail" style="font-size:12.5px;color:var(--mut);margin-top:3px">ikatanga40@gmail.com</div>
+        <div id="accPhone" style="font-size:12px;color:#132257;font-weight:700;margin-top:3px">+260 97 000 0000</div>
+      </div>
+
       </div>
 
       <div class="card">
@@ -305,9 +308,8 @@
         <div class="acc-row"><span>Daily Rates Update</span><input type="checkbox" id="prefRates" checked style="width:auto;margin:0" onchange="savePrefToggle('rates',this.checked)"></div>
         <button class="btn-ghost" style="width:100%;margin-top:14px;padding:11px;color:#dc2626;border-color:rgba(220,38,38,.3)" onclick="doLogout()">Sign Out</button>
       </div>
-    </div>
 
-    <div id="tab-limits" class="hide">"<div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Account</button><span id="kycBadge" class="pill-pend">Tier 1 Active</span></div><div class="card"><h2 style="margin:0 0 4px;font-size:19px">Transfer Limit</h2><p style="font-size:11.5px;color:var(--mut);margin:0 0 12px">Daily transaction limits based on your country &amp; verification tier:</p><div id="dailyLimitsList"></div><button class="btn" style="margin-top:14px" onclick="handleIncreaseLimits()">Increase Transfer Limits</button></div></div>
+    <div id="tab-limits" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Account</button><span id="kycBadge" class="pill-pend">Tier 1 Active</span></div><div class="card"><h2 style="margin:0 0 4px;font-size:19px">Transfer Limit</h2><p style="font-size:11.5px;color:var(--mut);margin:0 0 12px">Daily transaction limits based on your country &amp; verification tier:</p><div id="dailyLimitsList"></div><button class="btn" style="margin-top:14px" onclick="handleIncreaseLimits()">Increase Transfer Limits</button></div></div>
     <div id="tab-kyc" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Account</button><span style="font-size:11px;color:var(--acc);font-weight:800">Tier 2 Identity Check</span></div><div class="card" style="border-color:rgba(16,185,129,.45)"><h2 style="margin:0 0 6px;font-size:18px">Upgrade to Tier 2 (Camera &amp; Facial KYC)</h2><p style="font-size:12px;color:var(--mut);margin:0 0 10px">Complete all 4 steps below using your phone camera to unlock full daily limits:</p><input id="kycIdInp" placeholder="1. Enter NRC / National ID / Passport Number" /><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px"><div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:8px"><div style="font-size:10.5px;font-weight:800;color:var(--acc);margin-bottom:4px">2. Front of ID</div><input id="kycFrontInp" type="file" accept="image/*" capture="environment" style="padding:4px;font-size:10px" onchange="handleKycCam('front',this)" /><img id="kycFrontPrev" class="hide" style="width:100%;height:65px;object-fit:cover;border-radius:8px;margin-top:5px" /></div><div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:8px"><div style="font-size:10.5px;font-weight:800;color:var(--acc);margin-bottom:4px">3. Back of ID</div><input id="kycBackInp" type="file" accept="image/*" capture="environment" style="padding:4px;font-size:10px" onchange="handleKycCam('back',this)" /><img id="kycBackPrev" class="hide" style="width:100%;height:65px;object-fit:cover;border-radius:8px;margin-top:5px" /></div></div><div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:9px;margin-top:8px"><div style="font-size:11px;font-weight:800;color:var(--gold);margin-bottom:4px">4. Live Facial / Selfie Capture (Front Camera)</div><input id="kycFaceInp" type="file" accept="image/*" capture="user" style="padding:5px;font-size:10.5px" onchange="handleKycCam('face',this)" /><img id="kycFacePrev" class="hide" style="width:72px;height:72px;object-fit:cover;border-radius:50%;margin-top:6px;border:2px solid var(--acc)" /></div><button class="btn" style="margin-top:12px" onclick="submitKycV3()">Verify Front, Back ID &amp; Face</button></div></div>
     <div id="tab-password" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Account</button><span style="font-size:11px;color:var(--acc);font-weight:800">Account Security</span></div><div class="card"><h2 style="margin:0 0 12px;font-size:19px">Update Password</h2><div style="font-size:11.5px;font-weight:800;color:var(--mut)">Current Password</div><input id="curPwInp" type="password" placeholder="Enter current password" style="margin-top:4px;margin-bottom:10px" /><div style="font-size:11.5px;font-weight:800;color:var(--mut)">New Password</div><input id="newPwInp1" type="password" placeholder="Enter new password" style="margin-top:4px;margin-bottom:10px" /><div style="font-size:11.5px;font-weight:800;color:var(--mut)">Re-enter Password</div><input id="newPwInp2" type="password" placeholder="Re-enter password" style="margin-top:4px;margin-bottom:14px" /><button class="btn" onclick="saveNewPasswordInline()">Update</button></div></div>
     <div id="tab-2fa" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Security</button><span style="font-size:11px;color:var(--acc);font-weight:800">2FA Protection</span></div><div id="tfaStep1" class="card"><h2 style="margin:0 0 6px;font-size:19px">Secure your account</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 14px">Add a second step when signing in to keep your account safe. Choose how you'd like to confirm it's you.</p><div style="border:1.5px solid var(--acc);background:rgba(16,185,129,.07);border-radius:14px;padding:14px"><span style="display:inline-block;background:var(--acc);color:#03120e;font-size:10px;font-weight:900;padding:3px 8px;border-radius:6px;margin-bottom:8px">RECOMMENDED</span><div style="font-size:15px;font-weight:800">Authenticator App</div><p style="font-size:12px;color:var(--mut);margin:5px 0 12px">Generate codes with Google Authenticator, Authy, or similar. Works offline and is the most secure.</p><button class="btn" style="padding:11px" onclick="show2faStep(2)">Authenticator App →</button></div><div onclick="show2faStep('email')" style="border:1.5px solid var(--brd);background:var(--card2);border-radius:14px;padding:14px;margin-top:10px;cursor:pointer"><div style="font-size:15px;font-weight:800">Email</div><p style="font-size:12px;color:var(--mut);margin:5px 0 10px">Receive a one-time code by email at sign in.</p><button type="button" class="btn-ghost" style="width:100%;padding:10px;font-size:12px">Email OTP →</button></div></div><div id="tfaStep2" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Authenticator App</h2><div class="acc-row"><b>Google Authenticator</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('google')">Get</button></div><div class="acc-row"><b>Authy</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('authy')">Get</button></div><div class="acc-row"><b>Microsoft Authenticator</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('ms')">Get</button></div><button class="btn" style="margin-top:12px" onclick="show2faStep(3)">I have an app, continue</button></div><div id="tfaStep3" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Link Authenticator</h2><div class="row" style="background:var(--card2);padding:10px;border-radius:10px;margin:10px 0"><code class="mono" style="font-size:12px;color:var(--gold);font-weight:800">ZALE-2FA9-K84M-77XQ</code><button class="btn-ghost" style="padding:4px 8px;font-size:10.5px" onclick="copyVal('ZALE2FA9K84M77XQ','Setup Key')">Copy Key</button></div><button class="btn" onclick="show2faStep(4)">Continue</button></div><div id="tfaStep4" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Enter 6-Digit Code</h2><input id="tfaCodeInp" type="text" maxlength="6" placeholder="000000" class="mono" style="text-align:center;font-size:22px;letter-spacing:8px;font-weight:800" /><button class="btn" style="margin-top:12px" onclick="confirmEnable2fa()">Enable 2FA</button></div><div id="tfaStepemail" class="card hide"><h2 style="margin:0 0 8px;font-size:19px">Secure your account</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 16px">We ensure your account is secure with 2-factor authentication. To enable this, an OTP would be sent to your email to verify it's you.</p><div id="tfaEmailOtpBox" class="hide" style="margin-bottom:12px"><div id="tfaEmailSentMsg" style="font-size:11.5px;color:var(--acc);font-weight:800;margin-bottom:6px"></div><input id="tfaEmailCodeInp" type="text" maxlength="6" placeholder="000000" class="mono" style="text-align:center;font-size:22px;letter-spacing:8px;font-weight:800" /></div><button id="tfaEmailBtn" class="btn" onclick="handleEmail2fa()">Enable 2FA</button></div></div>
