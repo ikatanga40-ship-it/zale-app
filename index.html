@@ -8,12 +8,12 @@
   <link rel="preconnect" href="https://gstatic.com" crossorigin>
   <link href="https://googleapis.com/css2?family=Plus+Jakarta+Sans:wght;600;700;800&family=JetBrains+Mono:wght;700&display=swap" rel="stylesheet"><style>
     :root{--bg:#ffffff;--card:#f4f6f9;--card2:#edf1fa;--brd:#e5e9f2;--txt:#132257;--mut:#64748b;--acc:#059669;--gold:#e07a5f;--obs:#132257}
-    body.dark{--bg:#090b0e;--card:#12151b;--card2:#181c24;--brd:rgba(255,255,255,.08);--txt:#f8fafc;--mut:#94a3b8;--acc:#10b981;--gold:#eab308;--obs:#f8fafc}
+    body.dark{--bg:#090b0e;--card:#12151b;--card2:#181c24;--brd:rgba(255,255,255,.16);--txt:#f8fafc;--mut:#94a3b8;--acc:#10b981;--gold:#eab308;--obs:#f8fafc} body.dark .card{border-color:rgba(255,255,255,.16)}
     *{box-sizing:border-box;font-family:'Plus Jakarta Sans',-apple-system,sans-serif !important;letter-spacing:-0.018em}
     code,.mono{font-family:'Manrope',monospace !important;font-variant-numeric:tabular-nums}
     body{margin:0;background:var(--bg);color:var(--txt);padding-bottom:84px;transition:background .25s,color .25s}
     .wrap{max-width:460px;margin:0 auto;padding:12px 16px}
-    .card{background:var(--card);border:1px solid var(--brd);border-radius:18px;padding:15px;margin-bottom:13px;box-shadow:0 4px 20px rgba(15,23,42,.035)}
+    .card{background:var(--card);border:1.5px solid #cbd5e1;border-radius:18px;padding:15px;margin-bottom:13px;box-shadow:0 4px 16px rgba(15,23,42,.04)}
     .row{display:flex;align-items:center;justify-content:space-between;gap:8px}
     .hide{display:none !important}
     input,select,textarea{width:100%;padding:11px 13px;margin-top:8px;border-radius:12px;border:1px solid var(--brd);background:var(--card2);color:var(--txt);font-size:13px;outline:none}
@@ -48,11 +48,45 @@
     .boot-fill{width:0;height:100%;background:linear-gradient(90deg,#d4af37,#10b981);animation:macBoot 1.1s ease forwards}
     @keyframes macBoot{to{width:100%}}
     .mac-track{width:100%;height:7px;background:rgba(15,23,42,.1);border-radius:999px;overflow:hidden;margin:10px 0 6px}
-    .mac-fill{height:100%;background:linear-gradient(90deg,#0f172a,#c59b27);border-radius:999px;transition:width .45s cubic-bezier(.22,1,.36,1)}    @keyframes islandPulse{0%{transform:scale(1)}28%{transform:scaleX(.91) scaleY(.93)}62%{transform:scaleX(1.06) scaleY(1.03);box-shadow:0 10px 26px rgba(19,34,87,.22)}82%{transform:scaleX(.985) scaleY(.99)}100%{transform:scale(1)}}
-    .island-pill{transition:transform .35s cubic-bezier(.22,1,.36,1),box-shadow .35s ease;will-change:transform}
-    .island-pill.pulse{animation:islandPulse .68s cubic-bezier(.22,1,.36,1)}
+    .mac-fill{height:100%;background:#132257;border-radius:999px;transition:width .45s cubic-bezier(.22,1,.36,1)}        @keyframes islandPulse{0%{transform:scale(1)}26%{transform:scaleX(.88) scaleY(.92)}58%{transform:scaleX(1.12) scaleY(1.04);box-shadow:0 10px 24px rgba(19,34,87,.16)}82%{transform:scaleX(.98) scaleY(.99)}100%{transform:scale(1)}}
+    .island-pill{background:var(--card) !important;color:var(--txt) !important;border:1.5px solid #cbd5e1 !important;box-shadow:0 3px 10px rgba(15,23,42,.05);transition:transform .42s cubic-bezier(.34,1.56,.64,1),box-shadow .35s ease;will-change:transform}
+    body.dark .island-pill{border-color:rgba(255,255,255,.22) !important}
+    .island-pill svg{stroke:var(--txt) !important}
+    .island-pill.pulse{animation:islandPulse .78s cubic-bezier(.34,1.56,.64,1)}"
+        #homeCtyPill, #walCtyPill {
+      background: var(--card2) !important;
+      color: #132257 !important;
+      border: 1.5px solid #132257 !important;
+      border-radius: 999px !important;
+      padding: 6px 14px 6px 8px !important;
+      font-weight: 800 !important;
+      box-shadow: 0 2px 8px rgba(19,34,87,.08) !important;
+    }
+    #homeCtyPill svg, #walCtyPill svg { stroke: #132257 !important; }
+    body.dark #homeCtyPill, body.dark #walCtyPill {
+      background: #181c24 !important;
+      color: #f8fafc !important;
+      border-color: rgba(255,255,255,.35) !important;
+    }
+    body.dark #homeCtyPill svg, body.dark #walCtyPill svg { stroke: #f8fafc !important; }
 
-  </style></head>
+    .rates-card {
+      background: linear-gradient(135deg,#f8f5ec,#eef2f7) !important;
+      border: 1.5px solid #cbd5e1 !important;
+      border-radius: 16px !important;
+    }
+    .rates-card .rc-title { color: #132257 !important; }
+    .rates-card .rc-sub   { color: #475569 !important; }
+    body.dark .rates-card {
+      background: linear-gradient(135deg,#181c24,#1e2533) !important;
+      border-color: rgba(234,179,8,.38) !important;
+    }
+    body.dark .rates-card .rc-title { color: #f8fafc !important; }
+    body.dark .rates-card .rc-sub   { color: #cbd5e1 !important; }
+
+
+
+  </style>"</head>
 <body>
   <div id="zaleBootSplash"><div style="font-size:38px;font-weight:900;color:#10b981">✦ Zale</div><div style="font-size:11.5px;color:#94a3b8;margin-top:4px">Initializing Secure Desk...</div><div class="boot-bar"><div class="boot-fill"></div></div></div>
   <div id="toastBox" class="hide"></div>
@@ -87,7 +121,7 @@
         </div>
         <div style="display:flex;align-items:center;gap:6px;flex-shrink:0">
           <button id="adminBtn" class="btn-ghost hide" style="padding:6px 11px;font-size:11px;background:rgba(245,158,11,.12);border:1.5px solid #f59e0b;color:#b45309;font-weight:800;border-radius:999px" onclick="nav('admin')">Admin</button>
-          <button type="button" onclick="nav('notifications')" aria-label="Notifications" style="position:relative;width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,#fffbeb,#fef3c7);border:1.5px solid #fcd34d;color:#b45309;display:flex;align-items:center;justify-content:center;cursor:pointer;box-shadow:0 4px 12px rgba(245,158,11,.15)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg><span style="position:absolute;top:7px;right:8px;width:7.5px;height:7.5px;border-radius:50%;background:#d97706;border:1.5px solid #fff"></span></button>
+          <button type="button" onclick="nav('notifications')" aria-label="Notifications" style="width:36px;height:36px;border-radius:50%;background:transparent;border:none;color:#132257;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
         </div>
       </div>
 
@@ -103,63 +137,53 @@
       </div>
 
                   <div style="margin-bottom:18px">
-        <div style="font-size:14px;font-weight:800;margin-bottom:12px">Quick Actions</div>
-        <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;text-align:center">
-          <div onclick="nav('deposit')" style="cursor:pointer"><div class="qa-circle" style="background:#0f172a;border:1.5px solid #d4af37;color:#fbbf24;box-shadow:0 6px 14px rgba(15,23,42,.15)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v9"/><path d="m8.5 9.5 3.5 3.5 3.5-3.5"/><path d="M4 14v3a3 3 0 0 0 3 3h10a3 3 0 0 0 3-3v-3"/><circle cx="12" cy="17" r="1" fill="#fbbf24" stroke="none"/></svg></div><div style="font-size:11.5px;font-weight:700">Deposit</div></div>
-          <div onclick="nav('withdraw')" style="cursor:pointer"><div class="qa-circle" style="background:#0f172a;border:1.5px solid #d4af37;color:#fbbf24;box-shadow:0 6px 14px rgba(15,23,42,.15)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M21 3 3 10.5l7.2 2.8L13 20.5 21 3Z"/><path d="M10.2 13.3 21 3"/><path d="M4 18.5c2.2-.8 4.2-1 6-.5"/></svg></div><div style="font-size:11.5px;font-weight:700">Transfer</div></div>
-          <div onclick="nav('trade','Buy')" style="cursor:pointer"><div class="qa-circle" style="background:#0f172a;border:1.5px solid #d4af37;color:#fbbf24;box-shadow:0 6px 14px rgba(15,23,42,.15)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="16" height="12" rx="2.5"/><path d="M2.5 10.5h16"/><path d="M19 3v4M17 5h4"/><circle cx="6.5" cy="14.5" r="1" fill="#fbbf24" stroke="none"/></svg></div><div style="font-size:11.5px;font-weight:700">Buy</div></div>
-          <div onclick="nav('trade','Sell')" style="cursor:pointer"><div class="qa-circle" style="background:#0f172a;border:1.5px solid #d4af37;color:#fbbf24;box-shadow:0 6px 14px rgba(15,23,42,.15)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="9" width="18" height="11" rx="2.5"/><circle cx="12" cy="14.5" r="2"/><path d="M12 6V2.5M9.5 4.8 12 2.3l2.5 2.5"/></svg></div><div style="font-size:11.5px;font-weight:700">Sell</div></div>
-          <div onclick="nav('trade','Swap')" style="cursor:pointer"><div class="qa-circle" style="background:#0f172a;border:1.5px solid #d4af37;color:#fbbf24;box-shadow:0 6px 14px rgba(15,23,42,.15)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a8 8 0 0 1 13.6-5.7L20 7.5"/><path d="M20 3.5v4h-4"/><path d="M20 13a8 8 0 0 1-13.6 5.7L4 16.5"/><path d="M4 20.5v-4h4"/><polygon points="12 9.8 14.2 12 12 14.2 9.8 12" fill="#fbbf24" stroke="none"/></svg></div><div style="font-size:11.5px;font-weight:700">Swap</div></div>
+        <div style="font-size:14px;font-weight:800;margin-bottom:12px">Quick Actions</div><div style="display:grid;grid-template-columns:repeat(5,1fr);gap:6px;text-align:center">
+          <div onclick="nav('deposit')" style="cursor:pointer"><div class="qa-circle"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12"/><path d="m8 11 4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg></div><div style="font-size:11px;font-weight:600;color:var(--txt)">Deposit</div></div>
+          <div onclick="nav('xborder')" style="cursor:pointer"><div class="qa-circle"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><path d="M8.5 15.5 15.5 8.5"/><path d="M9.5 8.5h6v6"/></svg></div><div style="font-size:11px;font-weight:600;color:var(--txt)">Transfer</div></div>
+          <div onclick="nav('trade','Buy')" style="cursor:pointer"><div class="qa-circle"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.5a2.5 2.5 0 0 0-5 0c0 2.5 5 2 5 4.8a2.5 2.5 0 0 1-5 .2"/><path d="M12 6.5v11"/></svg></div><div style="font-size:11px;font-weight:600;color:var(--txt)">Buy</div></div>
+          <div onclick="nav('trade','Sell')" style="cursor:pointer"><div class="qa-circle"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="3"/><circle cx="12" cy="12" r="2.5"/><path d="M6 12h.01M18 12h.01"/></svg></div><div style="font-size:11px;font-weight:600;color:var(--txt)">Sell</div></div>
+          <div onclick="nav('trade','Swap')" style="cursor:pointer"><div class="qa-circle"><svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m7 4-4 4 4 4"/><path d="M3 8h14"/><path d="m17 20 4-4-4-4"/><path d="M21 16H7"/></svg></div><div style="font-size:11px;font-weight:600;color:var(--txt)">Swap</div></div>
         </div>
       </div>
 
-      <div class="card" style="padding:16px">"
-        <div style="font-size:14.5px;font-weight:800;margin-bottom:4px">Services</div>
-        <div class="svc-item" onclick="nav('utilities')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div style="font-size:13.5px;font-weight:800;color:var(--obs)">Utility Bills</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Pay your bills easily with the Zale app</div></div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
+      <div class="card" style="padding:16px"><div style="font-size:14.5px;font-weight:800;margin-bottom:4px">Services</div><div class="svc-item" onclick="nav('utilities')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg></div><div><div style="font-size:13.5px;font-weight:800;color:var(--obs)">Utility Bills</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Pay your bills easily with the Zale app</div></div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
         <div class="svc-item" onclick="nav('vcard')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><div><div style="font-size:13.5px;font-weight:800;color:var(--obs)">Virtual Cards</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Shop globally &amp; pay ads with 3D Secure USD cards</div></div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
         <div class="svc-item" onclick="nav('xborder')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div><div style="font-size:13.5px;font-weight:800;color:var(--obs)">Cross-Border</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Send instant payouts across Zambia, SA, Nigeria &amp; Kenya</div></div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
         <div class="svc-item" onclick="nav('escrow')"><div style="display:flex;align-items:center;gap:12px"><div class="svc-ico"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div style="font-size:13.5px;font-weight:800;color:var(--obs)">Digital Escrow</div><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Protect P2P deals with Zale Safe-Claim 4-digit PIN</div></div></div><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg></div>
-      </div>
-
-                      <div style="position:relative;margin-top:20px;margin-bottom:6px">
-        <button type="button" onclick="event.stopPropagation();nav('support-hub')" aria-label="VIP Concierge Chat" style="position:absolute;top:-23px;right:14px;width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,#0f172a,#1e293b);color:#fbbf24;border:2px solid #fbbf24;box-shadow:0 10px 24px rgba(15,23,42,.35);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:20">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M16 4h2a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3h-1l-2.5 2v-2" stroke-opacity=".55"/><path d="M4 9a3 3 0 0 1 3-3h7a3 3 0 0 1 3 3v4a3 3 0 0 1-3 3H9l-3.5 2.5V16H7a3 3 0 0 1-3-3V9Z" fill="rgba(251,191,36,.14)"/><path d="M10.5 9.2v3.6M8.7 11h3.6" stroke="#fbbf24" stroke-width="1.7"/></svg>
-        </button>
-        <div onclick="nav('rates')" class="card" style="padding:18px 16px;margin:0;cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#0f172a,#1e293b);border:1.5px solid rgba(251,191,36,.42)">
-          <div style="max-width:56%">
-            <div style="font-size:16px;font-weight:800;color:#f8fafc">Zale Rates</div>
-            <div style="font-size:12px;color:#cbd5e1;margin-top:4px;line-height:1.4">Stay up to date with our rates</div>
-          </div>
-          <svg width="108" height="66" viewBox="0 0 108 66" fill="none">
-            <circle cx="84" cy="18" r="14.5" fill="#f59e0b" stroke="#fef08a" stroke-width="1.4"/>
-            <path d="M81.5 11.5v13M86.5 11.5v13M79.5 14h5a1.7 1.7 0 0 1 0 3.4h-5h5.5a1.7 1.7 0 0 1 0 3.4h-5.5" stroke="#0f172a" stroke-width="1.9" stroke-linecap="round"/>
-            <path d="M10 35l12-10 13 10-8 10-17-10Z" fill="#fbbf24" fill-opacity=".28" stroke="#fbbf24" stroke-width="2" stroke-linejoin="round"/>
-            <path d="M74 35L62 25 49 35l8 10 17-10Z" fill="#ffffff" fill-opacity=".16" stroke="#ffffff" stroke-width="2" stroke-linejoin="round"/>
-            <path d="M31 35c4.5-3.5 9.5-3.5 14 0l4 3.5c2 1.8 2 4.8 0 6.5-2 1.8-5 1.8-7 0l-11-10Z" fill="#fbbf24" stroke="#0f172a" stroke-width="1.2"/>
-            <path d="M30 44l4-3.5M34.5 47.5l4-3.5M39 50.5l3.5-3" stroke="#fbbf24" stroke-width="2" stroke-linecap="round"/>
+      </div><div onclick="nav('rates')" class="card rates-card" style="padding:18px 16px;margin:14px 0 0;cursor:pointer;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(135deg,#f8f5ec,#eef2f7);border:1.5px solid #cbd5e1;border-radius:16px">
+        <div style="max-width:58%">
+          <div class="rc-title" style="font-size:16px;font-weight:800">Zale Rates</div>
+          <div class="rc-sub" style="font-size:12px;margin-top:4px;line-height:1.4;font-weight:600">Stay up to date with our rates</div>
+        </div>
+        <div style="position:relative;width:86px;height:62px;flex-shrink:0;display:flex;align-items:flex-end;justify-content:center">
+          <svg width="44" height="44" viewBox="0 0 44 44" fill="none" style="position:absolute;top:-2px;right:2px;z-index:2;filter:drop-shadow(0 4px 8px rgba(227,109,142,.28))">
+            <defs><linearGradient id="pkBtc" x1="4" y1="2" x2="40" y2="38" gradientUnits="userSpaceOnUse"><stop stop-color="#ffb8ca"/><stop offset="1" stop-color="#e36d8e"/></linearGradient></defs>
+            <path d="M4 13A11 11 0 0 1 15 2h14a11 11 0 0 1 11 11v10a11 11 0 0 1-11 11h-3.5l-5.5 5.5-2.2-5.5H15A11 11 0 0 1 4 23V13Z" fill="url(#pkBtc)"/>
+            <circle cx="22" cy="18" r="10.5" fill="rgba(255,255,255,.26)"/>
+            <path d="M20.2 12v12M23.8 12v12M18.5 14.3h4.5a1.6 1.6 0 0 1 0 3.2h-4.5h5a1.6 1.6 0 0 1 0 3.2h-5" stroke="#ffffff" stroke-width="1.9" stroke-linecap="round"/>
           </svg>
+          <span style="font-size:40px;line-height:1;margin-right:16px;filter:drop-shadow(0 6px 10px rgba(11,30,107,.16));user-select:none">&#129309;</span>
         </div>
       </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:14px;margin-bottom:6px">
+        <button type="button" onclick="nav('support-hub')" aria-label="Support Chat" style="width:52px;height:52px;border-radius:16px;background:#0b1e6b;color:#ffffff;border:none;box-shadow:0 8px 20px rgba(11,30,107,.28);display:flex;align-items:center;justify-content:center;cursor:pointer">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a8.5 8.5 0 0 1-8.5 8.5c-1.5 0-2.9-.4-4.1-1L4 20.5l1-4.4A8.5 8.5 0 1 1 21 12Z"/><circle cx="9" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1" fill="currentColor" stroke="none"/><circle cx="15" cy="12" r="1" fill="currentColor" stroke="none"/></svg>
+        </button>
+      </div>
+
 
     </div>
 
-    <div id="tab-notifications"""" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">&larr; Home</button><span class="pill-ok">All Caught Up</span></div>
+    <div id="tab-notifications" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">&larr; Home</button><span class="pill-ok">All Caught Up</span></div>
       <div class="card">
         <h2 style="margin:0 0 10px;font-size:19px">Notifications</h2>
         <div class="acc-row"><div><b>Live Desk Rates Updated</b><div style="font-size:11.5px;color:var(--mut);margin-top:2px">USDT TRC20, BTC, ETH &amp; Gift Card rates refreshed.</div></div><span style="font-size:10.5px;color:var(--mut)">Just now</span></div>
         <div class="acc-row"><div><b>Tier 2 KYC &amp; Security Ready</b><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Complete your account setup for $10,000/day limits.</div></div><span style="font-size:10.5px;color:var(--mut)">Today</span></div>
         <div class="acc-row"><div><b>Welcome to Zale</b><div style="font-size:11.5px;color:var(--mut);margin-top:2px">Your multi-currency crypto &amp; fiat wallet is active.</div></div><span style="font-size:10.5px;color:var(--mut)">Account</span></div>
       </div>
-    </div>
-
-    <div id="tab-setup" class="hide"><div class="row" style="padding:4px 0 12px;gap:8px">
-        <div style="display:flex;align-items:center;gap:8px">
-          <button type="button" onclick="nav('home')" class="btn-ghost" style="padding:6px 10px;font-size:12px">&larr;</button>
-          <div id="setupAvatar" style="width:36px;height:36px;border-radius:50%;background:#1e3a8a;color:#fff;font-weight:800;font-size:12.5px;display:flex;align-items:center;justify-content:center;pointer-events:none;user-select:none">IK</div>
-          <div style="display:inline-flex;align-items:center;gap:6px;background:var(--card);border:1px solid var(--brd);border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700"><span id="setupFlagSvg" style="width:18px;height:18px;border-radius:50%;overflow:hidden;display:inline-flex"></span><span id="setupCurrName">Zambian Kwacha</span></div>
-        </div>
-        <span id="setupTierBadge" class="pill-ok" style="font-size:11.5px;padding:5px 11px">Tier 1</span>
-      </div>
+    </div><div id="tab-setup" class="hide">
+      <div class="row" style="padding:4px 0 10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">&larr; Home</button><span class="pill-ok">Account Setup</span></div>
+      <div style="text-align:center;padding:4px 0 14px"><div id="setupAvatarCircle" style="width:64px;height:64px;border-radius:50%;background:#132257;color:#ffffff;font-weight:800;font-size:21px;display:flex;align-items:center;justify-content:center;margin:0 auto;box-shadow:0 8px 18px rgba(19,34,87,.16)">IK</div></div>
       <div class="card">
         <div class="row"><h2 style="margin:0;font-size:19px;font-weight:900">Get Started</h2><span onclick="nav('kyc')" style="font-size:11.5px;color:#1e3a8a;font-weight:800;cursor:pointer">Verify KYC &rarr;</span></div>
         <div class="mac-track"><div id="setupMacBar" class="mac-fill" style="width:25%"></div></div>
@@ -180,7 +204,8 @@
     </div>
 
 <div id="tab-trade" class="hide">
-      <div class="card"><div class="row" style="margin-bottom:4px"><h2 style="margin:0;font-size:18px">Trade Coins</h2><span class="pill-ok">&#9679; Live Market</span></div><input id="coinSearchInp" placeholder="Search for a coin (e.g. BTC, USDT, TRC20)" oninput="renderCoins()" style="margin:6px 0 10px" /><div id="coinList"></div></div>
+      <div class="card"><div class="row" style="margin-bottom:4px"><h2 style="margin:0;font-size:18px">Trade Coins</h2><span class="pill-ok">&#9679; Live Market</span></div><input id="coinSearchInp" placeholder="Search for a coin (e.g. BTC, USDT, TRC20)" oninput="renderCoins()" style="margin:6px 0 10px" /><div class="row" style="margin-bottom:8px"><span style="font-size:11.5px;font-weight:700;color:var(--mut)">Live Spot &amp; Instant Desk</span><span id="liveRateStatus" class="pill-ok" style="cursor:pointer" onclick="fetchLiveMarketRates(true)">● Live Market ↻</span></div>
+        <div id="coinList"></div></div>
       <div id="coinTradeBox" class="card hide" style="border-color:#0d9488;scroll-margin-top:20px">
         <div class="row" style="margin-bottom:8px"><h3 id="ctTitle" style="margin:0;font-size:16px;color:var(--obs)">Trade Asset</h3><button class="btn-ghost" style="padding:4px 9px;font-size:11px" onclick="document.getElementById('coinTradeBox').classList.add('hide')">Close</button></div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px">
@@ -197,13 +222,11 @@
         <input id="ctDest" placeholder="Your Receiving Wallet Address (or Mobile Money #)" />
         <button id="ctSubmitBtn" class="btn" style="margin-top:10px" onclick="submitCoinOrder()">Submit Crypto Order</button>
       </div>
-    </div>
-
-    "<div id="tab-wallet" class="hide">
+    </div><div id="tab-wallet" class="hide">
       <div class="row" style="padding:4px 0 14px;gap:8px;position:relative">
         <div id="walAvatar" style="width:36px;height:36px;border-radius:50%;background:#132257;color:#ffffff;font-weight:700;font-size:12.5px;display:flex;align-items:center;justify-content:center;flex-shrink:0;pointer-events:none;user-select:none">IK</div>
         <div style="flex:1;display:flex;justify-content:center">
-          <button id="walCtyPill" type="button" class="island-pill" onclick="pulseIsland('walCtyPill')" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#f4f6f9;border:1px solid #e5e9f2;border-radius:999px;padding:6px 16px 6px 8px;color:#132257;font-size:12.5px;font-weight:700;cursor:pointer;min-width:172px"><span id="walFlagSvg" style="width:22px;height:22px;border-radius:50%;overflow:hidden;display:inline-flex;flex-shrink:0"></span><span id="walCurrName">Zambian Kwacha</span></button>
+          <button id="walCtyPill" type="button" class="island-pill" onclick="pulseIsland('walCtyPill')" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;background:#f4f6f9;border:1.5px solid #94a3b8;border-radius:999px;background:var(--card);color:var(--txt);box-shadow:0 3px 10px rgba(15,23,42,.06);padding:6px 16px 6px 8px;color:#132257;font-size:12.5px;font-weight:700;cursor:pointer;min-width:172px"><span id="walFlagSvg" style="width:22px;height:22px;border-radius:50%;overflow:hidden;display:inline-flex;flex-shrink:0"></span><span id="walCurrName">Zambian Kwacha</span></button>
         </div>
         <button type="button" onclick="nav('notifications')" aria-label="Notifications" style="width:36px;height:36px;border-radius:50%;background:transparent;border:none;color:#132257;display:flex;align-items:center;justify-content:center;cursor:pointer;flex-shrink:0"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg></button>
       </div>
@@ -227,8 +250,7 @@
       </div>
 
     </div>
-        <div id="tab-giftcards" class="hide">"
-      <div class="card">
+        <div id="tab-giftcards" class="hide"><div class="card">
         <div class="row" style="margin-bottom:4px"><h2 style="margin:0;font-size:18px">Trade Gift Card</h2><span id="gcHistBadge" style="font-size:11px;color:var(--acc);font-weight:800">Transaction History (0)</span></div>
         <div style="font-size:12px;color:var(--mut);margin-bottom:8px">Tap any gift card brand below to open instant payout valuation</div>
         <input id="gcSearchInp" placeholder="Search for a card (Apple, Amazon, Steam...)" oninput="renderGcGrid()" style="margin-bottom:8px" />
@@ -257,9 +279,7 @@
         </div>
         <button class="btn" style="margin-top:10px" onclick="submitGiftCardOrder()">Sell Gift Card Now</button>
       </div>
-    </div>
-
-    "<div id="tab-account" class="hide">
+    </div><div id="tab-account" class="hide">
       <div style="text-align:center;padding:8px 12px 18px">
         <div style="position:relative;width:72px;height:72px;margin:0 auto 10px">
           <div id="accAvatarCircle" style="width:72px;height:72px;border-radius:50%;background:#132257;color:#ffffff;font-weight:800;font-size:23px;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 8px 20px rgba(19,34,87,.18)">IK</div>
@@ -280,8 +300,8 @@
         <div class="acc-row" style="cursor:pointer" onclick="nav('refer')"><span>Refer &amp; Earn (1.5% Bonus)</span><span style="color:#132257;font-weight:700">Invite &rarr;</span></div>
         <div class="acc-row" style="cursor:pointer" onclick="nav('password')"><span>Change Password</span><span style="color:#132257;font-weight:700">Update &rarr;</span></div>
         <div class="acc-row" style="cursor:pointer" onclick="nav('2fa')"><span>Two-Factor Authentication (2FA)</span><span id="tfaStatusBadge" style="color:#132257;font-weight:700">Setup 2FA &rarr;</span></div>
-        <div class="acc-row"><span>Fingerprint Enabler</span><input id="bioToggle" type="checkbox" style="width:18px;height:18px;margin:0;accent-color:#132257" onchange="toggleBio(this.checked)" /></div>
-        <div class="acc-row"><span>Theme Mode</span><select id="themeSel" onchange="setTheme(this.value)" style="width:auto;margin:0;padding:5px 10px;font-size:12px"><option value="light">Light Mode</option><option value="dark">Dark Mode</option></select></div>
+        <div class="acc-row" style="cursor:pointer" onclick="nav('biometric')"><span>Fingerprint Enabler</span><span id="bioStatusBadge" style="color:#132257;font-weight:700">Scan &rarr;</span></div>
+        <div class="acc-row"><span>Theme Mode</span><select id="themeSel" onchange="setTheme(this.value)" style="width:auto;margin:0;padding:5px 10px;font-size:12px"><option value="light">Light Mode</option><option value="dark">Dark Mode</option><option value="system">System Mode</option></select></div>
       </div>
 
       <div class="card">
@@ -289,12 +309,27 @@
         <div class="acc-row"><span>Push Notifications</span><input id="prefPush" type="checkbox" checked style="width:18px;height:18px;margin:0;accent-color:#132257" onchange="savePrefs()" /></div>
         <div class="acc-row"><span>Email Notifications</span><input id="prefEmail" type="checkbox" checked style="width:18px;height:18px;margin:0;accent-color:#132257" onchange="savePrefs()" /></div>
         <div class="acc-row"><span>Daily Rates Update</span><input id="prefRates" type="checkbox" checked style="width:18px;height:18px;margin:0;accent-color:#132257" onchange="savePrefs()" /></div>
+      </div><div class="card">
+        <div style="font-size:11px;font-weight:800;color:var(--mut);text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px">Zale Support &amp; Contact</div>
+        <div class="acc-row"><div><div style="font-size:11px;color:var(--mut)">Official WhatsApp Desk</div><b class="mono" style="font-size:13px">+260 77 947 3735</b></div><div style="display:flex;gap:6px"><a href="https://wa.me" target="_blank" style="background:#059669;color:#fff;padding:5px 10px;border-radius:9px;font-size:11px;font-weight:700;text-decoration:none">WhatsApp</a><button type="button" class="btn-ghost" style="padding:5px 10px;font-size:11px" onclick="copyVal('+260779473735','WhatsApp Number')">Copy</button></div></div>
+        <div class="acc-row"><div><div style="font-size:11px;color:var(--mut)">Support Email</div><b style="font-size:13px">support@zaleapp.com</b></div><button type="button" class="btn-ghost" style="padding:5px 10px;font-size:11px" onclick="copyVal('support@zaleapp.com','Support Email')">Copy</button></div>
       </div>
 
-      <button class="btn-ghost" style="width:100%;padding:12px;color:#dc2626;border-color:rgba(220,38,38,.3);margin-bottom:10px" onclick="logoutUser()">Sign Out</button>
+      <button class="btn-ghost" style="width:100%;padding:12px;color:#dc2626";border-color:rgba(220,38,38,.3);margin-bottom:10px" onclick="logoutUser()">Sign Out</button>
 
+    </div><div id="tab-biometric" class="hide">
+      <div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">&larr; Account</button><span id="bioPill" class="pill-pend">Ready to Scan</span></div>
+      <div class="card" style="text-align:center;padding:24px 16px">
+        <h2 style="margin:0 0 6px;font-size:19px">Fingerprint Enabler</h2>
+        <p style="font-size:12px;color:var(--mut);margin:0 0 18px">Scan your fingerprint or enter your Zale password to unlock instant biometric login &amp; payout approval.</p>
+        <div id="fpRing" onclick="scanFingerprintNow()" style="width:92px;height:92px;border-radius:50%;background:#edf1fa;border:2px solid #132257;color:#132257;margin:0 auto 14px;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"/><path d="M14 13.12c0 2.38 0 6.38-1 8.88"/><path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"/><path d="M2 12a10 10 0 0 1 18-6"/><path d="M2 16h.01"/><path d="M21.8 16c.2-2 .131-5.354 0-6"/><path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2"/><path d="M8.65 22c.21-.66.45-1.32.57-2"/><path d="M9 6.8a6 6 0 0 1 9 5.2v2"/></svg></div>
+        <div id="fpStatusTxt" style="font-size:13px;font-weight:800;color:#132257;margin-bottom:12px">Tap fingerprint sensor above to scan</div>
+        <input id="fpPassInp" type="password" placeholder="Confirm Zale Password (optional)" style="margin-bottom:10px" />
+        <button class="btn" onclick="scanFingerprintNow()">Scan &amp; Enable Fingerprint</button>
+      </div>
     </div>
-    <div id="tab-limits" class="hide">"<div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Account</button><span id="kycBadge" class="pill-pend">Tier 1 Active</span></div><div class="card"><h2 style="margin:0 0 4px;font-size:19px">Transfer Limit</h2><p style="font-size:11.5px;color:var(--mut);margin:0 0 12px">Daily transaction limits based on your country &amp; verification tier:</p><div id="dailyLimitsList"></div><button class="btn" style="margin-top:14px" onclick="handleIncreaseLimits()">Increase Transfer Limits</button></div></div>
+
+    <div id="tab-limits" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Account</button><span id="kycBadge" class="pill-pend">Tier 1 Active</span></div><div class="card"><h2 style="margin:0 0 4px;font-size:19px">Transfer Limit</h2><p style="font-size:11.5px;color:var(--mut);margin:0 0 12px">Daily transaction limits based on your country &amp; verification tier:</p><div id="dailyLimitsList"></div><button class="btn" style="margin-top:14px" onclick="handleIncreaseLimits()">Increase Transfer Limits</button></div></div>
     <div id="tab-kyc" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Account</button><span style="font-size:11px;color:var(--acc);font-weight:800">Tier 2 Identity Check</span></div><div class="card" style="border-color:rgba(16,185,129,.45)"><h2 style="margin:0 0 6px;font-size:18px">Upgrade to Tier 2 (Camera &amp; Facial KYC)</h2><p style="font-size:12px;color:var(--mut);margin:0 0 10px">Complete all 4 steps below using your phone camera to unlock full daily limits:</p><input id="kycIdInp" placeholder="1. Enter NRC / National ID / Passport Number" /><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px"><div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:8px"><div style="font-size:10.5px;font-weight:800;color:var(--acc);margin-bottom:4px">2. Front of ID</div><input id="kycFrontInp" type="file" accept="image/*" capture="environment" style="padding:4px;font-size:10px" onchange="handleKycCam('front',this)" /><img id="kycFrontPrev" class="hide" style="width:100%;height:65px;object-fit:cover;border-radius:8px;margin-top:5px" /></div><div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:8px"><div style="font-size:10.5px;font-weight:800;color:var(--acc);margin-bottom:4px">3. Back of ID</div><input id="kycBackInp" type="file" accept="image/*" capture="environment" style="padding:4px;font-size:10px" onchange="handleKycCam('back',this)" /><img id="kycBackPrev" class="hide" style="width:100%;height:65px;object-fit:cover;border-radius:8px;margin-top:5px" /></div></div><div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:9px;margin-top:8px"><div style="font-size:11px;font-weight:800;color:var(--gold);margin-bottom:4px">4. Live Facial / Selfie Capture (Front Camera)</div><input id="kycFaceInp" type="file" accept="image/*" capture="user" style="padding:5px;font-size:10.5px" onchange="handleKycCam('face',this)" /><img id="kycFacePrev" class="hide" style="width:72px;height:72px;object-fit:cover;border-radius:50%;margin-top:6px;border:2px solid var(--acc)" /></div><button class="btn" style="margin-top:12px" onclick="submitKycV3()">Verify Front, Back ID &amp; Face</button></div></div>
     <div id="tab-password" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Account</button><span style="font-size:11px;color:var(--acc);font-weight:800">Account Security</span></div><div class="card"><h2 style="margin:0 0 12px;font-size:19px">Update Password</h2><div style="font-size:11.5px;font-weight:800;color:var(--mut)">Current Password</div><input id="curPwInp" type="password" placeholder="Enter current password" style="margin-top:4px;margin-bottom:10px" /><div style="font-size:11.5px;font-weight:800;color:var(--mut)">New Password</div><input id="newPwInp1" type="password" placeholder="Enter new password" style="margin-top:4px;margin-bottom:10px" /><div style="font-size:11.5px;font-weight:800;color:var(--mut)">Re-enter Password</div><input id="newPwInp2" type="password" placeholder="Re-enter password" style="margin-top:4px;margin-bottom:14px" /><button class="btn" onclick="saveNewPasswordInline()">Update</button></div></div>
     <div id="tab-2fa" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Security</button><span style="font-size:11px;color:var(--acc);font-weight:800">2FA Protection</span></div><div id="tfaStep1" class="card"><h2 style="margin:0 0 6px;font-size:19px">Secure your account</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 14px">Add a second step when signing in to keep your account safe. Choose how you'd like to confirm it's you.</p><div style="border:1.5px solid var(--acc);background:rgba(16,185,129,.07);border-radius:14px;padding:14px"><span style="display:inline-block;background:var(--acc);color:#03120e;font-size:10px;font-weight:900;padding:3px 8px;border-radius:6px;margin-bottom:8px">RECOMMENDED</span><div style="font-size:15px;font-weight:800">Authenticator App</div><p style="font-size:12px;color:var(--mut);margin:5px 0 12px">Generate codes with Google Authenticator, Authy, or similar. Works offline and is the most secure.</p><button class="btn" style="padding:11px" onclick="show2faStep(2)">Authenticator App →</button></div><div onclick="show2faStep('email')" style="border:1.5px solid var(--brd);background:var(--card2);border-radius:14px;padding:14px;margin-top:10px;cursor:pointer"><div style="font-size:15px;font-weight:800">Email</div><p style="font-size:12px;color:var(--mut);margin:5px 0 10px">Receive a one-time code by email at sign in.</p><button type="button" class="btn-ghost" style="width:100%;padding:10px;font-size:12px">Email OTP →</button></div></div><div id="tfaStep2" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Authenticator App</h2><div class="acc-row"><b>Google Authenticator</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('google')">Get</button></div><div class="acc-row"><b>Authy</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('authy')">Get</button></div><div class="acc-row"><b>Microsoft Authenticator</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('ms')">Get</button></div><button class="btn" style="margin-top:12px" onclick="show2faStep(3)">I have an app, continue</button></div><div id="tfaStep3" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Link Authenticator</h2><div class="row" style="background:var(--card2);padding:10px;border-radius:10px;margin:10px 0"><code class="mono" style="font-size:12px;color:var(--gold);font-weight:800">ZALE-2FA9-K84M-77XQ</code><button class="btn-ghost" style="padding:4px 8px;font-size:10.5px" onclick="copyVal('ZALE2FA9K84M77XQ','Setup Key')">Copy Key</button></div><button class="btn" onclick="show2faStep(4)">Continue</button></div><div id="tfaStep4" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Enter 6-Digit Code</h2><input id="tfaCodeInp" type="text" maxlength="6" placeholder="000000" class="mono" style="text-align:center;font-size:22px;letter-spacing:8px;font-weight:800" /><button class="btn" style="margin-top:12px" onclick="confirmEnable2fa()">Enable 2FA</button></div><div id="tfaStepemail" class="card hide"><h2 style="margin:0 0 8px;font-size:19px">Secure your account</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 16px">We ensure your account is secure with 2-factor authentication. To enable this, an OTP would be sent to your email to verify it's you.</p><div id="tfaEmailOtpBox" class="hide" style="margin-bottom:12px"><div id="tfaEmailSentMsg" style="font-size:11.5px;color:var(--acc);font-weight:800;margin-bottom:6px"></div><input id="tfaEmailCodeInp" type="text" maxlength="6" placeholder="000000" class="mono" style="text-align:center;font-size:22px;letter-spacing:8px;font-weight:800" /></div><button id="tfaEmailBtn" class="btn" onclick="handleEmail2fa()">Enable 2FA</button></div></div>
@@ -325,13 +360,14 @@
   </div>
   <div id="bioSensorModal" class="hide" style="position:fixed;inset:0;background:rgba(2,6,23,.85);z-index:9999;display:flex;align-items:center;justify-content:center;padding:18px"><div class="card" style="max-width:340px;width:100%;text-align:center;border-color:var(--acc)"><div style="font-size:11px;font-weight:900;color:var(--acc)">AUTHENTICATION REQUIRED</div><h3 style="margin:6px 0 4px;font-size:18px">Verify Identity</h3><p style="font-size:12px;color:var(--mut);margin:0 0 14px">Scan your fingerprint to authenticate.</p><div onclick="completeFingerprintScan()" style="width:76px;height:76px;margin:0 auto 12px;border-radius:50%;background:rgba(16,185,129,.14);border:2px solid var(--acc);display:flex;align-items:center;justify-content:center;font-size:32px;cursor:pointer">👆</div><button class="btn-ghost" style="width:100%;padding:10px" onclick="document.getElementById('bioSensorModal').classList.add('hide')">Cancel</button></div></div>
     
-    <nav id="bottomNav" class="bnav hide">
-    <button id="bn-home" class="on" onclick="nav('home')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><path class="duotone" d="M5 10.5 12 5l7 5.5V19a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-8.5Z"/><path d="M3 10.5 12 3.5l9 7"/><path d="M5.5 9.5V19a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V9.5"/><path d="M9.5 20v-4.5a2.5 2.5 0 0 1 5 0V20"/><path d="M8 20h8" stroke="#d4af37" stroke-width="2"/></svg><span>Home</span></button>
-    <button id="bn-trade" onclick="nav('trade')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><rect class="duotone" x="5" y="10" width="3.5" height="7" rx="1"/><rect class="duotone" x="11" y="7" width="3.5" height="8" rx="1"/><path d="M6.75 7v3M6.75 17v3M5 10h3.5v7H5z"/><path d="M12.75 4v3M12.75 15v4M11 7h3.5v8H11z"/><path d="M4 18.5 19.5 6"/><polygon points="19.5 3.5 21.8 5.8 19.5 8.1 17.2 5.8" fill="#d4af37" stroke="none"/></svg><span>Trade</span></button>
-    <button id="bn-wallet" onclick="nav('wallet')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><rect class="duotone" x="3" y="6" width="18" height="13" rx="3"/><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/><path d="M15 13h6v3.5h-6a1.75 1.75 0 0 1 0-3.5Z"/><circle cx="15.5" cy="14.75" r="1" fill="#d4af37" stroke="none"/></svg><span>Wallet</span></button>
-    <button id="bn-giftcards" onclick="nav('giftcards')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><rect class="duotone" x="3" y="6.5" width="18" height="12.5" rx="2.5"/><rect x="3" y="6.5" width="18" height="12.5" rx="2.5"/><path d="M9.5 6.5v12.5M3 12h18"/><path d="M9.5 12 7 9.5a1.5 1.5 0 1 1 2.1-2.1L9.5 12Zm0 0 2.5-2.5a1.5 1.5 0 1 0-2.1-2.1L9.5 12Z"/><circle cx="17" cy="15.5" r="1" fill="#d4af37" stroke="none"/></svg><span>Gift Cards</span></button>
-    <button id="bn-account" onclick="nav('account')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.85" stroke-linecap="round" stroke-linejoin="round"><circle class="duotone" cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="9"/><circle cx="12" cy="9.5" r="2.7"/><path d="M6.8 18.2a6 6 0 0 1 10.4 0"/><circle cx="18.5" cy="5.5" r="1.5" fill="#d4af37" stroke="none"/></svg><span>Account</span></button>
+      <nav id="bottomNav" class="bnav hide">
+    <button id="bn-home" class="on" onclick="nav('home')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V20h14V9.5"/><path d="M9.5 20v-5.5a2.5 2.5 0 0 1 5 0V20"/></svg><span>Home</span></button>
+    <button id="bn-trade" onclick="nav('trade')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 10h7l-2.3-2.3"/><path d="M15.5 14h-7l2.3 2.3"/></svg><span>Trade</span></button>
+    <button id="bn-wallet" onclick="nav('wallet')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="3"/><path d="M3 10h18"/><circle cx="16.5" cy="14.5" r="1.2" fill="currentColor" stroke="none"/></svg><span>Wallet</span></button>
+    <button id="bn-giftcards" onclick="nav('giftcards')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5A2.5 2.5 0 0 1 6.5 6h3.8a1.7 1.7 0 0 0 3.4 0h3.8A2.5 2.5 0 0 1 20 8.5v7a2.5 2.5 0 0 1-2.5 2.5h-3.8a1.7 1.7 0 0 0-3.4 0H6.5A2.5 2.5 0 0 1 4 15.5v-7Z"/><line x1="12" y1="8.5" x2="12" y2="15.5" stroke-dasharray="2 2"/></svg><span>Gift Cards</span></button>
+    <button id="bn-account" onclick="nav('account')"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="3.5"/><ellipse cx="12" cy="17" rx="6.5" ry="3.5"/></svg><span>Account</span></button>
   </nav>
+
 
 
   <script>
@@ -350,10 +386,10 @@
     function doLogout(){localStorage.removeItem("zale_user");user=null;document.getElementById("appBox").classList.add("hide");document.getElementById("bottomNav").classList.add("hide");document.getElementById("fabChatBtn")?.classList.add("hide");document.getElementById("authBox").classList.remove("hide");}
     function enterApp(){document.getElementById("authBox").classList.add("hide");document.getElementById("appBox").classList.remove("hide");document.getElementById("bottomNav").classList.remove("hide");document.getElementById("fabChatBtn")?.classList.remove("hide");document.getElementById("adminBtn")?.classList.toggle("hide",user?.email!==ADMIN);nav("home");}
         function nav(t,mode){
-      ["home","notifications","setup","trade","wallet","giftcards","account","limits","kyc","password","2fa","vcard","utilities","xborder","escrow","rates","refer","deposit","withdraw","support-hub","faq","zale-chat","admin"].forEach(k=>document.getElementById("tab-"+k)?.classList.toggle("hide",k!==t));
+      ["home","notifications","setup","trade","wallet","giftcards","account","biometric","limits","kyc","password","2fa","vcard","utilities","xborder","escrow","rates","refer","deposit","withdraw","support-hub","faq","zale-chat","admin"].forEach(k=>document.getElementById("tab-"+k)?.classList.toggle("hide",k!==t));
       ["home","trade","wallet","giftcards","account"].forEach(k=>document.getElementById("bn-"+k)?.classList.toggle("on",k===t));
       if(t==="faq")renderFaqHub();
-      if(t==="home")setTimeout(()=>pulseIsland("homeCtyPill"),80);if(t==="wallet")setTimeout(()=>pulseIsland("walCtyPill"),80);if(t==="limits")renderDailyLimits();
+      if(t==="home")setTimeout(()=>pulseIsland("homeCtyPill"),80);if(t==="wallet")setTimeout(()=>pulseIsland("walCtyPill"),80);if(t==="trade"||t==="rates")window.pullLiveCoinsAndFx();if(t==="limits")renderDailyLimits();
       syncAccountProfile();renderAll();
       if(t==="trade"&&mode){ setCoinSide(mode); selectCoin(selCoin?.id||"USDT-TRC20", true); }
     }
@@ -413,7 +449,7 @@
       if(document.getElementById("accPhone"))document.getElementById("accPhone").textContent=user.phone||"+260 97 000 0000";
       const p=(user.name||"IK").trim().split(/\s+/);
       const ini=((p[0]?p[0][0]:"Z")+(p[1]?p[1][0]:"")).toUpperCase();
-      if(document.getElementById("accAvatarCircle"))document.getElementById("accAvatarCircle").textContent=ini;
+      ["accAvatarCircle","setupAvatarCircle"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=ini;});
       const av=localStorage.getItem("zale_avatar"),img=document.getElementById("accAvatarImg");
       if(av&&img){img.src=av;img.classList.remove("hide");}else if(img){img.classList.add("hide");}
       const prefs=JSON.parse(localStorage.getItem("zale_prefs")||'{"push":true,"email":true,"rates":true}');
@@ -421,46 +457,49 @@
       if(document.getElementById("prefEmail"))document.getElementById("prefEmail").checked=prefs.email!==false;
       if(document.getElementById("prefRates"))document.getElementById("prefRates").checked=prefs.rates!==false;
     }
-        async function fetchLiveMarketRates(){
+                function scanFingerprintNow(){
+      const r=document.getElementById("fpRing"),t=document.getElementById("fpStatusTxt");
+      if(r){r.style.transform="scale(1.08)";r.style.boxShadow="0 0 0 10px rgba(5,150,105,.16)";r.style.borderColor="#059669";r.style.color="#059669";}
+      if(t)t.textContent="Scanning fingerprint sensor...";
+      setTimeout(()=>{localStorage.setItem("zale_bio","1");if(r)r.style.transform="scale(1)";if(t)t.textContent="Fingerprint Enabled & Verified!";if(document.getElementById("bioPill")){document.getElementById("bioPill").className="pill-ok";document.getElementById("bioPill").textContent="Enabled";}if(document.getElementById("bioStatusBadge"))document.getElementById("bioStatusBadge").textContent="Enabled \u2713";toast("Fingerprint biometric enabled!");},750);
+    }
+            async function fetchLiveMarketRates(manual){
       try{
-        const [bRes,fxRes]=await Promise.allSettled([
-          fetch('https://binance.com["BTCUSDT","ETHUSDT","SOLUSDT","BNBUSDT"]'),
-          fetch("https://er-api.com")
+        const [jd,cbBtc,cbEth,cbSol]=await Promise.allSettled([
+          fetch("https://jsdelivr.net").then(r=>r.json()),
+          fetch("https://coinbase.com").then(r=>r.json()),
+          fetch("https://coinbase.com").then(r=>r.json()),
+          fetch("https://coinbase.com").then(r=>r.json())
         ]);
-        let updated=false;
-        if(bRes.status==="fulfilled"&&bRes.value.ok){
-          const arr=await bRes.value.json();
-          const map={};
-          arr.forEach(x=>{map[x.symbol.replace("USDT","")]={p:parseFloat(x.lastPrice),c:parseFloat(x.priceChangePercent)};});
-          COINS.forEach(c=>{
-            if(map[c.sym]&&map[c.sym].p>0){
-              c.price=map[c.sym].p;
-              const ch=map[c.sym].c||0;
-              c.chg=(ch>=0?"+":"")+ch.toFixed(2)+"%";
-              updated=true;
-            }
-          });
+        let ok=false;
+        if(jd.status==="fulfilled"&&jd.value&&jd.value.usd){
+          const u=jd.value.usd;
+          if(u.zmw)CURR.ZM.r=+(+u.zmw).toFixed(2);
+          if(u.zar)CURR.ZA.r=+(+u.zar).toFixed(2);
+          if(u.ngn)CURR.NG.r=+(+u.ngn).toFixed(2);
+          if(u.kes)CURR.KE.r=+(+u.kes).toFixed(2);
+          if(u.ghs)CURR.GH.r=+(+u.ghs).toFixed(2);
+          if(u.gbp)CURR.GB.r=+(+u.gbp).toFixed(3);
+          const cm={BTC:u.btc,ETH:u.eth,SOL:u.sol,BNB:u.bnb,USDC:u.usdc,USDT:u.usdt};
+          COINS.forEach(c=>{if(cm[c.sym]>0){c.price=+(1/cm[c.sym]).toFixed(c.price<5?4:2);ok=true;}});
         }
-        if(fxRes.status==="fulfilled"&&fxRes.value.ok){
-          const fx=await fxRes.value.json();
-          if(fx&&fx.rates){
-            if(fx.rates.ZMW)CURR.ZM.r=+fx.rates.ZMW.toFixed(2);
-            if(fx.rates.ZAR)CURR.ZA.r=+fx.rates.ZAR.toFixed(2);
-            if(fx.rates.NGN)CURR.NG.r=+fx.rates.NGN.toFixed(2);
-            if(fx.rates.KES)CURR.KE.r=+fx.rates.KES.toFixed(2);
-            if(fx.rates.GHS)CURR.GH.r=+fx.rates.GHS.toFixed(2);
-            if(fx.rates.GBP)CURR.GB.r=+fx.rates.GBP.toFixed(3);
-            updated=true;
-          }
-        }
-        if(updated){
-          const badge=document.getElementById("liveRateStatus");
-          if(badge)badge.textContent="● Live ("+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'})+")";
-          renderAll();
+        [[cbBtc,"BTC"],[cbEth,"ETH"],[cbSol,"SOL"]].forEach(([res,sym])=>{
+          const p=res.status==="fulfilled"&&parseFloat(res.value&&res.value.data&&res.value.data.amount);
+          if(p>0)COINS.forEach(c=>{if(c.sym===sym){const prev=c.price||p;c.price=p;if(prev!==p){const ch=((p-prev)/prev)*100;c.chg=(ch>=0?"+":"")+ch.toFixed(2)+"%";}ok=true;}});
+        });
+        if(ok){
+          const b=document.getElementById("liveRateStatus");
+          if(b)b.textContent="● Live "+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'})+" ↻";
+          renderCoins();renderAll();
           if(typeof calcZaleRate==="function")calcZaleRate();
+          if(manual)toast("Live market prices refreshed!");
         }
       }catch(e){}
     }
+
+
+
+
 
 function toggleHideBalance(){balHidden=!balHidden;document.querySelectorAll(".hideBalLbl").forEach(el=>el.textContent=balHidden?"Show Balance":"Hide Balance");renderAll();}
     function getCoinSvg(c){const badge=(col,txt)=>`<span style="position:absolute;right:-3px;bottom:-3px;width:15px;height:15px;border-radius:50%;background:${col};color:#fff;font-size:7px;font-weight:900;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--card)">${txt}</span>`;const bg={BTC:"#f7931a",ETH:"#3b49df",SOL:"#14f195",BNB:"#f3ba2f",USDC:"#2775ca",USDT:"#26a17b"}[c.sym]||"#10b981";let b=c.id==="USDT-ERC20"?badge("#627eea","E"):c.id==="USDT-TRC20"?badge("#ef4444","T"):c.id==="USDT-SOL"?badge("#9945ff","S"):c.id==="USDT-BEP20"?badge("#f59e0b","B"):"";return `<div style="position:relative;width:38px;height:38px;border-radius:50%;background:${bg};color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">${c.sym}${b}</div>`;}
@@ -492,7 +531,16 @@ function toggleHideBalance(){balHidden=!balHidden;document.querySelectorAll(".hi
     function setRateMode(m){rcMode=m;document.getElementById("rcTabCrypto")?.classList.toggle("on",m==="crypto");document.getElementById("rcTabGc")?.classList.toggle("on",m==="gc");document.getElementById("rcCryptoPane")?.classList.toggle("hide",m!=="crypto");document.getElementById("rcGcPane")?.classList.toggle("hide",m!=="gc");calcZaleRate();}
     function calcZaleRate(){const c=CURR[user?.cty]||CURR.ZM,sym=user?.cty==="ZM"?"K ":(c.s+" "),v=parseFloat(document.getElementById("rcUsd")?.value)||0;if(rcMode==="gc"){const b=document.getElementById("rcGcSel")?.value||"Apple / iTunes",pct=ZALE_GC_BRANDS.find(x=>x.id===b)?.rate||82,usdOut=v*(pct/100);document.getElementById("rcOutput").textContent=`$${v.toFixed(2)} ($${pct}%) = $${sym}${(usdOut*c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}`;document.getElementById("rcSubNote").textContent=`Net USD Payout: $$${usdOut.toFixed(2)} • Instant Gift Card Settlement`;}else{const cid=document.getElementById("rcCoinSel")?.value||"USDT-TRC20",act=document.getElementById("rcActionSel")?.value||"Buy",rate=act==="Sell"?(c.r*0.985):c.r,coinObj=COINS.find(x=>x.id===cid)||COINS,qty=v/(coinObj.price||1);document.getElementById("rcOutput").textContent=`${act} $$${v.toFixed(2)} ${cid} = ${sym}${(v*rate).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}`;document.getElementById("rcSubNote").textContent=`Est. ${qty.toFixed(coinObj.price<5?2:6)} ${coinObj.sym} • Desk Rate: ${sym}${rate.toFixed(2)}/$`;}}
     function proceedFromRateCalc(){const v=parseFloat(document.getElementById("rcUsd")?.value)||100;if(rcMode==="gc"){const b=document.getElementById("rcGcSel")?.value||"Apple / iTunes";nav("giftcards");document.getElementById("gcBrand").value=b;document.getElementById("gcUsd").value=v;updateGcPreview();}else{const cid=document.getElementById("rcCoinSel")?.value||"USDT-TRC20",act=document.getElementById("rcActionSel")?.value||"Buy";nav("trade");selectCoin(cid);setCoinSide(act);document.getElementById("ctUsd").value=v;updateCoinPreview();}}
-    function applyTheme(t){localStorage.setItem("zale_theme",t);const isDark=t==="dark"||(t==="system"&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches);document.body.classList.toggle("dark",isDark);if(document.getElementById("themeSel"))document.getElementById("themeSel").value=t;}
+        function setTheme(t){applyTheme(t);}
+    function applyTheme(t){
+      const mode=t||localStorage.getItem("zale_theme")||"light";
+      localStorage.setItem("zale_theme",mode);
+      const isDark=mode==="dark"||(mode==="system"&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches);
+      document.body.classList.toggle("dark",isDark);
+      const sel=document.getElementById("themeSel");if(sel)sel.value=mode;
+    }
+    if(window.matchMedia){window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{if((localStorage.getItem("zale_theme")||"light")==="system")applyTheme("system");});}
+
     (function(){const saved=localStorage.getItem("zale_theme")||"light";applyTheme(saved);})();
 
     function previewVcardCost(){const c=CURR[user?.cty]||CURR.ZM,a=parseFloat(document.getElementById("vcUsd")?.value)||0,f=(document.getElementById("vcAction")?.value==="issue"&&a>0)?5:0,t=a+f;document.getElementById("vcCostPreview").textContent=`Total Payable: $${t.toFixed(2)} = ${c.s}${(t*c.r).toLocaleString(undefined,{maximumFractionDigits:0})}`;}
@@ -510,9 +558,52 @@ function toggleHideBalance(){balHidden=!balHidden;document.querySelectorAll(".hi
     function adminAdjustWallet(){const em=document.getElementById("admTargetEmail").value.trim().toLowerCase(),amt=parseFloat(document.getElementById("admAdjAmt").value)||0;let db=JSON.parse(localStorage.getItem("zale_users")||"{}");if(!db[em])return toast("Client email not found.");db[em].bal=Math.max(0,(db[em].bal||0)+amt);localStorage.setItem("zale_users",JSON.stringify(db));if(user?.email===em){user.bal=db[em].bal;localStorage.setItem("zale_user",JSON.stringify(user));}renderAll();toast(`Updated ${em} by $${amt}`);}
     function renderAll(){const c=CURR[user?.cty]||CURR.ZM,sym=user?.cty==="ZM"?"K ":(c.s+" "),usd=parseFloat(user?.bal||0),loc=(usd*c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});["homeLocalBal","walLocalBal"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=balHidden?"••••••":`${sym}${loc}`;});["homeUsdBal","walUsdBal"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=balHidden?"•••• USD":`${usd.toFixed(2)} USD`;});["hdrFlagSvg","dropFlagSvg","walFlagSvg"].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=FLAG_SVGS[user?.cty||"ZM"];});if(document.getElementById("hdrCurrName"))document.getElementById("hdrCurrName").textContent=c.name;if(document.getElementById("walCurrName"))document.getElementById("walCurrName").textContent=c.name;if(document.getElementById("dropCtyName"))document.getElementById("dropCtyName").textContent=c.label;if(document.getElementById("hdrAvatar")&&user?.name){const p=user.name.trim().split(/\s+/);document.getElementById("hdrAvatar").textContent=((p[0]?p[0][0]:"Z")+(p[1]?p[1][0]:"")).toUpperCase();}const t2=(user?.kyc||1)>=2;if(document.getElementById("setupPctRing"))document.getElementById("setupPctRing").textContent=t2?"100%":"33%";if(document.getElementById("accName"))document.getElementById("accName").textContent=user?.name||"Zale Client";if(document.getElementById("accEmail"))document.getElementById("accEmail").textContent=user?.email||"";if(document.getElementById("accTierPill"))document.getElementById("accTierPill").textContent=t2?"Tier 2 Verified":"Tier 1 Verified";if(document.getElementById("accIdStat"))document.getElementById("accIdStat").textContent=t2?"Verified":"Pending";if(document.getElementById("accFaceStat"))document.getElementById("accFaceStat").textContent=t2?"Verified":"Pending";syncSetupScreen(); renderCoins();renderGcGrid();const myTx=orders.filter(o=>!user||o.email===user.email||user.email===ADMIN);document.getElementById("walEmptyBox")?.classList.toggle("hide",myTx.length>0);if(document.getElementById("walTxList"))document.getElementById("walTxList").innerHTML=myTx.slice(0,10).map(o=>`<div class="acc-row"><div><b>${o.type}</b><div style="font-size:11px;color:var(--mut)">${o.id} | ${o.date}</div></div><div style="text-align:right"><b>$${o.usd}</b><div><span class="pill-pend">${o.status}</span></div></div></div>`).join("");if(user?.email===ADMIN&&document.getElementById("admOrdersList")){const db=Object.values(JSON.parse(localStorage.getItem("zale_users")||"{}"));document.getElementById("admClientBadge").textContent=db.length+" Registered";document.getElementById("admClientsList").innerHTML=db.map(u=>`<div class="acc-row"><div><b>${u.name}</b><div style="font-size:11px;color:var(--mut)">${u.email} | ${u.cty}</div></div><span class="pill-ok">$${(u.bal||0).toFixed(2)}</span></div>`).join("");document.getElementById("admOrdersList").innerHTML=orders.map(o=>`<div class="acc-row"><div><b>${o.type} ($${o.usd})</b><div style="font-size:11px;color:var(--mut)">${o.email} | ${o.details}</div></div><span class="pill-pend">${o.status}</span></div>`).join("");}}
     setTimeout(()=>document.getElementById("zaleBootSplash")?.classList.add("done"),1050);
+    setTheme(localStorage.getItem("zale_theme")||"light");
     if(user)enterApp();
-    fetchLiveMarketRates();
-    setInterval(fetchLiveMarketRates,60000);
+        window.pullLiveCoinsAndFx = async function(manual){
+      try{
+        const [kRes,cbB,cbE,cbS,cbN,fxRes]=await Promise.allSettled([
+          fetch("https://kraken.com").then(r=>r.json()),
+          fetch("https://coinbase.com").then(r=>r.json()),
+          fetch("https://coinbase.com").then(r=>r.json()),
+          fetch("https://coinbase.com").then(r=>r.json()),
+          fetch("https://coinbase.com").then(r=>r.json()),
+          fetch("https://er-api.com").then(r=>r.json())
+        ]);
+        let ok=false;
+        if(kRes.status==="fulfilled"&&kRes.value&&kRes.value.result){
+          const r=kRes.value.result,km={BTC:r.XXBTZUSD,ETH:r.XETHZUSD,SOL:r.SOLUSD};
+          COINS.forEach(c=>{const it=km[c.sym];if(it&&it.c&&parseFloat(it.c[0])>0){const p=parseFloat(it.c[0]),o=parseFloat(it.o)||p,ch=((p-o)/o)*100;c.price=p;c.chg=(ch>=0?"+":"")+ch.toFixed(2)+"%";ok=true;}});
+        }
+        [[cbB,"BTC"],[cbE,"ETH"],[cbS,"SOL"],[cbN,"BNB"]].forEach(([res,sym])=>{
+          const p=res.status==="fulfilled"&&parseFloat(res.value&&res.value.data&&res.value.data.amount);
+          if(p>0)COINS.forEach(c=>{if(c.sym===sym){c.price=p;ok=true;}});
+        });
+        if(fxRes.status==="fulfilled"&&fxRes.value&&fxRes.value.rates){
+          const rt=fxRes.value.rates;
+          if(rt.ZMW)CURR.ZM.r=+rt.ZMW.toFixed(2);
+          if(rt.ZAR)CURR.ZA.r=+rt.ZAR.toFixed(2);
+          if(rt.NGN)CURR.NG.r=+rt.NGN.toFixed(2);
+          if(rt.KES)CURR.KE.r=+rt.KES.toFixed(2);
+          if(rt.GHS)CURR.GH.r=+rt.GHS.toFixed(2);
+          if(rt.GBP)CURR.GB.r=+rt.GBP.toFixed(3);
+          ok=true;
+        }
+        if(ok){
+          const b=document.getElementById("liveRateStatus");
+          if(b)b.textContent="● Live "+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'})+" ↻";
+          renderCoins();renderAll();
+          if(typeof calcZaleRate==="function")calcZaleRate();
+          if(manual)toast("Live market prices refreshed!");
+        }
+      }catch(e){}
+    };
+    setTimeout(()=>window.pullLiveCoinsAndFx(),300);
+    setInterval(()=>window.pullLiveCoinsAndFx(),20000);
+
+
+    if(window.pullLiveCoinsAndFx)window.pullLiveCoinsAndFx();
+    setInterval(()=>{if(window.pullLiveCoinsAndFx)window.pullLiveCoinsAndFx();},20000);
   </script>
 </body>
 </html>
