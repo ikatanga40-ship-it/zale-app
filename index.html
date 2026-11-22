@@ -107,6 +107,8 @@ body.dark{--bg:#000000;--card:#1c1c1e;--card2:#2c2c2e;--brd:#38383a;--txt:#fffff
 #homeCtyPill{transition:all .42s cubic-bezier(.32,.72,0,1)} #homeCtyPill.live-act{white-space:normal !important;max-width:84vw !important;border-radius:22px !important;padding:8px 16px !important;line-height:1.3 !important;text-align:center !important}
 #tab-giftcards .card:not(#zaleGcTradeDrawer),#gcGrid>div,#zaleGcCards>div{background:transparent !important;border:none !important;box-shadow:none !important}
 body.sys-slate{--bg:#121726;--card:#1b2236;--card2:#252f4a;--brd:#334155;--txt:#f1f5f9;--mut:#94a3b8;--acc:#38bdf8;--gold:#facc15;--obs:#38bdf8}
+#homeCtyPill svg{width:20px !important;height:14px !important;max-width:20px !important;max-height:14px !important;flex-shrink:0 !important}
+#homeCtyPill{display:inline-flex !important;flex-direction:row !important;align-items:center !important;gap:6px !important;padding:6px 12px !important;border-radius:999px !important;width:auto !important;height:auto !important}
 </style><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Zale"><link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://w3.org' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23132257'/%3E%3Ctext x='90' y='112' text-anchor='middle' fill='%23d4af37' font-size='84' font-weight='900'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
 </head>
 <body>
@@ -404,7 +406,7 @@ body.sys-slate{--bg:#121726;--card:#1b2236;--card2:#252f4a;--brd:#334155;--txt:#
     function copyVal(x,l){if(navigator.clipboard)navigator.clipboard.writeText(x);toast(l+" copied!");}
     function switchAuthMode(m){authMode=m;document.getElementById("regFields").classList.toggle("hide",m==="in");document.getElementById("authTabIn").classList.toggle("on",m==="in");document.getElementById("authTabUp").classList.toggle("on",m==="up");document.getElementById("authSubmitBtn").textContent=m==="in"?"Sign In to Zale":"Create Free Zale Account";}
     function handleAuthSubmit(){const email=(document.getElementById("lEmail").value||"").trim().toLowerCase(),pass=(document.getElementById("lPass").value||"").trim();if(!email||pass.length<6)return toast("Enter valid email & password (min 6 chars).");let db=JSON.parse(localStorage.getItem("zale_users")||"{}");if(authMode==="up"){db[email]={name:(document.getElementById("rName").value||"").trim()||email.split("@").at(0),email,phone:(document.getElementById("rPhone").value||"").trim(),cty:document.getElementById("rCty").value||"ZM",pass,bal:0,kyc:1};localStorage.setItem("zale_users",JSON.stringify(db));user=db[email];}else if(email===ADMIN&&pass==="zaleAdmin2026pay"){user=db[email]||{name:"Isaac Katanga (Admin)",email:ADMIN,cty:"ZM",pass,bal:0,kyc:2};}else if(db[email]&&db[email].pass===pass){user=db[email];}else return toast("Invalid email or password.");localStorage.setItem("zale_user",JSON.stringify(user));enterApp();}
-    function doLogout(){localStorage.removeItem("zale_user");user=null;document.getElementById("appBox").classList.add("hide");document.getElementById("bottomNav").classList.add("hide");document.getElementById("fabChatBtn")?.classList.add("hide");document.getElementById("authBox").classList.remove("hide");}
+    function doLogout(){localStorage.removeItem("zale_user");user=null;document.getElementById("appBox").classList.add("hide");document.getElementById("bottomNav").classList.add("hide");document.getElementById("fabChatBtn")?.classList.add("hide");document.getElementById("authBox").classList.remove("hide");setTimeout(()=>document.querySelectorAll("#authBox input").forEach(i=>i.value=""),50);let zt=document.getElementById("zaleAuthToast");if(!zt){zt=document.createElement("div");zt.id="zaleAuthToast";zt.style.cssText="position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:10px 20px;border-radius:999px;font-size:12.5px;font-weight:800;z-index:99999;box-shadow:0 10px 26px rgba(0,0,0,.28)";document.body.appendChild(zt);}zt.textContent="✓ Signed out safely";zt.style.display="block";setTimeout(()=>zt.style.display="none",3200);}
     function enterApp(){document.getElementById("authBox").classList.add("hide");document.getElementById("appBox").classList.remove("hide");document.getElementById("bottomNav").classList.remove("hide");document.getElementById("fabChatBtn")?.classList.remove("hide");document.getElementById("adminBtn")?.classList.toggle("hide",user?.email!==ADMIN);nav("home");}
         function nav(t,mode){
       ["home","notifications","setup","trade","wallet","giftcards","account","biometric","limits","kyc","password","2fa","vcard","utilities","xborder","escrow","rates","refer","deposit","withdraw","support-hub","faq","zale-chat","admin"].forEach(k=>document.getElementById("tab-"+k)?.classList.toggle("hide",k!==t));
@@ -1868,6 +1870,257 @@ setTimeout(()=>{
   const b=s3.querySelector("div[style*='184px']")||s3.querySelector("div[style*='196px']");
   if(b)b.outerHTML=`<svg width="176" height="176" viewBox="0 0 29 29" shape-rendering="crispEdges" style="background:#fff;padding:10px;border-radius:14px;border:1.5px solid #cbd5e1;display:block;margin:12px auto"><rect width="29" height="29" fill="#fff"/><path fill="#0f172a" d="M2 2h7v7H2V2zm1 1v5h5V3H3zm1 1h3v3H4V4zm16-2h7v7h-7V2zm1 1v5h5V3h-5zm1 1h3v3h-3V4zM2 20h7v7H2v-7zm1 1v5h5v-5H3zm1 1h3v3H4v-3zm8-20h2v2h-2V2zm3 0h3v1h-3V2zm-3 3h1v3h-1V5zm2 1h3v2h-3V6zm-1 3h2v2h-2V9zm-9 2h2v2H2v-2zm3 0h3v1H5v-1zm4 0h2v3H9v-3zm3 1h3v1h-3v-1zm4 0h2v2h-2v-2zm3 0h3v1h-3v-1zm-17 3h3v1H2v-1zm4 0h2v3H6v-3zm4 1h3v2h-3v-2zm4-1h2v3h-2v-3zm3 1h3v1h-3v-1zm4 0h3v2h-3v-2zm-15 3h2v2h-2v-2zm4 0h3v1h-3v-1zm4 1h2v2h-2v-2zm3-1h2v3h-2v-3zm3 1h4v1h-4v-1zm-10 3h5v5h-5v-5zm1 1v3h3v-3h-3zm1 1h1v1h-1v-1zm5-2h2v2h-2v-2zm3 1h3v2h-3v-2zm-14 2h2v2h-2v-2zm3 0h2v3h-2v-3zm11 1h2v3h-2v-3zm-8 1h3v1h-3v-1zm4 1h2v2h-2v-2z"/></svg>`;
 },150);
+
+</script>
+<script>
+window.showPillWelcome=function(msg,ms){
+  const p=document.getElementById("homeCtyPill"),t=document.getElementById("hdrCurrName"),f=document.getElementById("hdrFlagSvg");
+  if(!p||!t)return;if(f)f.style.display="none";t.textContent=msg;clearTimeout(window._pwTmr);
+  window._pwTmr=setTimeout(()=>{if(f)f.style.display="";if(typeof renderAll==="function")renderAll();if(typeof window.renderCleanFlag==="function")window.renderCleanFlag();},ms||3800);
+};
+window.doLogout=function(){
+  localStorage.removeItem("zale_user");if(typeof user!=="undefined")user=null;
+  document.getElementById("appBox")?.classList.add("hide");document.getElementById("bottomNav")?.classList.add("hide");
+  document.getElementById("fabChatBtn")?.classList.add("hide");document.getElementById("authBox")?.classList.remove("hide");document.querySelectorAll("#authBox input").forEach(i=>i.value="");let zb=document.getElementById("zaleLogoutBanner");if(!zb){zb=document.createElement("div");zb.id="zaleLogoutBanner";zb.style.cssText="position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:10px 22px;border-radius:999px;font-size:13px;font-weight:800;z-index:999999;box-shadow:0 10px 28px rgba(0,0,0,.32)";document.body.appendChild(zb);}zb.textContent="✓ Signed out safely";zb.style.display="block";setTimeout(()=>zb.style.display="none",3400);setTimeout(()=>document.querySelectorAll("#authBox input").forEach(i=>i.value=""),60);let zt=document.getElementById("zaleAuthToast");if(!zt){zt=document.createElement("div");zt.id="zaleAuthToast";zt.style.cssText="position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:10px 20px;border-radius:999px;font-size:12.5px;font-weight:800;z-index:99999;box-shadow:0 10px 26px rgba(0,0,0,.28)";document.body.appendChild(zt);}zt.textContent="✓ Signed out safely";zt.style.display="block";setTimeout(()=>zt.style.display="none",3200);if(typeof toast==="function")toast("Signed out safely");
+};
+const _authSubOrig=window.handleAuthSubmit;
+window.handleAuthSubmit=function(){
+  window._justSignedUp=(typeof authMode!=="undefined"&&authMode==="up");
+  if(typeof _authSubOrig==="function")_authSubOrig();
+};
+const _entOrig5=window.enterApp;
+window.enterApp=function(){
+  if(typeof _entOrig5==="function")_entOrig5();
+  if(typeof window.syncUserUi==="function")window.syncUserUi();
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");if(!u?.name)return;
+  const nm=String(u.name).trim();
+  window.showPillWelcome(window._justSignedUp?(nm+", welcome to Zale — we're delighted to have you on board!"):("Welcome back, "+nm.split(" ").at(0)+"!"),4000);
+  window._justSignedUp=false;
+};
+window.openThumbSensorModal=function(onOk){
+  const u=JSON.parse(localStorage.getItem("zale_user")||localStorage.getItem("zale_last_user")||"null");
+  if(!u||!u.bioEnabled)return toast("Enable Fingerprint Sensor in Account first");
+  let m=document.getElementById("zaleThumbModal");if(!m){m=document.createElement("div");m.id="zaleThumbModal";m.style.cssText="position:fixed;inset:0;background:rgba(2,6,23,.82);backdrop-filter:blur(8px);z-index:9999;display:flex;align-items:center;justify-content:center;padding:18px";document.body.appendChild(m);}
+  m.classList.remove("hide");
+  m.innerHTML=`<div class="card" style="max-width:330px;width:100%;text-align:center;border-radius:24px"><div style="font-size:11px;font-weight:900;color:var(--acc);letter-spacing:.6px">OWNER BIOMETRIC SENSOR</div><h3 style="margin:6px 0 4px;font-size:18px">Place Thumb on Sensor</h3><p style="font-size:12px;color:var(--mut);margin:0 0 14px">Tap the fingerprint sensor below to verify the registered owner's hand.</p><div id="thumbScanRing" style="width:86px;height:86px;margin:0 auto 14px;border-radius:50%;background:rgba(16,185,129,.12);border:2.5px solid #10b981;display:flex;align-items:center;justify-content:center;cursor:pointer"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="1.8" stroke-linecap="round"><path d="M12 10a2 2 0 0 0-2 2c0 1.02-.1 2.51-.26 4"/><path d="M14 13.12c0 2.38 0 6.38-1 8.88"/><path d="M17.29 21.02c.12-.6.43-2.3.5-3.02"/><path d="M2 12a10 10 0 0 1 18-6"/><path d="M2 16h.01"/><path d="M21.8 16c.2-2 .131-5.354 0-6"/><path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .34-2"/><path d="M8.65 22c.21-.66.45-1.32.57-2"/><path d="M9 6.8a6 6 0 0 1 9 5.2v2"/></svg></div><button type="button" class="btn-ghost" style="width:100%;padding:10px" onclick="document.getElementById('zaleThumbModal').classList.add('hide')">Cancel</button></div>`;
+  document.getElementById("thumbScanRing").onclick=()=>{m.classList.add("hide");if(typeof window.verifyOwnerBiometric==="function")window.verifyOwnerBiometric(onOk);else if(onOk)onOk(u);};
+};
+const bioBtn=document.getElementById("zaleBioLogin");
+if(bioBtn)bioBtn.onclick=()=>window.openThumbSensorModal(u=>{localStorage.setItem("zale_user",JSON.stringify(u));if(typeof user!=="undefined")user=u;if(typeof enterApp==="function")enterApp();});
+window.setOrderStatus=function(id,st){const o=orders.find(x=>x.id===id);if(!o)return;o.status=st;localStorage.setItem("zale_orders",JSON.stringify(orders));if(typeof renderAll==="function")renderAll();toast("Order "+id+" "+st);};
+const _raAdm=window.renderAll;
+window.renderAll=function(){
+  if(typeof _raAdm==="function")_raAdm();
+  const adm=document.getElementById("admOrdersList");if(!adm)return;
+  adm.innerHTML=orders.map(o=>`<div class="acc-row"><div><b>${o.type} ($${o.usd})</b><div style="font-size:11px;color:var(--mut)">${o.id} • ${o.email} • ${o.details}</div><span class="${o.status.includes('Approved')?'pill-ok':'pill-pend'}">${o.status}</span></div><div style="display:flex;gap:5px;flex-wrap:wrap">${o.proof?`<button type="button" class="btn-ghost" style="padding:4px 7px;font-size:10.5px" onclick="window.viewOrderProof('${o.id}')">Receipt 📎</button>`:""}<button type="button" class="btn-ghost" style="padding:4px 8px;font-size:11px;color:#059669;border-color:#059669" onclick="window.setOrderStatus('${o.id}','Approved ✓')">Approve</button><button type="button" class="btn-ghost" style="padding:4px 8px;font-size:11px;color:#dc2626;border-color:#dc2626" onclick="window.setOrderStatus('${o.id}','Rejected ✕')">Reject</button></div></div>`).join("");
+};
+window.renderAll();
+
+</script>
+<script>
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button,.acc-row");if(!b)return;
+  if(/^(sign out|log out|logout)$/i.test(b.textContent.trim())){
+    e.preventDefault();e.stopImmediatePropagation();
+    localStorage.removeItem("zale_user");if(typeof user!=="undefined")user=null;
+    document.getElementById("appBox")?.classList.add("hide");document.getElementById("bottomNav")?.classList.add("hide");
+    document.getElementById("fabChatBtn")?.classList.add("hide");document.getElementById("authBox")?.classList.remove("hide");setTimeout(()=>document.querySelectorAll("#authBox input").forEach(i=>i.value=""),60);let zt=document.getElementById("zaleAuthToast");if(!zt){zt=document.createElement("div");zt.id="zaleAuthToast";zt.style.cssText="position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:10px 20px;border-radius:999px;font-size:12.5px;font-weight:800;z-index:99999;box-shadow:0 10px 26px rgba(0,0,0,.28)";document.body.appendChild(zt);}zt.textContent="✓ Signed out safely";zt.style.display="block";setTimeout(()=>zt.style.display="none",3200);
+  }
+},true);
+window.verifyOwnerBiometric=async function(onOk){
+  const u=JSON.parse(localStorage.getItem("zale_user")||localStorage.getItem("zale_last_user")||"null");
+  if(!u||!u.bioEnabled)return toast("Owner Fingerprint not enrolled — enable in Account first");
+  if(!window.PublicKeyCredential||!window.isSecureContext)return toast("Hardware Fingerprint Sensor active on live HTTPS link — use Password or PIN locally");
+  if(!u.credId)return toast("Re-enroll your thumb in Account -> Fingerprint Enabler on HTTPS");
+  try{
+    const raw=Uint8Array.from(atob(u.credId),c=>c.charCodeAt(0));
+    await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(16)),allowCredentials:[{id:raw,type:"public-key"}],userVerification:"required",timeout:30000}});
+    if(onOk)onOk(u);
+  }catch(e){toast("Wrong finger/hand rejected — only registered owner thumb allowed ✕");}
+};
+const _strictPin=window.openApplePinSheet;
+window.openApplePinSheet=function(title,onOk){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");
+  if(!u?.pin)return toast("Set your 4-digit Transaction PIN in Home -> Complete Setup first!");
+  if(typeof _strictPin==="function")_strictPin(title,onOk);
+  const sh=document.getElementById("applePinOverlay");if(!sh)return;
+  let c="";const req=String(u.pin);
+  sh.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{
+    const k=b.dataset.k;if(k==="⌫")c=c.slice(0,-1);else if(c.length<4)c+=k;
+    sh.querySelectorAll("#apPinDots span").forEach((d,i)=>d.style.background=i<c.length?"#132257":"transparent");
+    if(c.length===4){if(c!==req){c="";sh.querySelectorAll("#apPinDots span").forEach(d=>d.style.background="transparent");return toast("Wrong Transaction PIN — access denied ✕");}sh.classList.add("hide");if(onOk)onOk();}
+  });
+};
+
+</script>
+<script>
+window.showPillWelcome=function(msg,ms){
+  const p=document.getElementById("homeCtyPill"),t=document.getElementById("hdrCurrName"),f=document.getElementById("hdrFlagSvg");
+  if(!p||!t)return;const s=p.querySelector("svg:last-child");if(f)f.style.display="none";if(s&&s!==f)s.style.display="none";
+  p.style.cssText="background:linear-gradient(180deg,#1c1c1e,#000000) !important;color:#ffffff !important;border:1px solid rgba(255,255,255,.18) !important;box-shadow:0 12px 30px rgba(0,0,0,.38) !important;padding:8px 18px !important;border-radius:999px !important;transition:all .35s cubic-bezier(.22,1,.36,1)";
+  t.style.color="#ffffff";t.textContent=msg;clearTimeout(window._pwTmr);
+  window._pwTmr=setTimeout(()=>{p.removeAttribute("style");t.removeAttribute("style");if(f)f.style.display="";if(s)s.style.display="";if(typeof renderAll==="function")renderAll();},ms||4000);
+};
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button,.acc-row");if(!b)return;
+  if(/^(sign out|log out|logout)$/i.test(b.textContent.trim())){
+    e.preventDefault();e.stopImmediatePropagation();
+    localStorage.removeItem("zale_user");if(typeof user!=="undefined")user=null;
+    ["lEmail","lPass","rName","rEmail","rPhone","rPass"].forEach(id=>{const el=document.getElementById(id);if(el)el.value="";});
+    document.getElementById("appBox")?.classList.add("hide");document.getElementById("bottomNav")?.classList.add("hide");
+    document.getElementById("fabChatBtn")?.classList.add("hide");document.getElementById("authBox")?.classList.remove("hide");setTimeout(()=>document.querySelectorAll("#authBox input").forEach(i=>i.value=""),60);let zt=document.getElementById("zaleAuthToast");if(!zt){zt=document.createElement("div");zt.id="zaleAuthToast";zt.style.cssText="position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:10px 20px;border-radius:999px;font-size:12.5px;font-weight:800;z-index:99999;box-shadow:0 10px 26px rgba(0,0,0,.28)";document.body.appendChild(zt);}zt.textContent="✓ Signed out safely";zt.style.display="block";setTimeout(()=>zt.style.display="none",3200);
+    const tb=document.getElementById("toastBox");if(tb){tb.textContent="Signed out safely";tb.classList.remove("hide");setTimeout(()=>tb.classList.add("hide"),3200);}
+  }
+},true);
+
+</script>
+<script>
+const _fixFlag=()=>{const f=document.getElementById("hdrFlagSvg");if(f)f.style.cssText="width:20px;height:14px;min-width:20px;border-radius:3px;flex-shrink:0";};_fixFlag();const _raFlag=window.renderAll;window.renderAll=function(){if(typeof _raFlag==="function")_raFlag();_fixFlag();};
+</script>
+<script>
+window.showPillWelcome=function(msg,ms){
+  const p=document.getElementById("homeCtyPill"),t=document.getElementById("hdrCurrName"),f=document.getElementById("hdrFlagSvg");
+  if(!p||!t)return;if(f)f.style.display="none";
+  p.style.cssText="background:linear-gradient(180deg,#1c1c1e,#000000) !important;color:#ffffff !important;border:1px solid rgba(255,255,255,.18) !important;box-shadow:0 12px 30px rgba(0,0,0,.38) !important;padding:8px 18px !important;border-radius:999px !important";
+  t.style.color="#ffffff";t.textContent=msg;clearTimeout(window._pwTmr);
+  window._pwTmr=setTimeout(()=>{p.removeAttribute("style");t.removeAttribute("style");if(f)f.style.cssText="display:inline-block;width:20px;height:14px;min-width:20px;max-width:20px;max-height:14px;border-radius:3px;flex-shrink:0";if(typeof renderAll==="function")renderAll();if(typeof window.renderCleanFlag==="function")window.renderCleanFlag();},ms||3800);
+};
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button,.acc-row");if(!b)return;
+  if(/^(sign out|log out|logout)$/i.test(b.textContent.trim())){
+    let zt=document.getElementById("zaleAuthToast");
+    if(!zt){zt=document.createElement("div");zt.id="zaleAuthToast";zt.style.cssText="position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:10px 20px;border-radius:999px;font-size:12.5px;font-weight:800;z-index:99999;box-shadow:0 10px 26px rgba(0,0,0,.28)";document.body.appendChild(zt);}
+    zt.textContent="✓ Signed out safely";zt.style.display="block";setTimeout(()=>zt.style.display="none",3200);
+  }
+});
+
+</script>
+<script>
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button,.acc-row");if(!b)return;
+  if(/^(sign out|log out|logout)$/i.test(b.textContent.trim())){
+    let zt=document.getElementById("zaleAuthToast");
+    if(!zt){zt=document.createElement("div");zt.id="zaleAuthToast";zt.style.cssText="position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:10px 20px;border-radius:999px;font-size:12.5px;font-weight:800;z-index:99999;box-shadow:0 10px 26px rgba(0,0,0,.28)";document.body.appendChild(zt);}
+    zt.textContent="✓ Signed out safely";zt.style.display="block";setTimeout(()=>zt.style.display="none",3200);
+  }
+},true);
+
+</script>
+<script>
+window.doLogout=function(){
+  localStorage.removeItem("zale_user");if(typeof user!=="undefined")user=null;
+  document.querySelectorAll("#authBox input").forEach(i=>i.value="");
+  document.getElementById("appBox")?.classList.add("hide");document.getElementById("bottomNav")?.classList.add("hide");
+  document.getElementById("fabChatBtn")?.classList.add("hide");document.getElementById("authBox")?.classList.remove("hide");setTimeout(()=>document.querySelectorAll("#authBox input").forEach(i=>i.value=""),60);let zt=document.getElementById("zaleAuthToast");if(!zt){zt=document.createElement("div");zt.id="zaleAuthToast";zt.style.cssText="position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:10px 20px;border-radius:999px;font-size:12.5px;font-weight:800;z-index:99999;box-shadow:0 10px 26px rgba(0,0,0,.28)";document.body.appendChild(zt);}zt.textContent="✓ Signed out safely";zt.style.display="block";setTimeout(()=>zt.style.display="none",3200);
+  let zt=document.getElementById("zaleAuthToast");
+  if(!zt){zt=document.createElement("div");zt.id="zaleAuthToast";zt.style.cssText="position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:10px 20px;border-radius:999px;font-size:12.5px;font-weight:800;z-index:99999;box-shadow:0 10px 26px rgba(0,0,0,.28)";document.body.appendChild(zt);}
+  zt.textContent="✓ Signed out safely";zt.style.display="block";setTimeout(()=>zt.style.display="none",3200);
+};
+document.addEventListener("click",e=>{if(/sign out|log out/i.test(e.target.closest("button,.acc-row")?.textContent||""))window.doLogout();},true);
+
+</script>
+<script>
+window.renderCleanFlag=function(){
+  const f=document.getElementById("hdrFlagSvg");if(!f)return;
+  f.style.cssText="width:22px !important;height:15px !important;min-width:22px !important;border-radius:3px;display:inline-block !important;flex-shrink:0";
+  if((user?.cty||"ZM")==="ZM"){f.setAttribute("viewBox","0 0 24 16");f.innerHTML=`<rect width="24" height="16" fill="#198a00"/><rect x="15" y="6" width="3" height="10" fill="#de2010"/><rect x="18" y="6" width="3" height="10" fill="#000"/><rect x="21" y="6" width="3" height="10" fill="#ef7d00"/><path d="M15 3.5h9l-4.5 2z" fill="#ef7d00"/>`;}
+};
+window.renderCleanFlag();
+const _raFlag2=window.renderAll;window.renderAll=function(){if(typeof _raFlag2==="function")_raFlag2();window.renderCleanFlag();};
+document.querySelectorAll("#authBox input").forEach(i=>{i.setAttribute("autocomplete","off");i.setAttribute("autocorrect","off");});
+
+</script>
+<script>
+window.showPillWelcome=function(msg,ms){
+  const p=document.getElementById("homeCtyPill"),t=document.getElementById("hdrCurrName"),f=document.getElementById("hdrFlagSvg");
+  if(!p||!t)return;if(f)f.style.setProperty("display","none","important");
+  p.style.cssText="background:linear-gradient(180deg,#1c1c1e,#000000) !important;color:#fff !important;border:1px solid rgba(255,255,255,.18) !important;box-shadow:0 12px 30px rgba(0,0,0,.38) !important;padding:8px 18px !important;border-radius:999px !important";
+  t.style.color="#fff";t.textContent=msg;clearTimeout(window._pwTmr);
+  window._pwTmr=setTimeout(()=>{p.removeAttribute("style");t.removeAttribute("style");if(typeof renderAll==="function")renderAll();if(typeof window.renderCleanFlag==="function")window.renderCleanFlag();},ms||3800);
+};
+document.querySelectorAll("button,.acc-row").forEach(el=>{
+  if(/sign out|log out/i.test(el.textContent.trim())){
+    el.onclick=function(e){
+      e.preventDefault();e.stopPropagation();
+      localStorage.removeItem("zale_user");if(typeof user!=="undefined")user=null;
+      document.querySelectorAll("#authBox input").forEach(i=>i.value="");
+      document.getElementById("appBox")?.classList.add("hide");document.getElementById("bottomNav")?.classList.add("hide");
+      document.getElementById("fabChatBtn")?.classList.add("hide");document.getElementById("authBox")?.classList.remove("hide");
+      let zt=document.getElementById("zaleAuthToast");
+      if(!zt){zt=document.createElement("div");zt.id="zaleAuthToast";zt.style.cssText="position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:10px 20px;border-radius:999px;font-size:12.5px;font-weight:800;z-index:99999;box-shadow:0 10px 26px rgba(0,0,0,.28)";document.body.appendChild(zt);}
+      zt.textContent="✓ Signed out safely";zt.style.display="block";setTimeout(()=>zt.style.display="none",3200);
+    };
+  }
+});
+
+</script>
+<script>
+window.renderCleanFlag=function(){
+  const f=document.getElementById("hdrFlagSvg");if(!f)return;
+  f.style.cssText="width:22px !important;height:15px !important;min-width:22px !important;border-radius:3px;display:inline-block !important;flex-shrink:0";
+  f.setAttribute("viewBox","0 0 24 16");
+  f.innerHTML='<rect width="24" height="16" fill="#198a00"/><rect x="15" y="6" width="3" height="10" fill="#de2010"/><rect x="18" y="6" width="3" height="10" fill="#000"/><rect x="21" y="6" width="3" height="10" fill="#ef7d00"/><path d="M15 3.5h9l-4.5 2z" fill="#ef7d00"/>';
+};
+window.renderCleanFlag();
+window.doLogout=function(){
+  localStorage.removeItem("zale_user");if(typeof user!=="undefined")user=null;
+  document.querySelectorAll("#authBox input").forEach(i=>{i.value="";i.setAttribute("value","");});
+  document.getElementById("appBox")?.classList.add("hide");document.getElementById("bottomNav")?.classList.add("hide");
+  document.getElementById("fabChatBtn")?.classList.add("hide");document.getElementById("authBox")?.classList.remove("hide");
+  setTimeout(()=>document.querySelectorAll("#authBox input").forEach(i=>i.value=""),80);
+  let zt=document.getElementById("zaleAuthToast");
+  if(!zt){zt=document.createElement("div");zt.id="zaleAuthToast";zt.style.cssText="position:fixed;top:18px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:10px 20px;border-radius:999px;font-size:12.5px;font-weight:800;z-index:99999;box-shadow:0 10px 26px rgba(0,0,0,.28)";document.body.appendChild(zt);}
+  zt.textContent="✓ Signed out safely";zt.style.display="block";setTimeout(()=>zt.style.display="none",3200);
+};
+document.addEventListener("click",e=>{if(/sign out|log out/i.test(e.target.closest("button,.acc-row")?.textContent||""))window.doLogout();},true);
+
+</script>
+<script>
+function showZmFlag(){const f=document.getElementById("hdrFlagSvg");if(!f)return;f.setAttribute("viewBox","0 0 24 16");f.style.cssText="display:inline-block !important;width:22px !important;height:15px !important;min-width:22px !important;border-radius:3px;vertical-align:middle;flex-shrink:0";f.innerHTML='<rect width="24" height="16" fill="#198a00"/><rect x="15" y="6" width="3" height="10" fill="#de2010"/><rect x="18" y="6" width="3" height="10" fill="#000"/><rect x="21" y="6" width="3" height="10" fill="#ef7d00"/><path d="M15 3.5h9l-4.5 2z" fill="#ef7d00"/>';}setInterval(showZmFlag,600);showZmFlag();
+</script>
+<script>
+(function(){const t=document.getElementById("hdrCurrName"),p=document.getElementById("homeCtyPill");if(!t||!p)return;if(t.previousElementSibling)t.previousElementSibling.remove();const s=document.createElement("span");s.id="zaleZmFlagSpan";s.style.cssText="display:inline-flex;align-items:center;margin-right:6px;flex-shrink:0";s.innerHTML="<svg width="22" height="15" viewBox="0 0 24 16" style="border-radius:3px;display:block"><rect width="24" height="16" fill="#198a00"/><rect x="15" y="6" width="3" height="10" fill="#de2010"/><rect x="18" y="6" width="3" height="10" fill="#000"/><rect x="21" y="6" width="3" height="10" fill="#ef7d00"/><path d="M15 3.5h9l-4.5 2z" fill="#ef7d00"/></svg>";t.before(s);})();
+</script>
+<script>
+(function(){const s=document.getElementById("zaleZmFlagSpan")||document.getElementById("hdrCurrName")?.previousElementSibling;if(!s)return;s.innerHTML="";s.style.cssText="display:inline-block !important;width:22px !important;height:15px !important;min-width:22px !important;border-radius:3px;margin-right:6px;flex-shrink:0;background:#198a00 url("data:image/svg+xml;utf8,<svg xmlns='http://w3.org' viewBox='0 0 24 16'><rect width='24' height='16' fill='%23198a00'/><rect x='15' y='6' width='3' height='10' fill='%23de2010'/><rect x='18' y='6' width='3' height='10' fill='%23000'/><rect x='21' y='6' width='3' height='10' fill='%23ef7d00'/><path d='M15 3.5h9l-4.5 2z' fill='%23ef7d00'/></svg>") center/cover no-repeat";})();
+</script>
+<script>
+(function(){
+  const t=document.getElementById("hdrCurrName");if(!t)return;
+  const old=document.getElementById("zaleZmFlagSpan")||t.previousElementSibling;if(old)old.remove();
+  const f=document.createElement("span");f.id="zaleZmFlagSpan";
+  f.style.cssText="display:inline-flex;align-items:flex-end;justify-content:flex-end;width:18px;height:18px;min-width:18px;background:#198a00;border-radius:50%;border:1px solid rgba(0,0,0,.12);overflow:hidden;margin-right:6px;flex-shrink:0;position:relative";
+  f.innerHTML='<span style="position:absolute;top:2px;right:1px;width:8px;height:2px;background:#ef7d00;border-radius:1px"></span><span style="width:3px;height:9px;background:#de2010"></span><span style="width:3px;height:9px;background:#000000"></span><span style="width:3px;height:9px;background:#ef7d00"></span>';
+  t.before(f);
+})();
+
+</script>
+<script>
+(function(){
+  const f=document.getElementById("zaleZmFlagSpan");
+  if(f){
+    f.style.cssText="display:inline-flex;align-items:flex-end;justify-content:flex-end;width:18px;height:18px;min-width:18px;background:#198a00;border-radius:50%;border:1px solid rgba(0,0,0,.12);overflow:hidden;margin-right:6px;flex-shrink:0;position:relative";
+    f.innerHTML='<span style="position:absolute;top:2px;right:1px;width:8px;height:2px;background:#ef7d00;border-radius:1px"></span><span style="width:3px;height:9px;background:#de2010"></span><span style="width:3px;height:9px;background:#000000"></span><span style="width:3px;height:9px;background:#ef7d00"></span>';
+  }
+  const p=document.getElementById("lPass"),e=document.getElementById("lEmail");
+  if(p)p.setAttribute("autocomplete","new-password");
+  if(e)e.setAttribute("autocomplete","off");
+})();
+document.addEventListener("click",function(ev){
+  const el=ev.target.closest("button,.acc-row");
+  if(!el||!/sign out|log out/i.test(el.textContent||""))return;
+  ev.preventDefault();ev.stopImmediatePropagation();
+  localStorage.removeItem("zale_user");if(typeof user!=="undefined")user=null;
+  document.getElementById("appBox")?.classList.add("hide");
+  document.getElementById("bottomNav")?.classList.add("hide");
+  document.getElementById("fabChatBtn")?.classList.add("hide");
+  document.getElementById("authBox")?.classList.remove("hide");
+  document.querySelectorAll("#authBox input").forEach(i=>{i.value="";i.defaultValue="";});
+  setTimeout(()=>document.querySelectorAll("#authBox input").forEach(i=>i.value=""),120);
+  let b=document.getElementById("zaleLogoutBanner");
+  if(!b){b=document.createElement("div");b.id="zaleLogoutBanner";b.style.cssText="position:fixed;top:16px;left:50%;transform:translateX(-50%);background:#0f172a;color:#fff;padding:10px 22px;border-radius:999px;font-size:13px;font-weight:800;z-index:999999;box-shadow:0 10px 28px rgba(0,0,0,.32)";document.body.appendChild(b);}
+  b.textContent="✓ Signed out safely";b.style.display="block";setTimeout(()=>b.style.display="none",3400);
+},true);
 
 </script>
 </body>
