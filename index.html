@@ -101,6 +101,7 @@
 
   body.apple-light{--bg:#f2f2f7;--card:#ffffff;--card2:#e5e5ea;--brd:#c6c6c8;--txt:#000000;--mut:#6c6c70;--acc:#007aff;--gold:#ff9500;--obs:#007aff}
 body.dark{--bg:#000000;--card:#1c1c1e;--card2:#2c2c2e;--brd:#38383a;--txt:#ffffff;--mut:#8e8e93;--acc:#30d158;--gold:#ffd60a;--obs:#ffffff}
+ iosSheet{from{transform:translateY(100%)}to{transform:translateY(0)}} body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",sans-serif;-webkit-font-smoothing:antialiased} .mono,#homeLocalBal,#walLocalBal{font-variant-numeric:tabular-nums;letter-spacing:-.02em} [id^="tab-"]{animation:iosFade .26s cubic-bezier(.32,.72,0,1)}  iosFade{from{opacity:.65;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 </style></head>
 <body>
   <div id="zaleBootSplash"><div style="font-size:38px;font-weight:900;color:#10b981">✦ Zale</div><div style="font-size:11.5px;color:#94a3b8;margin-top:4px">Initializing Secure Desk...</div><div class="boot-bar"><div class="boot-fill"></div></div></div>
@@ -1328,6 +1329,58 @@ document.querySelectorAll("#tab-support-hub .acc-row, #tab-support-hub [onclick]
       window.openZaleArticle(k);
     };
   }
+});
+
+</script>
+<script>
+window.zaleHaptic = function(ms){ if(navigator.vibrate) navigator.vibrate(ms||10); };
+document.addEventListener("click", e=>{ if(e.target.closest("button, .chip, .qa-circle, .svc-item")) window.zaleHaptic(8); }, {passive:true});
+window.getSparkSvg = function(sym, neg){
+  const col = neg ? "#dc2626" : "#059669";
+  const pts = neg ? "2,7 12,5 22,11 32,9 42,16 52,15 62,21" : "2,20 12,17 22,18 32,12 42,13 52,7 62,4";
+  return `<svg width="64" height="24" viewBox="0 0 64 24" fill="none" style="flex-shrink:0"><polyline points="${pts}" stroke="${col}" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+};
+window.renderCoins = function(){
+  const box=document.getElementById("coinList");if(!box)return;
+  const q=(document.getElementById("coinSearchInp")?.value||"").toLowerCase();
+  const nm={"USD Tether (ERC20)":"Tether","USD Tether (TRC20)":"Tether","USD Tether (Solana)":"Tether","USD Tether (BEP20)":"Tether","BNB Smart Chain":"BNB"};
+  box.innerHTML=COINS.filter(x=>x.sym.toLowerCase().includes(q)||x.name.toLowerCase().includes(q)||x.id.toLowerCase().includes(q)).map(x=>{
+    const neg=String(x.chg).startsWith("-"),col=neg?"#dc2626":"#059669";
+    const net=x.id.includes("-")?`<span style="font-size:10px;font-weight:800;color:var(--mut);background:var(--card2);padding:1px 6px;border-radius:6px;margin-left:5px">${x.id.split("-")}</span>`:"";
+    const p="$"+(+x.price).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+    return `<div class="acc-row" style="cursor:pointer;padding:12px 2px;gap:8px" onclick="selectCoin('${x.id}')"><div style="display:flex;align-items:center;gap:11px;min-width:0;flex:1">${window.getCoinSvg(x)}<div><div style="font-weight:800;font-size:15px;display:flex;align-items:center">${x.sym}${net}</div><div style="font-size:12px;color:var(--mut);margin-top:2px">${nm[x.name]||x.name}</div></div></div>${window.getSparkSvg(x.sym,neg)}<div style="text-align:right"><div class="mono" style="font-weight:800;font-size:14.5px">${p}</div><div class="mono" style="font-size:11.5px;font-weight:700;color:${col};margin-top:2px">${x.chg}</div></div></div>`;
+  }).join("");
+};
+window.renderCoins();
+window.openApplePinSheet = function(title, onOk){
+  let sh = document.getElementById("applePinOverlay");
+  if(!sh){
+    sh = document.createElement("div"); sh.id = "applePinOverlay";
+    sh.style.cssText = "position:fixed;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(6px);z-index:9999;display:flex;align-items:flex-end;justify-content:center";
+    document.body.appendChild(sh);
+  }
+  let code = "";
+  sh.classList.remove("hide");
+  sh.innerHTML = `<div style="width:100%;max-width:440px;background:var(--card);border-radius:28px 28px 0 0;padding:14px 20px 28px;box-shadow:0 -12px 40px rgba(0,0,0,.28);animation:iosSheet .34s cubic-bezier(.32,.72,0,1)">
+    <div style="width:38px;height:4.5px;border-radius:99px;background:var(--brd);margin:0 auto 14px"></div>
+    <div class="row" style="margin-bottom:8px"><b style="font-size:16px">${title||"Authorize with Zale PIN"}</b><button type="button" class="btn-ghost" style="padding:4px 10px;font-size:11px" onclick="document.getElementById('applePinOverlay').classList.add('hide')">Cancel</button></div>
+    <div style="font-size:12px;color:var(--mut);margin-bottom:14px">Enter your 4-digit Transaction PIN or tap Biometric ID</div>
+    <div id="apPinDots" style="display:flex;justify-content:center;gap:14px;margin-bottom:18px">${[0,1,2,3].map(()=>`<span style="width:14px;height:14px;border-radius:50%;border:2px solid #132257;display:inline-block"></span>`).join("")}</div>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;max-width:270px;margin:0 auto">${[1,2,3,4,5,6,7,8,9,"Bio",0,"⌫"].map(k=>`<button type="button" class="btn-ghost" style="padding:13px;font-size:17px;font-weight:800;border-radius:14px" data-k="${k}">${k==="Bio"?"Touch ID":k}</button>`).join("")}</div>
+  </div>`;
+  const upd = () => {
+    sh.querySelectorAll("#apPinDots span").forEach((d,i)=>d.style.background = i<code.length ? "#132257" : "transparent");
+    if(code.length===4){ window.zaleHaptic(18); sh.classList.add("hide"); if(onOk) onOk(); }
+  };
+  sh.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{
+    const k=b.dataset.k; window.zaleHaptic(10);
+    if(k==="Bio"){ sh.classList.add("hide"); if(onOk) onOk(); }
+    else if(k==="⌫"){ code=code.slice(0,-1); upd(); }
+    else if(code.length<4){ code+=k; upd(); }
+  });
+};
+["submitWithdraw","submitXborder"].forEach(fn=>{
+  if(typeof window[fn]==="function"){ const orig=window[fn]; window[fn]=function(){ window.openApplePinSheet("Confirm Zale Transfer",()=>orig()); }; }
 });
 
 </script>
