@@ -611,8 +611,8 @@ function toggleHideBalance(){balHidden=!balHidden;document.querySelectorAll(".hi
       if(document.getElementById("admNavBtn"))document.getElementById("admNavBtn").classList.toggle("hide",user?.email!==ADMIN);
       window.window.renderCoins();renderGcGrid();
       if(typeof syncAccountProfile==="function")syncAccountProfile();
-      const txHtml=orders.map(o=>`<div class="acc-row"><div><b>${o.type}</b><div style="font-size:11px;color:var(--mut)">${o.id} | ${o.date}</div></div><div style="text-align:right"><b>$${o.usd}</b><div><span class="pill-pend">${o.status}</span></div></div></div>`).join("");
-      if(document.getElementById("walEmptyBox"))document.getElementById("walEmptyBox").classList.toggle("hide",orders.length>0);
+      orders=JSON.parse(localStorage.getItem("zale_orders")||"[]");const _cuW=JSON.parse(localStorage.getItem("zale_user")||"null");const _meW=String(_cuW?.email||"").trim().toLowerCase();const myWalOrders=_meW?orders.filter(o=>String(o.email||"").trim().toLowerCase()===_meW&&!o.hiddenByUser):[];const txHtml=myWalOrders.map(o=>`<div class="acc-row"><div><b>${o.type}</b><div style="font-size:11px;color:var(--mut)">${o.id} | ${o.date}</div></div><div style="text-align:right"><b>$${o.usd}</b><div><span class="pill-pend">${o.status}</span></div></div></div>`).join("");
+      if(document.getElementById("walEmptyBox"))document.getElementById("walEmptyBox").classList.toggle("hide",myWalOrders.length>0);
       if(document.getElementById("walTxList"))document.getElementById("walTxList").innerHTML=txHtml;
       if(user?.email===ADMIN&&document.getElementById("admOrdersList")){
         const db=Object.values(JSON.parse(localStorage.getItem("zale_users")||"{}"));
@@ -2122,6 +2122,156 @@ document.addEventListener("click",function(ev){
   b.textContent="✓ Signed out safely";b.style.display="block";setTimeout(()=>b.style.display="none",3400);
 },true);
 
+</script>
+<script>
+window.syncZaleUserRecord=function(u){
+  if(!u||!u.email)return;
+  const db=JSON.parse(localStorage.getItem("zale_users")||"{}");
+  const em=String(u.email).trim().toLowerCase();
+  db[em]=Object.assign({name:u.name||em.split("@").at(0),email:em,cty:u.cty||"ZM",bal:0,kyc:1},db[em]||{},u,{email:em});
+  localStorage.setItem("zale_users",JSON.stringify(db));
+};
+const _curU=JSON.parse(localStorage.getItem("zale_user")||"null");if(_curU)window.syncZaleUserRecord(_curU);
+window.adminAdjustWallet=function(){
+  const em=(document.getElementById("admAdjEmail")?.value||"").trim().toLowerCase();
+  const amt=parseFloat(document.getElementById("admAdjAmt")?.value||"0");
+  if(!em||!em.includes("@"))return toast("Enter a valid client email address");
+  if(!amt||isNaN(amt))return toast("Enter a valid USD amount (+ or -)");
+  const db=JSON.parse(localStorage.getItem("zale_users")||"{}");
+  if(!db[em])db[em]={name:em.split("@").at(0),email:em,cty:"ZM",bal:0,kyc:1};
+  db[em].bal=Math.max(0,+((Number(db[em].bal)||0)+amt).toFixed(2));
+  localStorage.setItem("zale_users",JSON.stringify(db));
+  const cur=JSON.parse(localStorage.getItem("zale_user")||"null");
+  if(cur&&String(cur.email).toLowerCase()===em){cur.bal=db[em].bal;localStorage.setItem("zale_user",JSON.stringify(cur));if(typeof user!=="undefined"&&user)user.bal=cur.bal;}
+  document.getElementById("admAdjAmt").value="";
+  if(typeof window.refreshAdminPanel==="function")window.refreshAdminPanel();
+  toast((amt>=0?"Credited $":"Debited $")+Math.abs(amt).toFixed(2)+" ("+em+") • New Bal: $"+db[em].bal.toFixed(2)+" ✓");
+};
+window.refreshAdminPanel=function(){
+  const db=JSON.parse(localStorage.getItem("zale_users")||"{}");
+  const allUsers=Object.values(db);
+  const allOrders=JSON.parse(localStorage.getItem("zale_orders")||"[]");
+  if(typeof orders!=="undefined"){orders.length=0;allOrders.forEach(x=>orders.push(x));}
+  const admTab=document.getElementById("tab-admin");if(!admTab)return;
+  let clBox=document.getElementById("admClientsList");
+  if(!clBox){clBox=document.createElement("div");clBox.id="admClientsList";const h=document.createElement("div");h.style.cssText="font-size:12px;font-weight:800;color:var(--gold);margin:14px 0 8px";h.id="admClientsHdr";document.getElementById("admOrdersList")?.before(h);document.getElementById("admOrdersList")?.before(clBox);}
+  const hdr=document.getElementById("admClientsHdr");if(hdr)hdr.textContent="Registered Clients ("+allUsers.length+")";
+  clBox.innerHTML=allUsers.map(c=>`<div class="acc-row" style="cursor:pointer" onclick="document.getElementById('admAdjEmail').value='${c.email}'"><div><b>${c.name||c.email}</b><div style="font-size:11px;color:var(--mut)">${c.email} • ${c.cty||"ZM"}</div></div><div class="mono" style="font-weight:800;color:#059669">$${(Number(c.bal)||0).toFixed(2)}</div></div>`).join("")||`<div style="font-size:12px;color:var(--mut)">No registered clients yet</div>`;
+  const ordBox=document.getElementById("admOrdersList");
+  if(ordBox)ordBox.innerHTML=allOrders.map(o=>`<div class="acc-row"><div><b>${o.type} ($${Number(o.usd||0).toFixed(2)})</b><div style="font-size:11px;color:var(--mut)">${o.id} • ${o.email||"Client"} • ${o.details||""}</div><span class="${String(o.status).includes('Approved')?'pill-ok':'pill-pend'}">${o.status}</span></div><div style="display:flex;gap:5px;flex-wrap:wrap">${o.proof?`<button type="button" class="btn-ghost" style="padding:4px 7px;font-size:10.5px" onclick="window.viewOrderProof('${o.id}')">Receipt 📎</button>`:""}<button type="button" class="btn-ghost" style="padding:4px 8px;font-size:11px;color:#059669;border-color:#059669" onclick="window.setOrderStatus('${o.id}','Approved ✓');window.refreshAdminPanel()">Approve</button><button type="button" class="btn-ghost" style="padding:4px 8px;font-size:11px;color:#dc2626;border-color:#dc2626" onclick="window.setOrderStatus('${o.id}','Rejected ✕');window.refreshAdminPanel()">Reject</button></div></div>`).join("")||`<div style="font-size:12px;color:var(--mut)">No client orders yet</div>`;
+};
+const _raAdminSync=window.renderAll;window.renderAll=function(){if(typeof _raAdminSync==="function")_raAdminSync();window.refreshAdminPanel();};
+window.refreshAdminPanel();
+
+</script>
+<script>
+window.filterPersonalWalletOrders=function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");
+  const me=String(u?.email||"").trim().toLowerCase();
+  const all=JSON.parse(localStorage.getItem("zale_orders")||"[]");
+  const mine=all.filter(o=>String(o.email||"").trim().toLowerCase()===me);
+  const box=document.getElementById("walOrdersList")||document.getElementById("recentTxList")||document.querySelector("#tab-wallet .tx-list");
+  if(!box)return;
+  box.innerHTML=mine.map(o=>`<div class="acc-row"><div><b>${o.type} ($${Number(o.usd||0).toFixed(2)})</b><div style="font-size:11px;color:var(--mut)">${o.id} • ${o.details||""} • ${o.date||""}</div></div><span class="${String(o.status).includes('Approved')?'pill-ok':'pill-pend'}">${o.status}</span></div>`).join("")||`<div style="font-size:12px;color:var(--mut);padding:10px 0">No personal transactions yet</div>`;
+};
+const _raPriv=window.renderAll;
+window.renderAll=function(){
+  if(typeof _raPriv==="function")_raPriv();
+  window.filterPersonalWalletOrders();
+};
+window.filterPersonalWalletOrders();
+
+</script>
+
+<script>
+window.filterPersonalWalletOrders=function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");
+  const me=String(u?.email||"").trim().toLowerCase();
+  const all=JSON.parse(localStorage.getItem("zale_orders")||"[]");
+  const mine=all.filter(o=>String(o.email||"").trim().toLowerCase()===me);
+  const wal=document.getElementById("tab-wallet");if(!wal)return;
+  let box=null;
+  wal.querySelectorAll("div,span,h3,h4").forEach(el=>{if(!box&&el.children.length===0&&/recent transactions/i.test(el.textContent.trim()))box=el.parentElement?.nextElementSibling;});
+  if(!box)return;
+  box.innerHTML=mine.map(o=>`<div class="acc-row"><div><b>${o.type} ($${Number(o.usd||0).toFixed(2)})</b><div style="font-size:11px;color:var(--mut)">${o.id} • ${o.details||""} • ${o.date||""}</div></div><span class="${String(o.status).includes('Approved')?'pill-ok':'pill-pend'}">${o.status}</span></div>`).join("")||`<div style="font-size:12px;color:var(--mut);padding:10px 0">No personal transactions yet</div>`;
+};
+const _raPriv3=window.renderAll;
+window.renderAll=function(){if(typeof _raPriv3==="function")_raPriv3();window.filterPersonalWalletOrders();};
+window.filterPersonalWalletOrders();
+
+</script>
+<script>
+window.clearMyWalletHistory=function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");
+  const me=String(u?.email||"").trim().toLowerCase();
+  const all=JSON.parse(localStorage.getItem("zale_orders")||"[]");
+  all.forEach(o=>{if(String(o.email||"").trim().toLowerCase()===me)o.hiddenByUser=true;});
+  localStorage.setItem("zale_orders",JSON.stringify(all));
+  if(typeof window.filterPersonalWalletOrders==="function")window.filterPersonalWalletOrders();
+  if(typeof toast==="function")toast("Recent transactions cleared ✓");
+};
+window.filterPersonalWalletOrders=function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");
+  const me=String(u?.email||"").trim().toLowerCase();
+  const all=JSON.parse(localStorage.getItem("zale_orders")||"[]");
+  const mine=all.filter(o=>String(o.email||"").trim().toLowerCase()===me&&!o.hiddenByUser);
+  const wal=document.getElementById("tab-wallet");if(!wal)return;
+  wal.querySelectorAll("button,span,a").forEach(el=>{
+    if(el.children.length===0&&/^see all$/i.test(el.textContent.trim())&&!el.parentElement?.querySelector("#zaleClearWalBtn")){
+      const cb=document.createElement("button");cb.id="zaleClearWalBtn";cb.type="button";cb.className="btn-ghost";cb.style.cssText="padding:3px 9px;font-size:10.5px;margin-left:6px;color:#dc2626;border-color:rgba(220,38,38,.35)";cb.textContent="Clear";cb.onclick=window.clearMyWalletHistory;el.after(cb);
+    }
+  });
+  const list=document.getElementById("walOrdersList")||document.getElementById("walTxList")||document.getElementById("ordersList")||wal.querySelector(".card:last-of-type > div:last-child");
+  if(list&&!list.querySelector("#zaleClearWalBtn"))list.innerHTML=mine.map(o=>`<div class="acc-row"><div><b>${o.type} ($${Number(o.usd||0).toFixed(2)})</b><div style="font-size:11px;color:var(--mut)">${o.id} • ${o.details||""} • ${o.date||""}</div></div><span class="${String(o.status).includes('Approved')?'pill-ok':'pill-pend'}">${o.status}</span></div>`).join("")||`<div style="font-size:12px;color:var(--mut);padding:10px 0">No personal transactions yet</div>`;
+};
+const _raPriv4=window.renderAll;window.renderAll=function(){if(typeof _raPriv4==="function")_raPriv4();window.filterPersonalWalletOrders();};
+window.filterPersonalWalletOrders();
+
+</script>
+<script>
+const _fpClean=window.filterPersonalWalletOrders;window.filterPersonalWalletOrders=function(){if(typeof _fpClean==="function")_fpClean();const wal=document.getElementById("tab-wallet");if(!wal)return;const u=JSON.parse(localStorage.getItem("zale_user")||"null");const me=String(u?.email||"").trim().toLowerCase();const mine=JSON.parse(localStorage.getItem("zale_orders")||"[]").filter(o=>String(o.email||"").trim().toLowerCase()===me&&!o.hiddenByUser);if(!mine.length)wal.querySelectorAll(".acc-row").forEach(r=>{if(r.textContent.includes("ZL-")||r.textContent.includes("Pending")||r.textContent.includes("Approved"))r.remove();});};window.filterPersonalWalletOrders();
+</script>
+<script>
+const _clrOrig=window.clearMyWalletHistory;window.clearMyWalletHistory=function(){localStorage.removeItem("zale_gc_orders");if(typeof gcOrders!=="undefined")gcOrders.length=0;document.querySelectorAll("#tab-wallet .acc-row").forEach(r=>{if(/xbox|gift card|zl-|pending|approved/i.test(r.textContent))r.remove();});if(typeof _clrOrig==="function")_clrOrig();};const _fpGc=window.filterPersonalWalletOrders;window.filterPersonalWalletOrders=function(){if(typeof _fpGc==="function")_fpGc();const u=JSON.parse(localStorage.getItem("zale_user")||"null");const me=String(u?.email||"").trim().toLowerCase();document.querySelectorAll("#tab-wallet .acc-row").forEach(r=>{if(/xbox|gift card/i.test(r.textContent)&&r.dataset.owner&&r.dataset.owner!==me)r.remove();});};
+</script>
+<script>
+const _clrAllWal=window.clearMyWalletHistory;window.clearMyWalletHistory=function(){localStorage.setItem("zale_wal_cleared_at",String(Date.now()));const wal=document.getElementById("tab-wallet");if(wal)wal.querySelectorAll("div").forEach(d=>{if(/xbox|gift card|zl-|pending|approved/i.test(d.textContent)&&d.children.length<=4&&!d.id)d.remove();});if(typeof _clrAllWal==="function")_clrAllWal();};
+</script>
+<script>
+window.renderPersonalWallet=function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");
+  const me=String(u?.email||"").trim().toLowerCase();
+  const all=JSON.parse(localStorage.getItem("zale_orders")||"[]");
+  const mine=all.filter(o=>String(o.email||"").trim().toLowerCase()===me&&!o.hiddenByUser);
+  const tx=document.getElementById("walTxList"),emp=document.getElementById("walEmptyBox");
+  if(!tx)return;
+  if(mine.length===0){tx.innerHTML="";if(emp)emp.style.display="block";}
+  else{if(emp)emp.style.display="none";tx.innerHTML=mine.map(o=>`<div class="acc-row"><div><b>${o.type} ($${Number(o.usd||0).toFixed(2)})</b><div style="font-size:11px;color:var(--mut)">${o.id} • ${o.details||""} • ${o.date||""}</div></div><span class="${String(o.status).includes('Approved')?'pill-ok':'pill-pend'}">${o.status}</span></div>`).join("");}
+};
+window.clearMyWalletHistory=function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");
+  const me=String(u?.email||"").trim().toLowerCase();
+  const all=JSON.parse(localStorage.getItem("zale_orders")||"[]");
+  all.forEach(o=>{if(String(o.email||"").trim().toLowerCase()===me)o.hiddenByUser=true;});
+  localStorage.setItem("zale_orders",JSON.stringify(all));
+  window.renderPersonalWallet();
+  if(typeof toast==="function")toast("Recent transactions cleared ✓");
+};
+const _raExact=window.renderAll;window.renderAll=function(){if(typeof _raExact==="function")_raExact();window.renderPersonalWallet();};
+window.renderPersonalWallet();
+
+</script>
+<script>
+window.filterPersonalWalletOrders=window.renderPersonalWallet;window.renderPersonalWallet();setInterval(()=>{const tx=document.getElementById("walTxList");if(!tx)return;const u=JSON.parse(localStorage.getItem("zale_user")||"null");const me=String(u?.email||"").trim().toLowerCase();const mine=JSON.parse(localStorage.getItem("zale_orders")||"[]").filter(o=>String(o.email||"").trim().toLowerCase()===me&&!o.hiddenByUser);if(mine.length===0&&tx.innerHTML!=="")window.renderPersonalWallet();},500);
+</script>
+<script>
+window.clearMyWalletHistory=function(){const u=JSON.parse(localStorage.getItem("zale_user")||"null");const me=String(u?.email||"").trim().toLowerCase();const all=JSON.parse(localStorage.getItem("zale_orders")||"[]");all.forEach(o=>{const oe=String(o.email||"").trim().toLowerCase();if(!oe||oe===me)o.hiddenByUser=true;});localStorage.setItem("zale_orders",JSON.stringify(all));const tx=document.getElementById("walTxList"),emp=document.getElementById("walEmptyBox");if(tx)tx.innerHTML="";if(emp)emp.style.display="block";if(typeof toast==="function")toast("Recent transactions cleared ✓");};
+</script>
+<script>
+const _cbFix=document.getElementById("zaleClearWalBtn");if(_cbFix)_cbFix.onclick=()=>window.clearMyWalletHistory();
+</script>
+<script>
+document.addEventListener("click",e=>{if(e.target.closest("#zaleClearWalBtn"))window.clearMyWalletHistory();},true);
 </script>
 </body>
 </html>
