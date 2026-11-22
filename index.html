@@ -99,7 +99,9 @@
 
 
 
-  </style>""</head>
+  body.apple-light{--bg:#f2f2f7;--card:#ffffff;--card2:#e5e5ea;--brd:#c6c6c8;--txt:#000000;--mut:#6c6c70;--acc:#007aff;--gold:#ff9500;--obs:#007aff}
+body.dark{--bg:#000000;--card:#1c1c1e;--card2:#2c2c2e;--brd:#38383a;--txt:#ffffff;--mut:#8e8e93;--acc:#30d158;--gold:#ffd60a;--obs:#ffffff}
+</style></head>
 <body>
   <div id="zaleBootSplash"><div style="font-size:38px;font-weight:900;color:#10b981">✦ Zale</div><div style="font-size:11.5px;color:#94a3b8;margin-top:4px">Initializing Secure Desk...</div><div class="boot-bar"><div class="boot-fill"></div></div></div>
   <div id="toastBox" class="hide"></div>
@@ -118,7 +120,7 @@
       </div>
       <input id="lEmail" type="email" placeholder="Email Address" />
       <input id="lPass" type="password" placeholder="Password (min 6 characters)" />
-      <button id="authSubmitBtn" class="btn" style="margin-top:12px" onclick="handleAuthSubmit()">Sign In to Zale</button>
+      <button id="authSubmitBtn" class="btn" style="margin-top:14px" onclick="handleAuthSubmit()">Sign In to Zale</button>
     </div>
   </div>
   <div id="appBox" class="wrap hide"><div id="tab-home">
@@ -217,8 +219,7 @@
     </div>
 
 <div id="tab-trade" class="hide">
-      <div class="card"><div class="row" style="margin-bottom:4px"><h2 style="margin:0;font-size:18px">Trade Coins</h2><span class="pill-ok">&#9679; Live Market</span></div><input id="coinSearchInp" placeholder="Search for a coin (e.g. BTC, USDT, TRC20)" oninput="renderCoins()" style="margin:6px 0 10px" /><div class="row" style="margin-bottom:8px"><span style="font-size:11.5px;font-weight:700;color:var(--mut)">Live Spot &amp; Instant Desk</span><span id="liveRateStatus" class="pill-ok" style="cursor:pointer" onclick="fetchLiveMarketRates(true)">● Live Market ↻</span></div>
-        <div id="coinList"></div></div>
+      <div class="card"><div class="row" style="margin-bottom:4px"><h2 style="margin:0;font-size:18px">Trade Coins</h2></div><div style="position:relative;margin-bottom:10px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;left:13px;top:50%;transform:translateY(-50%);pointer-events:none"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input id="coinSearchInp" oninput="window.renderCoins()" placeholder="Search for any coin (BTC, SOL...)" style="margin:0;padding:11px 14px 11px 38px;border:1.5px solid #94a3b8;border-radius:13px;background:var(--card);color:var(--txt);font-size:13.5px;font-weight:600" /></div><div id="coinList"></div></div>
       <div id="coinTradeBox" class="card hide" style="border-color:#0d9488;scroll-margin-top:20px">
         <div class="row" style="margin-bottom:8px"><h3 id="ctTitle" style="margin:0;font-size:16px;color:var(--obs)">Trade Asset</h3><button class="btn-ghost" style="padding:4px 9px;font-size:11px" onclick="document.getElementById('coinTradeBox').classList.add('hide')">Close</button></div>
         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin-bottom:8px">
@@ -266,12 +267,12 @@
         <div id="tab-giftcards" class="hide"><div class="card">
         <div class="row" style="margin-bottom:4px"><h2 style="margin:0;font-size:18px">Trade Gift Card</h2><span id="gcHistBadge" style="font-size:11px;color:var(--acc);font-weight:800">Transaction History (0)</span></div>
         <div style="font-size:12px;color:var(--mut);margin-bottom:8px">Tap any gift card brand below to open instant payout valuation</div>
-        <input id="gcSearchInp" placeholder="Search for a card (Apple, Amazon, Steam...)" oninput="renderGcGrid()" style="margin-bottom:8px" />
+        <div style="position:relative;margin-bottom:10px"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="#64748b" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="position:absolute;left:13px;top:50%;transform:translateY(-50%);pointer-events:none"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg><input id="gcSearchInp" oninput="renderGcGrid()" placeholder="Search for a card (Apple, Amazon...)" style="margin:0;padding:11px 14px 11px 38px;border:1.5px solid #94a3b8;border-radius:13px;background:var(--card);color:var(--txt);font-size:13.5px;font-weight:600" /></div>
         <div style="display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:8px">
-          <button type="button" id="gcf-all" class="chip on" style="padding:5px 10px;font-size:10.5px" onclick="setGcFilter('all')">ALL</button>
-          <button type="button" id="gcf-trend" class="chip" style="padding:5px 10px;font-size:10.5px" onclick="setGcFilter('trend')">TRENDING</button>
-          <button type="button" id="gcf-top" class="chip" style="padding:5px 10px;font-size:10.5px" onclick="setGcFilter('top')">TOP CARDS</button>
-          <button type="button" id="gcf-high" class="chip" style="padding:5px 10px;font-size:10.5px" onclick="setGcFilter('high')">HIGHEST RATE</button>
+          <button type="button" id="gcf-all" class="chip on" style="padding:5px 10px;font-size:10.5px" onclick="window.setGcFilter('all')">ALL</button>
+          <button type="button" id="gcf-trend" class="chip" style="padding:5px 10px;font-size:10.5px" onclick="window.setGcFilter('trend')">TRENDING</button>
+          <button type="button" id="gcf-top" class="chip" style="padding:5px 10px;font-size:10.5px" onclick="window.setGcFilter('top')">TOP CARDS</button>
+          <button type="button" id="gcf-high" class="chip" style="padding:5px 10px;font-size:10.5px" onclick="window.setGcFilter('high')">HIGHEST RATE</button>
         </div>
         <div id="gcBrandGrid" style="display:grid;grid-template-columns:1fr 1fr;gap:9px"></div>
       </div>
@@ -314,7 +315,7 @@
         <div class="acc-row" style="cursor:pointer" onclick="nav('password')"><span>Change Password</span><span style="color:#132257;font-weight:700">Update &rarr;</span></div>
         <div class="acc-row" style="cursor:pointer" onclick="nav('2fa')"><span>Two-Factor Authentication (2FA)</span><span id="tfaStatusBadge" style="color:#132257;font-weight:700">Setup 2FA &rarr;</span></div>
         <div class="acc-row" style="cursor:pointer" onclick="nav('biometric')"><span>Fingerprint Enabler</span><span id="bioStatusBadge" style="color:#132257;font-weight:700">Scan &rarr;</span></div>
-        <div class="acc-row"><span>Theme Mode</span><select id="themeSel" onchange="setTheme(this.value)" style="width:auto;margin:0;padding:5px 10px;font-size:12px"><option value="light">Light Mode</option><option value="alabaster">Alabaster &amp; Emerald</option><option value="sovereign">Midnight Sovereign</option><option value="dark">Dark Mode</option><option value="system">System Mode</option></select></div>
+        <div class="acc-row"><span>Theme Mode</span><select id="themeSel" onchange="window.setTheme(this.value)" style="width:auto;margin:0;padding:5px 10px;font-size:12px"><option value="light">Zale Crisp Light</option><option value="apple-light">Apple iOS Light</option><option value="alabaster">Alabaster &amp; Emerald</option><option value="sovereign">Midnight Sovereign</option><option value="dark">Apple OLED Dark</option><option value="system">System Mode</option></select></div>
       </div>
 
       <div class="card">
@@ -343,9 +344,9 @@
     </div>
 
     <div id="tab-limits" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Account</button><span id="kycBadge" class="pill-pend">Tier 1 Active</span></div><div class="card"><h2 style="margin:0 0 4px;font-size:19px">Transfer Limit</h2><p style="font-size:11.5px;color:var(--mut);margin:0 0 12px">Daily transaction limits based on your country &amp; verification tier:</p><div id="dailyLimitsList"></div><button class="btn" style="margin-top:14px" onclick="handleIncreaseLimits()">Increase Transfer Limits</button></div></div>
-    <div id="tab-kyc" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Account</button><span style="font-size:11px;color:var(--acc);font-weight:800">Tier 2 Identity Check</span></div><div class="card" style="border-color:rgba(16,185,129,.45)"><h2 style="margin:0 0 6px;font-size:18px">Upgrade to Tier 2 (Camera &amp; Facial KYC)</h2><p style="font-size:12px;color:var(--mut);margin:0 0 10px">Complete all 4 steps below using your phone camera to unlock full daily limits:</p><input id="kycIdInp" placeholder="1. Enter NRC / National ID / Passport Number" /><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px"><div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:8px"><div style="font-size:10.5px;font-weight:800;color:var(--acc);margin-bottom:4px">2. Front of ID</div><input id="kycFrontInp" type="file" accept="image/*" capture="environment" style="padding:4px;font-size:10px" onchange="handleKycCam('front',this)" /><img id="kycFrontPrev" class="hide" style="width:100%;height:65px;object-fit:cover;border-radius:8px;margin-top:5px" /></div><div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:8px"><div style="font-size:10.5px;font-weight:800;color:var(--acc);margin-bottom:4px">3. Back of ID</div><input id="kycBackInp" type="file" accept="image/*" capture="environment" style="padding:4px;font-size:10px" onchange="handleKycCam('back',this)" /><img id="kycBackPrev" class="hide" style="width:100%;height:65px;object-fit:cover;border-radius:8px;margin-top:5px" /></div></div><div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:9px;margin-top:8px"><div style="font-size:11px;font-weight:800;color:var(--gold);margin-bottom:4px">4. Live Facial / Selfie Capture (Front Camera)</div><input id="kycFaceInp" type="file" accept="image/*" capture="user" style="padding:5px;font-size:10.5px" onchange="handleKycCam('face',this)" /><img id="kycFacePrev" class="hide" style="width:72px;height:72px;object-fit:cover;border-radius:50%;margin-top:6px;border:2px solid var(--acc)" /></div><button class="btn" style="margin-top:12px" onclick="submitKycV3()">Verify Front, Back ID &amp; Face</button></div></div>
+    <div id="tab-kyc" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Account</button><span style="font-size:11px;color:var(--acc);font-weight:800">Tier 2 Identity Check</span></div><div class="card" style="border-color:rgba(16,185,129,.45)"><h2 style="margin:0 0 6px;font-size:18px">Upgrade to Tier 2 (Camera &amp; Facial KYC)</h2><p style="font-size:12px;color:var(--mut);margin:0 0 10px">Complete all 4 steps below using your phone camera to unlock full daily limits:</p><input id="kycIdInp" placeholder="1. Enter NRC / National ID / Passport Number" /><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px"><div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:8px"><div style="font-size:10.5px;font-weight:800;color:var(--acc);margin-bottom:4px">2. Front of ID</div><input id="kycFrontInp" type="file" accept="image/*" capture="environment" style="padding:4px;font-size:10px" onchange="handleKycCam('front',this)" /><img id="kycFrontPrev" class="hide" style="width:100%;height:65px;object-fit:cover;border-radius:8px;margin-top:5px" /></div><div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:8px"><div style="font-size:10.5px;font-weight:800;color:var(--acc);margin-bottom:4px">3. Back of ID</div><input id="kycBackInp" type="file" accept="image/*" capture="environment" style="padding:4px;font-size:10px" onchange="handleKycCam('back',this)" /><img id="kycBackPrev" class="hide" style="width:100%;height:65px;object-fit:cover;border-radius:8px;margin-top:5px" /></div></div><div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:9px;margin-top:8px"><div style="font-size:11px;font-weight:800;color:var(--gold);margin-bottom:4px">4. Live Facial / Selfie Capture (Front Camera)</div><input id="kycFaceInp" type="file" accept="image/*" capture="user" style="padding:5px;font-size:10.5px" onchange="handleKycCam('face',this)" /><img id="kycFacePrev" class="hide" style="width:72px;height:72px;object-fit:cover;border-radius:50%;margin-top:6px;border:2px solid var(--acc)" /></div><button class="btn" style="margin-top:14px" onclick="submitKycV3()">Verify Front, Back ID &amp; Face</button></div></div>
     <div id="tab-password" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Account</button><span style="font-size:11px;color:var(--acc);font-weight:800">Account Security</span></div><div class="card"><h2 style="margin:0 0 12px;font-size:19px">Update Password</h2><div style="font-size:11.5px;font-weight:800;color:var(--mut)">Current Password</div><input id="curPwInp" type="password" placeholder="Enter current password" style="margin-top:4px;margin-bottom:10px" /><div style="font-size:11.5px;font-weight:800;color:var(--mut)">New Password</div><input id="newPwInp1" type="password" placeholder="Enter new password" style="margin-top:4px;margin-bottom:10px" /><div style="font-size:11.5px;font-weight:800;color:var(--mut)">Re-enter Password</div><input id="newPwInp2" type="password" placeholder="Re-enter password" style="margin-top:4px;margin-bottom:14px" /><button class="btn" onclick="saveNewPasswordInline()">Update</button></div></div>
-    <div id="tab-2fa" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Security</button><span style="font-size:11px;color:var(--acc);font-weight:800">2FA Protection</span></div><div id="tfaStep1" class="card"><h2 style="margin:0 0 6px;font-size:19px">Secure your account</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 14px">Add a second step when signing in to keep your account safe. Choose how you'd like to confirm it's you.</p><div style="border:1.5px solid var(--acc);background:rgba(16,185,129,.07);border-radius:14px;padding:14px"><span style="display:inline-block;background:var(--acc);color:#03120e;font-size:10px;font-weight:900;padding:3px 8px;border-radius:6px;margin-bottom:8px">RECOMMENDED</span><div style="font-size:15px;font-weight:800">Authenticator App</div><p style="font-size:12px;color:var(--mut);margin:5px 0 12px">Generate codes with Google Authenticator, Authy, or similar. Works offline and is the most secure.</p><button class="btn" style="padding:11px" onclick="show2faStep(2)">Authenticator App →</button></div><div onclick="show2faStep('email')" style="border:1.5px solid var(--brd);background:var(--card2);border-radius:14px;padding:14px;margin-top:10px;cursor:pointer"><div style="font-size:15px;font-weight:800">Email</div><p style="font-size:12px;color:var(--mut);margin:5px 0 10px">Receive a one-time code by email at sign in.</p><button type="button" class="btn-ghost" style="width:100%;padding:10px;font-size:12px">Email OTP →</button></div></div><div id="tfaStep2" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Authenticator App</h2><div class="acc-row"><b>Google Authenticator</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('google')">Get</button></div><div class="acc-row"><b>Authy</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('authy')">Get</button></div><div class="acc-row"><b>Microsoft Authenticator</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('ms')">Get</button></div><button class="btn" style="margin-top:12px" onclick="show2faStep(3)">I have an app, continue</button></div><div id="tfaStep3" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Link Authenticator</h2><div class="row" style="background:var(--card2);padding:10px;border-radius:10px;margin:10px 0"><code class="mono" style="font-size:12px;color:var(--gold);font-weight:800">ZALE-2FA9-K84M-77XQ</code><button class="btn-ghost" style="padding:4px 8px;font-size:10.5px" onclick="copyVal('ZALE2FA9K84M77XQ','Setup Key')">Copy Key</button></div><button class="btn" onclick="show2faStep(4)">Continue</button></div><div id="tfaStep4" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Enter 6-Digit Code</h2><input id="tfaCodeInp" type="text" maxlength="6" placeholder="000000" class="mono" style="text-align:center;font-size:22px;letter-spacing:8px;font-weight:800" /><button class="btn" style="margin-top:12px" onclick="confirmEnable2fa()">Enable 2FA</button></div><div id="tfaStepemail" class="card hide"><h2 style="margin:0 0 8px;font-size:19px">Secure your account</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 16px">We ensure your account is secure with 2-factor authentication. To enable this, an OTP would be sent to your email to verify it's you.</p><div id="tfaEmailOtpBox" class="hide" style="margin-bottom:12px"><div id="tfaEmailSentMsg" style="font-size:11.5px;color:var(--acc);font-weight:800;margin-bottom:6px"></div><input id="tfaEmailCodeInp" type="text" maxlength="6" placeholder="000000" class="mono" style="text-align:center;font-size:22px;letter-spacing:8px;font-weight:800" /></div><button id="tfaEmailBtn" class="btn" onclick="handleEmail2fa()">Enable 2FA</button></div></div>
+    <div id="tab-2fa" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Security</button><span style="font-size:11px;color:var(--acc);font-weight:800">2FA Protection</span></div><div id="tfaStep1" class="card"><h2 style="margin:0 0 6px;font-size:19px">Secure your account</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 14px">Add a second step when signing in to keep your account safe. Choose how you'd like to confirm it's you.</p><div style="border:1.5px solid var(--acc);background:rgba(16,185,129,.07);border-radius:14px;padding:14px"><span style="display:inline-block;background:var(--acc);color:#03120e;font-size:10px;font-weight:900;padding:3px 8px;border-radius:6px;margin-bottom:8px">RECOMMENDED</span><div style="font-size:15px;font-weight:800">Authenticator App</div><p style="font-size:12px;color:var(--mut);margin:5px 0 12px">Generate codes with Google Authenticator, Authy, or similar. Works offline and is the most secure.</p><button class="btn" style="padding:11px" onclick="show2faStep(2)">Authenticator App →</button></div><div onclick="show2faStep('email')" style="border:1.5px solid var(--brd);background:var(--card2);border-radius:14px;padding:14px;margin-top:10px;cursor:pointer"><div style="font-size:15px;font-weight:800">Email</div><p style="font-size:12px;color:var(--mut);margin:5px 0 10px">Receive a one-time code by email at sign in.</p><button type="button" class="btn-ghost" style="width:100%;padding:10px;font-size:12px">Email OTP →</button></div></div><div id="tfaStep2" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Authenticator App</h2><div class="acc-row"><b>Google Authenticator</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('google')">Get</button></div><div class="acc-row"><b>Authy</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('authy')">Get</button></div><div class="acc-row"><b>Microsoft Authenticator</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('ms')">Get</button></div><button class="btn" style="margin-top:14px" onclick="show2faStep(3)">I have an app, continue</button></div><div id="tfaStep3" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Link Authenticator</h2><div class="row" style="background:var(--card2);padding:10px;border-radius:10px;margin:10px 0"><code class="mono" style="font-size:12px;color:var(--gold);font-weight:800">ZALE-2FA9-K84M-77XQ</code><button class="btn-ghost" style="padding:4px 8px;font-size:10.5px" onclick="copyVal('ZALE2FA9K84M77XQ','Setup Key')">Copy Key</button></div><button class="btn" onclick="show2faStep(4)">Continue</button></div><div id="tfaStep4" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Enter 6-Digit Code</h2><input id="tfaCodeInp" type="text" maxlength="6" placeholder="000000" class="mono" style="text-align:center;font-size:22px;letter-spacing:8px;font-weight:800" /><button class="btn" style="margin-top:14px" onclick="confirmEnable2fa()">Enable 2FA</button></div><div id="tfaStepemail" class="card hide"><h2 style="margin:0 0 8px;font-size:19px">Secure your account</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 16px">We ensure your account is secure with 2-factor authentication. To enable this, an OTP would be sent to your email to verify it's you.</p><div id="tfaEmailOtpBox" class="hide" style="margin-bottom:12px"><div id="tfaEmailSentMsg" style="font-size:11.5px;color:var(--acc);font-weight:800;margin-bottom:6px"></div><input id="tfaEmailCodeInp" type="text" maxlength="6" placeholder="000000" class="mono" style="text-align:center;font-size:22px;letter-spacing:8px;font-weight:800" /></div><button id="tfaEmailBtn" class="btn" onclick="handleEmail2fa()">Enable 2FA</button></div></div>
         <div id="tab-vcard" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">← Home</button><span style="font-size:11px;color:#38bdf8;font-weight:800">Visa / Mastercard USD</span></div><div class="card"><h3 style="margin:0 0 8px;font-size:15px">Issue or Top Up Virtual Dollar Card</h3><select id="vcNet" onchange="previewVcardCost()"><option value="Visa Virtual USD">Visa Virtual USD (3D Secure)</option><option value="Mastercard Virtual USD">Mastercard Virtual USD (Ads &amp; Global)</option></select><select id="vcAction" onchange="previewVcardCost()"><option value="issue">Issue New Card (+$5 Fee)</option><option value="topup">Top Up Existing Card ($0 Fee)</option></select><input id="vcUsd" type="number" min="5" placeholder="Load Amount in USD (e.g. 50)" oninput="previewVcardCost()" /><div id="vcCostPreview" class="mono" style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:9px 12px;margin-top:8px;font-size:12px;font-weight:800;color:var(--gold)">Total Payable: $0.00 (K0)</div><input id="vcLabel" placeholder="Cardholder Name or Billing Email" /><button class="btn" style="margin-top:10px" onclick="submitVcardOrder()">Submit Virtual Card Request</button></div></div>
     <div id="tab-utilities" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">← Home</button><span style="font-size:11px;color:var(--acc);font-weight:800">Instant Vending</span></div><div class="card"><h2 style="margin:0 0 8px;font-size:18px">Utility Bills &amp; Split Bill</h2><select id="billType"><option>Electricity (ZESCO)</option><option>Cable TV (DStv/GOtv)</option><option>Airtime &amp; Data</option><option>Split Bill (3+ Friends)</option></select><input id="billMeter" placeholder="Meter / Smartcard / Phone Number" /><input id="billAmt" type="number" placeholder="Amount in USD (e.g. 25)" /><button class="btn" style="margin-top:10px" onclick="submitUtilityBill()">Pay Utility Bill Now</button></div></div>
     <div id="tab-xborder" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">← Home</button><span style="font-size:11px;color:#c084fc;font-weight:800">Multi-Country Rails</span></div><div class="card"><h2 style="margin:0 0 8px;font-size:18px">Cross-Border Payout</h2><select id="xbCorridor"><option>Zambia (ZMW) → South Africa (ZAR)</option><option>Zambia (ZMW) → Nigeria (NGN)</option><option>Zambia (ZMW) → Kenya (KES)</option><option>Nigeria (NGN) → Zambia (ZMW)</option><option>South Africa (ZAR) → Zambia (ZMW)</option></select><input id="xbUsd" type="number" placeholder="Send Amount in USD (e.g. 100)" /><input id="xbRecip" placeholder="Recipient Bank / Mobile Money & Full Name" /><button class="btn" style="margin-top:10px" onclick="submitXborderOrder()">Send Cross-Border Payout</button></div></div>
@@ -354,12 +355,12 @@
       <div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">&larr; Home</button><span class="pill-ok">60s Rate Lock Active</span></div>
       <div class="card">
         <h2 style="margin:0 0 10px;font-size:19px">Rate Calculator</h2>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--card2);padding:5px;border-radius:12px;border:1px solid var(--brd);margin-bottom:12px"><button type="button" id="rcTabCrypto" class="chip on" style="padding:9px;font-size:12.5px;border-radius:9px" onclick="setRateMode('crypto')">Crypto</button><button type="button" id="rcTabGc" class="chip" style="padding:9px;font-size:12.5px;border-radius:9px" onclick="setRateMode('gc')">Gift Cards</button></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;background:var(--card2);padding:5px;border-radius:12px;border:1px solid var(--brd);margin-bottom:12px"><button type="button" id="rcTabCrypto" class="chip on" style="padding:9px;font-size:12.5px;border-radius:9px" onclick="window.setRateMode('crypto')">Crypto</button><button type="button" id="rcTabGc" class="chip" style="padding:9px;font-size:12.5px;border-radius:9px" onclick="window.setRateMode('gc')">Gift Cards</button></div>
         <div id="rcCryptoPane"><div style="font-size:11.5px;font-weight:800;color:var(--mut)">Crypto Wallet</div><select id="rcCoinSel" onchange="calcZaleRate()" style="margin-top:4px;margin-bottom:10px"><option value="BTC">Bitcoin (BTC)</option><option value="ETH">Ethereum (ETH)</option><option value="SOL">Solana (SOL)</option><option value="BNB">BNB Smart Chain (BNB)</option><option value="USDC">USD Coin (USDC)</option><option value="USDT-TRC20" selected>USD Tether (USDT - TRC20)</option><option value="USDT-ERC20">USD Tether (USDT - ERC20)</option><option value="USDT-SOL">USD Tether (USDT - Solana)</option><option value="USDT-BEP20">USD Tether (USDT - BEP20)</option></select><div style="font-size:11.5px;font-weight:800;color:var(--mut)">Wallet Action</div><select id="rcActionSel" onchange="calcZaleRate()" style="margin-top:4px;margin-bottom:10px"><option value="Buy" selected>Buy Crypto</option><option value="Sell">Sell Crypto</option></select></div>
         <div id="rcGcPane" class="hide"><div style="font-size:11.5px;font-weight:800;color:var(--mut)">Select Gift Card</div><select id="rcGcSel" onchange="calcZaleRate()" style="margin-top:4px;margin-bottom:10px"><option value="Apple / iTunes" selected>Apple / iTunes (84%)</option><option value="Amazon">Amazon (82%)</option><option value="Steam">Steam (85%)</option><option value="Razer Gold">Razer Gold (86%)</option><option value="American Express">American Express (80%)</option><option value="eBay">eBay (81%)</option><option value="Best Buy">Best Buy (79%)</option><option value="Google Play">Google Play (80%)</option></select></div>
         <div style="font-size:11.5px;font-weight:800;color:var(--mut)">Amount in USD</div><input id="rcUsd" type="number" value="100" placeholder="Enter USD Amount" oninput="calcZaleRate()" style="margin-top:4px" />
-        <div style="background:var(--card2);border:1px solid var(--brd);border-radius:12px;padding:12px;margin-top:12px"><div class="row" style="font-size:11px;color:var(--mut);margin-bottom:4px"><span>Zale Live Desk Rate</span><span style="color:#059669;font-weight:800">0% Hidden Fee</span></div><div id="rcOutput" class="mono" style="font-size:16px;font-weight:900;color:#1e3a8a">$100.00 USD = K 2,680.00</div><div id="rcSubNote" style="font-size:11px;color:var(--mut);margin-top:4px">Guaranteed 60-second rate lock when you proceed</div></div>
-        <button class="btn" style="margin-top:12px" onclick="proceedFromRateCalc()">Proceed with This Rate &rarr;</button>
+        <div style="background:var(--card2);border:1px solid var(--brd);border-radius:12px;padding:12px;margin-top:14px"><div class="row" style="font-size:11px;color:var(--mut);margin-bottom:4px"><span>Zale Live Desk Rate</span><span style="color:#059669;font-weight:800">0% Hidden Fee</span></div><div id="rcOutput" class="mono" style="font-size:16px;font-weight:900;color:#1e3a8a">$100.00 USD = K 2,680.00</div><div id="rcSubNote" style="font-size:11px;color:var(--mut);margin-top:4px">Guaranteed 60-second rate lock when you proceed</div></div>
+        <button class="btn" style="margin-top:14px" onclick="proceedFromRateCalc()">Proceed with This Rate &rarr;</button>
       </div>
     </div>
 
@@ -402,7 +403,7 @@
       ["home","notifications","setup","trade","wallet","giftcards","account","biometric","limits","kyc","password","2fa","vcard","utilities","xborder","escrow","rates","refer","deposit","withdraw","support-hub","faq","zale-chat","admin"].forEach(k=>document.getElementById("tab-"+k)?.classList.toggle("hide",k!==t));
       ["home","trade","wallet","giftcards","account"].forEach(k=>document.getElementById("bn-"+k)?.classList.toggle("on",k===t));
       if(t==="faq")renderFaqHub();
-      if(t==="home")setTimeout(()=>pulseIsland("homeCtyPill"),80);if(t==="wallet")setTimeout(()=>pulseIsland("walCtyPill"),80);if(t==="trade"||t==="rates")window.pullLiveCoinsAndFx();if(t==="limits")renderDailyLimits();
+      if(t==="home")setTimeout(()=>pulseIsland("homeCtyPill"),80);if(t==="wallet")setTimeout(()=>pulseIsland("walCtyPill"),80);if(t==="trade"||t==="rates")window.pullLiveCoinsAndFx();if(t==="limits")window.renderDailyLimits();
       syncAccountProfile();renderAll();
       if(t==="trade"&&mode){ setCoinSide(mode); selectCoin(selCoin?.id||"USDT-TRC20", true); }
     }
@@ -503,7 +504,7 @@
         if(ok){
           const b=document.getElementById("liveRateStatus");
           if(b)b.textContent="● Live "+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'})+" ↻";
-          renderCoins();renderAll();
+          window.window.renderCoins();renderAll();
           if(typeof calcZaleRate==="function")calcZaleRate();
           if(manual)toast("Live market prices refreshed!");
         }
@@ -516,47 +517,22 @@
 
 function toggleHideBalance(){balHidden=!balHidden;document.querySelectorAll(".hideBalLbl").forEach(el=>el.textContent=balHidden?"Show Balance":"Hide Balance");renderAll();}
     function getCoinSvg(c){const badge=(col,txt)=>`<span style="position:absolute;right:-3px;bottom:-3px;width:15px;height:15px;border-radius:50%;background:${col};color:#fff;font-size:7px;font-weight:900;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--card)">${txt}</span>`;const bg={BTC:"#f7931a",ETH:"#3b49df",SOL:"#14f195",BNB:"#f3ba2f",USDC:"#2775ca",USDT:"#26a17b"}[c.sym]||"#10b981";let b=c.id==="USDT-ERC20"?badge("#627eea","E"):c.id==="USDT-TRC20"?badge("#ef4444","T"):c.id==="USDT-SOL"?badge("#9945ff","S"):c.id==="USDT-BEP20"?badge("#f59e0b","B"):"";return `<div style="position:relative;width:38px;height:38px;border-radius:50%;background:${bg};color:#fff;font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0">${c.sym}${b}</div>`;}
-    function renderCoins(){const box=document.getElementById("coinList");if(!box)return;const q=(document.getElementById("coinSearchInp")?.value||"").toLowerCase();box.innerHTML=COINS.filter(x=>x.name.toLowerCase().includes(q)||x.id.toLowerCase().includes(q)).map(x=>`<div class="acc-row" style="cursor:pointer;padding:10px 4px" onclick="selectCoin('${x.id}')"><div style="display:flex;align-items:center;gap:10px">${getCoinSvg(x)}<div><div style="font-weight:800;font-size:13.5px">${x.name}</div><div style="font-size:11px;color:var(--mut)">${x.id}</div></div></div><div style="text-align:right"><div class="mono" style="font-weight:800;font-size:13.5px">${x.price.toLocaleString(undefined,{minimumFractionDigits:x.price<5?2:0,maximumFractionDigits:2})} USD</div><div style="font-size:11px;font-weight:700;color:${x.chg.startsWith('-')?'#dc2626':'#059669'}">${x.chg}</div></div></div>`).join("");}
-    function setGcFilter(f){gcFilter=f;["all","trend","top","high"].forEach(k=>document.getElementById("gcf-"+k)?.classList.toggle("on",k===f));renderGcGrid();}
-    function selectGcBrand(n){document.getElementById("gcBrand").value=n;if(document.getElementById("gcSelTitle"))document.getElementById("gcSelTitle").textContent=n;const box=document.getElementById("gcTradeBox");if(box){box.classList.remove("hide");setTimeout(()=>box.scrollIntoView({behavior:"smooth",block:"center"}),60);}updateGcPreview();}
-    function renderGcGrid(){const g=document.getElementById("gcBrandGrid");if(!g)return;const q=(document.getElementById("gcSearchInp")?.value||"").toLowerCase();let l=ZALE_GC_BRANDS.filter(b=>b.label.toLowerCase().includes(q)||b.id.toLowerCase().includes(q));if(gcFilter==="trend")l=l.filter(b=>b.tag==="trend");else if(gcFilter==="top")l=l.filter(b=>b.tag==="top");else if(gcFilter==="high")l=[...l].sort((a,b)=>b.rate-a.rate);document.getElementById("gcHistBadge").textContent=`Transaction History (${orders.filter(o=>(o.type||"").includes("Gift")).length})`;g.innerHTML=l.map(b=>`<div onclick="selectGcBrand('${b.id}')" style="background:var(--card2);border:1px solid var(--brd);border-radius:14px;padding:12px 8px;text-align:center;cursor:pointer"><div style="width:48px;height:48px;margin:0 auto 7px;border-radius:12px;background:${b.bg};color:${b.fg};font-weight:900;font-size:13px;display:flex;align-items:center;justify-content:center">${b.mark}</div><div style="font-size:11px;font-weight:800">${b.label}</div><div style="font-size:10px;color:var(--acc);font-weight:700;margin-top:2px">Rate: ${b.rate}%</div></div>`).join("");}
-    function updateGcPreview(){const c=CURR[user?.cty]||CURR.ZM,b=document.getElementById("gcBrand")?.value||"Apple / iTunes",v=parseFloat(document.getElementById("gcUsd")?.value)||0,pay=v*((ZALE_GC_BRANDS.find(x=>x.id===b)?.rate||82)/100);document.getElementById("gcLivePreview").textContent=`Instant Payout: $${pay.toFixed(2)} (${c.s}${(pay*c.r).toLocaleString(undefined,{maximumFractionDigits:0})})`;}
-    function previewGcPhoto(i){const f=i.files&&i.files;if(!f)return;const r=new FileReader();r.onload=e=>{const m=document.getElementById("gcPhotoPrev");m.src=e.target.result;m.classList.remove("hide");};r.readAsDataURL(f);}
-    function submitGiftCardOrder(){const b=document.getElementById("gcBrand").value,v=parseFloat(document.getElementById("gcUsd").value)||0,c=(document.getElementById("gcCode").value||"").trim();if(!v||!c)return toast("Enter USD amount & E-Code.");createOrder("Gift Card: "+b,v,"Code: "+c);window.triggerIslandActivity("Order Live",45);}
-    function createOrder(type,usd,details){const o={id:"ZL-"+Math.floor(100000+Math.random()*900000),email:user?.email||"guest",type,usd,details,status:"Pending",date:new Date().toLocaleString()};window.triggerIslandActivity("Order Live",45);orders.unshift(o);localStorage.setItem("zale_orders",JSON.stringify(orders));renderAll();toast("Order "+o.id+" submitted!");}
-    function renderDailyLimits(){const box=document.getElementById("dailyLimitsList");if(!box)return;const c=CURR[user?.cty]||CURR.ZM,sym=user?.cty==="ZM"?"K ":(c.s+" "),t2=(user?.kyc||1)>=2,fDep=t2?(5000*c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}):"0.00",util=t2?(2000*c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}):"0.00";const rows=[{name:"Fiat Deposit",val:`${sym}0.00 / ${sym}${fDep} (Daily)`},{name:"Fiat Withdraw",val:`${sym}0.00 / ${sym}${user?.cty==="ZM"?"15,000.00":(560*c.r).toFixed(2)} (Daily)`},{name:"Crypto Transfer",val:`$0.00 / $${t2?"5,000.00":"200.00"} (Daily)`},{name:"Crypto Username Transfer",val:`$0.00 / $${t2?"5,000.00":"200.00"} (Daily)`},{name:"Crypto Buy",val:`$0.00 / $${t2?"10,000.00":"1,000.00"} (Daily)`},{name:"Crypto Sell",val:`$0.00 / $${t2?"10,000.00":"100.00"} (Daily)`},{name:"Crypto Swap",val:`$0.00 / $${t2?"25,000.00":"5,000.00"} (Daily)`},{name:"Utility Bills",val:`${sym}0.00 / ${sym}${util} (Daily)`}];box.innerHTML=rows.map(r=>`<div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:10px 12px;margin-bottom:7px"><div class="row" style="font-size:12.5px"><b>${r.name}</b><span class="mono" style="font-size:11.5px;color:var(--gold);font-weight:800">${r.val}</span></div></div>`).join("");}
-    function handleIncreaseLimits(){if((user?.kyc||1)<2)nav("kyc");else toast("Tier 2 Active! Contact Zale OTC Desk for VIP limits.");}
-    function handleKycCam(s,i){const f=i.files&&i.files;if(!f)return;kycProofs[s]=true;const r=new FileReader();r.onload=e=>{const m=document.getElementById(s==="front"?"kycFrontPrev":s==="back"?"kycBackPrev":"kycFacePrev");if(m){m.src=e.target.result;m.classList.remove("hide");}};r.readAsDataURL(f);}
-    function submitKycV3(){const v=(document.getElementById("kycIdInp")?.value||"").trim();if(!v||!kycProofs.front||!kycProofs.back||!kycProofs.face)return toast("Complete all 4 steps: ID, Front, Back & Selfie.");user.kyc=2;user.kycId=v;localStorage.setItem("zale_user",JSON.stringify(user));renderAll();toast("Tier 2 Verified!");nav("account");}
-    function saveNewPasswordInline(){const c=document.getElementById("curPwInp").value,n1=document.getElementById("newPwInp1").value,n2=document.getElementById("newPwInp2").value;if(!c||n1.length<6||n1!==n2)return toast("Check passwords (min 6 chars).");user.pass=n1;localStorage.setItem("zale_user",JSON.stringify(user));toast("Password updated!");nav("account");}
-    function show2faStep(s){["1","2","3","4","email"].forEach(n=>document.getElementById("tfaStep"+n)?.classList.toggle("hide",String(n)!==String(s)));if(s==="email"){pendingEmailOtp="";document.getElementById("tfaEmailOtpBox")?.classList.add("hide");document.getElementById("tfaEmailBtn").textContent="Enable 2FA";}}
-    function openAppStore(a){toast("Opening App Store for "+a);}
-    function confirmEnable2fa(){if((document.getElementById("tfaCodeInp")?.value||"").length!==6)return toast("Enter 6-digit code.");document.getElementById("btn2faStatus").textContent="2FA Enabled";toast("2FA Enabled!");show2faStep(1);nav("account");}
-    function handleEmail2fa(){if(!pendingEmailOtp){pendingEmailOtp=String(Math.floor(100000+Math.random()*900000));document.getElementById("tfaEmailOtpBox").classList.remove("hide");document.getElementById("tfaEmailSentMsg").textContent=`OTP sent to ${user?.email||"email"} (Code: ${pendingEmailOtp})`;document.getElementById("tfaEmailBtn").textContent="Verify OTP & Enable 2FA";return toast("OTP sent to your email!");}if((document.getElementById("tfaEmailCodeInp")?.value||"").trim()!==pendingEmailOtp)return toast("Invalid 6-digit OTP.");document.getElementById("btn2faStatus").textContent="Email 2FA Active";toast("Email 2FA Enabled!");show2faStep(1);nav("account");}
-    function openBioModal(){document.getElementById("bioSensorModal").classList.remove("hide");}
-    function completeFingerprintScan(){document.getElementById("bioSensorModal").classList.add("hide");document.getElementById("togBio").checked=true;toast("Fingerprint Enabled!");}
-    function togglePref(k,v){toast(v?"Enabled":"Disabled");}
-        let rcMode="crypto";
-    function saveSetupUsername(){const u=(document.getElementById("setUnameInp")?.value||"").trim();if(u.length<3)return toast("Enter a username (min 3 characters).");user.username=u.startsWith("@")?u:"@"+u;localStorage.setItem("zale_user",JSON.stringify(user));document.getElementById("setupUserBox").classList.add("hide");renderAll();toast("Username saved & marked!");}
-    function saveSetupPin(){const p=(document.getElementById("setTxPinInp")?.value||"").trim();if(!/^\d{4}$/.test(p))return toast("Enter a 4-digit numeric PIN.");user.txPin=p;localStorage.setItem("zale_user",JSON.stringify(user));document.getElementById("setupPinBox").classList.add("hide");renderAll();toast("Transaction PIN created & marked!");}
-    function saveSetupBank(){const bn=document.getElementById("setBankName").value,ac=(document.getElementById("setBankAcct")?.value||"").trim(),hd=(document.getElementById("setBankHolder")?.value||"").trim();if(!ac||!hd)return toast("Enter account number & holder name.");user.bank={name:bn,acct:ac,holder:hd};localStorage.setItem("zale_user",JSON.stringify(user));document.getElementById("setupBankBox").classList.add("hide");renderAll();toast("Bank account saved & marked!");}
-    function syncSetupScreen(){const c=CURR[user?.cty]||CURR.ZM,t2=(user?.kyc||1)>=2;if(document.getElementById("setupFlagSvg"))document.getElementById("setupFlagSvg").innerHTML=FLAG_SVGS[user?.cty||"ZM"];if(document.getElementById("setupCurrName"))document.getElementById("setupCurrName").textContent=c.name;if(document.getElementById("setupTierBadge"))document.getElementById("setupTierBadge").textContent=t2?"Tier 2":"Tier 1";if(document.getElementById("setupAvatar")&&user?.name){const p=user.name.trim().split(/\s+/);document.getElementById("setupAvatar").textContent=((p?p:"Z")+(p?p:"")).toUpperCase();}const done=(user?.username?1:0)+(user?.txPin?1:0)+(user?.bank?1:0)+(t2?1:0),pct=Math.max(25,Math.round((done/4)*100));if(document.getElementById("setupPctRing"))document.getElementById("setupPctRing").textContent=pct+"%";if(document.getElementById("setupMacBar"))document.getElementById("setupMacBar").style.width=pct+"%";if(document.getElementById("setupKycPctTxt"))document.getElementById("setupKycPctTxt").textContent=pct+"% Completed";const mu=document.getElementById("markUserPill");if(mu){mu.textContent=user?.username?"Marked ✓":"Set →";mu.className=user?.username?"pill-ok":"pill-pend";}const mp=document.getElementById("markPinPill");if(mp){mp.textContent=user?.txPin?"Marked ✓":"Create →";mp.className=user?.txPin?"pill-ok":"pill-pend";}const mb=document.getElementById("markBankPill");if(mb){mb.textContent=user?.bank?"Marked ✓":"Add →";mb.className=user?.bank?"pill-ok":"pill-pend";}}
-    function setRateMode(m){rcMode=m;document.getElementById("rcTabCrypto")?.classList.toggle("on",m==="crypto");document.getElementById("rcTabGc")?.classList.toggle("on",m==="gc");document.getElementById("rcCryptoPane")?.classList.toggle("hide",m!=="crypto");document.getElementById("rcGcPane")?.classList.toggle("hide",m!=="gc");calcZaleRate();}
-    function calcZaleRate(){const c=CURR[user?.cty]||CURR.ZM,sym=user?.cty==="ZM"?"K ":(c.s+" "),v=parseFloat(document.getElementById("rcUsd")?.value)||0;if(rcMode==="gc"){const b=document.getElementById("rcGcSel")?.value||"Apple / iTunes",pct=ZALE_GC_BRANDS.find(x=>x.id===b)?.rate||82,usdOut=v*(pct/100);document.getElementById("rcOutput").textContent=`$${v.toFixed(2)} ($${pct}%) = $${sym}${(usdOut*c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}`;document.getElementById("rcSubNote").textContent=`Net USD Payout: $$${usdOut.toFixed(2)} • Instant Gift Card Settlement`;}else{const cid=document.getElementById("rcCoinSel")?.value||"USDT-TRC20",act=document.getElementById("rcActionSel")?.value||"Buy",rate=act==="Sell"?(c.r*0.985):c.r,coinObj=COINS.find(x=>x.id===cid)||COINS,qty=v/(coinObj.price||1);document.getElementById("rcOutput").textContent=`${act} $$${v.toFixed(2)} ${cid} = ${sym}${(v*rate).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2})}`;document.getElementById("rcSubNote").textContent=`Est. ${qty.toFixed(coinObj.price<5?2:6)} ${coinObj.sym} • Desk Rate: ${sym}${rate.toFixed(2)}/$`;}}
-    function proceedFromRateCalc(){window.triggerIslandActivity("Rate Locked",60);const v=parseFloat(document.getElementById("rcUsd")?.value)||100;if(rcMode==="gc"){const b=document.getElementById("rcGcSel")?.value||"Apple / iTunes";nav("giftcards");document.getElementById("gcBrand").value=b;document.getElementById("gcUsd").value=v;updateGcPreview();}else{const cid=document.getElementById("rcCoinSel")?.value||"USDT-TRC20",act=document.getElementById("rcActionSel")?.value||"Buy";nav("trade");selectCoin(cid);setCoinSide(act);document.getElementById("ctUsd").value=v;updateCoinPreview();}}
-        function setTheme(t){applyTheme(t);}
-        function applyTheme(t){
-      const m=t||localStorage.getItem("zale_theme")||"light";
-      localStorage.setItem("zale_theme",m);
-      document.body.classList.remove("dark","sovereign","alabaster");
-      if(m==="sovereign")document.body.classList.add("sovereign");
-      else if(m==="alabaster")document.body.classList.add("alabaster");
-      else{
-        const isD=m==="dark"||(m==="system"&&window.matchMedia&&window.matchMedia("(prefers-color-scheme: dark)").matches);
-        if(isD)document.body.classList.add("dark");
-      }
-      const sel=document.getElementById("themeSel");if(sel)sel.value=m;
+                function renderCoins(){
+      const box=document.getElementById("coinList");if(!box)return;
+      const q=(document.getElementById("coinSearchInp")?.value||"").toLowerCase();
+      const shortNames={"USD Tether (ERC20)":"Tether","USD Tether (TRC20)":"Tether","USD Tether (Solana)":"Tether","USD Tether (BEP20)":"Tether","BNB Smart Chain":"BNB"};
+      box.innerHTML=COINS.filter(x=>x.sym.toLowerCase().includes(q)||x.name.toLowerCase().includes(q)||x.id.toLowerCase().includes(q)).map(x=>{
+        const neg=String(x.chg).startsWith("-");
+        const col=neg?"#dc2626":"#059669";
+        const subName=shortNames[x.name]||x.name;
+        const netTag=x.id.includes("-")?`<span style="font-size:10px;font-weight:700;color:var(--mut);background:var(--card2);padding:1px 6px;border-radius:6px;margin-left:6px">${x.id.split("-")}</span>`:"";
+        const pStr="$"+(+x.price).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+        return `<div class="acc-row" style="cursor:pointer;padding:12px 2px" onclick="selectCoin('${x.id}')"><div style="display:flex;align-items:center;gap:12px">${window.getCoinSvg(x)}<div><div style="font-weight:800;font-size:14.5px;color:var(--txt);display:flex;align-items:center">${x.sym}${netTag}</div><div style="font-size:12px;color:var(--mut);margin-top:2px">${subName}</div></div></div><div style="text-align:right"><div class="mono" style="font-weight:800;font-size:14px;color:var(--txt)">${pStr}</div><div class="mono" style="font-size:11.5px;font-weight:700;color:${col};margin-top:2px">${x.chg}</div></div></div>`;
+      }).join("");
     }
+
+
+
     let diTimer=null;
     window.triggerIslandActivity=function(label,secs){
       clearInterval(diTimer);
@@ -574,95 +550,686 @@ function toggleHideBalance(){balHidden=!balHidden;document.querySelectorAll(".hi
     document.addEventListener("touchstart",e=>{touchX0=e.touches?e.touches[0].clientX:0;},{passive:true});
     document.addEventListener("touchend",e=>{const dx=(e.changedTouches?e.changedTouches[0].clientX:0)-touchX0;if(touchX0<32&&dx>75)nav("home");},{passive:true});
     document.addEventListener("mousemove",e=>{const vc=document.querySelector("#tab-vcard:not(.hide) .card");if(!vc)return;const r=vc.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;vc.style.transform=`perspective(700px) rotateY(${(x*10).toFixed(1)}deg) rotateX(${(-y*10).toFixed(1)}deg)`;});
-    window.pullLiveCoinsAndFx=async function(manual){
+            window.pullLiveCoinsAndFx=async function(manual){
       try{
-        const [cc,fx]=await Promise.allSettled([
+        const [exRes,btcRes,ethRes,solRes,jdRes]=await Promise.allSettled([
+          fetch("https://coinbase.com").then(r=>r.json()),
+          fetch("https://coinbase.com").then(r=>r.json()),
+          fetch("https://coinbase.com").then(r=>r.json()),
+          fetch("https://coinbase.com").then(r=>r.json()),
+          fetch("https://jsdelivr.net").then(r=>r.json())
+        ]);
+        let ok=false;
+        const rt=exRes.status==="fulfilled"&&exRes.value?.data?.rates;
+        if(rt){
+          COINS.forEach(c=>{const inv=parseFloat(rt[c.sym]);if(inv>0){const p=1/inv;c.price=+p.toFixed(2);ok=true;}});
+          if(parseFloat(rt.ZMW)>0)CURR.ZM.r=+(+rt.ZMW).toFixed(2);
+          if(parseFloat(rt.ZAR)>0)CURR.ZA.r=+(+rt.ZAR).toFixed(2);
+          if(parseFloat(rt.NGN)>0)CURR.NG.r=+(+rt.NGN).toFixed(2);
+          if(parseFloat(rt.KES)>0)CURR.KE.r=+(+rt.KES).toFixed(2);
+          if(parseFloat(rt.GHS)>0)CURR.GH.r=+(+rt.GHS).toFixed(2);
+          if(parseFloat(rt.GBP)>0)CURR.GB.r=+(+rt.GBP).toFixed(3);
+        }
+        [[btcRes,"BTC"],[ethRes,"ETH"],[solRes,"SOL"]].forEach(([r,sym])=>{
+          const p=r.status==="fulfilled"&&parseFloat(r.value?.data?.amount);
+          if(p>0)COINS.forEach(c=>{if(c.sym===sym){const prev=c.price||p;c.price=p;if(prev!==p){const ch=((p-prev)/prev)*100;c.chg=(ch>=0?"+":"")+ch.toFixed(2)+"%";}ok=true;}});
+        });
+        const jrt=jdRes.status==="fulfilled"&&jdRes.value?.usd;
+        if(!ok&&jrt){
+          COINS.forEach(c=>{const inv=parseFloat(jrt[c.sym.toLowerCase()]);if(inv>0){c.price=+(1/inv).toFixed(2);ok=true;}});
+          if(parseFloat(jrt.zmw)>0)CURR.ZM.r=+(+jrt.zmw).toFixed(2);
+        }
+        if(ok){
+          const b=document.getElementById("liveRateStatus");if(b)b.textContent="● Live "+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'})+" ↻";
+          window.window.renderCoins();renderAll();if(typeof calcZaleRate==="function")calcZaleRate();
+          if(manual)toast("Live Coinbase rates updated!");
+        }
+      }catch(e){}
+    };
+
+        function renderAll(){
+      const c=CURR[user?.cty]||CURR.ZM,bal=+(user?.bal||0),sym=user?.cty==="ZM"?"K ":(c.s+" ");
+      const locStr=balHidden?"••••••":(sym+(bal*c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}));
+      const usdStr=balHidden?"•••• USD":(bal.toFixed(2)+" USD");
+      ["homeLocalBal","walLocalBal"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=locStr;});
+      ["homeUsdBal","walUsdBal"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=usdStr;});
+      const flg=FLAG_SVGS[user?.cty]||FLAG_SVGS.ZM;
+      ["hdrFlagSvg","dropFlagSvg","walFlagSvg"].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=flg;});
+      ["hdrCurrName","walCurrName"].forEach(id=>{const el=document.getElementById(id);if(el&&!diTimer)el.textContent=c.name;});
+      const p=(user?.name||"IK").trim().split(/\s+/);
+      const ini=((p[0]?.[0]||"Z")+(p[1]?.[0]||"")).toUpperCase();
+      ["homeAvatar","walAvatar","accAvatarCircle","setupAvatarCircle"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=ini;});
+      if(document.getElementById("admNavBtn"))document.getElementById("admNavBtn").classList.toggle("hide",user?.email!==ADMIN);
+      window.window.renderCoins();renderGcGrid();
+      if(typeof syncAccountProfile==="function")syncAccountProfile();
+      const txHtml=orders.map(o=>`<div class="acc-row"><div><b>${o.type}</b><div style="font-size:11px;color:var(--mut)">${o.id} | ${o.date}</div></div><div style="text-align:right"><b>$${o.usd}</b><div><span class="pill-pend">${o.status}</span></div></div></div>`).join("");
+      if(document.getElementById("walEmptyBox"))document.getElementById("walEmptyBox").classList.toggle("hide",orders.length>0);
+      if(document.getElementById("walTxList"))document.getElementById("walTxList").innerHTML=txHtml;
+      if(user?.email===ADMIN&&document.getElementById("admOrdersList")){
+        const db=Object.values(JSON.parse(localStorage.getItem("zale_users")||"{}"));
+        if(document.getElementById("admClientBadge"))document.getElementById("admClientBadge").textContent=db.length+" Registered";
+        if(document.getElementById("admClientsList"))document.getElementById("admClientsList").innerHTML=db.map(u=>`<div class="acc-row"><div><b>${u.name}</b><div style="font-size:11px;color:var(--mut)">${u.email} | ${u.cty}</div></div><span class="pill-ok">$${(+u.bal||0).toFixed(2)}</span></div>`).join("");
+        document.getElementById("admOrdersList").innerHTML=orders.map(o=>`<div class="acc-row"><div><b>${o.type} ($${o.usd})</b><div style="font-size:11px;color:var(--mut)">${o.email} | ${o.details}</div></div><span class="pill-pend">${o.status}</span></div>`).join("");
+      }
+    }
+    setTimeout(()=>document.getElementById("zaleBootSplash")?.classList.add("done"),800);
+    if(user){enterApp();renderAll();}
+    window.pullLiveCoinsAndFx();
+    setInterval(()=>window.pullLiveCoinsAndFx(),20000);    (function(){
+      async function syncLiveCoinbase(){
+        try{
+          const [ex,b,e,sl,bn]=await Promise.allSettled([
+            fetch("https://coinbase.com").then(r=>r.json()),
+            fetch("https://coinbase.com").then(r=>r.json()),
+            fetch("https://coinbase.com").then(r=>r.json()),
+            fetch("https://coinbase.com").then(r=>r.json()),
+            fetch("https://coinbase.com").then(r=>r.json())
+          ]);
+          let hit=false;
+          const rt=ex.status==="fulfilled"&&ex.value?.data?.rates;
+          if(rt){
+            COINS.forEach(c=>{const inv=parseFloat(rt[c.sym]);if(inv>0){c.price=+(1/inv).toFixed(2);hit=true;}});
+            if(parseFloat(rt.ZMW)>0)CURR.ZM.r=+(+rt.ZMW).toFixed(2);
+            if(parseFloat(rt.ZAR)>0)CURR.ZA.r=+(+rt.ZAR).toFixed(2);
+            if(parseFloat(rt.NGN)>0)CURR.NG.r=+(+rt.NGN).toFixed(2);
+            if(parseFloat(rt.KES)>0)CURR.KE.r=+(+rt.KES).toFixed(2);
+            if(parseFloat(rt.GHS)>0)CURR.GH.r=+(+rt.GHS).toFixed(2);
+            if(parseFloat(rt.GBP)>0)CURR.GB.r=+(+rt.GBP).toFixed(3);
+          }
+          [[b,"BTC"],[e,"ETH"],[sl,"SOL"],[bn,"BNB"]].forEach(([res,sym])=>{
+            const p=res.status==="fulfilled"&&parseFloat(res.value?.data?.amount);
+            if(p>0)COINS.forEach(c=>{if(c.sym===sym){const old=c.price||p;c.price=p;if(old!==p){const d=((p-old)/old)*100;c.chg=(d>=0?"+":"")+d.toFixed(2)+"%";}hit=true;}});
+          });
+          if(hit){
+            const st=document.getElementById("liveRateStatus");
+            if(st)st.textContent="● Live "+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'})+" ↻";
+            window.window.renderCoins();
+            if(typeof calcZaleRate==="function")calcZaleRate();
+          }
+        }catch(err){}
+      }
+      window.pullLiveCoinsAndFx=syncLiveCoinbase;
+      syncLiveCoinbase();
+      setInterval(syncLiveCoinbase,20000);
+    })();    window.renderCoins=function(){
+      const b=document.getElementById("coinList");if(!b)return;
+      const q=(document.getElementById("coinSearchInp")?.value||"").toLowerCase();
+      const nm={"USD Tether (ERC20)":"Tether","USD Tether (TRC20)":"Tether","USD Tether (Solana)":"Tether","USD Tether (BEP20)":"Tether","BNB Smart Chain":"BNB"};
+      b.innerHTML=COINS.filter(x=>x.sym.toLowerCase().includes(q)||x.name.toLowerCase().includes(q)||x.id.toLowerCase().includes(q)).map(x=>{
+        const col=String(x.chg).startsWith("-")?"#dc2626":"#059669";
+        const net=x.id.includes("-")?`<span style="font-size:10px;font-weight:700;color:var(--mut);background:var(--card2);padding:1px 6px;border-radius:6px;margin-left:6px">${x.id.split("-")}</span>`:"";
+        const p="$"+(+x.price).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+        return `<div class="acc-row" style="cursor:pointer;padding:12px 2px" onclick="selectCoin('${x.id}')"><div style="display:flex;align-items:center;gap:12px">${window.getCoinSvg(x)}<div><div style="font-weight:800;font-size:14.5px;display:flex;align-items:center">${x.sym}${net}</div><div style="font-size:12px;color:var(--mut);margin-top:2px">${nm[x.name]||x.name}</div></div></div><div style="text-align:right"><div class="mono" style="font-weight:800;font-size:14px">${p}</div><div class="mono" style="font-size:11.5px;font-weight:700;color:${col};margin-top:2px">${x.chg}</div></div></div>`;
+      }).join("");
+    };
+        window.pullLiveCoinsAndFx=async function(){
+      try{
+        const [cc,cb]=await Promise.allSettled([
           fetch("https://cryptocompare.com").then(r=>r.json()),
-          fetch("https://er-api.com").then(r=>r.json())
+          fetch("https://coinbase.com").then(r=>r.json())
+        ]);
+        if(cc.status==="fulfilled"&&cc.value?.RAW){
+          COINS.forEach(c=>{const r=cc.value.RAW[c.sym]?.USD;if(r&&r.PRICE>0){c.price=+r.PRICE;const ch=+r.CHANGEPCT24HOUR||0;c.chg=(ch>=0?"+":"")+ch.toFixed(2)+"%";}});
+        }
+        const rt=cb.status==="fulfilled"&&cb.value?.data?.rates;
+        if(rt){
+          if(+rt.ZMW>0)CURR.ZM.r=+(+rt.ZMW).toFixed(2);if(+rt.ZAR>0)CURR.ZA.r=+(+rt.ZAR).toFixed(2);
+          if(+rt.NGN>0)CURR.NG.r=+(+rt.NGN).toFixed(2);if(+rt.KES>0)CURR.KE.r=+(+rt.KES).toFixed(2);
+          if(+rt.GHS>0)CURR.GH.r=+(+rt.GHS).toFixed(2);if(+rt.GBP>0)CURR.GB.r=+(+rt.GBP).toFixed(3);
+        }
+        window.window.window.renderCoins();if(typeof renderAll==="function")renderAll();if(typeof calcZaleRate==="function")calcZaleRate();
+      }catch(e){}
+    };
+    window.window.window.renderCoins();window.pullLiveCoinsAndFx();    window.getCoinSvg = function(c){
+      const badge=(col,txt)=>`<span style="position:absolute;right:-3px;bottom:-3px;width:16px;height:16px;border-radius:50%;background:${col};color:#fff;font-size:8px;font-weight:900;display:flex;align-items:center;justify-content:center;border:2px solid var(--card);box-shadow:0 2px 5px rgba(0,0,0,.2)">${txt}</span>`;
+      const net=c.id==="USDT-ERC20"?badge("#627eea","E"):c.id==="USDT-TRC20"?badge("#ef4444","T"):c.id==="USDT-SOL"?badge("#9945ff","S"):c.id==="USDT-BEP20"?badge("#f59e0b","B"):"";
+      const m={
+        BTC:`<svg viewBox="0 0 40 40" width="42" height="42"><defs><linearGradient id="gBtc" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#ffb347"/><stop offset="1" stop-color="#f7931a"/></linearGradient></defs><circle cx="20" cy="20" r="20" fill="url(#gBtc)"/><path d="M25.6 17.6c.4-2.5-1.5-3.8-4.1-4.7l.8-3.3-2-.5-.8 3.2-1.6-.4.8-3.2-2-.5-.8 3.3-1.3-.3-2.8-.7-.5 2.1s1.5.3 1.5.4c.8.2 1 .7.9 1.2l-1 3.9-.4 1.6c-.1.3-.4.8-1.1.6 0 0-1.5-.4-1.5-.4l-1 2.3 2.6.7 1.4.4-.8 3.4 2 .5.8-3.3 1.6.4-.8 3.3 2 .5.8-3.4c3.4.6 6 .4 7.1-2.7.9-2.5 0-3.9-1.8-4.8 1.3-.3 2.3-1.2 2.5-3Zm-4.5 6.3c-.6 2.5-4.9 1.1-6.3.8l1.1-4.5c1.4.3 5.9 1 5.2 3.7Zm.6-6.4c-.6 2.3-4.1 1.1-5.3.8l1-4.1c1.2.3 4.9.9 4.3 3.3Z" fill="#fff"/></svg>`,
+        ETH:`<svg viewBox="0 0 40 40" width="42" height="42"><defs><linearGradient id="gEth" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#7c8cf8"/><stop offset="1" stop-color="#4f46e5"/></linearGradient></defs><circle cx="20" cy="20" r="20" fill="url(#gEth)"/><polygon points="20,7 12.5,20.2 20,24.6 27.5,20.2" fill="#fff" fill-opacity=".95"/><polygon points="20,26.4 12.5,22 20,33 27.5,22" fill="#fff" fill-opacity=".75"/></svg>`,
+        SOL:`<svg viewBox="0 0 40 40" width="42" height="42"><defs><linearGradient id="gSol" x1="4" y1="36" x2="36" y2="4"><stop stop-color="#9945ff"/><stop offset="1" stop-color="#14f195"/></linearGradient></defs><circle cx="20" cy="20" r="20" fill="#0f172a"/><path d="M11 25.5h15.5l2.5 2.8H13.5L11 25.5Zm0-6.9h18l-2.5 2.8h-18L11 18.6Zm2.5-6.9H29l-2.5 2.8H11l2.5-2.8Z" fill="url(#gSol)"/></svg>`,
+        BNB:`<svg viewBox="0 0 40 40" width="42" height="42"><defs><linearGradient id="gBnb" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#fcd34d"/><stop offset="1" stop-color="#d97706"/></linearGradient></defs><circle cx="20" cy="20" r="20" fill="url(#gBnb)"/><path d="M20 9.5 14.8 14.7l2.5 2.5L20 14.5l2.7 2.7 2.5-2.5L20 9.5Zm-7.8 7.8L9.7 19.8l2.5 2.5 2.5-2.5-2.5-2.5Zm15.6 0-2.5 2.5 2.5 2.5 2.5-2.5-2.5-2.5ZM20 17.3l-2.7 2.7 2.7 2.7 2.7-2.7-2.7-2.7Zm0 8.2-2.7-2.7-2.5 2.5L20 30.5l5.2-5.2-2.5-2.5-2.7 2.7Z" fill="#fff"/></svg>`,
+        USDC:`<svg viewBox="0 0 40 40" width="42" height="42"><defs><linearGradient id="gUsdc" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#3b82f6"/><stop offset="1" stop-color="#1d4ed8"/></linearGradient></defs><circle cx="20" cy="20" r="20" fill="url(#gUsdc)"/><circle cx="20" cy="20" r="13.5" fill="none" stroke="#fff" stroke-width="1.8" stroke-dasharray="16 5"/><path d="M20 11.5v17M23 15.2c0-1.5-1.3-2.5-3-2.5s-3 1-3 2.4c0 3.3 6 2.3 6 5.7 0 1.5-1.3 2.5-3 2.5s-3-1-3-2.5" fill="none" stroke="#fff" stroke-width="2.1" stroke-linecap="round"/></svg>`,
+        USDT:`<svg viewBox="0 0 40 40" width="42" height="42"><defs><linearGradient id="gUsdt" x1="0" y1="0" x2="40" y2="40"><stop stop-color="#34d399"/><stop offset="1" stop-color="#059669"/></linearGradient></defs><circle cx="20" cy="20" r="20" fill="url(#gUsdt)"/><path d="M11.5 12.5h17v3.4h-6.6v2.2c4.4.2 7.6 1 7.6 2s-3.2 1.8-7.6 2v6.9h-3.8v-6.9c-4.4-.2-7.6-1-7.6-2s3.2-1.8 7.6-2v-2.2h-6.6v-3.4Z" fill="#fff"/></svg>`
+      };
+      return `<div style="position:relative;width:42px;height:42px;flex-shrink:0;filter:drop-shadow(0 4px 8px rgba(15,23,42,.14))">${m[c.sym]||m.USDT}${net}</div>`;
+    };    window.renderCoins = function(){
+      const b=document.getElementById("coinList");if(!b)return;
+      const q=(document.getElementById("coinSearchInp")?.value||"").toLowerCase();
+      const nm={"USD Tether (ERC20)":"Tether","USD Tether (TRC20)":"Tether","USD Tether (Solana)":"Tether","USD Tether (BEP20)":"Tether","BNB Smart Chain":"BNB"};
+      b.innerHTML=COINS.filter(x=>x.sym.toLowerCase().includes(q)||x.name.toLowerCase().includes(q)||x.id.toLowerCase().includes(q)).map(x=>{
+        const col=String(x.chg).startsWith("-")?"#dc2626":"#059669";
+        const net=x.id.includes("-")?`<span style="font-size:10px;font-weight:800;color:var(--mut);background:var(--card2);padding:1px 6px;border-radius:6px;margin-left:6px">${x.id.split("-")}</span>`:"";
+        const p="$"+(+x.price).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+        return `<div class="acc-row" style="cursor:pointer;padding:12px 2px" onclick="selectCoin('${x.id}')"><div style="display:flex;align-items:center;gap:12px">${window.getCoinSvg(x)}<div><div style="font-weight:800;font-size:15px;display:flex;align-items:center">${x.sym}${net}</div><div style="font-size:12px;color:var(--mut);margin-top:2px">${nm[x.name]||x.name}</div></div></div><div style="text-align:right"><div class="mono" style="font-weight:800;font-size:14.5px">${p}</div><div class="mono" style="font-size:11.5px;font-weight:700;color:${col};margin-top:2px">${x.chg}</div></div></div>`;
+      }).join("");
+    };
+    window.pullLiveCoinsAndFx = async function(manual){
+      try{
+        const [cc,cb]=await Promise.allSettled([
+          fetch("https://cryptocompare.com").then(r=>r.json()),
+          fetch("https://coinbase.com").then(r=>r.json())
         ]);
         let ok=false;
         if(cc.status==="fulfilled"&&cc.value?.RAW){
           COINS.forEach(c=>{const r=cc.value.RAW[c.sym]?.USD;if(r&&r.PRICE>0){c.price=+r.PRICE;const ch=+r.CHANGEPCT24HOUR||0;c.chg=(ch>=0?"+":"")+ch.toFixed(2)+"%";ok=true;}});
         }
-        if(fx.status==="fulfilled"&&fx.value?.rates){
-          const rt=fx.value.rates;
-          if(rt.ZMW)CURR.ZM.r=+rt.ZMW.toFixed(2);if(rt.ZA)CURR.ZA.r=+rt.ZA.toFixed(2);if(rt.NGN)CURR.NG.r=+rt.NGN.toFixed(2);
-          if(rt.KE)CURR.KE.r=+rt.KE.toFixed(2);if(rt.GH)CURR.GH.r=+rt.GH.toFixed(2);if(rt.GB)CURR.GB.r=+rt.GB.toFixed(3);
+        const rt=cb.status==="fulfilled"&&cb.value?.data?.rates;
+        if(rt){
+          if(!ok)COINS.forEach(c=>{const v=parseFloat(rt[c.sym]);if(v>0){c.price=+(1/v).toFixed(2);ok=true;}});
+          if(+rt.ZMW>0)CURR.ZM.r=+(+rt.ZMW).toFixed(2);if(+rt.ZAR>0)CURR.ZA.r=+(+rt.ZAR).toFixed(2);
+          if(+rt.NGN>0)CURR.NG.r=+(+rt.NGN).toFixed(2);if(+rt.KES>0)CURR.KE.r=+(+rt.KES).toFixed(2);
+          if(+rt.GHS>0)CURR.GH.r=+(+rt.GHS).toFixed(2);if(+rt.GBP>0)CURR.GB.r=+(+rt.GBP).toFixed(3);
           ok=true;
         }
         if(ok){
-          const b=document.getElementById("liveRateStatus");if(b)b.textContent="● Live "+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'})+" ↻";
-          renderCoins();renderAll();if(typeof calcZaleRate==="function")calcZaleRate();
-          if(manual)toast("Live market prices updated!");
-        }
-      }catch(e){}
-    };
-
-    if(window.matchMedia){window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change",()=>{if((localStorage.getItem("zale_theme")||"light")==="system")applyTheme("system");});}
-
-    (function(){const saved=localStorage.getItem("zale_theme")||"light";applyTheme(saved);})();
-
-    function previewVcardCost(){const c=CURR[user?.cty]||CURR.ZM,a=parseFloat(document.getElementById("vcUsd")?.value)||0,f=(document.getElementById("vcAction")?.value==="issue"&&a>0)?5:0,t=a+f;document.getElementById("vcCostPreview").textContent=`Total Payable: $${t.toFixed(2)} = ${c.s}${(t*c.r).toLocaleString(undefined,{maximumFractionDigits:0})}`;}
-    function submitVcardOrder(){const v=parseFloat(document.getElementById("vcUsd")?.value)||0,l=(document.getElementById("vcLabel")?.value||"").trim();if(v<5||!l)return toast("Enter at least \$5 USD & name.");createOrder(document.getElementById("vcNet").value,v,l);window.triggerIslandActivity("Order Live",45);}
-    function submitUtilityBill(){const m=document.getElementById("billMeter").value.trim(),v=parseFloat(document.getElementById("billAmt").value);if(!m||!v)return toast("Enter meter/account & amount.");createOrder("Utility: "+document.getElementById("billType").value,v,m);window.triggerIslandActivity("Order Live",45);}
-    function submitXborderOrder(){const r=document.getElementById("xbRecip").value.trim(),v=parseFloat(document.getElementById("xbUsd").value);if(!r||!v)return toast("Enter amount & recipient.");createOrder("Cross-Border: "+document.getElementById("xbCorridor").value,v,r);window.triggerIslandActivity("Order Live",45);}
-    function submitEscrowOrder(){const cp=document.getElementById("escCounter").value.trim(),v=parseFloat(document.getElementById("escUsd").value),p=document.getElementById("escPin").value.trim();if(!cp||!v||p.length!==4)return toast("Enter counterparty, amount & 4-digit PIN.");createOrder("Digital Escrow",v,cp+" (PIN:"+p+")");window.triggerIslandActivity("Order Live",45);}
-        function copyRefLink(){copyVal("https://github.io"+(user?.email||"ZALE").split("@").toUpperCase(),"Referral Link");}
-    function shareRefWhatsApp(){window.open("https://wa.me"+encodeURIComponent("Trade Crypto & Gift Cards in 5-15 mins on Zale App: https://github.io"),"_blank");}
-    function submitDepositOrder(){const v=parseFloat(document.getElementById("depUsd").value)||0,r=document.getElementById("depRef").value.trim();if(!v||!r)return toast("Enter amount & reference.");createOrder("Deposit: "+document.getElementById("depMethod").value,v,r);window.triggerIslandActivity("Order Live",45);}
-    function submitWithdrawOrder(){const v=parseFloat(document.getElementById("wdUsd").value)||0,a=document.getElementById("wdAcct").value.trim(),h=document.getElementById("wdHolder").value.trim();if(!v||!a||!h)return toast("Complete all fields.");createOrder("Withdraw: "+document.getElementById("wdNet").value,v,`${h} (${a})`);window.triggerIslandActivity("Order Live",45);}
-    function renderFaqHub(){const b=document.getElementById("faqTopicsList");if(!b)return;b.innerHTML=FAQ_DATA.map((cat,ci)=>`<div style="margin-bottom:10px"><div style="font-size:12px;font-weight:800;color:var(--gold);margin-bottom:4px">${cat.cat}</div>${cat.items.map((it,ii)=>`<div onclick="openFaqArticle(${ci},${ii})" class="acc-row" style="cursor:pointer;padding:8px 6px"><span style="font-size:12.5px">${it.q}</span><span style="color:var(--acc);font-weight:800">&rarr;</span></div>`).join("")}</div>`).join("");}
-    function openFaqArticle(ci,ii){const cat=FAQ_DATA[ci],it=cat.items[ii];document.getElementById("faqArtCat").textContent=cat.cat;document.getElementById("faqArtTitle").textContent=it.q;document.getElementById("faqArtBody").textContent=it.a;document.getElementById("faqArticleReader").classList.remove("hide");}
-    function sendSupportEmail(){const s=document.getElementById("supMsgSubj").value.trim(),b=document.getElementById("supMsgBody").value.trim();if(!s||!b)return toast("Enter subject & message.");window.open(`mailto:support@://zaleapp.com${encodeURIComponent(s)}&body=${encodeURIComponent(b)}`);}
-    function adminAdjustWallet(){const em=document.getElementById("admTargetEmail").value.trim().toLowerCase(),amt=parseFloat(document.getElementById("admAdjAmt").value)||0;let db=JSON.parse(localStorage.getItem("zale_users")||"{}");if(!db[em])return toast("Client email not found.");db[em].bal=Math.max(0,(db[em].bal||0)+amt);localStorage.setItem("zale_users",JSON.stringify(db));if(user?.email===em){user.bal=db[em].bal;localStorage.setItem("zale_user",JSON.stringify(user));}renderAll();toast(`Updated ${em} by $${amt}`);}
-    function renderAll(){const c=CURR[user?.cty]||CURR.ZM,sym=user?.cty==="ZM"?"K ":(c.s+" "),usd=parseFloat(user?.bal||0),loc=(usd*c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});["homeLocalBal","walLocalBal"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=balHidden?"••••••":`${sym}${loc}`;});["homeUsdBal","walUsdBal"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=balHidden?"•••• USD":`${usd.toFixed(2)} USD`;});["hdrFlagSvg","dropFlagSvg","walFlagSvg"].forEach(id=>{const el=document.getElementById(id);if(el)el.innerHTML=FLAG_SVGS[user?.cty||"ZM"];});if(document.getElementById("hdrCurrName"))document.getElementById("hdrCurrName").textContent=c.name;if(document.getElementById("walCurrName"))document.getElementById("walCurrName").textContent=c.name;if(document.getElementById("dropCtyName"))document.getElementById("dropCtyName").textContent=c.label;if(document.getElementById("hdrAvatar")&&user?.name){const p=user.name.trim().split(/\s+/);document.getElementById("hdrAvatar").textContent=((p[0]?p[0][0]:"Z")+(p[1]?p[1][0]:"")).toUpperCase();}const t2=(user?.kyc||1)>=2;if(document.getElementById("setupPctRing"))document.getElementById("setupPctRing").textContent=t2?"100%":"33%";if(document.getElementById("accName"))document.getElementById("accName").textContent=user?.name||"Zale Client";if(document.getElementById("accEmail"))document.getElementById("accEmail").textContent=user?.email||"";if(document.getElementById("accTierPill"))document.getElementById("accTierPill").textContent=t2?"Tier 2 Verified":"Tier 1 Verified";if(document.getElementById("accIdStat"))document.getElementById("accIdStat").textContent=t2?"Verified":"Pending";if(document.getElementById("accFaceStat"))document.getElementById("accFaceStat").textContent=t2?"Verified":"Pending";syncSetupScreen(); renderCoins();renderGcGrid();const myTx=orders.filter(o=>!user||o.email===user.email||user.email===ADMIN);document.getElementById("walEmptyBox")?.classList.toggle("hide",myTx.length>0);if(document.getElementById("walTxList"))document.getElementById("walTxList").innerHTML=myTx.slice(0,10).map(o=>`<div class="acc-row"><div><b>${o.type}</b><div style="font-size:11px;color:var(--mut)">${o.id} | ${o.date}</div></div><div style="text-align:right"><b>$${o.usd}</b><div><span class="pill-pend">${o.status}</span></div></div></div>`).join("");if(user?.email===ADMIN&&document.getElementById("admOrdersList")){const db=Object.values(JSON.parse(localStorage.getItem("zale_users")||"{}"));document.getElementById("admClientBadge").textContent=db.length+" Registered";document.getElementById("admClientsList").innerHTML=db.map(u=>`<div class="acc-row"><div><b>${u.name}</b><div style="font-size:11px;color:var(--mut)">${u.email} | ${u.cty}</div></div><span class="pill-ok">$${(u.bal||0).toFixed(2)}</span></div>`).join("");document.getElementById("admOrdersList").innerHTML=orders.map(o=>`<div class="acc-row"><div><b>${o.type} ($${o.usd})</b><div style="font-size:11px;color:var(--mut)">${o.email} | ${o.details}</div></div><span class="pill-pend">${o.status}</span></div>`).join("");}}
-    setTimeout(()=>document.getElementById("zaleBootSplash")?.classList.add("done"),1050);
-    setTheme(localStorage.getItem("zale_theme")||"light");
-    if(user)enterApp();
-        window.pullLiveCoinsAndFx = async function(manual){
-      try{
-        const [kRes,cbB,cbE,cbS,cbN,fxRes]=await Promise.allSettled([
-          fetch("https://kraken.com").then(r=>r.json()),
-          fetch("https://coinbase.com").then(r=>r.json()),
-          fetch("https://coinbase.com").then(r=>r.json()),
-          fetch("https://coinbase.com").then(r=>r.json()),
-          fetch("https://coinbase.com").then(r=>r.json()),
-          fetch("https://er-api.com").then(r=>r.json())
-        ]);
-        let ok=false;
-        if(kRes.status==="fulfilled"&&kRes.value&&kRes.value.result){
-          const r=kRes.value.result,km={BTC:r.XXBTZUSD,ETH:r.XETHZUSD,SOL:r.SOLUSD};
-          COINS.forEach(c=>{const it=km[c.sym];if(it&&it.c&&parseFloat(it.c[0])>0){const p=parseFloat(it.c[0]),o=parseFloat(it.o)||p,ch=((p-o)/o)*100;c.price=p;c.chg=(ch>=0?"+":"")+ch.toFixed(2)+"%";ok=true;}});
-        }
-        [[cbB,"BTC"],[cbE,"ETH"],[cbS,"SOL"],[cbN,"BNB"]].forEach(([res,sym])=>{
-          const p=res.status==="fulfilled"&&parseFloat(res.value&&res.value.data&&res.value.data.amount);
-          if(p>0)COINS.forEach(c=>{if(c.sym===sym){c.price=p;ok=true;}});
-        });
-        if(fxRes.status==="fulfilled"&&fxRes.value&&fxRes.value.rates){
-          const rt=fxRes.value.rates;
-          if(rt.ZMW)CURR.ZM.r=+rt.ZMW.toFixed(2);
-          if(rt.ZAR)CURR.ZA.r=+rt.ZAR.toFixed(2);
-          if(rt.NGN)CURR.NG.r=+rt.NGN.toFixed(2);
-          if(rt.KES)CURR.KE.r=+rt.KES.toFixed(2);
-          if(rt.GHS)CURR.GH.r=+rt.GHS.toFixed(2);
-          if(rt.GBP)CURR.GB.r=+rt.GBP.toFixed(3);
-          ok=true;
-        }
-        if(ok){
-          const b=document.getElementById("liveRateStatus");
-          if(b)b.textContent="● Live "+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'})+" ↻";
-          renderCoins();renderAll();
-          if(typeof calcZaleRate==="function")calcZaleRate();
+          const st=document.getElementById("liveRateStatus");if(st)st.textContent="● Live "+new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit',second:'2-digit'})+" ↻";
+          window.window.window.renderCoins();if(typeof renderAll==="function")renderAll();if(typeof calcZaleRate==="function")calcZaleRate();
           if(manual)toast("Live market prices refreshed!");
         }
       }catch(e){}
     };
-    setTimeout(()=>window.pullLiveCoinsAndFx(),300);
-    setInterval(()=>window.pullLiveCoinsAndFx(),20000);
+    window.window.window.renderCoins();window.pullLiveCoinsAndFx();setInterval(()=>window.pullLiveCoinsAndFx(),20000);
+window.getCoinSvg=function(c){
+  const b=(col,t)=>`<span style="position:absolute;right:-3px;bottom:-3px;width:16px;height:16px;border-radius:50%;background:${col};color:#fff;font-size:8px;font-weight:900;display:flex;align-items:center;justify-content:center;border:2px solid var(--card)">${t}</span>`;
+  const net=c.id==="USDT-ERC20"?b("#627eea","E"):c.id==="USDT-TRC20"?b("#ef4444","T"):c.id==="USDT-SOL"?b("#9945ff","S"):c.id==="USDT-BEP20"?b("#f59e0b","B"):"";
+  const g={BTC:`<svg viewBox="0 0 40 40" width="42" height="42"><circle cx="20" cy="20" r="20" fill="#f7931a"/><text x="20" y="27" text-anchor="middle" fill="#fff" font-size="22" font-weight="900">₿</text></svg>`,ETH:`<svg viewBox="0 0 40 40" width="42" height="42"><circle cx="20" cy="20" r="20" fill="#4f46e5"/><polygon points="20,7 12.5,20.2 20,24.6 27.5,20.2" fill="#fff"/><polygon points="20,26.4 12.5,22 20,33 27.5,22" fill="#c7d2fe"/></svg>`,SOL:`<svg viewBox="0 0 40 40" width="42" height="42"><circle cx="20" cy="20" r="20" fill="#0f172a"/><path d="M11 25.5h15.5l2.5 2.8H13.5L11 25.5Zm0-6.9h18l-2.5 2.8h-18L11 18.6Zm2.5-6.9H29l-2.5 2.8H11l2.5-2.8Z" fill="#14f195"/></svg>`,BNB:`<svg viewBox="0 0 40 40" width="42" height="42"><circle cx="20" cy="20" r="20" fill="#eab308"/><polygon points="20,9 29,20 20,31 11,20" fill="#fff"/><polygon points="20,15 24,20 20,25 16,20" fill="#eab308"/></svg>`,USDC:`<svg viewBox="0 0 40 40" width="42" height="42"><circle cx="20" cy="20" r="20" fill="#2563eb"/><text x="20" y="27" text-anchor="middle" fill="#fff" font-size="21" font-weight="900">$</text></svg>`,USDT:`<svg viewBox="0 0 40 40" width="42" height="42"><circle cx="20" cy="20" r="20" fill="#059669"/><text x="20" y="27" text-anchor="middle" fill="#fff" font-size="22" font-weight="900">₮</text></svg>`};
+  return `<div style="position:relative;width:42px;height:42px;flex-shrink:0;filter:drop-shadow(0 4px 8px rgba(15,23,42,.15))">${g[c.sym]||g.USDT}${net}</div>`;
+};
+window.renderCoins=function(){
+  const b=document.getElementById("coinList");if(!b)return;
+  const q=(document.getElementById("coinSearchInp")?.value||"").toLowerCase();
+  const nm={"USD Tether (ERC20)":"Tether","USD Tether (TRC20)":"Tether","USD Tether (Solana)":"Tether","USD Tether (BEP20)":"Tether","BNB Smart Chain":"BNB"};
+  b.innerHTML=COINS.filter(x=>x.sym.toLowerCase().includes(q)||x.name.toLowerCase().includes(q)).map(x=>{
+    const col=String(x.chg).startsWith("-")?"#dc2626":"#059669";
+    const net=x.id.includes("-")?`<span style="font-size:10px;font-weight:800;color:var(--mut);background:var(--card2);padding:1px 6px;border-radius:6px;margin-left:6px">${x.id.split("-")}</span>`:"";
+    const p="$"+(+x.price).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+    return `<div class="acc-row" style="cursor:pointer;padding:12px 2px" onclick="selectCoin('${x.id}')"><div style="display:flex;align-items:center;gap:12px">${window.getCoinSvg(x)}<div><div style="font-weight:800;font-size:15px;display:flex;align-items:center">${x.sym}${net}</div><div style="font-size:12px;color:var(--mut);margin-top:2px">${nm[x.name]||x.name}</div></div></div><div style="text-align:right"><div class="mono" style="font-weight:800;font-size:14.5px">${p}</div><div class="mono" style="font-size:11.5px;font-weight:700;color:${col};margin-top:2px">${x.chg}</div></div></div>`;
+  }).join("");
+};
+window.pullLiveCoinsAndFx=async function(){
+  try{
+    const u1="https://min-api."+"://cryptocompare.com";
+    const u2="https://api."+"://coinbase.com";
+    const [cc,cb]=await Promise.allSettled([fetch(u1).then(r=>r.json()),fetch(u2).then(r=>r.json())]);
+    if(cc.status==="fulfilled"&&cc.value?.RAW)COINS.forEach(c=>{const r=cc.value.RAW[c.sym]?.USD;if(r&&r.PRICE>0){c.price=+r.PRICE;const ch=+r.CHANGEPCT24HOUR||0;c.chg=(ch>=0?"+":"")+ch.toFixed(2)+"%";}});
+    const rt=cb.status==="fulfilled"&&cb.value?.data?.rates;
+    if(rt){if(+rt.ZMW>0)CURR.ZM.r=+(+rt.ZMW).toFixed(2);if(+rt.ZAR>0)CURR.ZA.r=+(+rt.ZAR).toFixed(2);if(+rt.NGN>0)CURR.NG.r=+(+rt.NGN).toFixed(2);if(+rt.KES>0)CURR.KE.r=+(+rt.KES).toFixed(2);if(+rt.GHS>0)CURR.GH.r=+(+rt.GHS).toFixed(2);if(+rt.GBP>0)CURR.GB.r=+(+rt.GBP).toFixed(3);}
+    window.window.renderCoins();if(typeof renderAll==="function")renderAll();if(typeof calcZaleRate==="function")calcZaleRate();
+  }catch(e){}
+};
+window.window.renderCoins();window.pullLiveCoinsAndFx();setInterval(window.pullLiveCoinsAndFx,20000);
 
-
-    if(window.pullLiveCoinsAndFx)window.pullLiveCoinsAndFx();
-    setInterval(()=>{if(window.pullLiveCoinsAndFx)window.pullLiveCoinsAndFx();},20000);
   </script>
+
+
+
+
+
+<script>
+window.getCoinSvg=function(c){
+  const b=(col,t)=>`<span style="position:absolute;right:-3px;bottom:-3px;width:16px;height:16px;border-radius:50%;background:${col};color:#fff;font-size:8px;font-weight:900;display:flex;align-items:center;justify-content:center;border:2px solid var(--card)">${t}</span>`;
+  const net=c.id==="USDT-ERC20"?b("#627eea","E"):c.id==="USDT-TRC20"?b("#ef4444","T"):c.id==="USDT-SOL"?b("#9945ff","S"):c.id==="USDT-BEP20"?b("#f59e0b","B"):"";
+  const g={BTC:`<svg viewBox="0 0 40 40" width="42" height="42"><circle cx="20" cy="20" r="20" fill="#f7931a"/><text x="20" y="27" text-anchor="middle" fill="#fff" font-size="22" font-weight="900">₿</text></svg>`,ETH:`<svg viewBox="0 0 40 40" width="42" height="42"><circle cx="20" cy="20" r="20" fill="#4f46e5"/><polygon points="20,7 12.5,20.2 20,24.6 27.5,20.2" fill="#fff"/><polygon points="20,26.4 12.5,22 20,33 27.5,22" fill="#c7d2fe"/></svg>`,SOL:`<svg viewBox="0 0 40 40" width="42" height="42"><circle cx="20" cy="20" r="20" fill="#0f172a"/><path d="M11 25.5h15.5l2.5 2.8H13.5L11 25.5Zm0-6.9h18l-2.5 2.8h-18L11 18.6Zm2.5-6.9H29l-2.5 2.8H11l2.5-2.8Z" fill="#14f195"/></svg>`,BNB:`<svg viewBox="0 0 40 40" width="42" height="42"><circle cx="20" cy="20" r="20" fill="#eab308"/><polygon points="20,9 29,20 20,31 11,20" fill="#fff"/><polygon points="20,15 24,20 20,25 16,20" fill="#eab308"/></svg>`,USDC:`<svg viewBox="0 0 40 40" width="42" height="42"><circle cx="20" cy="20" r="20" fill="#2563eb"/><text x="20" y="27" text-anchor="middle" fill="#fff" font-size="21" font-weight="900">$</text></svg>`,USDT:`<svg viewBox="0 0 40 40" width="42" height="42"><circle cx="20" cy="20" r="20" fill="#059669"/><text x="20" y="27" text-anchor="middle" fill="#fff" font-size="22" font-weight="900">₮</text></svg>`};
+  return `<div style="position:relative;width:42px;height:42px;flex-shrink:0;filter:drop-shadow(0 4px 8px rgba(15,23,42,.15))">${g[c.sym]||g.USDT}${net}</div>`;
+};
+window.renderCoins=function(){
+  const b=document.getElementById("coinList");if(!b)return;
+  const q=(document.getElementById("coinSearchInp")?.value||"").toLowerCase();
+  const nm={"USD Tether (ERC20)":"Tether","USD Tether (TRC20)":"Tether","USD Tether (Solana)":"Tether","USD Tether (BEP20)":"Tether","BNB Smart Chain":"BNB"};
+  b.innerHTML=COINS.filter(x=>x.sym.toLowerCase().includes(q)||x.name.toLowerCase().includes(q)).map(x=>{
+    const col=String(x.chg).startsWith("-")?"#dc2626":"#059669";
+    const net=x.id.includes("-")?`<span style="font-size:10px;font-weight:800;color:var(--mut);background:var(--card2);padding:1px 6px;border-radius:6px;margin-left:6px">${x.id.split("-")}</span>`:"";
+    const p="$"+(+x.price).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+    return `<div class="acc-row" style="cursor:pointer;padding:12px 2px" onclick="selectCoin('${x.id}')"><div style="display:flex;align-items:center;gap:12px">${window.getCoinSvg(x)}<div><div style="font-weight:800;font-size:15px;display:flex;align-items:center">${x.sym}${net}</div><div style="font-size:12px;color:var(--mut);margin-top:2px">${nm[x.name]||x.name}</div></div></div><div style="text-align:right"><div class="mono" style="font-weight:800;font-size:14.5px">${p}</div><div class="mono" style="font-size:11.5px;font-weight:700;color:${col};margin-top:2px">${x.chg}</div></div></div>`;
+  }).join("");
+};
+window.pullLiveCoinsAndFx=async function(){
+  try{
+    const u1="https:"+"//://cryptocompare.com";
+    const u2="https:"+"//://coinbase.com";
+    const [cc,cb]=await Promise.allSettled([fetch(u1).then(r=>r.json()),fetch(u2).then(r=>r.json())]);
+    if(cc.status==="fulfilled"&&cc.value?.RAW)COINS.forEach(c=>{const r=cc.value.RAW[c.sym]?.USD;if(r&&r.PRICE>0){c.price=+r.PRICE;const ch=+r.CHANGEPCT24HOUR||0;c.chg=(ch>=0?"+":"")+ch.toFixed(2)+"%";}});
+    const rt=cb.status==="fulfilled"&&cb.value?.data?.rates;
+    if(rt){if(+rt.ZMW>0)CURR.ZM.r=+(+rt.ZMW).toFixed(2);if(+rt.ZAR>0)CURR.ZA.r=+(+rt.ZAR).toFixed(2);if(+rt.NGN>0)CURR.NG.r=+(+rt.NGN).toFixed(2);if(+rt.KES>0)CURR.KE.r=+(+rt.KES).toFixed(2);if(+rt.GHS>0)CURR.GH.r=+(+rt.GHS).toFixed(2);if(+rt.GBP>0)CURR.GB.r=+(+rt.GBP).toFixed(3);}
+    window.renderCoins();if(typeof renderAll==="function")renderAll();if(typeof calcZaleRate==="function")calcZaleRate();
+  }catch(e){}
+};
+window.renderCoins();window.pullLiveCoinsAndFx();setInterval(window.pullLiveCoinsAndFx,20000);
+
+</script>
+<script>
+window.zaleJsonpCb=function(d){
+  if(!d||!d.RAW)return;
+  COINS.forEach(c=>{const r=d.RAW[c.sym]?.USD;if(r&&r.PRICE>0){c.price=+r.PRICE;const ch=+r.CHANGEPCT24HOUR||0;c.chg=(ch>=0?"+":"")+ch.toFixed(2)+"%";}});
+  window.renderCoins();if(typeof renderAll==="function")renderAll();if(typeof calcZaleRate==="function")calcZaleRate();
+};
+window.pullLiveCoinsAndFx=function(){
+  const s=document.createElement("script");
+  s.src="https:"+"//://cryptocompare.com"+Date.now();
+  document.body.appendChild(s);setTimeout(()=>s.remove(),4000);
+};
+window.pullLiveCoinsAndFx();setInterval(window.pullLiveCoinsAndFx,20000);
+
+</script>
+<script>
+window.zaleJsonpCb=function(d){
+  if(!d||!d.RAW)return;
+  COINS.forEach(c=>{const r=d.RAW[c.sym]?.USD;if(r&&r.PRICE>0){c.price=+r.PRICE;const ch=+r.CHANGEPCT24HOUR||0;c.chg=(ch>=0?"+":"")+ch.toFixed(2)+"%";}});
+  window.renderCoins();if(typeof renderAll==="function")renderAll();if(typeof calcZaleRate==="function")calcZaleRate();
+};
+window.pullLiveCoinsAndFx=function(){
+  const host=["min-api","cryptocompare","com"].join(".");
+  const s=document.createElement("script");
+  s.src="https://"+host+"/data/pricemultifull?fsyms=BTC,ETH,SOL,BNB,USDC,USDT&tsyms=USD&callback=zaleJsonpCb&_="+Date.now();
+  document.body.appendChild(s);setTimeout(()=>s.remove(),4000);
+};
+window.pullLiveCoinsAndFx();setInterval(window.pullLiveCoinsAndFx,20000);
+
+</script>
+<script>
+window.pullLiveCoinsAndFx=async function(){
+  try{
+    const cgHost=["api","coingecko","com"].join(".");
+    const bnHost=["api","binance","com"].join(".");
+    const fxHost=["open","er-api","com"].join(".");
+    const [cg,bn,fx]=await Promise.allSettled([
+      fetch("https://"+cgHost+"/api/v3/simple/price?ids=bitcoin,ethereum,solana,binancecoin,usd-coin,tether&vs_currencies=usd&include_24hr_change=true").then(r=>r.json()),
+      fetch("https://"+bnHost+"/api/v3/ticker/24hr?symbols=%5B%22BTCUSDT%22,%22ETHUSDT%22,%22SOLUSDT%22,%22BNBUSDT%22%5D").then(r=>r.json()),
+      fetch("https://"+fxHost+"/v6/latest/USD").then(r=>r.json())
+    ]);
+    if(cg.status==="fulfilled"&&cg.value){
+      const m={BTC:cg.value.bitcoin,ETH:cg.value.ethereum,SOL:cg.value.solana,BNB:cg.value.binancecoin,USDC:cg.value["usd-coin"],USDT:cg.value.tether};
+      COINS.forEach(c=>{const r=m[c.sym];if(r&&r.usd>0){c.price=+r.usd;const ch=+r.usd_24h_change||0;c.chg=(ch>=0?"+":"")+ch.toFixed(2)+"%";}});
+    }
+    if(bn.status==="fulfilled"&&Array.isArray(bn.value)){
+      bn.value.forEach(x=>{const sym=x.symbol.replace("USDT","");COINS.forEach(c=>{if(c.sym===sym&&+x.lastPrice>0){c.price=+x.lastPrice;const ch=+x.priceChangePercent||0;c.chg=(ch>=0?"+":"")+ch.toFixed(2)+"%";}});});
+    }
+    if(fx.status==="fulfilled"&&fx.value?.rates){
+      const rt=fx.value.rates;
+      if(+rt.ZMW>0)CURR.ZM.r=+(+rt.ZMW).toFixed(2);if(+rt.ZAR>0)CURR.ZA.r=+(+rt.ZAR).toFixed(2);
+      if(+rt.NGN>0)CURR.NG.r=+(+rt.NGN).toFixed(2);if(+rt.KES>0)CURR.KE.r=+(+rt.KES).toFixed(2);
+      if(+rt.GHS>0)CURR.GH.r=+(+rt.GHS).toFixed(2);if(+rt.GBP>0)CURR.GB.r=+(+rt.GBP).toFixed(3);
+    }
+    window.renderCoins();if(typeof renderAll==="function")renderAll();if(typeof calcZaleRate==="function")calcZaleRate();
+  }catch(e){}
+};
+window.pullLiveCoinsAndFx();setInterval(window.pullLiveCoinsAndFx,25000);
+
+</script>
+<script>
+window.COINS=[
+  {id:"BTC",sym:"BTC",name:"Bitcoin",price:91500,chg:"+2.10%"},
+  {id:"ETH",sym:"ETH",name:"Ethereum",price:3120,chg:"+1.65%"},
+  {id:"USDT-TRC20",sym:"USDT",name:"Tether",price:1.00,chg:"+0.01%"},
+  {id:"USDT-ERC20",sym:"USDT",name:"Tether",price:1.00,chg:"+0.01%"},
+  {id:"USDT-SOL",sym:"USDT",name:"Tether",price:1.00,chg:"+0.01%"},
+  {id:"USDT-BEP20",sym:"USDT",name:"Tether",price:1.00,chg:"+0.01%"},
+  {id:"USDC",sym:"USDC",name:"USD Coin",price:1.00,chg:"+0.00%"},
+  {id:"BNB",sym:"BNB",name:"Binance Coin",price:618,chg:"+1.85%"},
+  {id:"SOL",sym:"SOL",name:"Solana",price:178,chg:"+3.40%"},
+  {id:"XRP",sym:"XRP",name:"Ripple",price:1.42,chg:"+4.12%"},
+  {id:"TRX",sym:"TRX",name:"TRON",price:0.20,chg:"+1.25%"},
+  {id:"LTC",sym:"LTC",name:"Litecoin",price:88.50,chg:"+1.90%"},
+  {id:"TON",sym:"TON",name:"Toncoin",price:5.45,chg:"+2.35%"}
+];
+if(typeof COINS!=="undefined"){COINS.length=0;window.COINS.forEach(x=>COINS.push(x));}
+window.getCoinSvg=function(c){
+  const b=(col,t)=>`<span style="position:absolute;right:-3px;bottom:-3px;width:16px;height:16px;border-radius:50%;background:${col};color:#fff;font-size:8px;font-weight:900;display:flex;align-items:center;justify-content:center;border:2px solid var(--card)">${t}</span>`;
+  const net=c.id==="USDT-ERC20"?b("#627eea","E"):c.id==="USDT-TRC20"?b("#ef4444","T"):c.id==="USDT-SOL"?b("#9945ff","S"):c.id==="USDT-BEP20"?b("#f59e0b","B"):"";
+  const mk=(bg,fg,txt)=>`<svg viewBox="0 0 40 40" width="42" height="42"><circle cx="20" cy="20" r="20" fill="${bg}"/><text x="20" y="26" text-anchor="middle" fill="${fg}" font-size="${txt.length>2?13:20}" font-weight="900">${txt}</text></svg>`;
+  const g={BTC:mk("#f7931a","#fff","₿"),ETH:mk("#4f46e5","#fff","Ξ"),SOL:mk("#0f172a","#14f195","◎"),BNB:mk("#eab308","#fff","❖"),USDC:mk("#2563eb","#fff","$"),USDT:mk("#059669","#fff","₮"),XRP:mk("#1e293b","#38bdf8","✕"),TRX:mk("#dc2626","#fff","TRX"),LTC:mk("#64748b","#fff","Ł"),TON:mk("#0284c7","#fff","💎")};
+  return `<div style="position:relative;width:42px;height:42px;flex-shrink:0;filter:drop-shadow(0 4px 8px rgba(15,23,42,.15))">${g[c.sym]||mk("#132257","#fff",c.sym)}${net}</div>`;
+};
+window.pullLiveCoinsAndFx=async function(){
+  try{
+    const cg=["api","coingecko","com"].join("."),fx=["open","er-api","com"].join(".");
+    const [r1,r2]=await Promise.allSettled([
+      fetch("https://"+cg+"/api/v3/simple/price?ids=bitcoin,ethereum,tether,usd-coin,binancecoin,solana,ripple,tron,litecoin,the-open-network&vs_currencies=usd&include_24hr_change=true").then(r=>r.json()),
+      fetch("https://"+fx+"/v6/latest/USD").then(r=>r.json())
+    ]);
+    if(r1.status==="fulfilled"&&r1.value){
+      const d=r1.value,m={BTC:d.bitcoin,ETH:d.ethereum,USDT:d.tether,USDC:d["usd-coin"],BNB:d.binancecoin,SOL:d.solana,XRP:d.ripple,TRX:d.tron,LTC:d.litecoin,TON:d["the-open-network"]};
+      COINS.forEach(c=>{const it=m[c.sym];if(it&&it.usd>0){c.price=+it.usd;const ch=+it.usd_24h_change||0;c.chg=(ch>=0?"+":"")+ch.toFixed(2)+"%";}});
+    }
+    if(r2.status==="fulfilled"&&r2.value?.rates){
+      const rt=r2.value.rates;
+      if(+rt.ZMW>0)CURR.ZM.r=+(+rt.ZMW).toFixed(2);if(+rt.ZAR>0)CURR.ZA.r=+(+rt.ZAR).toFixed(2);
+      if(+rt.NGN>0)CURR.NG.r=+(+rt.NGN).toFixed(2);if(+rt.KES>0)CURR.KE.r=+(+rt.KES).toFixed(2);
+      if(+rt.GHS>0)CURR.GH.r=+(+rt.GHS).toFixed(2);if(+rt.GBP>0)CURR.GB.r=+(+rt.GBP).toFixed(3);
+    }
+    window.renderCoins();if(typeof renderAll==="function")renderAll();if(typeof calcZaleRate==="function")calcZaleRate();
+  }catch(e){}
+};
+window.renderCoins();window.pullLiveCoinsAndFx();
+
+</script>
+<script>
+window.setTheme = window.applyTheme = function(t){
+  const m = t || localStorage.getItem("zale_theme") || "light";
+  localStorage.setItem("zale_theme", m);
+  document.body.classList.remove("dark","sovereign","alabaster","apple-light");
+  if(m==="sovereign") document.body.classList.add("sovereign");
+  else if(m==="alabaster") document.body.classList.add("alabaster");
+  else if(m==="apple-light") document.body.classList.add("apple-light");
+  else {
+    const isD = m==="dark" || (m==="system" && window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches);
+    if(isD) document.body.classList.add("dark");
+  }
+  const sel = document.getElementById("themeSel"); if(sel) sel.value = m;
+};
+window.renderDailyLimits = function(){
+  const box = document.getElementById("limitsContent") || document.querySelector("#tab-limits .card");
+  if(!box) return;
+  const c = CURR[user?.cty] || CURR.ZM;
+  const tier2 = (user?.kyc || 1) >= 2;
+  const maxUsd = tier2 ? 10000 : 1000;
+  const usedUsd = orders.filter(o=>o.date===new Date().toLocaleDateString()).reduce((a,b)=>a+(+b.usd||0),0);
+  const remUsd = Math.max(0, maxUsd - usedUsd);
+  const pct = Math.min(100, Math.round((usedUsd / maxUsd) * 100));
+  const loc = u => (user?.cty==="ZM"?"K ":(c.s+" ")) + (u * c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+  box.innerHTML = `<div class="row" style="margin-bottom:8px"><h3 style="margin:0;font-size:17px">Daily Transfer Limits</h3><span class="${tier2?'pill-ok':'pill-pend'}">${tier2?'Tier 2 Verified':'Tier 1 Standard'}</span></div>
+    <div style="font-size:12px;color:var(--mut);margin-bottom:12px">Resets daily at 00:00 CAT • Active Currency: <b>${c.name}</b></div>
+    <div class="acc-row"><span>Daily Limit</span><div style="text-align:right"><b class="mono">$${maxUsd.toLocaleString()} USD</b><div style="font-size:11px;color:var(--mut)">${loc(maxUsd)}</div></div></div>
+    <div class="acc-row"><span>Used Today</span><div style="text-align:right"><b class="mono">$${usedUsd.toFixed(2)} USD</b><div style="font-size:11px;color:var(--mut)">${loc(usedUsd)}</div></div></div>
+    <div class="acc-row"><span>Remaining Today</span><div style="text-align:right"><b class="mono" style="color:#059669">$${remUsd.toFixed(2)} USD</b><div style="font-size:11px;color:var(--mut)">${loc(remUsd)}</div></div></div>
+    <div class="mac-track"><div class="mac-fill" style="width:${pct}%"></div></div>
+    ${tier2 ? '' : '<button type="button" class="btn" style="margin-top:14px" onclick="nav(\'kyc\')">Upgrade to Tier 2 ($10,000/day)</button>'}`;
+};
+window.setTheme(localStorage.getItem("zale_theme") || "light");
+window.renderDailyLimits();
+
+</script>
+<script>
+window.renderDailyLimits = function(){
+  const box = document.getElementById("limitsContent") || document.querySelector("#tab-limits .card");
+  if(!box) return;
+  const c = CURR[user?.cty] || CURR.ZM;
+  const tier2 = (user?.kyc || 1) >= 2;
+  const maxUsd = tier2 ? 10000 : 1000;
+  const usedUsd = orders.filter(o=>o.date===new Date().toLocaleDateString()).reduce((a,b)=>a+(+b.usd||0),0);
+  const remUsd = Math.max(0, maxUsd - usedUsd);
+  const pct = Math.min(100, Math.round((usedUsd / maxUsd) * 100));
+  const loc = u => (user?.cty==="ZM"?"K ":(c.s+" ")) + (u * c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+  box.innerHTML = `<div class="row" style="margin-bottom:8px"><h3 style="margin:0;font-size:17px">Daily Transfer Limits</h3><span class="${tier2?'pill-ok':'pill-pend'}">${tier2?'Tier 2 Verified':'Tier 1 Standard'}</span></div>
+    <div style="font-size:12px;color:var(--mut);margin-bottom:12px">Daily transaction limits based on your country &amp; verification tier: <b>${c.name}</b></div>
+    <div class="acc-row"><span>Daily Limit</span><div style="text-align:right"><b class="mono">$${maxUsd.toLocaleString()} USD</b><div style="font-size:11px;color:var(--mut)">${loc(maxUsd)}</div></div></div>
+    <div class="acc-row"><span>Used Today</span><div style="text-align:right"><b class="mono">$${usedUsd.toFixed(2)} USD</b><div style="font-size:11px;color:var(--mut)">${loc(usedUsd)}</div></div></div>
+    <div class="acc-row"><span>Remaining Today</span><div style="text-align:right"><b class="mono" style="color:#059669">$${remUsd.toFixed(2)} USD</b><div style="font-size:11px;color:var(--mut)">${loc(remUsd)}</div></div></div>
+    <div class="mac-track"><div class="mac-fill" style="width:${pct}%"></div></div>
+    <button type="button" class="btn" style="margin-top:14px" onclick="${tier2 ? "toast('Tier 3 VIP OTC Limit ($50,000/day) requested!')" : "nav('kyc')"}">Increase Transfer Limit</button>`;
+};
+window.setGcFilter = function(f){
+  gcFilter = f;
+  ["all","trend","top","high"].forEach(k=>document.getElementById("gcf-"+k)?.classList.toggle("on",k===f));
+  if(typeof renderGcGrid==="function") renderGcGrid();
+};
+window.setRateTab = window.setRateMode = function(mode){
+  const isGc = String(mode).toLowerCase().includes("gift") || mode==="gc";
+  document.getElementById("rtTabCrypto")?.classList.toggle("on",!isGc);
+  document.getElementById("rtTabGc")?.classList.toggle("on",isGc);
+  document.getElementById("rateCryptoBox")?.classList.toggle("hide",isGc);
+  document.getElementById("rateGcBox")?.classList.toggle("hide",!isGc);
+  if(typeof calcZaleRate==="function") calcZaleRate();
+};
+window.renderDailyLimits();
+if(typeof renderGcGrid==="function") renderGcGrid();
+
+</script>
+<script>
+window.GC_DATA=[
+  {name:"Apple / iTunes",rate:0.84,tag:"trend top high",col:"#1e293b",ico:""},
+  {name:"Amazon",rate:0.80,tag:"trend top",col:"#d97706",ico:"a"},
+  {name:"Steam",rate:0.86,tag:"trend top high",col:"#0f172a",ico:"🎮"},
+  {name:"Razer Gold",rate:0.88,tag:"trend top high",col:"#059669",ico:"⚡"},
+  {name:"Google Play",rate:0.78,tag:"top",col:"#2563eb",ico:"▶"},
+  {name:"Vanilla Visa",rate:0.82,tag:"high",col:"#1d4ed8",ico:"💳"},
+  {name:"PlayStation",rate:0.79,tag:"trend",col:"#1e40af",ico:"PS"},
+  {name:"Xbox",rate:0.77,tag:"",col:"#15803d",ico:"XB"},
+  {name:"Sephora",rate:0.83,tag:"high",col:"#090d16",ico:"S"},
+  {name:"Nike",rate:0.76,tag:"",col:"#111827",ico:"✓"}
+];
+window.gcActiveFilter="all";
+window.renderGcGrid=function(){
+  const box=document.getElementById("gcGrid")||document.getElementById("gcList");if(!box)return;
+  const q=(document.getElementById("gcSearchInp")?.value||"").toLowerCase();
+  const c=CURR[user?.cty]||CURR.ZM;
+  box.style.display="grid";box.style.gridTemplateColumns="1fr 1fr";box.style.gap="10px";
+  box.innerHTML=window.GC_DATA.filter(g=>(window.gcActiveFilter==="all"||g.tag.includes(window.gcActiveFilter))&&g.name.toLowerCase().includes(q)).map(g=>{
+    const loc=(g.rate*c.r).toFixed(2);
+    return `<div class="card" style="margin:0;padding:13px;cursor:pointer;border:1.5px solid var(--brd)" onclick="if(typeof selectGcBrand==='function')selectGcBrand('${g.name}')"><div style="width:36px;height:36px;border-radius:10px;background:${g.col};color:#fff;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;margin-bottom:8px">${g.ico}</div><div style="font-weight:800;font-size:13.5px">${g.name}</div><div class="mono" style="font-size:12px;font-weight:800;color:#059669;margin-top:3px">$${g.rate.toFixed(2)} / $1</div><div style="font-size:11px;color:var(--mut);margin-top:1px">${c.s}${loc} per $1</div></div>`;
+  }).join("");
+};
+document.querySelectorAll("#tab-giftcards .chip, #tab-giftcards button").forEach(btn=>{
+  const t=btn.textContent.trim().toUpperCase();
+  const map={ALL:"all",TRENDING:"trend","TOP CARDS":"top","HIGHEST RATE":"high"};
+  if(map[t]){btn.onclick=function(){window.gcActiveFilter=map[t];document.querySelectorAll("#tab-giftcards .chip").forEach(x=>x.classList.remove("on"));btn.classList.add("on");window.renderGcGrid();};}
+});
+document.querySelectorAll("#tab-rates button, #tab-rates .chip").forEach(btn=>{
+  const t=btn.textContent.trim().toLowerCase();
+  if(t.includes("gift")||t.includes("crypto")){
+    btn.onclick=function(){
+      const isGc=t.includes("gift");
+      document.querySelectorAll("#tab-rates .chip").forEach(x=>x.classList.toggle("on",x===btn));
+      document.querySelectorAll("#tab-rates [id*='Crypto'], #tab-rates [id*='crypto']").forEach(el=>el.classList.toggle("hide",isGc));
+      document.querySelectorAll("#tab-rates [id*='Gc'], #tab-rates [id*='gc'], #tab-rates [id*='Gift']").forEach(el=>el.classList.toggle("hide",!isGc));
+      if(typeof calcZaleRate==="function")calcZaleRate();
+    };
+  }
+});
+window.renderGcGrid();
+
+</script>
+<script>
+document.querySelectorAll("#tab-rates button, #tab-rates .chip").forEach(b=>b.classList.remove("hide"));
+window.renderGcGrid=function(){
+  const tab=document.getElementById("tab-giftcards");if(!tab)return;
+  let box=document.getElementById("gcGrid")||document.getElementById("gcList")||document.getElementById("zaleGcCards");
+  if(!box){box=document.createElement("div");box.id="zaleGcCards";const inp=document.getElementById("gcSearchInp");(inp?.parentElement?.nextElementSibling||tab).after(box);}
+  const q=(document.getElementById("gcSearchInp")?.value||"").toLowerCase();
+  const c=CURR[user?.cty]||CURR.ZM;
+  box.style.display="grid";box.style.gridTemplateColumns="1fr 1fr";box.style.gap="10px";box.style.marginTop="10px";
+  box.innerHTML=(window.GC_DATA||[]).filter(g=>(window.gcActiveFilter==="all"||g.tag.includes(window.gcActiveFilter))&&g.name.toLowerCase().includes(q)).map(g=>`<div class="card" style="margin:0;padding:13px;cursor:pointer;border:1.5px solid var(--brd)" onclick="if(typeof selectGcBrand==='function')selectGcBrand('${g.name}')"><div style="width:36px;height:36px;border-radius:10px;background:${g.col};color:#fff;font-weight:900;font-size:15px;display:flex;align-items:center;justify-content:center;margin-bottom:8px">${g.ico}</div><div style="font-weight:800;font-size:13.5px">${g.name}</div><div class="mono" style="font-size:12px;font-weight:800;color:#059669;margin-top:3px">$${g.rate.toFixed(2)} / $1</div><div style="font-size:11px;color:var(--mut);margin-top:1px">${c.s}${(g.rate*c.r).toFixed(2)} per $1</div></div>`).join("");
+};
+window.renderGcGrid();
+
+</script>
+<script>
+document.querySelectorAll("#tab-rates button, #tab-rates .chip").forEach(btn=>{
+  btn.classList.remove("hide");
+  const t=btn.textContent.trim().toLowerCase();
+  if(t.includes("gift")||t.includes("crypto")){
+    btn.onclick=function(){
+      const isGc=t.includes("gift");
+      document.querySelectorAll("#tab-rates button, #tab-rates .chip").forEach(b=>b.classList.remove("hide"));
+      document.querySelectorAll("#tab-rates .chip").forEach(x=>x.classList.toggle("on",x===btn));
+      const cBox=document.getElementById("rateCryptoBox"),gBox=document.getElementById("rateGcBox");
+      if(cBox)cBox.classList.toggle("hide",isGc);
+      if(gBox)gBox.classList.toggle("hide",!isGc);
+      if(typeof calcZaleRate==="function")calcZaleRate();
+    };
+  }
+});
+
+</script>
+<script>
+window.zaleRateMode = "crypto";
+window.applyZaleRateMode = function(mode){
+  window.zaleRateMode = mode;
+  const tab = document.getElementById("tab-rates"); if(!tab) return;
+  const sel = tab.querySelector("select");
+  if(sel){
+    if(!window._origCryptoOpts) window._origCryptoOpts = sel.innerHTML;
+    if(mode==="giftcard"){
+      sel.innerHTML = (window.GC_DATA||[]).map(g=>`<option value="${g.rate}" data-name="${g.name}">${g.name} ($${g.rate.toFixed(2)} / $1)</option>`).join("");
+    } else {
+      sel.innerHTML = window._origCryptoOpts;
+    }
+  }
+  const inp = tab.querySelector("input[type='number'], input");
+  if(inp) inp.placeholder = mode==="giftcard" ? "Enter Gift Card Value ($ USD)" : "Enter Amount ($ USD)";
+  if(typeof calcZaleRate==="function") calcZaleRate();
+};
+const _oldCalc = window.calcZaleRate;
+window.calcZaleRate = function(){
+  if(window.zaleRateMode==="giftcard"){
+    const tab = document.getElementById("tab-rates");
+    const sel = tab?.querySelector("select");
+    const amt = parseFloat(tab?.querySelector("input")?.value || "100") || 0;
+    const rate = parseFloat(sel?.value || "0.84") || 0.84;
+    const usdOut = amt * rate;
+    const c = CURR[user?.cty] || CURR.ZM;
+    const sym = user?.cty==="ZM" ? "K " : (c.s+" ");
+    const locOut = sym + (usdOut * c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+    tab?.querySelectorAll(".mono, b, [id*='Out'], [id*='Res']").forEach(el=>{
+      if(el.textContent.includes("K ")||el.textContent.includes(c.s)||el.id.toLowerCase().includes("loc")) el.textContent = locOut;
+      else if(el.textContent.includes("USD")||el.id.toLowerCase().includes("usd")) el.textContent = usdOut.toFixed(2)+" USD";
+    });
+    return;
+  }
+  if(typeof _oldCalc==="function") _oldCalc();
+};
+document.querySelectorAll("#tab-rates button, #tab-rates .chip").forEach(btn=>{
+  const t = btn.textContent.trim().toLowerCase();
+  if(t.includes("gift")||t.includes("crypto")){
+    btn.onclick = function(){
+      document.querySelectorAll("#tab-rates .chip").forEach(x=>x.classList.toggle("on",x===btn));
+      window.applyZaleRateMode(t.includes("gift") ? "giftcard" : "crypto");
+    };
+  }
+});
+
+</script>
+<script>
+const _prevApply = window.applyZaleRateMode;
+window.applyZaleRateMode = function(mode){
+  if(typeof _prevApply==="function") _prevApply(mode);
+  const tab = document.getElementById("tab-rates"); if(!tab) return;
+  const isGc = mode === "giftcard";
+  tab.querySelectorAll("label, div, span, b, button").forEach(el=>{
+    if(el.children.length>0) return;
+    const tx = el.textContent.trim();
+    if(isGc){
+      if(/select crypto|choose coin|crypto asset/i.test(tx)) el.textContent = "Select Gift Card Brand";
+      else if(/proceed.*trade|buy.*crypto|sell.*crypto/i.test(tx)) el.textContent = "Sell Gift Card Now →";
+      else if(/spot rate|market rate/i.test(tx)) el.textContent = "Gift Card Payout Rate";
+    } else {
+      if(tx==="Select Gift Card Brand") el.textContent = "Select Crypto Asset";
+      else if(tx==="Sell Gift Card Now →") el.textContent = "Proceed to Trade →";
+      else if(tx==="Gift Card Payout Rate") el.textContent = "Live Market Rate";
+    }
+  });
+};
+
+</script>
+<script>
+window.applyZaleRateMode = function(mode){
+  const tab = document.getElementById("tab-rates"); if(!tab) return;
+  const isGc = mode === "giftcard";
+  const cards = Array.from(tab.querySelectorAll(".card"));
+  const mainCard = cards[0]; if(!mainCard) return;
+  let gcPanel = document.getElementById("zaleGcRatePanel");
+  if(!gcPanel){
+    gcPanel = document.createElement("div");
+    gcPanel.id = "zaleGcRatePanel";
+    gcPanel.className = "card hide";
+    mainCard.after(gcPanel);
+  }
+  mainCard.classList.toggle("hide", isGc);
+  gcPanel.classList.toggle("hide", !isGc);
+  if(isGc) window.renderGcRatePanel();
+};
+window.renderGcRatePanel = function(){
+  const p = document.getElementById("zaleGcRatePanel"); if(!p) return;
+  const brand = document.getElementById("gcCalcBrand")?.value || "Apple / iTunes";
+  const reg = parseFloat(document.getElementById("gcCalcReg")?.value || "1") || 1;
+  const val = parseFloat(document.getElementById("gcCalcVal")?.value || "100") || 0;
+  const item = (window.GC_DATA||[]).find(x=>x.name===brand) || {name:"Apple / iTunes",rate:0.84};
+  const effRate = +(item.rate * reg).toFixed(3);
+  const usdOut = val * effRate;
+  const c = CURR[user?.cty] || CURR.ZM;
+  const sym = user?.cty==="ZM" ? "K " : (c.s+" ");
+  const locOut = sym + (usdOut * c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+  if(!p.dataset.built){
+    p.dataset.built = "1";
+    p.innerHTML = `<div style="font-size:12px;font-weight:700;color:var(--mut);margin-bottom:4px">Select Gift Card Brand</div>
+      <select id="gcCalcBrand" onchange="window.renderGcRatePanel()">${(window.GC_DATA||[]).map(g=>`<option value="${g.name}">${g.name}</option>`).join("")}</select>
+      <div style="font-size:12px;font-weight:700;color:var(--mut);margin:10px 0 4px">Card Country / Currency</div>
+      <select id="gcCalcReg" onchange="window.renderGcRatePanel()"><option value="1">USA ($ USD Physical / E-Code)</option><option value="0.96">UK (£ GBP Card)</option><option value="0.94">Europe (€ EUR Card)</option></select>
+      <div style="font-size:12px;font-weight:700;color:var(--mut);margin:10px 0 4px">Gift Card Face Value ($ USD)</div>
+      <input id="gcCalcVal" type="number" value="100" oninput="window.renderGcRatePanel()" placeholder="Enter card amount (e.g. 100)" />
+      <div class="card" style="background:var(--card2);margin:12px 0;padding:13px">
+        <div class="row"><span style="font-size:12px;color:var(--mut)">Payout Rate</span><b id="gcCalcRateLbl" class="mono"></b></div>
+        <div class="row" style="margin-top:6px"><span style="font-size:12px;color:var(--mut)">You Receive (USD)</span><b id="gcCalcUsdLbl" class="mono"></b></div>
+        <div class="row" style="margin-top:6px"><span style="font-size:12px;color:var(--mut)">Local Payout (${c.name})</span><b id="gcCalcLocLbl" class="mono" style="color:#059669;font-size:16px"></b></div>
+      </div>
+      <button type="button" class="btn" onclick="nav('giftcards');if(typeof selectGcBrand==='function')selectGcBrand(document.getElementById('gcCalcBrand').value)">Sell This Gift Card Now &rarr;</button>`;
+  }
+  document.getElementById("gcCalcRateLbl").textContent = "$" + effRate.toFixed(2) + " / $1";
+  document.getElementById("gcCalcUsdLbl").textContent = "$" + usdOut.toFixed(2) + " USD";
+  document.getElementById("gcCalcLocLbl").textContent = locOut;
+};
+
+</script>
+<script>
+window.selectGcBrand = function(name){
+  const tab = document.getElementById("tab-giftcards"); if(!tab) return;
+  const item = (window.GC_DATA||[]).find(g=>g.name===name) || {name:name,rate:0.84,col:"#132257",ico:"🎁"};
+  let box = document.getElementById("zaleGcTradeDrawer");
+  if(!box){
+    box = document.createElement("div");
+    box.id = "zaleGcTradeDrawer";
+    box.className = "card";
+    box.style.cssText = "border:1.5px solid #132257;margin-top:14px";
+    const grid = document.getElementById("zaleGcCards") || document.getElementById("gcGrid") || tab.lastElementChild;
+    grid.after(box);
+  }
+  box.classList.remove("hide");
+  box.dataset.brand = item.name;
+  box.dataset.rate = item.rate;
+  box.innerHTML = `<div class="row" style="margin-bottom:10px"><div style="display:flex;align-items:center;gap:10px"><div style="width:36px;height:36px;border-radius:10px;background:${item.col};color:#fff;font-weight:900;display:flex;align-items:center;justify-content:center">${item.ico}</div><div><b style="font-size:15px">Sell ${item.name}</b><div style="font-size:11.5px;color:#059669;font-weight:700">Rate: $${item.rate.toFixed(2)} / $1</div></div></div><button type="button" class="btn-ghost" style="padding:4px 10px;font-size:11px" onclick="document.getElementById('zaleGcTradeDrawer').classList.add('hide')">✕</button></div>
+    <select id="gcTrdType"><option>E-Code (Digital)</option><option>Physical Card</option></select>
+    <input id="gcTrdAmt" type="number" value="100" oninput="window.updGcTradeCalc()" placeholder="Card Face Value ($ USD)" />
+    <input id="gcTrdCode" placeholder="Enter Gift Card Code / PIN" />
+    <input id="gcTrdFile" type="file" accept="image/*" style="font-size:11.5px;padding:8px" />
+    <div class="card" style="background:var(--card2);padding:11px;margin:8px 0"><div class="row"><span style="font-size:12px;color:var(--mut)">Instant Payout</span><b id="gcTrdOut" class="mono" style="color:#059669;font-size:15px"></b></div></div>
+    <button type="button" class="btn" onclick="window.submitGcTrade()">Submit Gift Card Order &rarr;</button>`;
+  window.updGcTradeCalc();
+  box.scrollIntoView({behavior:"smooth",block:"center"});
+};
+window.updGcTradeCalc = function(){
+  const box = document.getElementById("zaleGcTradeDrawer"); if(!box) return;
+  const rate = parseFloat(box.dataset.rate || "0.84") || 0.84;
+  const amt = parseFloat(document.getElementById("gcTrdAmt")?.value || "0") || 0;
+  const usd = amt * rate;
+  const c = CURR[user?.cty] || CURR.ZM;
+  const sym = user?.cty==="ZM" ? "K " : (c.s+" ");
+  const out = document.getElementById("gcTrdOut");
+  if(out) out.textContent = "$" + usd.toFixed(2) + " USD (" + sym + (usd*c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}) + ")";
+};
+window.submitGcTrade = function(){
+  const box = document.getElementById("zaleGcTradeDrawer"); if(!box) return;
+  const brand = box.dataset.brand || "Gift Card";
+  const rate = parseFloat(box.dataset.rate || "0.84") || 0.84;
+  const amt = parseFloat(document.getElementById("gcTrdAmt")?.value || "0") || 0;
+  const code = (document.getElementById("gcTrdCode")?.value || "").trim();
+  const typ = document.getElementById("gcTrdType")?.value || "E-Code";
+  if(amt <= 0) return toast("Enter a valid card amount");
+  if(!code && !document.getElementById("gcTrdFile")?.files?.length) return toast("Enter card code or attach card photo");
+  const usd = +(amt * rate).toFixed(2);
+  const o = {id:"ZL-"+Math.floor(100000+Math.random()*900000),email:user?.email||"",type:"Sell "+brand,usd:usd,details:typ+" $"+amt+" @ $"+rate.toFixed(2),status:"Pending Verification",date:new Date().toLocaleDateString()};
+  orders.unshift(o);
+  localStorage.setItem("zale_orders",JSON.stringify(orders));
+  if(typeof pushOrderCloud==="function") pushOrderCloud(o);
+  if(typeof renderAll==="function") renderAll();
+  if(window.triggerIslandActivity) window.triggerIslandActivity("Card Trade Live",45);
+  box.classList.add("hide");
+  toast("Gift Card order "+o.id+" submitted!");
+};
+
+</script>
 </body>
 </html>
+
+
+
+
