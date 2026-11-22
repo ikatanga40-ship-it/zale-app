@@ -104,6 +104,7 @@ body.dark{--bg:#000000;--card:#1c1c1e;--card2:#2c2c2e;--brd:#38383a;--txt:#fffff
  iosSheet{from{transform:translateY(100%)}to{transform:translateY(0)}} body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",sans-serif;-webkit-font-smoothing:antialiased} .mono,#homeLocalBal,#walLocalBal{font-variant-numeric:tabular-nums;letter-spacing:-.02em} [id^="tab-"]{animation:iosFade .26s cubic-bezier(.32,.72,0,1)}  iosFade{from{opacity:.65;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
 #homeCtyPill,#walCtyPill{margin:0 auto !important;justify-content:center} .bnav{background:rgba(255,255,255,.72) !important;backdrop-filter:blur(26px) saturate(190%) !important;-webkit-backdrop-filter:blur(26px) saturate(190%) !important;border-top:1px solid rgba(255,255,255,.45) !important;box-shadow:0 -8px 28px rgba(15,23,42,.08) !important} body.dark .bnav,body.sovereign .bnav{background:rgba(16,24,44,.72) !important;border-top:1px solid rgba(255,255,255,.12) !important} [id^="tab-"]{animation:iosSpring .36s cubic-bezier(.32,.72,0,1)}  iosSpring{0%{opacity:.45;transform:translateX(14px) scale(.985)}100%{opacity:1;transform:translateX(0) scale(1)}}
  iosSheet{from{transform:translateY(100%)}to{transform:translateY(0)}} .bnav{background:rgba(255,255,255,.72) !important;backdrop-filter:blur(26px) saturate(190%) !important;-webkit-backdrop-filter:blur(26px) saturate(190%) !important} body.dark .bnav,body.sovereign .bnav{background:rgba(16,24,44,.72) !important} #tab-vcard .card:hover{transform:perspective(700px) rotateY(7deg) rotateX(4deg) scale(1.02);transition:transform .25s ease}
+#homeCtyPill{transition:all .42s cubic-bezier(.32,.72,0,1)} #homeCtyPill.live-act{white-space:normal !important;max-width:84vw !important;border-radius:22px !important;padding:8px 16px !important;line-height:1.3 !important;text-align:center !important}
 </style></head>
 <body>
   <div id="zaleBootSplash"><div style="font-size:38px;font-weight:900;color:#10b981">✦ Zale</div><div style="font-size:11.5px;color:#94a3b8;margin-top:4px">Initializing Secure Desk...</div><div class="boot-bar"><div class="boot-fill"></div></div></div>
@@ -1472,6 +1473,50 @@ window.openZaleP2P=function(){
 };
 document.querySelectorAll("#tab-home [onclick*=\"nav('xborder')\"]").forEach(el=>{el.onclick=function(e){e.stopPropagation();window.openZaleTransferSheet();};});
 
+</script>
+<script>
+window.showZaleWelcome=function(msg,ms){
+  const pill=document.getElementById("homeCtyPill"),txt=document.getElementById("hdrCurrName"),flg=document.getElementById("hdrFlagSvg");
+  if(!pill||!txt)return;
+  const svg=pill.querySelector("svg");
+  if(flg)flg.style.display="none"; if(svg)svg.style.display="none";
+  pill.classList.add("live-act");
+  txt.textContent=msg;
+  clearTimeout(window._wTmr);
+  window._wTmr=setTimeout(()=>{
+    pill.classList.remove("live-act");
+    if(flg)flg.style.display=""; if(svg)svg.style.display="";
+    if(typeof renderAll==="function")renderAll();
+  },ms||3500);
+};
+window.doZaleSignOut=function(){
+  localStorage.removeItem("zale_user");if(typeof user!=="undefined")user=null;
+  document.getElementById("bottomNav")?.classList.add("hide");
+  document.querySelectorAll("[id^='tab-']").forEach(el=>el.classList.add("hide"));
+  const auth=document.getElementById("authScreen")||document.getElementById("loginBox");
+  if(auth)auth.classList.remove("hide");
+  if(typeof switchAuth==='function')switchAuth('login');location.reload();
+};
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;const tx=b.textContent.toLowerCase();
+  if(tx.includes("sign in"))setTimeout(()=>{const u=JSON.parse(localStorage.getItem("zale_user")||"null");if(u?.name)window.showZaleWelcome("Welcome back, "+u.name.trim().split(/\s+/)+"!",3500);},250);
+  if(tx.includes("create account")||tx.includes("register"))setTimeout(()=>{const u=JSON.parse(localStorage.getItem("zale_user")||"null");if(u?.name)window.showZaleWelcome("Welcome "+u.name.trim()+" to the Zale team — we're delighted to have you on board!",4200);},250);
+});
+document.querySelectorAll("#tab-withdraw button, #tab-xborder button, #tab-deposit button").forEach(btn=>{
+  const code=btn.getAttribute("onclick");
+  if(!code||code.includes("nav("))return;
+  btn.removeAttribute("onclick");
+  btn.onclick=function(){
+    window.openApplePinSheet("Authorize with Touch ID or PIN",()=>{
+      try{new Function(code).call(btn);}catch(err){}
+      if(typeof pushOrderCloud==="function"&&orders)pushOrderCloud(orders);
+    });
+  };
+});
+
+</script>
+<script>
+Array.from(document.querySelectorAll("#tab-account button")).filter(b=>/sign out|log out/i.test(b.textContent)).forEach(b=>b.onclick=function(){localStorage.removeItem("zale_user");if(typeof toast==="function")toast("Signed out safely");setTimeout(()=>location.reload(),350);});
 </script>
 </body>
 </html>
