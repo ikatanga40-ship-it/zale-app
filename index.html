@@ -106,6 +106,7 @@ body.dark{--bg:#000000;--card:#1c1c1e;--card2:#2c2c2e;--brd:#38383a;--txt:#fffff
  iosSheet{from{transform:translateY(100%)}to{transform:translateY(0)}} .bnav{background:rgba(255,255,255,.72) !important;backdrop-filter:blur(26px) saturate(190%) !important;-webkit-backdrop-filter:blur(26px) saturate(190%) !important} body.dark .bnav,body.sovereign .bnav{background:rgba(16,24,44,.72) !important} #tab-vcard .card:hover{transform:perspective(700px) rotateY(7deg) rotateX(4deg) scale(1.02);transition:transform .25s ease}
 #homeCtyPill{transition:all .42s cubic-bezier(.32,.72,0,1)} #homeCtyPill.live-act{white-space:normal !important;max-width:84vw !important;border-radius:22px !important;padding:8px 16px !important;line-height:1.3 !important;text-align:center !important}
 #tab-giftcards .card:not(#zaleGcTradeDrawer),#gcGrid>div,#zaleGcCards>div{background:transparent !important;border:none !important;box-shadow:none !important}
+body.sys-slate{--bg:#121726;--card:#1b2236;--card2:#252f4a;--brd:#334155;--txt:#f1f5f9;--mut:#94a3b8;--acc:#38bdf8;--gold:#facc15;--obs:#38bdf8}
 </style><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Zale"><link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://w3.org' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23132257'/%3E%3Ctext x='90' y='112' text-anchor='middle' fill='%23d4af37' font-size='84' font-weight='900'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
 </head>
 <body>
@@ -352,7 +353,7 @@ body.dark{--bg:#000000;--card:#1c1c1e;--card2:#2c2c2e;--brd:#38383a;--txt:#fffff
     <div id="tab-limits" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Account</button><span id="kycBadge" class="pill-pend">Tier 1 Active</span></div><div class="card"><h2 style="margin:0 0 4px;font-size:19px">Transfer Limit</h2><p style="font-size:11.5px;color:var(--mut);margin:0 0 12px">Daily transaction limits based on your country &amp; verification tier:</p><div id="dailyLimitsList"></div><button class="btn" style="margin-top:14px" onclick="handleIncreaseLimits()">Increase Transfer Limits</button></div></div>
     <div id="tab-kyc" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Account</button><span style="font-size:11px;color:var(--acc);font-weight:800">Tier 2 Identity Check</span></div><div class="card" style="border-color:rgba(16,185,129,.45)"><h2 style="margin:0 0 6px;font-size:18px">Upgrade to Tier 2 (Camera &amp; Facial KYC)</h2><p style="font-size:12px;color:var(--mut);margin:0 0 10px">Complete all 4 steps below using your phone camera to unlock full daily limits:</p><input id="kycIdInp" placeholder="1. Enter NRC / National ID / Passport Number" /><div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px"><div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:8px"><div style="font-size:10.5px;font-weight:800;color:var(--acc);margin-bottom:4px">2. Front of ID</div><input id="kycFrontInp" type="file" accept="image/*" capture="environment" style="padding:4px;font-size:10px" onchange="handleKycCam('front',this)" /><img id="kycFrontPrev" class="hide" style="width:100%;height:65px;object-fit:cover;border-radius:8px;margin-top:5px" /></div><div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:8px"><div style="font-size:10.5px;font-weight:800;color:var(--acc);margin-bottom:4px">3. Back of ID</div><input id="kycBackInp" type="file" accept="image/*" capture="environment" style="padding:4px;font-size:10px" onchange="handleKycCam('back',this)" /><img id="kycBackPrev" class="hide" style="width:100%;height:65px;object-fit:cover;border-radius:8px;margin-top:5px" /></div></div><div style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:9px;margin-top:8px"><div style="font-size:11px;font-weight:800;color:var(--gold);margin-bottom:4px">4. Live Facial / Selfie Capture (Front Camera)</div><input id="kycFaceInp" type="file" accept="image/*" capture="user" style="padding:5px;font-size:10.5px" onchange="handleKycCam('face',this)" /><img id="kycFacePrev" class="hide" style="width:72px;height:72px;object-fit:cover;border-radius:50%;margin-top:6px;border:2px solid var(--acc)" /></div><button class="btn" style="margin-top:14px" onclick="submitKycV3()">Verify Front, Back ID &amp; Face</button></div></div>
     <div id="tab-password" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Account</button><span style="font-size:11px;color:var(--acc);font-weight:800">Account Security</span></div><div class="card"><h2 style="margin:0 0 12px;font-size:19px">Update Password</h2><div style="font-size:11.5px;font-weight:800;color:var(--mut)">Current Password</div><input id="curPwInp" type="password" placeholder="Enter current password" style="margin-top:4px;margin-bottom:10px" /><div style="font-size:11.5px;font-weight:800;color:var(--mut)">New Password</div><input id="newPwInp1" type="password" placeholder="Enter new password" style="margin-top:4px;margin-bottom:10px" /><div style="font-size:11.5px;font-weight:800;color:var(--mut)">Re-enter Password</div><input id="newPwInp2" type="password" placeholder="Re-enter password" style="margin-top:4px;margin-bottom:14px" /><button class="btn" onclick="saveNewPasswordInline()">Update</button></div></div>
-    <div id="tab-2fa" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Security</button><span style="font-size:11px;color:var(--acc);font-weight:800">2FA Protection</span></div><div id="tfaStep1" class="card"><h2 style="margin:0 0 6px;font-size:19px">Secure your account</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 14px">Add a second step when signing in to keep your account safe. Choose how you'd like to confirm it's you.</p><div style="border:1.5px solid var(--acc);background:rgba(16,185,129,.07);border-radius:14px;padding:14px"><span style="display:inline-block;background:var(--acc);color:#03120e;font-size:10px;font-weight:900;padding:3px 8px;border-radius:6px;margin-bottom:8px">RECOMMENDED</span><div style="font-size:15px;font-weight:800">Authenticator App</div><p style="font-size:12px;color:var(--mut);margin:5px 0 12px">Generate codes with Google Authenticator, Authy, or similar. Works offline and is the most secure.</p><button class="btn" style="padding:11px" onclick="show2faStep(2)">Authenticator App →</button></div><div onclick="show2faStep('email')" style="border:1.5px solid var(--brd);background:var(--card2);border-radius:14px;padding:14px;margin-top:10px;cursor:pointer"><div style="font-size:15px;font-weight:800">Email</div><p style="font-size:12px;color:var(--mut);margin:5px 0 10px">Receive a one-time code by email at sign in.</p><button type="button" class="btn-ghost" style="width:100%;padding:10px;font-size:12px">Email OTP →</button></div></div><div id="tfaStep2" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Authenticator App</h2><div class="acc-row"><b>Google Authenticator</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('google')">Get</button></div><div class="acc-row"><b>Authy</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('authy')">Get</button></div><div class="acc-row"><b>Microsoft Authenticator</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('ms')">Get</button></div><button class="btn" style="margin-top:14px" onclick="show2faStep(3)">I have an app, continue</button></div><div id="tfaStep3" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Link Authenticator</h2><div class="row" style="background:var(--card2);padding:10px;border-radius:10px;margin:10px 0"><code class="mono" style="font-size:12px;color:var(--gold);font-weight:800">ZALE-2FA9-K84M-77XQ</code><button class="btn-ghost" style="padding:4px 8px;font-size:10.5px" onclick="copyVal('ZALE2FA9K84M77XQ','Setup Key')">Copy Key</button></div><button class="btn" onclick="show2faStep(4)">Continue</button></div><div id="tfaStep4" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Enter 6-Digit Code</h2><input id="tfaCodeInp" type="text" maxlength="6" placeholder="000000" class="mono" style="text-align:center;font-size:22px;letter-spacing:8px;font-weight:800" /><button class="btn" style="margin-top:14px" onclick="confirmEnable2fa()">Enable 2FA</button></div><div id="tfaStepemail" class="card hide"><h2 style="margin:0 0 8px;font-size:19px">Secure your account</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 16px">We ensure your account is secure with 2-factor authentication. To enable this, an OTP would be sent to your email to verify it's you.</p><div id="tfaEmailOtpBox" class="hide" style="margin-bottom:12px"><div id="tfaEmailSentMsg" style="font-size:11.5px;color:var(--acc);font-weight:800;margin-bottom:6px"></div><input id="tfaEmailCodeInp" type="text" maxlength="6" placeholder="000000" class="mono" style="text-align:center;font-size:22px;letter-spacing:8px;font-weight:800" /></div><button id="tfaEmailBtn" class="btn" onclick="handleEmail2fa()">Enable 2FA</button></div></div>
+    <div id="tab-2fa" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Security</button><span style="font-size:11px;color:var(--acc);font-weight:800">2FA Protection</span></div><div id="tfaStep1" class="card"><h2 style="margin:0 0 6px;font-size:19px">Secure your account</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 14px">Add a second step when signing in to keep your account safe. Choose how you'd like to confirm it's you.</p><div onclick="show2faStep(2)" style="cursor:pointer;border:1.5px solid var(--acc);background:rgba(16,185,129,.07);border-radius:14px;padding:14px"><span style="display:inline-block;background:var(--acc);color:#03120e;font-size:10px;font-weight:900;padding:3px 8px;border-radius:6px;margin-bottom:8px">RECOMMENDED</span><div style="font-size:15px;font-weight:800">Authenticator App</div><p style="font-size:12px;color:var(--mut);margin:5px 0 12px">Generate codes with Google Authenticator, Authy, or similar. Works offline and is the most secure.</p><button class="btn" style="padding:11px" onclick="show2faStep(2)">Authenticator App →</button></div><div onclick="show2faStep('email')" style="border:1.5px solid var(--brd);background:var(--card2);border-radius:14px;padding:14px;margin-top:10px;cursor:pointer"><div style="font-size:15px;font-weight:800">Email</div><p style="font-size:12px;color:var(--mut);margin:5px 0 10px">Receive a one-time code by email at sign in.</p><button type="button" class="btn-ghost" style="width:100%;padding:10px;font-size:12px">Email OTP →</button></div></div><div id="tfaStep2" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Authenticator App</h2><div class="acc-row"><b>Google Authenticator</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('google')">Get</button></div><div class="acc-row"><b>Authy</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('authy')">Get</button></div><div class="acc-row"><b>Microsoft Authenticator</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('ms')">Get</button></div><button class="btn" style="margin-top:14px" onclick="show2faStep(3)">I have an app, continue</button></div><div id="tfaStep3" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Link Authenticator</h2><div class="row" style="background:var(--card2);padding:10px;border-radius:10px;margin:10px 0"><code class="mono" style="font-size:12px;color:var(--gold);font-weight:800">ZALE-2FA9-K84M-77XQ</code><button class="btn-ghost" style="padding:4px 8px;font-size:10.5px" onclick="copyVal('ZALE2FA9K84M77XQ','Setup Key')">Copy Key</button></div><button class="btn" onclick="show2faStep(4)">Continue</button></div><div id="tfaStep4" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Enter 6-Digit Code</h2><input id="tfaCodeInp" type="text" maxlength="6" placeholder="000000" class="mono" style="text-align:center;font-size:22px;letter-spacing:8px;font-weight:800" /><button class="btn" style="margin-top:14px" onclick="confirmEnable2fa()">Enable 2FA</button></div><div id="tfaStepemail" class="card hide"><h2 style="margin:0 0 8px;font-size:19px">Secure your account</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 16px">We ensure your account is secure with 2-factor authentication. To enable this, an OTP would be sent to your email to verify it's you.</p><div id="tfaEmailOtpBox" class="hide" style="margin-bottom:12px"><div id="tfaEmailSentMsg" style="font-size:11.5px;color:var(--acc);font-weight:800;margin-bottom:6px"></div><input id="tfaEmailCodeInp" type="text" maxlength="6" placeholder="000000" class="mono" style="text-align:center;font-size:22px;letter-spacing:8px;font-weight:800" /></div><button id="tfaEmailBtn" class="btn" onclick="handleEmail2fa()">Enable 2FA</button></div></div>
         <div id="tab-vcard" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">← Home</button><span style="font-size:11px;color:#38bdf8;font-weight:800">Visa / Mastercard USD</span></div><div class="card"><h3 style="margin:0 0 8px;font-size:15px">Issue or Top Up Virtual Dollar Card</h3><select id="vcNet" onchange="previewVcardCost()"><option value="Visa Virtual USD">Visa Virtual USD (3D Secure)</option><option value="Mastercard Virtual USD">Mastercard Virtual USD (Ads &amp; Global)</option></select><select id="vcAction" onchange="previewVcardCost()"><option value="issue">Issue New Card (+$5 Fee)</option><option value="topup">Top Up Existing Card ($0 Fee)</option></select><input id="vcUsd" type="number" min="5" placeholder="Load Amount in USD (e.g. 50)" oninput="previewVcardCost()" /><div id="vcCostPreview" class="mono" style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:9px 12px;margin-top:8px;font-size:12px;font-weight:800;color:var(--gold)">Total Payable: $0.00 (K0)</div><input id="vcLabel" placeholder="Cardholder Name or Billing Email" /><button class="btn" style="margin-top:10px" onclick="submitVcardOrder()">Submit Virtual Card Request</button></div></div>
     <div id="tab-utilities" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">← Home</button><span style="font-size:11px;color:var(--acc);font-weight:800">Instant Vending</span></div><div class="card"><h2 style="margin:0 0 8px;font-size:18px">Utility Bills &amp; Split Bill</h2><select id="billType"><option>Electricity (ZESCO)</option><option>Cable TV (DStv/GOtv)</option><option>Airtime &amp; Data</option><option>Split Bill (3+ Friends)</option></select><input id="billMeter" placeholder="Meter / Smartcard / Phone Number" /><input id="billAmt" type="number" placeholder="Amount in USD (e.g. 25)" /><button class="btn" style="margin-top:10px" onclick="submitUtilityBill()">Pay Utility Bill Now</button></div></div>
     <div id="tab-xborder" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">← Home</button><span style="font-size:11px;color:#c084fc;font-weight:800">Multi-Country Rails</span></div><div class="card"><h2 style="margin:0 0 8px;font-size:18px">Cross-Border Payout</h2><select id="xbCorridor"><option>Zambia (ZMW) → South Africa (ZAR)</option><option>Zambia (ZMW) → Nigeria (NGN)</option><option>Zambia (ZMW) → Kenya (KES)</option><option>Nigeria (NGN) → Zambia (ZMW)</option><option>South Africa (ZAR) → Zambia (ZMW)</option></select><input id="xbUsd" type="number" placeholder="Send Amount in USD (e.g. 100)" /><input id="xbRecip" placeholder="Recipient Bank / Mobile Money & Full Name" /><button class="btn" style="margin-top:10px" onclick="submitXborderOrder()">Send Cross-Border Payout</button></div></div>
@@ -402,7 +403,7 @@ body.dark{--bg:#000000;--card:#1c1c1e;--card2:#2c2c2e;--brd:#38383a;--txt:#fffff
     function toast(m){const t=document.getElementById("toastBox");if(!t)return;t.textContent=m;t.classList.remove("hide");setTimeout(()=>t.classList.add("hide"),3200);}
     function copyVal(x,l){if(navigator.clipboard)navigator.clipboard.writeText(x);toast(l+" copied!");}
     function switchAuthMode(m){authMode=m;document.getElementById("regFields").classList.toggle("hide",m==="in");document.getElementById("authTabIn").classList.toggle("on",m==="in");document.getElementById("authTabUp").classList.toggle("on",m==="up");document.getElementById("authSubmitBtn").textContent=m==="in"?"Sign In to Zale":"Create Free Zale Account";}
-    function handleAuthSubmit(){const email=(document.getElementById("lEmail").value||"").trim().toLowerCase(),pass=(document.getElementById("lPass").value||"").trim();if(!email||pass.length<6)return toast("Enter valid email & password (min 6 chars).");let db=JSON.parse(localStorage.getItem("zale_users")||"{}");if(authMode==="up"){db[email]={name:(document.getElementById("rName").value||"").trim()||email.split("@"),email,phone:(document.getElementById("rPhone").value||"").trim(),cty:document.getElementById("rCty").value||"ZM",pass,bal:0,kyc:1};localStorage.setItem("zale_users",JSON.stringify(db));user=db[email];}else if(email===ADMIN&&pass==="zaleAdmin2026pay"){user=db[email]||{name:"Isaac Katanga (Admin)",email:ADMIN,cty:"ZM",pass,bal:0,kyc:2};}else if(db[email]&&db[email].pass===pass){user=db[email];}else return toast("Invalid email or password.");localStorage.setItem("zale_user",JSON.stringify(user));enterApp();}
+    function handleAuthSubmit(){const email=(document.getElementById("lEmail").value||"").trim().toLowerCase(),pass=(document.getElementById("lPass").value||"").trim();if(!email||pass.length<6)return toast("Enter valid email & password (min 6 chars).");let db=JSON.parse(localStorage.getItem("zale_users")||"{}");if(authMode==="up"){db[email]={name:(document.getElementById("rName").value||"").trim()||email.split("@").at(0),email,phone:(document.getElementById("rPhone").value||"").trim(),cty:document.getElementById("rCty").value||"ZM",pass,bal:0,kyc:1};localStorage.setItem("zale_users",JSON.stringify(db));user=db[email];}else if(email===ADMIN&&pass==="zaleAdmin2026pay"){user=db[email]||{name:"Isaac Katanga (Admin)",email:ADMIN,cty:"ZM",pass,bal:0,kyc:2};}else if(db[email]&&db[email].pass===pass){user=db[email];}else return toast("Invalid email or password.");localStorage.setItem("zale_user",JSON.stringify(user));enterApp();}
     function doLogout(){localStorage.removeItem("zale_user");user=null;document.getElementById("appBox").classList.add("hide");document.getElementById("bottomNav").classList.add("hide");document.getElementById("fabChatBtn")?.classList.add("hide");document.getElementById("authBox").classList.remove("hide");}
     function enterApp(){document.getElementById("authBox").classList.add("hide");document.getElementById("appBox").classList.remove("hide");document.getElementById("bottomNav").classList.remove("hide");document.getElementById("fabChatBtn")?.classList.remove("hide");document.getElementById("adminBtn")?.classList.toggle("hide",user?.email!==ADMIN);nav("home");}
         function nav(t,mode){
@@ -1422,7 +1423,7 @@ window.openApplePinSheet=function(title,onOk){
   sh.innerHTML=`<div style="width:100%;max-width:440px;background:var(--card);border-radius:28px 28px 0 0;padding:12px 20px 28px;animation:iosSheet .34s cubic-bezier(.32,.72,0,1)">
     <div style="width:38px;height:4.5px;border-radius:99px;background:var(--brd);margin:0 auto 12px"></div>
     <div class="row" style="margin-bottom:8px"><b style="font-size:16px">${title||"Apple Cash Authorization"}</b><button type="button" class="btn-ghost" style="padding:4px 10px;font-size:11px" onclick="document.getElementById('applePinOverlay').classList.add('hide')">Cancel</button></div>
-    <div id="tidBox" style="text-align:center;padding:10px;margin-bottom:12px;border-radius:16px;background:var(--card2);cursor:pointer"><div style="width:48px;height:48px;border-radius:50%;background:rgba(220,38,38,.1);color:#dc2626;margin:0 auto 5px;display:flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 10a2 2 0 0 0-2 2c0 1 .1 2.5-.3 4"/><path d="M14 13.1c0 2.4 0 6.4-1 8.9"/><path d="M2 12a10 10 0 0 1 18-6"/><path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .3-2"/><path d="M9 6.8a6 6 0 0 1 9 5.2v2"/></svg></div><b style="font-size:12.5px">Tap Touch ID Sensor to Authorize</b></div>
+    <div id="tidBox" style="text-align:center;padding:10px;margin-bottom:12px;border-radius:16px;background:var(--card2);cursor:pointer"><div style="width:48px;height:48px;border-radius:50%;background:rgba(220,38,38,.1);color:#dc2626;margin:0 auto 5px;display:flex;align-items:center;justify-content:center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"><path d="M12 10a2 2 0 0 0-2 2c0 1 .1 2.5-.3 4"/><path d="M14 13.1c0 2.4 0 6.4-1 8.9"/><path d="M2 12a10 10 0 0 1 18-6"/><path d="M5 19.5C5.5 18 6 15 6 12a6 6 0 0 1 .3-2"/><path d="M9 6.8a6 6 0 0 1 9 5.2v2"/></svg></div><b style="font-size:12.5px">Place Finger on Sensor to Authorize</b></div>
     <div id="apPinDots" style="display:flex;justify-content:center;gap:14px;margin-bottom:14px">${.map(()=>`<span style="width:13px;height:13px;border-radius:50%;border:2px solid #132257;display:inline-block"></span>`).join("")}</div>
     <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:260px;margin:0 auto">${[1,2,3,4,5,6,7,8,9,"",0,"⌫"].map(k=>k===""?"<div></div>":`<button type="button" class="btn-ghost" style="padding:12px;font-size:17px;font-weight:800;border-radius:14px" data-k="${k}">${k}</button>`).join("")}</div>
   </div>`;
@@ -1445,7 +1446,7 @@ window.openApplePinSheet=function(title,onOk){
   let sh=document.getElementById("applePinOverlay");
   if(!sh){sh=document.createElement("div");sh.id="applePinOverlay";sh.style.cssText="position:fixed;inset:0;background:rgba(0,0,0,.48);backdrop-filter:blur(6px);z-index:9999;display:flex;align-items:flex-end;justify-content:center";document.body.appendChild(sh);}
   let code="";sh.classList.remove("hide");
-  sh.innerHTML=`<div style="width:100%;max-width:440px;background:var(--card);border-radius:28px 28px 0 0;padding:12px 20px 28px;animation:iosSheet .34s cubic-bezier(.32,.72,0,1)"><div style="width:38px;height:4.5px;border-radius:99px;background:var(--brd);margin:0 auto 12px"></div><div class="row" style="margin-bottom:8px"><b style="font-size:16px">${title}</b><button type="button" class="btn-ghost" style="padding:4px 10px;font-size:11px" onclick="document.getElementById('applePinOverlay').classList.add('hide')">Cancel</button></div><div id="tidBox" style="text-align:center;padding:12px;margin-bottom:12px;border-radius:16px;background:var(--card2);border:1.5px solid rgba(220,38,38,.35);cursor:pointer"><div style="font-size:24px;margin-bottom:4px">🫆</div><b style="font-size:13px;color:#dc2626">Tap Touch ID Sensor to Authorize</b></div><div id="apPinDots" style="display:flex;justify-content:center;gap:14px;margin-bottom:14px">${.map(()=>`<span style="width:13px;height:13px;border-radius:50%;border:2px solid #132257;display:inline-block"></span>`).join("")}</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:260px;margin:0 auto">${[1,2,3,4,5,6,7,8,9,"",0,"⌫"].map(k=>k===""?"<div></div>":`<button type="button" class="btn-ghost" style="padding:12px;font-size:17px;font-weight:800;border-radius:14px" data-k="${k}">${k}</button>`).join("")}</div></div>`;
+  sh.innerHTML=`<div style="width:100%;max-width:440px;background:var(--card);border-radius:28px 28px 0 0;padding:12px 20px 28px;animation:iosSheet .34s cubic-bezier(.32,.72,0,1)"><div style="width:38px;height:4.5px;border-radius:99px;background:var(--brd);margin:0 auto 12px"></div><div class="row" style="margin-bottom:8px"><b style="font-size:16px">${title}</b><button type="button" class="btn-ghost" style="padding:4px 10px;font-size:11px" onclick="document.getElementById('applePinOverlay').classList.add('hide')">Cancel</button></div><div id="tidBox" style="text-align:center;padding:12px;margin-bottom:12px;border-radius:16px;background:var(--card2);border:1.5px solid rgba(220,38,38,.35);cursor:pointer"><div style="font-size:24px;margin-bottom:4px">🫆</div><b style="font-size:13px;color:#dc2626">Place Finger on Sensor to Authorize</b></div><div id="apPinDots" style="display:flex;justify-content:center;gap:14px;margin-bottom:14px">${.map(()=>`<span style="width:13px;height:13px;border-radius:50%;border:2px solid #132257;display:inline-block"></span>`).join("")}</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;max-width:260px;margin:0 auto">${[1,2,3,4,5,6,7,8,9,"",0,"⌫"].map(k=>k===""?"<div></div>":`<button type="button" class="btn-ghost" style="padding:12px;font-size:17px;font-weight:800;border-radius:14px" data-k="${k}">${k}</button>`).join("")}</div></div>`;
   document.getElementById("tidBox").onclick=()=>{sh.classList.add("hide");if(onOk)onOk();};
   const upd=()=>{sh.querySelectorAll("#apPinDots span").forEach((d,i)=>d.style.background=i<code.length?"#132257":"transparent");if(code.length===4){sh.classList.add("hide");if(onOk)onOk();}};
   sh.querySelectorAll("[data-k]").forEach(b=>b.onclick=()=>{const k=b.dataset.k;if(k==="⌫"){code=code.slice(0,-1);upd();}else if(code.length<4){code+=k;upd();}});
@@ -1492,89 +1493,382 @@ window.showZaleWelcome=function(msg,ms){
   },ms||3500);
 };
 window.doZaleSignOut=function(){
-  localStorage.removeItem("zale_user");if(typeof user!=="undefined")user=null;
-  document.getElementById("bottomNav")?.classList.add("hide");
-  document.querySelectorAll("[id^='tab-']").forEach(el=>el.classList.add("hide"));
-  const auth=document.getElementById("authScreen")||document.getElementById("loginBox");
-  if(auth)auth.classList.remove("hide");
-  if(typeof switchAuth==='function')switchAuth('login');location.reload();
+<script>
+</script>
+<script>
+window.syncUserUi=function(){const u=JSON.parse(localStorage.getItem("zale_user")||"null");if(!u)return;const p=String(u.name||"Z").trim().split(/s+/),ini=((p.at(0)||"Z").charAt(0)+(p.at(1)||"").charAt(0)).toUpperCase();["homeAvatar","walAvatar","accAvatarCircle","setupAvatarCircle"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=ini;});document.querySelectorAll("#tab-home div,#tab-home span,#tab-home button").forEach(el=>{if(el.children.length===0&&el.textContent.trim()==="IK")el.textContent=ini;});};window.syncUserUi();
+window.open2faStep=function(step){
+  ["tfaAppStep1","tfaAppStep2","tfaAppStep3"].forEach((id,i)=>{const el=document.getElementById(id);if(el)el.classList.toggle("hide",i+1!==step);});
 };
 document.addEventListener("click",e=>{
-  const b=e.target.closest("button");if(!b)return;const tx=b.textContent.toLowerCase();
-  if(tx.includes("sign in"))setTimeout(()=>{const u=JSON.parse(localStorage.getItem("zale_user")||"null");if(u?.name)window.showZaleWelcome("Welcome back, "+u.name.trim().split(/\s+/)+"!",3500);},250);
-  if(tx.includes("create account")||tx.includes("register"))setTimeout(()=>{const u=JSON.parse(localStorage.getItem("zale_user")||"null");if(u?.name)window.showZaleWelcome("Welcome "+u.name.trim()+" to the Zale team — we're delighted to have you on board!",4200);},250);
+  const b=e.target.closest("button");if(!b)return;const tx=b.textContent.trim();
+  if(/i have the app|continue/i.test(tx)&&b.closest("#tab-2fa-app")){if(document.getElementById("tfaAppStep2")&&!document.getElementById("tfaAppStep2").classList.contains("hide"))window.open2faStep(3);else window.open2faStep(2);return;}
+  if(b.closest("#tab-refer,#tab-account")&&/share|invite/i.test(tx)){const u=JSON.parse(localStorage.getItem("zale_user")||"{}");const link="https://github.io"+encodeURIComponent(u.email||"zale");if(navigator.share)navigator.share({title:"Join Zale",url:link}).catch(()=>{});const ta=document.createElement("textarea");ta.value=link;document.body.appendChild(ta);ta.select();document.execCommand("copy");ta.remove();toast("Referral link copied ✓");return;}
+  if(/update password|save password/i.test(tx)){const p=b.closest(".card,div")?.querySelector("input")?.value.trim();if(!p||p.length<6)return toast("Enter at least 6 characters");const u=JSON.parse(localStorage.getItem("zale_user")||"{}");u.pass=p;const db=JSON.parse(localStorage.getItem("zale_users")||"{}");db[u.email]=Object.assign(db[u.email]||{},u);localStorage.setItem("zale_user",JSON.stringify(u));localStorage.setItem("zale_users",JSON.stringify(db));toast("Password updated ✓");return;}
 });
-document.querySelectorAll("#tab-withdraw button, #tab-xborder button, #tab-deposit button").forEach(btn=>{
-  const code=btn.getAttribute("onclick");
-  if(!code||code.includes("nav("))return;
-  btn.removeAttribute("onclick");
-  btn.onclick=function(){
-    window.openApplePinSheet("Authorize with Touch ID or PIN",()=>{
-      try{new Function(code).call(btn);}catch(err){}
-      if(typeof pushOrderCloud==="function"&&orders)pushOrderCloud(orders);
-    });
-  };
+window.verifyOwnerBiometric=async function(onOk){
+  const u=JSON.parse(localStorage.getItem("zale_user")||localStorage.getItem("zale_last_user")||"null");
+  if(!u||!u.bioEnabled)return toast("Enable Fingerprint Sensor in Account first");
+  try{
+    if(window.PublicKeyCredential&&u.credId){const raw=Uint8Array.from(atob(u.credId),c=>c.charCodeAt(0));await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(16)),allowCredentials:[{id:raw,type:"public-key"}],userVerification:"required",timeout:30000}});}
+    if(onOk)onOk(u);
+  }catch(e){toast("Fingerprint mismatch — owner fingerprint required");}
+};
+(function(){
+  const box=document.getElementById("authBox");if(!box||document.getElementById("zaleBioLogin"))return;
+  const b=document.createElement("button");b.id="zaleBioLogin";b.type="button";b.className="btn-ghost";b.style.cssText="width:100%;margin-top:10px;border:1.5px solid #132257;font-weight:800;padding:12px";b.textContent="🫆 Sign In with Fingerprint Sensor";
+  b.onclick=()=>window.verifyOwnerBiometric(u=>{localStorage.setItem("zale_user",JSON.stringify(u));if(typeof user!=="undefined")user=u;if(typeof enterApp==="function")enterApp();if(window.syncUserUi)window.syncUserUi();if(window.showZaleWelcome)window.showZaleWelcome("Welcome back, "+u.name.trim().split(/\s+/).at(0)+"!",3500);});
+  (box.querySelector("#loginForm button.btn")||box.querySelector("button.btn"))?.after(b);
+})();
+let _away=0;document.addEventListener("visibilitychange",()=>{if(document.hidden)_away=Date.now();else if(_away&&Date.now()-_away>60000&&localStorage.getItem("zale_user"))window.openApplePinSheet("Zale Locked — Place Finger on Sensor or Enter PIN",()=>{});});
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;const tx=b.textContent.trim();
+  if(/fingerprint/i.test(tx)&&b.id!=="zaleBioLogin"){const u=JSON.parse(localStorage.getItem("zale_user")||"null");if(!u)return;u.bioEnabled=true;const db=JSON.parse(localStorage.getItem("zale_users")||"{}");db[u.email]=Object.assign(db[u.email]||{},u);localStorage.setItem("zale_user",JSON.stringify(u));localStorage.setItem("zale_last_user",JSON.stringify(u));localStorage.setItem("zale_users",JSON.stringify(db));toast("Owner Fingerprint Sensor enabled ✓");return;}
+  if((b.closest("#tab-coin,#tab-withdraw,#tab-bills,#tab-vcard,#tab-xborder,#tab-escrow,#tab-deposit")||/^(buy|sell|swap|withdraw|pay bill|create virtual|lock escrow)\b/i.test(tx))&&!/cancel|close|back|25%|50%|75%|100%/i.test(tx)&&!b.closest("#tab-home,#tab-trade,#tab-wallet,#tab-2fa,#tab-2fa-app,#tab-account")){
+    const box=b.closest("[id^='tab-']");const amt=parseFloat(box?.querySelector("input[type='number']")?.value||box?.querySelector("input")?.value||"50")||50;
+    window.openApplePinSheet("Authorize "+tx,()=>{const u=JSON.parse(localStorage.getItem("zale_user")||"null");const o={id:"ZL-"+Math.floor(100000+Math.random()*900000),email:u?.email||"",type:tx,usd:+amt.toFixed(2),details:box?.id?.replace("tab-","").toUpperCase()||"Order",status:"Pending Verification",date:new Date().toLocaleDateString()};orders.unshift(o);localStorage.setItem("zale_orders",JSON.stringify(orders));if(typeof renderAll==="function")renderAll();toast("Order "+o.id+" submitted ✓");if(typeof nav==="function")nav("wallet");});
+  }
 });
 
 </script>
 <script>
-Array.from(document.querySelectorAll("#tab-account button")).filter(b=>/sign out|log out/i.test(b.textContent)).forEach(b=>b.onclick=function(){localStorage.removeItem("zale_user");if(typeof toast==="function")toast("Signed out safely");setTimeout(()=>location.reload(),350);});
-</script>
-<script>
+window.syncUserUi=function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");if(!u)return;
+  const p=String(u.name||"Z").trim().split(/\s+/),ini=((p.at(0)||"Z").charAt(0)+(p.at(1)||"").charAt(0)).toUpperCase();
+  const ha=document.getElementById("homeAvatar")||document.getElementById("homeCtyPill")?.previousElementSibling;
+  if(ha){ha.textContent=ini;ha.style.cssText="width:38px;height:38px;min-width:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;background:#132257;color:#fff;flex-shrink:0";}
+  ["walAvatar","accAvatarCircle","setupAvatarCircle"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=ini;});
+};
+window.syncUserUi();
 window.GC_LOGOS={
-  "Apple / iTunes":`<svg width="46" height="46" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.33c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3"/></svg>`,
-  "Amazon":`<svg width="78" height="44" viewBox="0 0 120 46"><text x="60" y="25" text-anchor="middle" fill="currentColor" font-size="23" font-weight="900" letter-spacing="-0.8">amazon</text><path d="M26 32c19 11 49 11 68 0" fill="none" stroke="#ff9900" stroke-width="3.4" stroke-linecap="round"/><path d="M88 28l7 4-4 7" fill="none" stroke="#ff9900" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
-  "Steam":`<svg width="46" height="46" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#171a21"/><circle cx="25.5" cy="14.5" r="5.5" fill="none" stroke="#fff" stroke-width="2.6"/><circle cx="25.5" cy="14.5" r="2.2" fill="#fff"/><path d="M7 24.5l8.5 3.5a4.5 4.5 0 0 0 8.5-2.2l3.8-5.5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/><circle cx="15.5" cy="27.5" r="3.6" fill="#171a21" stroke="#fff" stroke-width="2.2"/></svg>`,
-  "Razer Gold":`<svg width="46" height="46" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#090d16" stroke="#10b981" stroke-width="2"/><path d="M20 8c-5 0-9 4-9 9 0 3 2 5 4 6l-2 7 7-3 7 3-2-7c2-1 4-3 4-6 0-5-4-9-9-9Z" fill="none" stroke="#10b981" stroke-width="2.3" stroke-linejoin="round"/><circle cx="20" cy="17" r="2.5" fill="#10b981"/></svg>`,
-  "Google Play":`<svg width="44" height="44" viewBox="0 0 36 36"><path d="M6 4.5c-.5.5-.8 1.3-.8 2.3v22.4c0 1 .3 1.8.8 2.3l13-13.5L6 4.5Z" fill="#38bdf8"/><path d="M23.5 22.5L19 18 6 31.5c.6.5 1.5.5 2.6-.1l14.9-8.9Z" fill="#f43f5e"/><path d="M23.5 13.5L8.6 4.6C7.5 4 6.6 4 6 4.5L19 18l4.5-4.5Z" fill="#10b981"/><path d="M30.2 16.6l-6.7-3.1L19 18l4.5 4.5 6.7-3.1c1.2-.7 1.2-2.1 0-2.8Z" fill="#facc15"/></svg>`
-};
-Object.assign(window.GC_LOGOS,{
-  "Vanilla Visa":`<svg width="78" height="44" viewBox="0 0 110 42"><text x="55" y="29" text-anchor="middle" fill="#1a1f71" font-size="27" font-weight="900" font-style="italic" letter-spacing="-1">VISA</text><rect x="24" y="33" width="62" height="3.2" rx="1.6" fill="#f79e1b"/></svg>`,
-  "PlayStation":`<svg width="48" height="46" viewBox="0 0 44 40"><path d="M17 6v27l5 1.6V12.5c0-1.5.7-2.4 1.8-2 1.2.4 1.6 1.5 1.6 3v8.5c3.5 1.7 6.2 0 6.2-4.6 0-4.7-1.7-6.8-6.6-8.5-1.9-.7-5.1-1.8-8-2.9Z" fill="#00439c"/><path d="M15 27.5l-8.5 3c-2.5.9-2.9 2.3-.8 3 2.1.7 5.8.6 8.3-.3l1-.4v-2.8l-2.3.8c-1.2.4-2.4.3-2.8-.1-.4-.4.2-1 1.4-1.4l3.7-1.3v-1Zm11 2.2l8.2-2.9c2.4-.8 2.8-2.2.7-2.9-2-.7-5.6-.6-8 .2l-3.9 1.4v2.8l5.3-1.9c1.2-.4 2.4-.3 2.8.1.4.4-.2 1-1.4 1.4l-3.7 1.3v.5Z" fill="#0070d1"/></svg>`,
-  "Xbox":`<svg width="44" height="44" viewBox="0 0 40 40"><circle cx="20" cy="20" r="18" fill="#107c10"/><path d="M12 10c3 2.5 5.5 5.5 8 10-3 4-5.5 7.5-7 10.5M28 10c-3 2.5-5.5 5.5-8 10 3 4 5.5 7.5 7 10.5" fill="none" stroke="#fff" stroke-width="3.2" stroke-linecap="round"/></svg>`,
-  "Sephora":`<svg width="78" height="44" viewBox="0 0 120 42"><path d="M60 5c4 5 4 10 0 15-4-5-4-10 0-15Z" fill="currentColor"/><text x="60" y="36" text-anchor="middle" fill="currentColor" font-size="14" font-weight="800" letter-spacing="3.5">SEPHORA</text></svg>`,
-  "Nike":`<svg width="74" height="44" viewBox="0 0 100 40"><path d="M22 25c-4 3-3 8 3 8 7 0 22-6 58-21-29 9-47 13-55 13-4 0-6-2-6-6 0-2 1-4 2-6-1 2-2 7-2 12Z" fill="currentColor"/></svg>`
-});
-window.renderGcGrid=function(){
-  const box=document.getElementById("zaleGcCards")||document.getElementById("gcGrid");if(!box)return;
-  const q=(document.getElementById("gcSearchInp")?.value||"").toLowerCase(),c=CURR[user?.cty]||CURR.ZM;
-  box.style.display="grid";box.style.gridTemplateColumns="1fr 1fr";box.style.gap="11px";box.style.marginTop="10px";
-  box.innerHTML=(window.GC_DATA||[]).filter(g=>(window.gcActiveFilter==="all"||g.tag.includes(window.gcActiveFilter))&&g.name.toLowerCase().includes(q)).map(g=>`<div class="card" style="margin:0;padding:16px 12px;cursor:pointer;text-align:center;border:1.5px solid var(--brd);display:flex;flex-direction:column;align-items:center;justify-content:center" onclick="window.selectGcBrand('${g.name}')"><div style="height:50px;display:flex;align-items:center;justify-content:center;margin-bottom:8px">${window.GC_LOGOS[g.name]||""}</div><div style="font-weight:800;font-size:13.5px">${g.name}</div><div class="mono" style="font-size:12.5px;font-weight:800;color:#059669;margin-top:4px">$${g.rate.toFixed(2)} / $1</div><div style="font-size:11px;color:var(--mut);margin-top:1px">${c.s}${(g.rate*c.r).toFixed(2)} per $1</div></div>`).join("");
-};
-window.renderGcGrid();
-
-</script>
-<script>
-document.querySelectorAll("#tab-giftcards .card").forEach(c=>{if(c.id!=="zaleGcTradeDrawer"){c.style.cssText="background:transparent;border:none;box-shadow:none;padding:2px 0;margin-bottom:8px";}});
-</script>
-<script>
-Object.assign(window.GC_LOGOS,{
+  "Apple / iTunes":`<svg width="48" height="48" viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.33c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 272-1.3"/></svg>`,
+  "Amazon":`<svg width="82" height="46" viewBox="0 0 120 46"><text x="60" y="25" text-anchor="middle" fill="currentColor" font-size="23" font-weight="900" letter-spacing="-0.8">amazon</text><path d="M26 32c19 11 49 11 68 0" fill="none" stroke="#ff9900" stroke-width="3.4" stroke-linecap="round"/><path d="M88 28l7 4-4 7" fill="none" stroke="#ff9900" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
   "Steam":`<svg width="48" height="46" viewBox="0 0 40 40"><circle cx="26" cy="14" r="6" fill="none" stroke="currentColor" stroke-width="2.8"/><circle cx="26" cy="14" r="2.4" fill="currentColor"/><path d="M6 25l9 3.8a4.8 4.8 0 0 0 9-2.3l4-5.8" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/><circle cx="15.5" cy="28" r="4" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>`,
   "Razer Gold":`<svg width="48" height="46" viewBox="0 0 40 40"><path d="M20 6c-6 0-11 4.5-11 10.5 0 3.5 2 6 4.5 7.2L11 32l9-3.8L29 32l-2.5-8.3c2.5-1.2 4.5-3.7 4.5-7.2C31 10.5 26 6 20 6Z" fill="none" stroke="#10b981" stroke-width="2.8" stroke-linejoin="round"/><circle cx="20" cy="17" r="3" fill="#10b981"/></svg>`,
-  "Xbox":`<svg width="46" height="46" viewBox="0 0 40 40"><path d="M10 9c4 3.2 7 7 10 12-4 5-7 9-9 12.5M30 9c-4 3.2-7 7-10 12 4 5 7 9 9 12.5" fill="none" stroke="#10b981" stroke-width="4" stroke-linecap="round"/></svg>`
+  "Google Play":`<svg width="46" height="46" viewBox="0 0 36 36"><path d="M6 4.5c-.5.5-.8 1.3-.8 2.3v22.4c0 1 .3 1.8.8 2.3l13-13.5L6 4.5Z" fill="#38bdf8"/><path d="M23.5 22.5L19 18 6 31.5c.6.5 1.5.5 2.6-.1l14.9-8.9Z" fill="#f43f5e"/><path d="M23.5 13.5L8.6 4.6C7.5 4 6.6 4 6 4.5L19 18l4.5-4.5Z" fill="#10b981"/><path d="M30.2 16.6l-6.7-3.1L19 18l4.5 4.5 6.7-3.1c1.2-.7 1.2-2.1 0-2.8Z" fill="#facc15"/></svg>`
+};
+Object.assign(window.GC_LOGOS,{
+  "Vanilla Visa":`<svg width="82" height="46" viewBox="0 0 110 42"><text x="55" y="29" text-anchor="middle" fill="#1a1f71" font-size="27" font-weight="900" font-style="italic" letter-spacing="-1">VISA</text><rect x="24" y="33" width="62" height="3.2" rx="1.6" fill="#f79e1b"/></svg>`,
+  "PlayStation":`<svg width="50" height="46" viewBox="0 0 44 40"><path d="M17 6v27l5 1.6V12.5c0-1.5.7-2.4 1.8-2 1.2.4 1.6 1.5 1.6 3v8.5c3.5 1.7 6.2 0 6.2-4.6 0-4.7-1.7-6.8-6.6-8.5-1.9-.7-5.1-1.8-8-2.9Z" fill="#00439c"/><path d="M15 27.5l-8.5 3c-2.5.9-2.9 2.3-.8 3 2.1.7 5.8.6 8.3-.3l1-.4v-2.8l-2.3.8c-1.2.4-2.4.3-2.8-.1-.4-.4.2-1 1.4-1.4l3.7-1.3v-1Zm11 2.2l8.2-2.9c2.4-.8 2.8-2.2.7-2.9-2-.7-5.6-.6-8 .2l-3.9 1.4v2.8l5.3-1.9c1.2-.4 2.4-.3 2.8.1.4.4-.2 1-1.4 1.4l-3.7 1.3v.5Z" fill="#0070d1"/></svg>`,
+  "Xbox":`<svg width="46" height="46" viewBox="0 0 40 40"><path d="M10 9c4 3.2 7 7 10 12-4 5-7 9-9 12.5M30 9c-4 3.2-7 7-10 12 4 5 7 9 9 12.5" fill="none" stroke="#10b981" stroke-width="4" stroke-linecap="round"/></svg>`,
+  "Sephora":`<svg width="82" height="46" viewBox="0 0 120 42"><path d="M60 5c4 5 4 10 0 15-4-5-4-10 0-15Z" fill="currentColor"/><text x="60" y="36" text-anchor="middle" fill="currentColor" font-size="14" font-weight="800" letter-spacing="3.5">SEPHORA</text></svg>`,
+  "Nike":`<svg width="78" height="46" viewBox="0 0 100 40"><path d="M22 25c-4 3-3 8 3 8 7 0 22-6 58-21-29 9-47 13-55 13-4 0-6-2-6-6 0-2 1-4 2-6-1 2-2 7-2 12Z" fill="currentColor"/></svg>`
 });
-if(typeof window.renderGcGrid==="function")window.renderGcGrid();
+window.renderGcGrid=function(){const box=document.getElementById("zaleGcCards")||document.getElementById("gcGrid");if(!box)return;const q=(document.getElementById("gcSearchInp")?.value||"").toLowerCase(),c=CURR[user?.cty]||CURR.ZM;box.style.cssText="display:grid;grid-template-columns:1fr 1fr;gap:18px 12px;margin-top:14px";box.innerHTML=(window.GC_DATA||[]).filter(g=>(window.gcActiveFilter==="all"||g.tag.includes(window.gcActiveFilter))&&g.name.toLowerCase().includes(q)).map(g=>`<div style="padding:8px 4px;cursor:pointer;text-align:center;display:flex;flex-direction:column;align-items:center;justify-content:center" onclick="window.selectGcBrand('${g.name}')"><div style="height:56px;display:flex;align-items:center;justify-content:center;margin-bottom:6px">${window.GC_LOGOS[g.name]||""}</div><div style="font-weight:800;font-size:13.5px">${g.name}</div><div class="mono" style="font-size:12.5px;font-weight:800;color:#059669;margin-top:2px">$${g.rate.toFixed(2)} / $1</div><div style="font-size:11px;color:var(--mut)">${c.s}${(g.rate*c.r).toFixed(2)} per $1</div></div>`).join("");};
+window.renderGcGrid();
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;const tx=b.textContent.trim();
+  if(/save username|set username/i.test(tx)){const v=b.parentElement?.querySelector("input")?.value.trim();if(!v)return toast("Enter a username");const u=JSON.parse(localStorage.getItem("zale_user")||"{}");u.name=v;u.username=v;localStorage.setItem("zale_user",JSON.stringify(u));window.syncUserUi();if(typeof renderAll==="function")renderAll();toast("Username saved ✓");return;}
+  if(/save transaction|set transaction|save pin|set pin/i.test(tx)){const v=b.parentElement?.querySelector("input")?.value.trim();if(!/^\d{4}$/.test(v))return toast("Enter a 4-digit PIN");const u=JSON.parse(localStorage.getItem("zale_user")||"{}");u.pin=v;localStorage.setItem("zale_user",JSON.stringify(u));toast("Transaction PIN saved ✓");return;}
+  if(/save bank|add bank/i.test(tx)){const v=Array.from(b.parentElement?.querySelectorAll("input")||[]).map(i=>i.value.trim()).filter(Boolean).join(" • ");if(!v)return toast("Enter bank account details");const u=JSON.parse(localStorage.getItem("zale_user")||"{}");u.bank=v;localStorage.setItem("zale_user",JSON.stringify(u));toast("Bank account saved ✓");return;}
+  if(/update/i.test(tx)&&b.closest("#tab-password,#tab-account")){const v=b.parentElement?.querySelector("input")?.value.trim();if(!v||v.length<6)return toast("Enter at least 6 characters");const u=JSON.parse(localStorage.getItem("zale_user")||"{}");u.pass=v;localStorage.setItem("zale_user",JSON.stringify(u));toast("Password updated ✓");return;}
+});
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;const tx=b.textContent.trim();
+  if(/2fa|two-factor/i.test(tx)&&b.closest("#tab-account")&&typeof nav==="function"){nav("2fa");return;}
+  if(/authenticator/i.test(tx)&&b.closest("#tab-2fa")&&typeof nav==="function"){nav("2fa-app");return;}
+  if(b.closest("#tab-bills,#tab-coin")&&!/cancel|back|25%|50%|75%|100%/i.test(tx)&&/pay|buy|sell|swap|submit|confirm/i.test(tx)){
+    const box=b.closest("#tab-bills,#tab-coin");const amt=parseFloat(box?.querySelector("input[type='number']")?.value||box?.querySelector("input")?.value||"50")||50;
+    window.openApplePinSheet("Authorize "+tx,()=>{const u=JSON.parse(localStorage.getItem("zale_user")||"null");const o={id:"ZL-"+Math.floor(100000+Math.random()*900000),email:u?.email||"",type:tx,usd:+amt.toFixed(2),details:box?.id?.replace("tab-","").toUpperCase()||"Order",status:"Pending Verification",date:new Date().toLocaleDateString()};orders.unshift(o);localStorage.setItem("zale_orders",JSON.stringify(orders));if(typeof renderAll==="function")renderAll();toast("Order "+o.id+" submitted ✓");if(typeof nav==="function")nav("wallet");});
+  }
+});
 
 </script>
 <script>
-window.lockZalePrivacy=function(){
-  if(!localStorage.getItem("zale_user"))return;
-  let lk=document.getElementById("zaleFaceIdLock");
-  if(!lk){
-    lk=document.createElement("div");lk.id="zaleFaceIdLock";
-    lk.style.cssText="position:fixed;inset:0;background:rgba(8,13,26,.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);z-index:10001;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;text-align:center;padding:24px";
-    lk.innerHTML=`<div style="width:68px;height:68px;border-radius:20px;background:linear-gradient(135deg,#132257,#1e3a8a);border:1.5px solid rgba(212,175,55,.5);display:flex;align-items:center;justify-content:center;font-size:30px;margin-bottom:16px;box-shadow:0 12px 30px rgba(0,0,0,.4)">✦</div><b style="font-size:20px;letter-spacing:-.02em">Zale Locked</b><div style="font-size:13px;color:#94a3b8;margin:6px 0 22px">Verify Face ID or Touch ID to view balances</div><button type="button" class="btn" style="max-width:240px;background:linear-gradient(135deg,#d4af37,#b48811);color:#080d1a;font-weight:800" onclick="document.getElementById('zaleFaceIdLock').classList.add('hide');if(window.zaleHaptic)window.zaleHaptic(18)">Unlock with Face ID</button>`;
-    document.body.appendChild(lk);
-  }
-  lk.classList.remove("hide");
+const _raPerm=window.renderAll;
+window.renderAll=function(){
+  if(typeof _raPerm==="function")_raPerm();
+  if(typeof window.syncUserUi==="function")window.syncUserUi();
+  if(typeof window.renderGcGrid==="function")window.renderGcGrid();
 };
-let _hidAt=0;
-document.addEventListener("visibilitychange",()=>{if(document.hidden)_hidAt=Date.now();else if(_hidAt&&Date.now()-_hidAt>60000)window.lockZalePrivacy();});
+window.renderAll();
+document.addEventListener("click",e=>{
+  const el=e.target.closest("button,.acc-row");if(!el)return;const tx=el.textContent.trim();
+  if(/2fa|two-factor/i.test(tx)&&el.closest("#tab-account")&&typeof nav==="function"){nav("2fa");return;}
+  if(/authenticator/i.test(tx)&&el.closest("#tab-2fa")&&typeof nav==="function"){nav("2fa-app");return;}
+  if(el.tagName!=="BUTTON")return;
+  const card=el.closest(".card")||el.parentElement;
+  if(/username/i.test(tx)&&/save|set/i.test(tx)){const v=card?.querySelector("input")?.value.trim();if(!v)return toast("Enter a username");const u=JSON.parse(localStorage.getItem("zale_user")||"{}");u.name=v;u.username=v;localStorage.setItem("zale_user",JSON.stringify(u));window.renderAll();toast("Username saved ✓");return;}
+  if(/pin/i.test(tx)&&/save|set/i.test(tx)){const v=card?.querySelector("input")?.value.trim();if(!/^\d{4}$/.test(v))return toast("Enter a 4-digit PIN");const u=JSON.parse(localStorage.getItem("zale_user")||"{}");u.pin=v;localStorage.setItem("zale_user",JSON.stringify(u));toast("Transaction PIN saved ✓");return;}
+  if(/bank|payout/i.test(tx)&&/save|add/i.test(tx)){const v=Array.from(card?.querySelectorAll("input")||[]).map(i=>i.value.trim()).filter(Boolean).join(" • ");if(!v)return toast("Enter bank details");const u=JSON.parse(localStorage.getItem("zale_user")||"{}");u.bank=v;localStorage.setItem("zale_user",JSON.stringify(u));toast("Bank account saved ✓");return;}
+  if(/update/i.test(tx)&&/password/i.test(card?.textContent||"")){const v=card?.querySelector("input")?.value.trim();if(!v||v.length<6)return toast("Enter at least 6 characters");const u=JSON.parse(localStorage.getItem("zale_user")||"{}");u.pass=v;localStorage.setItem("zale_user",JSON.stringify(u));toast("Password updated ✓");return;}
+});
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;const tx=b.textContent.trim();
+  const tab=b.closest("[id^='tab-']");if(!tab)return;
+  if(/home|trade|wallet|giftcards|account|admin|2fa|setup|password|refer/i.test(tab.id))return;
+  if(/cancel|back|close|copy|max|25%|50%|75%|100%|view/i.test(tx))return;
+  if(/pay|buy|sell|swap|submit|confirm|proceed|place/i.test(tx)){
+    e.preventDefault();const amt=parseFloat(tab.querySelector("input[type='number']")?.value||tab.querySelector("input")?.value||"50")||50;
+    window.openApplePinSheet("Authorize "+tx,()=>{const u=JSON.parse(localStorage.getItem("zale_user")||"null");const o={id:"ZL-"+Math.floor(100000+Math.random()*900000),email:u?.email||"",type:tx,usd:+amt.toFixed(2),details:tab.id.replace("tab-","").toUpperCase(),status:"Pending Verification",date:new Date().toLocaleDateString()};orders.unshift(o);localStorage.setItem("zale_orders",JSON.stringify(orders));window.renderAll();toast("Order "+o.id+" submitted ✓");if(typeof nav==="function")nav("wallet");});
+  }
+},true);
+
+</script>
+<script>
+window.syncUserUi=function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");if(!u)return;
+  const p=String(u.name||"Z").trim().split(/\s+/),ini=((p.at(0)||"Z").charAt(0)+(p.at(1)||"").charAt(0)).toUpperCase();
+  const ha=document.getElementById("homeAvatar");if(ha){ha.removeAttribute("style");ha.textContent=ini;}
+  ["walAvatar","accAvatarCircle","setupAvatarCircle"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=ini;});
+};
+window.syncUserUi();
+document.addEventListener("click",e=>{
+  const b=e.target.closest("button");if(!b)return;const tx=b.textContent.trim();
+  const tab=b.closest("[id^='tab-']");if(!tab)return;
+  if(/setup/i.test(tab.id)&&/save|set|add|confirm/i.test(tx)){
+    const grp=b.closest(".card")||b.parentElement;const inps=Array.from(grp?.querySelectorAll("input")||[]);
+    const vals=inps.map(i=>i.value.trim()).filter(Boolean);if(!vals.length)return toast("Enter a value first");
+    const u=JSON.parse(localStorage.getItem("zale_user")||"{}");const lbl=(grp?.textContent||"").toLowerCase();
+    if(lbl.includes("pin")){if(!/^\d{4}$/.test(vals.at(0)))return toast("Enter a 4-digit PIN");u.pin=vals.at(0);toast("Transaction PIN saved ✓");}
+    else if(lbl.includes("bank")||lbl.includes("account")||inps.length>1){u.bank=vals.join(" • ");toast("Bank account saved ✓");}
+    else{u.name=vals.at(0);u.username=vals.at(0);toast("Username saved ✓");}
+    localStorage.setItem("zale_user",JSON.stringify(u));window.syncUserUi();if(typeof renderAll==="function")renderAll();return;
+  }
+  if(/coin|swap/i.test(tab.id)&&!/^(buy|sell|swap|cancel|back|25%|50%|75%|100%)$/i.test(tx)&&/buy|sell|swap|submit|confirm|place|order|proceed/i.test(tx)){
+    const amt=parseFloat(tab.querySelector("input[type='number']")?.value||tab.querySelector("input")?.value||"50")||50;
+    window.openApplePinSheet("Authorize "+tx,()=>{const u=JSON.parse(localStorage.getItem("zale_user")||"null");const o={id:"ZL-"+Math.floor(100000+Math.random()*900000),email:u?.email||"",type:tx,usd:+amt.toFixed(2),details:(document.getElementById("coinTitle")?.textContent||"Crypto Order"),status:"Pending Verification",date:new Date().toLocaleDateString()};orders.unshift(o);localStorage.setItem("zale_orders",JSON.stringify(orders));if(typeof renderAll==="function")renderAll();toast("Order "+o.id+" submitted ✓");if(typeof nav==="function")nav("wallet");});
+  }
+},true);
+
+</script>
+<script>
+window.syncUserUi=function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");if(!u)return;
+  const cleanName=String(u.name||u.fullName||"User").replace(/^zale\s+/i,"").trim();
+  const p=cleanName.split(/\s+/),ini=((p.at(0)||"U").charAt(0)+(p.at(1)||"").charAt(0)).toUpperCase();
+  const prev=document.getElementById("homeCtyPill")?.previousElementSibling;
+  if(prev){prev.removeAttribute("style");if(prev.children.length===0)prev.textContent=ini;}
+  ["homeAvatar","walAvatar","accAvatarCircle","setupAvatarCircle"].forEach(id=>{const el=document.getElementById(id);if(el){el.removeAttribute("style");el.textContent=ini;}});
+};
+window.syncUserUi();
+document.addEventListener("click",e=>{
+  const el=e.target.closest("button,.acc-row,[onclick]");if(!el)return;const tx=el.textContent.trim();
+  if(/2fa|two-factor/i.test(tx)&&el.closest("#tab-account")){e.preventDefault();if(typeof nav==="function")nav("2fa");return;}
+  if(/authenticator/i.test(tx)&&el.closest("#tab-2fa")){e.preventDefault();if(typeof nav==="function")nav("2fa-app");return;}
+  if(el.tagName==="BUTTON"&&el.closest("#tab-coin,#tab-swap,[id*='coin'],[id*='swap']")&&!/^(buy|sell|swap|cancel|back|25%|50%|75%|100%)$/i.test(tx)){
+    e.preventDefault();const box=el.closest("[id^='tab-']");const amt=parseFloat(box?.querySelector("input[type='number']")?.value||box?.querySelector("input")?.value||"50")||50;
+    window.openApplePinSheet("Authorize "+tx,()=>{const u=JSON.parse(localStorage.getItem("zale_user")||"null");const o={id:"ZL-"+Math.floor(100000+Math.random()*900000),email:u?.email||"",type:tx,usd:+amt.toFixed(2),details:(document.getElementById("coinTitle")?.textContent||"Crypto Order"),status:"Pending Verification",date:new Date().toLocaleDateString()};orders.unshift(o);localStorage.setItem("zale_orders",JSON.stringify(orders));if(typeof renderAll==="function")renderAll();toast("Order "+o.id+" submitted ✓");if(typeof nav==="function")nav("wallet");});
+  }
+},true);
+
+</script>
+<script>
+window.syncUserUi=function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");if(!u)return;
+  const parts=String(u.name||"User").trim().split(" ").filter(Boolean);
+  const ini=((parts.at(0)||"U").charAt(0)+(parts.at(1)||"").charAt(0)).toUpperCase();
+  const ha=document.getElementById("homeAvatar");
+  if(ha){ha.textContent=ini;ha.style.cssText="width:38px;height:38px;min-width:38px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-weight:800;font-size:13px;background:#132257;color:#fff;flex-shrink:0";}
+  ["walAvatar","accAvatarCircle","setupAvatarCircle"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=ini;});
+};
+window.syncUserUi();
+document.addEventListener("click",e=>{
+  const el=e.target.closest("button,.acc-row,[onclick]");if(!el)return;const tx=el.textContent.trim();
+  if(/2fa|two-factor/i.test(tx)&&el.closest("#tab-account")){if(typeof nav==="function"){nav("2fa");nav("tfa");}return;}
+  if(/authenticator/i.test(tx)&&el.closest("#tab-2fa,#tab-tfa")){if(typeof nav==="function"){nav("2fa-app");nav("tfa-app");}return;}
+  if(/i have the app|continue/i.test(tx)&&el.closest("#tab-2fa-app,#tab-tfa-app")){
+    const s1=document.getElementById("tfaAppStep1"),s2=document.getElementById("tfaAppStep2"),s3=document.getElementById("tfaAppStep3");
+    if(s1&&!s1.classList.contains("hide")){s1.classList.add("hide");s2?.classList.remove("hide");}
+    else if(s2&&!s2.classList.contains("hide")){s2.classList.add("hide");s3?.classList.remove("hide");}
+    return;
+  }
+});
+
+</script>
+<script>
+window.syncUserUi=function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");if(!u)return;
+  const rawName=Array.isArray(u.name)?String(u.name.at(0)||""):String(u.name||"");
+  const clean=(rawName||String(u.email||"User").split("@").at(0)).trim();
+  const parts=clean.split(" ").filter(Boolean);
+  const ini=((parts.at(0)||"U").charAt(0)+(parts.at(1)||"").charAt(0)).toUpperCase();
+  ["homeAvatar","walAvatar","accAvatarCircle","setupAvatarCircle"].forEach(id=>{const el=document.getElementById(id);if(el){el.removeAttribute("style");el.textContent=ini;}});
+};
+window.syncUserUi();
+window.show2faStep=function(step){
+  ["tfaStep1","tfaStep2","tfaStep3","tfaStep4","tfaStepemail"].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.classList.toggle("hide",id!=="tfaStep"+step);
+  });
+};
+document.addEventListener("click",e=>{
+  const el=e.target.closest("button,.acc-row,[onclick]");if(!el)return;const tx=el.textContent.trim();
+  if(/2fa|two-factor/i.test(tx)&&el.closest("#tab-account")){if(typeof nav==="function")nav("2fa");window.show2faStep(1);return;}
+  if(/authenticator/i.test(tx)&&el.closest("#tab-2fa")){window.show2faStep(2);return;}
+  if(/email/i.test(tx)&&el.closest("#tab-2fa")&&!el.closest("#tfaStepemail")){window.show2faStep("email");return;}
+});
+
+</script>
+
+
+<script>
+window.syncUserUi=function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");if(!u)return;
+  const raw=Array.isArray(u.name)?String(u.name.at(0)||""):String(u.name||"");
+  const clean=raw.replace(/^zale\s*/i,"").trim()||String(u.email||"User").split("@").at(0);
+  const parts=clean.split(" ").filter(Boolean);
+  const ini=((parts.at(0)||"U").charAt(0)+(parts.at(1)||"").charAt(0)).toUpperCase();
+  const ha=document.getElementById("homeAvatar");if(ha)ha.textContent=ini;
+  const ac=document.getElementById("accAvatarCircle");if(ac)ac.textContent=ini;
+  const sc=document.getElementById("setupAvatarCircle");if(sc)sc.textContent=ini;
+};
+window.syncUserUi();
+document.addEventListener("click",e=>{
+  const el=e.target.closest("button,.acc-row,[onclick]");if(!el)return;const tx=el.textContent.trim();
+  if(/2fa|two-factor/i.test(tx)&&el.closest("#tab-account")&&typeof nav==="function"){nav("2fa");return;}
+  if(/authenticator/i.test(tx)&&el.closest("#tab-2fa")){document.querySelectorAll("[id^='tfaStep']").forEach(x=>x.classList.toggle("hide",x.id!=="tfaStep2"));return;}
+  if(/email/i.test(tx)&&el.closest("#tab-2fa")&&!el.closest("#tfaStepemail")){document.querySelectorAll("[id^='tfaStep']").forEach(x=>x.classList.toggle("hide",x.id!=="tfaStepemail"));return;}
+});
+
+</script>
+<script>
+window.syncUserUi=function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");if(!u)return;
+  const raw=Array.isArray(u.name)?String(u.name.at(0)||""):String(u.name||"");
+  const clean=raw.replace(/^zale\s*/i,"").trim()||String(u.email||"User").split("@").at(0);
+  const parts=clean.split(" ").filter(Boolean);
+  const ini=((parts.at(0)||"U").charAt(0)+(parts.at(1)||"").charAt(0)).toUpperCase();
+  document.querySelectorAll(".avatar,#homeAvatar,#walAvatar,#accAvatarCircle,#setupAvatarCircle").forEach(el=>{if(el.id!=="homeCtyPill")el.textContent=ini;});
+};
+window.syncUserUi();
+document.addEventListener("click",e=>{
+  const el=e.target.closest("button,.acc-row,[onclick]");if(!el)return;const tx=el.textContent.trim();
+  if(/2fa|two-factor/i.test(tx)&&el.closest("#tab-account")&&typeof nav==="function"){nav("tfa");nav("2fa");return;}
+  if(/authenticator/i.test(tx)&&el.closest("#tab-tfa,#tab-2fa")){document.querySelectorAll("[id^='tfaStep']").forEach(x=>x.classList.toggle("hide",x.id!=="tfaStep2"));return;}
+  if(/email/i.test(tx)&&el.closest("#tab-tfa,#tab-2fa")&&!el.closest("#tfaStepemail")){document.querySelectorAll("[id^='tfaStep']").forEach(x=>x.classList.toggle("hide",x.id!=="tfaStepemail"));return;}
+});
+
+</script>
+<script>
+window.syncUserUi=function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");if(!u)return;
+  const raw=Array.isArray(u.name)?String(u.name.at(0)||""):String(u.name||"");
+  const clean=raw.replace(/^zale\s*/i,"").trim()||String(u.email||"User").split("@").at(0);
+  const parts=clean.split(" ").filter(Boolean);
+  const ini=((parts.at(0)||"U").charAt(0)+(parts.at(1)||"").charAt(0)).toUpperCase();
+  const topRow=document.querySelector("#tab-home > div");
+  if(topRow)topRow.querySelectorAll("div,span").forEach(el=>{if(el.children.length===0&&el.id!=="hdrCurrName"&&!el.closest("#homeCtyPill")&&el.textContent.trim().length<=3)el.textContent=ini;});
+  ["homeAvatar","walAvatar","accAvatarCircle","setupAvatarCircle"].forEach(id=>{const el=document.getElementById(id);if(el)el.textContent=ini;});
+};
+window.syncUserUi();
+document.addEventListener("click",e=>{
+  const el=e.target.closest("button,.acc-row,[onclick]");if(!el)return;const tx=el.textContent.trim();
+  if(/2fa|two-factor/i.test(tx)&&el.closest("#tab-account")&&typeof nav==="function"){nav("tfa");nav("2fa");return;}
+  if(/authenticator/i.test(tx)&&el.closest("#tab-tfa,#tab-2fa")){document.querySelectorAll("[id^='tfaStep']").forEach(x=>x.classList.toggle("hide",x.id!=="tfaStep2"));return;}
+  if(/email/i.test(tx)&&el.closest("#tab-tfa,#tab-2fa")&&!el.closest("#tfaStepemail")){document.querySelectorAll("[id^='tfaStep']").forEach(x=>x.classList.toggle("hide",x.id!=="tfaStepemail"));return;}
+});
+
+</script>
+<script>
+window.show2faStep=function(step){
+  document.querySelectorAll("[id^='tfaStep']").forEach(el=>el.classList.toggle("hide",el.id!=="tfaStep"+step));
+};
+window.confirmEnable2fa=function(){
+  const c=(document.getElementById("tfaCodeInp")?.value||"").trim();
+  if(!/^\d{6}$/.test(c))return toast("Enter the 6-digit code from your Authenticator app");
+  const u=JSON.parse(localStorage.getItem("zale_user")||"{}");u.tfaApp=true;localStorage.setItem("zale_user",JSON.stringify(u));
+  toast("Authenticator App 2FA Enabled ✓");if(typeof nav==="function")nav("account");
+};
+window.handleEmail2fa=function(){
+  const box=document.getElementById("tfaEmailOtpBox"),msg=document.getElementById("tfaEmailSentMsg"),inp=document.getElementById("tfaEmailCodeInp"),btn=document.getElementById("tfaEmailBtn");
+  const u=JSON.parse(localStorage.getItem("zale_user")||"{}");
+  if(box&&box.classList.contains("hide")){
+    window._tfaOtp=String(Math.floor(100000+Math.random()*900000));
+    box.classList.remove("hide");if(msg)msg.textContent="OTP sent to "+(u.email||"your email")+" (Demo Code: "+window._tfaOtp+")";if(btn)btn.textContent="Verify & Enable 2FA";return;
+  }
+  const code=(inp?.value||"").trim();if(!/^\d{6}$/.test(code))return toast("Enter the 6-digit email OTP");
+  u.tfaEmail=true;localStorage.setItem("zale_user",JSON.stringify(u));toast("Email 2FA Enabled ✓");if(typeof nav==="function")nav("account");
+};
+
+</script>
+<script>
+const _nav2fa=window.nav;window.nav=function(t){if(typeof _nav2fa==="function")_nav2fa(t);if(t==="2fa"&&typeof window.show2faStep==="function")window.show2faStep(1);};
+</script>
+<script>
+window.show2faStep=function(step){const k=(step==="app"||step==="auth"||step==="totp")?2:step;document.querySelectorAll("[id^='tfaStep']").forEach(el=>el.classList.toggle("hide",el.id!=="tfaStep"+k));};
+</script>
+<script>
+document.addEventListener("click",e=>{if(e.target.closest("#tfaStep1")&&/authenticator app/i.test(e.target.closest("div")?.textContent||"")&&!e.target.closest("#tfaStep1").isSameNode(e.target.closest("div")))window.show2faStep(2);});
+</script>
+<script>
+window.show2faStep=function(s){let k=s;if((s===2||s==="app")&&!document.getElementById("tfaStep2"))k=document.getElementById("tfaStepapp")?"app":3;document.querySelectorAll("[id^='tfaStep']").forEach(el=>el.classList.toggle("hide",el.id!=="tfaStep"+k));};
+</script>
+<script>
+window.show2faStep=function(s){
+  const target="tfaStep"+s;
+  document.querySelectorAll("[id^='tfaStep']").forEach(el=>{
+    const show=(el.id===target);
+    el.classList.toggle("hide",!show);
+    el.style.display=show?"block":"none";
+  });
+};
+document.querySelectorAll("#tab-2fa button, #tfaStep1 [onclick]").forEach(btn=>{
+  const oc=btn.getAttribute("onclick")||"";
+  if(oc.includes("show2faStep")){btn.onclick=function(e){e.stopPropagation();const m=oc.match(/show2faStep\(['"]?([^'")]+)['"]?\)/);if(m)window.show2faStep(m.at(1));};}
+});
+
+</script>
+<script>
+const _navFix2fa=window.nav;window.nav=function(t){if(t==="2fa-app")t="2fa";if(typeof _navFix2fa==="function")_navFix2fa(t);};const _s2faOrig=window.show2faStep;window.show2faStep=function(s){document.getElementById("tab-2fa")?.classList.remove("hide");if(typeof _s2faOrig==="function")_s2faOrig(s);};
+</script>
+<script>
+window.openAppStore=function(app){
+  const ios=/iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const urls={
+    google:ios?"https://apple.com":"https://google.com",
+    authy:ios?"https://apple.com":"https://google.com",
+    ms:ios?"https://apple.com":"https://google.com"
+  };
+  window.open(urls[app]||urls.google,"_blank");
+};
+(function(){
+  const s2=document.getElementById("tfaStep2"),s3=document.getElementById("tfaStep3"),s4=document.getElementById("tfaStep4");
+  if(s2)s2.innerHTML=`<h2 style="margin:0 0 6px;font-size:19px">How it works</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 14px">An authenticator app generates a new 6-digit code every 30 seconds — even offline. On the next screen, you'll link it to Zale.</p><div style="font-size:11px;font-weight:800;color:var(--mut);margin-bottom:6px">INSTALL AN APP</div><div class="acc-row"><b>Google Authenticator</b><button type="button" class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('google')">Get</button></div><div class="acc-row"><b>Authy</b><button type="button" class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('authy')">Get</button></div><div class="acc-row"><b>Microsoft Authenticator</b><button type="button" class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('ms')">Get</button></div><button type="button" class="btn" style="margin-top:14px" onclick="show2faStep(3)">I have an app, continue</button>`;
+  if(s4)s4.innerHTML=`<h2 style="margin:0 0 6px;font-size:19px">Enter authenticator code</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 14px">Enter the 6-digit code from your authenticator app.</p><input id="tfaCodeInp" type="text" maxlength="6" placeholder="000000" class="mono" style="text-align:center;font-size:22px;letter-spacing:8px;font-weight:800" /><button type="button" class="btn" style="margin-top:14px" onclick="confirmEnable2fa()">Enable 2FA</button>`;
+})();
+(function(){
+  const s3=document.getElementById("tfaStep3");if(!s3)return;
+  const qr=`<svg width="168" height="168" viewBox="0 0 21 21" style="background:#fff;padding:10px;border-radius:14px;border:1.5px solid var(--brd);display:block;margin:10px auto"><path fill="#0f172a" d="M1 1h7v7H1V1zm1 1v5h5V2H2zm1 1h3v3H3V3zm10-2h7v7h-7V1zm1 1v5h5V2h-5zm1 1h3v3h-3V3zM1 13h7v7H1v-7zm1 1v5h5v-5H2zm1 1h3v3H3v-3zm7-13h2v2h-2V2zm0 4h2v3h-2V6zm3 3h2v2h-2V9zm3 0h4v2h-4V9zm-6 3h3v2h-3v-2zm4 2h2v4h-2v-4zm3 1h3v2h-3v-2zm-7 3h3v2h-3v-2zm4 2h5v1h-5v-1z"/></svg>`;
+  s3.innerHTML=`<div style="font-size:11px;font-weight:800;color:var(--acc);margin-bottom:2px">LINK YOUR APP</div><h2 style="margin:0 0 4px;font-size:19px">Link your authenticator</h2><p style="font-size:12px;color:var(--mut);margin:0 0 12px">Add Zale to your authenticator app, then enter the 6-digit code on the next step.</p><a href="otpauth://totp/Zale:user?secret=ZALE2FA9K84M77XQ&issuer=Zale" class="btn-ghost" style="display:block;text-align:center;text-decoration:none;padding:10px;font-weight:800;margin-bottom:10px">Open in authenticator app ↗</a><div style="font-size:11.5px;color:var(--mut);margin-bottom:4px">Or enter key manually:</div><div class="row" style="background:var(--card2);padding:10px;border-radius:10px;margin-bottom:12px"><code class="mono" style="font-size:12.5px;color:var(--gold);font-weight:800">ZALE-2FA9-K84M-77XQ</code><button type="button" class="btn-ghost" style="padding:4px 10px;font-size:11px" onclick="copyVal('ZALE2FA9K84M77XQ','Setup Key')">Copy</button></div><div style="text-align:center;font-size:12px;font-weight:800">Setting up on another device?</div>${qr}<div style="text-align:center;font-size:11px;color:var(--mut);margin-bottom:12px">Scan with your authenticator</div><button type="button" class="btn" onclick="show2faStep(4)">Continue</button>`;
+})();
+
+</script>
+<script>
+(function(){
+  const s3=document.getElementById("tfaStep3");if(!s3)return;
+  const oldSvg=s3.querySelector("svg");if(!oldSvg)return;
+  const u=JSON.parse(localStorage.getItem("zale_user")||"{}");
+  const uri=encodeURIComponent("otpauth://totp/Zale:"+(u.email||"user")+"?secret=ZALE2FA9K84M77XQ&issuer=Zale");
+  const wrap=document.createElement("div");
+  wrap.style.cssText="width:196px;height:196px;margin:12px auto;padding:12px;background:#fff;border-radius:20px;border:1.5px solid rgba(19,34,87,.14);box-shadow:0 10px 26px rgba(15,23,42,.10);position:relative;display:flex;align-items:center;justify-content:center";
+  wrap.innerHTML=`<img src="https://qrserver.com{uri}" alt="Zale 2FA QR" style="width:172px;height:172px;border-radius:10px;display:block" /><div style="position:absolute;width:36px;height:36px;border-radius:10px;background:#132257;color:#fff;font-weight:900;font-size:17px;display:flex;align-items:center;justify-content:center;border:3px solid #fff;box-shadow:0 3px 10px rgba(0,0,0,.18)">Z</div>`;
+  oldSvg.replaceWith(wrap);
+})();
+
+</script>
+<script>
+(function(){
+  const s3=document.getElementById("tfaStep3");if(!s3)return;
+  const oldBox=s3.querySelector("div[style*='196px']")||s3.querySelector("svg");if(!oldBox)return;
+  const u=JSON.parse(localStorage.getItem("zale_user")||"{}");
+  const uri="otpauth://totp/Zale:"+encodeURIComponent(u.email||"user@zale.app")+"?secret=ZALE2FA9K84M77XQ&issuer=Zale";
+  const box=document.createElement("div");
+  box.style.cssText="width:184px;height:184px;margin:12px auto;padding:12px;background:#fff;border-radius:16px;border:1.5px solid #cbd5e1;box-shadow:0 8px 20px rgba(15,23,42,.08);display:flex;align-items:center;justify-content:center";
+  oldBox.replaceWith(box);
+  const sc=document.createElement("script");
+  sc.src="https://cloudflare.com";
+  sc.onload=()=>new QRCode(box,{text:uri,width:160,height:160,colorDark:"#0f172a",colorLight:"#ffffff",correctLevel:QRCode.CorrectLevel.M});
+  document.head.appendChild(sc);
+})();
+
+</script>
+<script>
+setTimeout(()=>{
+  const s3=document.getElementById("tfaStep3");if(!s3)return;
+  const b=s3.querySelector("div[style*='184px']")||s3.querySelector("div[style*='196px']");
+  if(b)b.outerHTML=`<svg width="176" height="176" viewBox="0 0 29 29" shape-rendering="crispEdges" style="background:#fff;padding:10px;border-radius:14px;border:1.5px solid #cbd5e1;display:block;margin:12px auto"><rect width="29" height="29" fill="#fff"/><path fill="#0f172a" d="M2 2h7v7H2V2zm1 1v5h5V3H3zm1 1h3v3H4V4zm16-2h7v7h-7V2zm1 1v5h5V3h-5zm1 1h3v3h-3V4zM2 20h7v7H2v-7zm1 1v5h5v-5H3zm1 1h3v3H4v-3zm8-20h2v2h-2V2zm3 0h3v1h-3V2zm-3 3h1v3h-1V5zm2 1h3v2h-3V6zm-1 3h2v2h-2V9zm-9 2h2v2H2v-2zm3 0h3v1H5v-1zm4 0h2v3H9v-3zm3 1h3v1h-3v-1zm4 0h2v2h-2v-2zm3 0h3v1h-3v-1zm-17 3h3v1H2v-1zm4 0h2v3H6v-3zm4 1h3v2h-3v-2zm4-1h2v3h-2v-3zm3 1h3v1h-3v-1zm4 0h3v2h-3v-2zm-15 3h2v2h-2v-2zm4 0h3v1h-3v-1zm4 1h2v2h-2v-2zm3-1h2v3h-2v-3zm3 1h4v1h-4v-1zm-10 3h5v5h-5v-5zm1 1v3h3v-3h-3zm1 1h1v1h-1v-1zm5-2h2v2h-2v-2zm3 1h3v2h-3v-2zm-14 2h2v2h-2v-2zm3 0h2v3h-2v-3zm11 1h2v3h-2v-3zm-8 1h3v1h-3v-1zm4 1h2v2h-2v-2z"/></svg>`;
+},150);
 
 </script>
 </body>
 </html>
-
-
-
-
