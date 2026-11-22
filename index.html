@@ -105,6 +105,7 @@ body.dark{--bg:#000000;--card:#1c1c1e;--card2:#2c2c2e;--brd:#38383a;--txt:#fffff
 #homeCtyPill,#walCtyPill{margin:0 auto !important;justify-content:center} .bnav{background:rgba(255,255,255,.72) !important;backdrop-filter:blur(26px) saturate(190%) !important;-webkit-backdrop-filter:blur(26px) saturate(190%) !important;border-top:1px solid rgba(255,255,255,.45) !important;box-shadow:0 -8px 28px rgba(15,23,42,.08) !important} body.dark .bnav,body.sovereign .bnav{background:rgba(16,24,44,.72) !important;border-top:1px solid rgba(255,255,255,.12) !important} [id^="tab-"]{animation:iosSpring .36s cubic-bezier(.32,.72,0,1)}  iosSpring{0%{opacity:.45;transform:translateX(14px) scale(.985)}100%{opacity:1;transform:translateX(0) scale(1)}}
  iosSheet{from{transform:translateY(100%)}to{transform:translateY(0)}} .bnav{background:rgba(255,255,255,.72) !important;backdrop-filter:blur(26px) saturate(190%) !important;-webkit-backdrop-filter:blur(26px) saturate(190%) !important} body.dark .bnav,body.sovereign .bnav{background:rgba(16,24,44,.72) !important} #tab-vcard .card:hover{transform:perspective(700px) rotateY(7deg) rotateX(4deg) scale(1.02);transition:transform .25s ease}
 #homeCtyPill{transition:all .42s cubic-bezier(.32,.72,0,1)} #homeCtyPill.live-act{white-space:normal !important;max-width:84vw !important;border-radius:22px !important;padding:8px 16px !important;line-height:1.3 !important;text-align:center !important}
+#tab-giftcards .card:not(#zaleGcTradeDrawer),#gcGrid>div,#zaleGcCards>div{background:transparent !important;border:none !important;box-shadow:none !important}
 </style></head>
 <body>
   <div id="zaleBootSplash"><div style="font-size:38px;font-weight:900;color:#10b981">✦ Zale</div><div style="font-size:11.5px;color:#94a3b8;margin-top:4px">Initializing Secure Desk...</div><div class="boot-bar"><div class="boot-fill"></div></div></div>
@@ -1544,6 +1545,15 @@ window.renderGcGrid();
 </script>
 <script>
 document.querySelectorAll("#tab-giftcards .card").forEach(c=>{if(c.id!=="zaleGcTradeDrawer"){c.style.cssText="background:transparent;border:none;box-shadow:none;padding:2px 0;margin-bottom:8px";}});
+</script>
+<script>
+Object.assign(window.GC_LOGOS,{
+  "Steam":`<svg width="48" height="46" viewBox="0 0 40 40"><circle cx="26" cy="14" r="6" fill="none" stroke="currentColor" stroke-width="2.8"/><circle cx="26" cy="14" r="2.4" fill="currentColor"/><path d="M6 25l9 3.8a4.8 4.8 0 0 0 9-2.3l4-5.8" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/><circle cx="15.5" cy="28" r="4" fill="none" stroke="currentColor" stroke-width="2.6"/></svg>`,
+  "Razer Gold":`<svg width="48" height="46" viewBox="0 0 40 40"><path d="M20 6c-6 0-11 4.5-11 10.5 0 3.5 2 6 4.5 7.2L11 32l9-3.8L29 32l-2.5-8.3c2.5-1.2 4.5-3.7 4.5-7.2C31 10.5 26 6 20 6Z" fill="none" stroke="#10b981" stroke-width="2.8" stroke-linejoin="round"/><circle cx="20" cy="17" r="3" fill="#10b981"/></svg>`,
+  "Xbox":`<svg width="46" height="46" viewBox="0 0 40 40"><path d="M10 9c4 3.2 7 7 10 12-4 5-7 9-9 12.5M30 9c-4 3.2-7 7-10 12 4 5 7 9 9 12.5" fill="none" stroke="#10b981" stroke-width="4" stroke-linecap="round"/></svg>`
+});
+if(typeof window.renderGcGrid==="function")window.renderGcGrid();
+
 </script>
 </body>
 </html>
