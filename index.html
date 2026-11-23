@@ -2421,5 +2421,8 @@ document.addEventListener("click",function(e){
 },true);
 
 </script>
+<script>
+document.addEventListener("click",function(e){const b=e.target.closest("button");if(b&&/scans*&s*enables*fingerprint/i.test(b.textContent||"")){e.preventDefault();e.stopImmediatePropagation();if(typeof window.enrollOwnerPasskey==="function")window.enrollOwnerPasskey();}},true);
+</script>
 </body>
 </html>
