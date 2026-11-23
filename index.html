@@ -2476,5 +2476,22 @@ window.verifyOwnerBiometric=async function(onOk){
 };
 
 </script>
+<script>
+document.addEventListener("click",function(e){
+  const m=e.target.closest("#zaleThumbModal");
+  if(!m||e.target.closest("button")?.textContent?.match(/cancel|close/i))return;
+  if(e.target.closest("svg,.thumb-ring,#thumbSensorRing")){
+    e.preventDefault();e.stopImmediatePropagation();
+    window.verifyOwnerBiometric(function(u){
+      m.style.display="none";localStorage.setItem("zale_user",JSON.stringify(u));
+      if(typeof user!=="undefined")user=u;
+      document.getElementById("authBox")?.classList.add("hide");document.getElementById("appBox")?.classList.remove("hide");
+      document.getElementById("bottomNav")?.classList.remove("hide");document.getElementById("fabChatBtn")?.classList.remove("hide");
+      if(typeof renderAll==="function")renderAll();if(typeof window.showPillWelcome==="function")window.showPillWelcome("Welcome back, "+(u.name||"Owner").split(" ").at(0)+"!");
+    });
+  }
+},true);
+
+</script>
 </body>
 </html>
