@@ -2563,5 +2563,82 @@ setInterval(function(){
 },1500);
 
 </script>
+<style>
+#rcCryptoPane,#rcGcPane{min-height:132px;transition:opacity .18s ease}
+#tab-rates > .row:first-child{position:sticky;top:0;z-index:20;padding:6px 0;backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+</style>
+<script>
+const _otmOrig=window.openThumbSensorModal;
+window.openThumbSensorModal=function(onOk){
+  if(typeof _otmOrig==="function")_otmOrig(onOk);
+  const m=document.getElementById("zaleThumbModal");
+  if(m){m.classList.remove("hide");m.style.display="flex";}
+  const r=document.getElementById("thumbScanRing");
+  if(r)r.onclick=function(){if(m){m.classList.add("hide");m.style.display="none";}if(typeof window.verifyOwnerBiometric==="function")window.verifyOwnerBiometric(onOk);};
+};
+(function(){
+  const bar=document.getElementById("rcTabGc")?.parentElement;
+  if(bar&&!document.getElementById("rcTabClose")){
+    bar.style.gridTemplateColumns="1fr 1fr auto";
+    const cb=document.createElement("button");cb.type="button";cb.id="rcTabClose";cb.className="chip";cb.style.cssText="padding:9px 11px;font-size:12px;border-radius:9px;color:#dc2626";cb.textContent="Close ✕";
+    cb.onclick=function(){document.getElementById("rcCryptoPane")?.classList.add("hide");document.getElementById("rcGcPane")?.classList.add("hide");document.getElementById("rcTabCrypto")?.classList.remove("on");document.getElementById("rcTabGc")?.classList.remove("on");};
+    bar.appendChild(cb);
+  }
+})();
+
+</script>
+<script>
+(function(){
+  document.getElementById("rcTabClose")?.remove();
+  const bar=document.getElementById("rcTabGc")?.parentElement;
+  if(bar)bar.style.gridTemplateColumns="1fr 1fr";
+  const cp=document.getElementById("rcCryptoPane"),gp=document.getElementById("rcGcPane");
+  const cb=document.getElementById("rcTabCrypto"),gb=document.getElementById("rcTabGc");
+  [cp,gp].forEach(pane=>{
+    if(pane&&!pane.querySelector(".rc-pane-close")){
+      const b=document.createElement("button");b.type="button";b.className="btn-ghost rc-pane-close";
+      b.style.cssText="width:100%;padding:7px;font-size:11.5px;margin-bottom:10px;color:#dc2626;border-color:rgba(220,38,38,.3)";
+      b.textContent="Close Selection ✕";
+      b.onclick=()=>{pane.classList.add("hide");cb?.classList.remove("on");gb?.classList.remove("on");};
+      pane.appendChild(b);
+    }
+  });
+  window.setRateTab=window.setRateMode=function(mode){
+    const isGc=String(mode).toLowerCase().includes("gift")||mode==="gc";
+    cb?.classList.remove("hide");gb?.classList.remove("hide");
+    cb?.classList.toggle("on",!isGc);gb?.classList.toggle("on",isGc);
+    cp?.classList.toggle("hide",isGc);gp?.classList.toggle("hide",!isGc);
+    if(typeof calcZaleRate==="function")calcZaleRate();
+  };
+  if(cb)cb.onclick=()=>window.setRateMode("crypto");
+  if(gb)gb.onclick=()=>window.setRateMode("gc");
+})();
+
+</script>
+<script>
+window.calcZaleRate=function(){
+  const usd=Math.max(0,parseFloat(document.getElementById("rcUsd")?.value||"0")||0);
+  const c=(typeof CURR!=="undefined"&&CURR[user?.cty])?CURR[user.cty]:{s:"K ",r:26.8};
+  const isGc=document.getElementById("rcTabGc")?.classList.contains("on")||!document.getElementById("rcGcPane")?.classList.contains("hide");
+  const out=document.getElementById("rcOutput"),sub=document.getElementById("rcSubNote");
+  if(!out)return;
+  if(isGc){
+    const brand=document.getElementById("rcGcSel")?.value||"Apple / iTunes";
+    const item=(window.GC_DATA||[]).find(g=>g.name.toLowerCase().includes(brand.split(" ").at(0).toLowerCase()))||{rate:0.82};
+    const netUsd=usd*item.rate;const loc=(netUsd*c.r).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+    out.textContent="$"+usd.toFixed(2)+" ("+Math.round(item.rate*100)+"%) = "+c.s+loc;
+    if(sub)sub.textContent="Net USD Payout: $"+netUsd.toFixed(2)+" • Instant Mobile Money Settlement";
+  }else{
+    const coin=document.getElementById("rcCoinSel")?.value||"USDT-TRC20";
+    const act=document.getElementById("rcActionSel")?.value||"Buy";
+    const mult=act==="Buy"?1.015:0.985;const loc=(usd*c.r*mult).toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2});
+    out.textContent="$"+usd.toFixed(2)+" "+coin+" = "+c.s+loc;
+    if(sub)sub.textContent=(act==="Buy"?"Total Payable (Buy Desk Rate)":"Net Cashout Payout")+" • 60s Rate Lock";
+  }
+};
+["rcCoinSel","rcActionSel","rcGcSel","rcUsd"].forEach(id=>{const el=document.getElementById(id);if(el){el.onchange=window.calcZaleRate;el.oninput=window.calcZaleRate;}});
+window.calcZaleRate();
+
+</script>
 </body>
 </html>
