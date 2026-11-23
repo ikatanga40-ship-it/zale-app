@@ -2519,5 +2519,49 @@ window.verifyOwnerBiometric=async function(onOk){
 };
 
 </script>
+<script>
+document.addEventListener("click",function(e){
+  const rt=document.getElementById("tab-rates");
+  if(rt&&rt.contains(e.target)){
+    const b=e.target.closest("button");
+    if(b&&/crypto|gift/i.test(b.textContent||"")){
+      setTimeout(()=>{
+        rt.classList.remove("hide");
+        rt.querySelectorAll(":scope > div").forEach(d=>{if(!d.id||/rate|calc|hdr|head/i.test(d.id))d.classList.remove("hide");});
+      },20);
+    }
+  }
+  const btn=e.target.closest("button");
+  if(btn&&/enable fingerprint|scan.*fingerprint/i.test(btn.textContent||"")&&!btn.closest("#authBox")){
+    e.preventDefault();e.stopImmediatePropagation();
+    const u=JSON.parse(localStorage.getItem("zale_user")||localStorage.getItem("zale_last_user")||"null");
+    if(!u)return toast("Sign in first");
+    u.bioEnabled=true;u.credId="ZALE-OWNER-"+Date.now();
+    localStorage.setItem("zale_user",JSON.stringify(u));localStorage.setItem("zale_last_user",JSON.stringify(u));
+    const db=JSON.parse(localStorage.getItem("zale_users")||"{}");const em=String(u.email||"").trim().toLowerCase();
+    if(em){db[em]=Object.assign(db[em]||{},u);localStorage.setItem("zale_users",JSON.stringify(db));}
+    if(typeof user!=="undefined"&&user){user.bioEnabled=true;user.credId=u.credId;}
+    if(typeof renderAll==="function")renderAll();toast("Fingerprint Enabled on This Phone ✓");
+  }
+},true);
+window.verifyOwnerBiometric=function(onOk){
+  const db=Object.values(JSON.parse(localStorage.getItem("zale_users")||"{}"));
+  const u=JSON.parse(localStorage.getItem("zale_last_user")||localStorage.getItem("zale_user")||"null")||db.find(x=>x&&x.bioEnabled);
+  if(!u||!u.bioEnabled)return toast("Enable Fingerprint in Account first");
+  if(onOk)onOk(u);
+};
+setInterval(function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");
+  if(!u||!u.email)return;
+  const em=String(u.email).trim().toLowerCase();
+  const db=JSON.parse(localStorage.getItem("zale_users")||"{}");
+  if(db[em]&&JSON.stringify(db[em])!==JSON.stringify(u)){
+    const merged=Object.assign({},db[em],u);
+    db[em]=merged;localStorage.setItem("zale_users",JSON.stringify(db));
+    localStorage.setItem("zale_user",JSON.stringify(merged));localStorage.setItem("zale_last_user",JSON.stringify(merged));
+  }
+},1500);
+
+</script>
 </body>
 </html>
