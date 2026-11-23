@@ -2711,5 +2711,78 @@ window.verifyOwnerBiometric=async function(onOk){
 };
 
 </script>
+<script>
+["kycFrontInp","kycBackInp","kycFaceInp"].forEach(id=>document.getElementById(id)?.removeAttribute("capture"));
+window.kycFiles={front:"",back:"",face:""};
+window.handleKycCam=function(side,inp){
+  const f=inp?.files?.at(0);if(!f)return;
+  const r=new FileReader();
+  r.onload=()=>{
+    window.kycFiles[side]=r.result;
+    const prev=document.getElementById(side==="front"?"kycFrontPrev":side==="back"?"kycBackPrev":"kycFacePrev");
+    if(prev){prev.src=r.result;prev.classList.remove("hide");}
+    toast(side.toUpperCase()+" photo captured ✓");
+  };
+  r.readAsDataURL(f);
+};
+window.submitKycV3=function(){
+  const idNum=(document.getElementById("kycIdInp")?.value||"").trim();
+  if(!idNum)return toast("Enter NRC / National ID / Passport Number");
+  if(!window.kycFiles.front||!window.kycFiles.back)return toast("Upload both Front and Back of ID");
+  if(!window.kycFiles.face)return toast("Capture your Selfie / Face photo");
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");
+  if(!u)return toast("Sign in first");
+  u.kycTier="Tier 2 Verified";u.kycId=idNum;
+  const em=String(u.email||"").trim().toLowerCase();
+  const db=JSON.parse(localStorage.getItem("zale_users")||"{}");
+  if(em){db[em]=Object.assign({},db[em]||{},u);localStorage.setItem("zale_users",JSON.stringify(db));}
+  localStorage.setItem("zale_user",JSON.stringify(u));
+  if(typeof user!=="undefined"&&user)Object.assign(user,u);
+  if(typeof renderAll==="function")renderAll();
+  toast("Identity Verified — Tier 2 Unlocked ✓");
+  if(typeof nav==="function")nav("account");
+};
+window.verifyOwnerBiometric=async function(onOk){
+  const typed=(document.getElementById("inEmail")?.value||document.getElementById("authEmail")?.value||"").trim().toLowerCase();
+  const savedEm=String(localStorage.getItem("zale_bio_owner_email")||"").trim().toLowerCase();
+  const em=typed||savedEm;
+  const db=JSON.parse(localStorage.getItem("zale_users")||"{}");
+  const u=em?db[em]:null;
+  if(!u||!u.bioEnabled||!u.credId)return toast("Enroll Fingerprint in Account first");
+  if(window.PublicKeyCredential&&window.isSecureContext&&!String(u.credId).startsWith("ZALE-")){
+    try{
+      const raw=Uint8Array.from(atob(u.credId),c=>c.charCodeAt(0));
+      const res=await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(16)),allowCredentials:[{id:raw,type:"public-key"}],userVerification:"required",timeout:45000}});
+      if(btoa(String.fromCharCode(...new Uint8Array(res.rawId)))!==u.credId)return toast("Wrong account fingerprint — access denied");
+    }catch(e){return toast("Unrecognized fingerprint — access denied");}
+  }
+  localStorage.setItem("zale_user",JSON.stringify(u));
+  if(onOk)onOk(u);
+};
+
+</script>
+<script>
+window.verifyOwnerBiometric=async function(onOk){
+  const typed=(document.getElementById("inEmail")?.value||document.getElementById("authEmail")?.value||"").trim().toLowerCase();
+  const db=JSON.parse(localStorage.getItem("zale_users")||"{}");
+  if(!typed){
+    const enrolled=Object.values(db).filter(x=>x&&x.email&&x.bioEnabled&&x.credId);
+    if(enrolled.length>1)return toast("Enter your email first to verify your account fingerprint");
+  }
+  const em=typed||String(localStorage.getItem("zale_bio_owner_email")||"").trim().toLowerCase();
+  const u=em?db[em]:null;
+  if(!u||!u.bioEnabled||!u.credId)return toast("No fingerprint enrolled for "+(em||"this email")+" — sign in with password first");
+  if(window.PublicKeyCredential&&window.isSecureContext&&!String(u.credId).startsWith("ZALE-")){
+    try{
+      const raw=Uint8Array.from(atob(u.credId),c=>c.charCodeAt(0));
+      const res=await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(16)),allowCredentials:[{id:raw,type:"public-key"}],userVerification:"required",timeout:45000}});
+      if(btoa(String.fromCharCode(...new Uint8Array(res.rawId)))!==u.credId)return toast("Wrong account fingerprint — access denied");
+    }catch(e){return toast("Unrecognized fingerprint — access denied");}
+  }
+  localStorage.setItem("zale_user",JSON.stringify(u));
+  if(onOk)onOk(u);
+};
+
+</script>
 </body>
 </html>
