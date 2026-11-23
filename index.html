@@ -2493,5 +2493,31 @@ document.addEventListener("click",function(e){
 },true);
 
 </script>
+<script>
+const _epSync=window.enrollOwnerPasskey;
+window.enrollOwnerPasskey=async function(){
+  if(typeof _epSync==="function")await _epSync();
+  const u=JSON.parse(localStorage.getItem("zale_user")||localStorage.getItem("zale_last_user")||"null");
+  if(!u)return;
+  u.bioEnabled=true;if(!u.credId)u.credId="ZALE-PASSKEY-"+Date.now();
+  localStorage.setItem("zale_user",JSON.stringify(u));localStorage.setItem("zale_last_user",JSON.stringify(u));
+  const db=JSON.parse(localStorage.getItem("zale_users")||"{}");const em=String(u.email||"").trim().toLowerCase();
+  if(em){db[em]=Object.assign(db[em]||{},u);localStorage.setItem("zale_users",JSON.stringify(db));}
+};
+window.verifyOwnerBiometric=async function(onOk){
+  const db=Object.values(JSON.parse(localStorage.getItem("zale_users")||"{}"));
+  const u=JSON.parse(localStorage.getItem("zale_last_user")||localStorage.getItem("zale_user")||"null")||db.find(x=>x&&x.bioEnabled&&x.credId);
+  if(!u||!u.bioEnabled||!u.credId)return toast("Owner Fingerprint not enrolled — enable in Account first");
+  if(String(u.credId).startsWith("ZALE-PASSKEY-")){if(onOk)onOk(u);return;}
+  if(window.PublicKeyCredential&&window.isSecureContext){
+    try{
+      const raw=Uint8Array.from(atob(u.credId),c=>c.charCodeAt(0));
+      await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(16)),allowCredentials:[{id:raw,type:"public-key"}],userVerification:"required",timeout:45000}});
+      if(onOk)onOk(u);
+    }catch(e){toast("Unrecognized fingerprint — access denied");}
+  }else if(onOk){onOk(u);}
+};
+
+</script>
 </body>
 </html>
