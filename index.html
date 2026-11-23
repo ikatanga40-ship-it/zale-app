@@ -2368,7 +2368,7 @@ window.toggleBio=function(){
 };
 document.addEventListener("click",e=>{
   const r=e.target.closest(".acc-row,button");
-  if(r&&/fingerprint|biometric/i.test(r.textContent||"")&&r.closest("#tab-account")){
+  if(r&&/fingerprint|biometric/i.test(r.textContent||"")&&r.closest("#tab-bio,#tab-fingerprint")&&/scan & enable/i.test(r.textContent||"")){
     const u=JSON.parse(localStorage.getItem("zale_user")||"null");
     if(u&&(!u.bioEnabled||!u.credId)){e.preventDefault();e.stopImmediatePropagation();window.enrollOwnerPasskey();}
   }
