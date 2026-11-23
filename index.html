@@ -2640,5 +2640,76 @@ window.calcZaleRate=function(){
 window.calcZaleRate();
 
 </script>
+<script>
+window.enrollOwnerPasskey=async function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||localStorage.getItem("zale_last_user")||"null");
+  if(!u)return toast("Sign in first");
+  if(!window.PublicKeyCredential||!window.isSecureContext)return toast("Open live HTTPS link on your phone to enroll thumb");
+  try{
+    const cred=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(16)),rp:{id:location.hostname,name:"Zale"},user:{id:new TextEncoder().encode(u.email||"owner"),name:u.email||"owner",displayName:u.name||"Owner"},pubKeyCredParams:[{type:"public-key",alg:-7},{type:"public-key",alg:-257}],authenticatorSelection:{authenticatorAttachment:"platform",userVerification:"required"},timeout:45000}});
+    u.bioEnabled=true;u.credId=btoa(String.fromCharCode(...new Uint8Array(cred.rawId)));
+    localStorage.setItem("zale_user",JSON.stringify(u));localStorage.setItem("zale_last_user",JSON.stringify(u));
+    const db=JSON.parse(localStorage.getItem("zale_users")||"{}");const em=String(u.email||"").trim().toLowerCase();
+    if(em){db[em]=Object.assign(db[em]||{},u);localStorage.setItem("zale_users",JSON.stringify(db));}
+    if(typeof user!=="undefined"&&user){user.bioEnabled=true;user.credId=u.credId;}
+    if(typeof renderAll==="function")renderAll();toast("Hardware Thumbprint Enrolled ✓");
+  }catch(e){toast("Fingerprint scan failed or cancelled");}
+};
+window.verifyOwnerBiometric=async function(onOk){
+  const db=Object.values(JSON.parse(localStorage.getItem("zale_users")||"{}"));
+  const u=JSON.parse(localStorage.getItem("zale_last_user")||localStorage.getItem("zale_user")||"null")||db.find(x=>x&&x.bioEnabled&&x.credId);
+  if(!u||!u.bioEnabled||!u.credId||String(u.credId).startsWith("ZALE-"))return toast("Re-enroll your thumb in Account -> Fingerprint Enabler");
+  if(!window.PublicKeyCredential||!window.isSecureContext)return toast("Open live HTTPS link to verify fingerprint");
+  try{
+    const raw=Uint8Array.from(atob(u.credId),c=>c.charCodeAt(0));
+    await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(16)),allowCredentials:[{id:raw,type:"public-key"}],userVerification:"required",timeout:45000}});
+    if(onOk)onOk(u);
+  }catch(e){toast("Unrecognized fingerprint — access denied");}
+};
+document.addEventListener("click",function(e){
+  const btn=e.target.closest("button");
+  if(btn&&/enable fingerprint|scan.*fingerprint/i.test(btn.textContent||"")&&!btn.closest("#authBox")){
+    e.preventDefault();e.stopImmediatePropagation();window.enrollOwnerPasskey();
+  }
+},true);
+
+</script>
+<script>
+window.enrollOwnerPasskey=async function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");
+  if(!u||!u.email)return toast("Sign in to your account first");
+  const em=String(u.email).trim().toLowerCase();
+  if(!window.PublicKeyCredential||!window.isSecureContext)return toast("Open live HTTPS link to enroll fingerprint");
+  try{
+    const cred=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(16)),rp:{id:location.hostname,name:"Zale"},user:{id:new TextEncoder().encode(em),name:em,displayName:u.name||em},pubKeyCredParams:[{type:"public-key",alg:-7},{type:"public-key",alg:-257}],authenticatorSelection:{authenticatorAttachment:"platform",userVerification:"required"},timeout:45000}});
+    const cid=btoa(String.fromCharCode(...new Uint8Array(cred.rawId)));
+    const db=JSON.parse(localStorage.getItem("zale_users")||"{}");
+    db[em]=Object.assign({},db[em]||{},u,{email:em,bioEnabled:true,credId:cid});
+    localStorage.setItem("zale_users",JSON.stringify(db));
+    localStorage.setItem("zale_user",JSON.stringify(db[em]));
+    localStorage.setItem("zale_bio_owner_email",em);
+    if(typeof user!=="undefined"&&user)Object.assign(user,db[em]);
+    if(typeof renderAll==="function")renderAll();
+    toast("Fingerprint locked strictly to "+em+" ✓");
+  }catch(e){toast("Fingerprint enrollment cancelled or failed");}
+};
+window.verifyOwnerBiometric=async function(onOk){
+  const typed=(document.getElementById("inEmail")?.value||document.getElementById("authEmail")?.value||"").trim().toLowerCase();
+  const em=typed||String(localStorage.getItem("zale_bio_owner_email")||"").trim().toLowerCase();
+  const db=JSON.parse(localStorage.getItem("zale_users")||"{}");
+  const u=em?db[em]:null;
+  if(!u||!u.bioEnabled||!u.credId||String(u.credId).startsWith("ZALE-"))return toast("No enrolled fingerprint for "+(em||"this account")+" — enroll in Account first");
+  if(!window.PublicKeyCredential||!window.isSecureContext)return toast("Open live HTTPS link to verify fingerprint");
+  try{
+    const raw=Uint8Array.from(atob(u.credId),c=>c.charCodeAt(0));
+    const res=await navigator.credentials.get({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(16)),allowCredentials:[{id:raw,type:"public-key"}],userVerification:"required",timeout:45000}});
+    const gotId=btoa(String.fromCharCode(...new Uint8Array(res.rawId)));
+    if(gotId!==u.credId)return toast("Credential mismatch — access denied");
+    localStorage.setItem("zale_user",JSON.stringify(u));
+    if(onOk)onOk(u);
+  }catch(e){toast("Unrecognized fingerprint — access denied");}
+};
+
+</script>
 </body>
 </html>
