@@ -2347,5 +2347,33 @@ if("serviceWorker" in navigator)navigator.serviceWorker.register("./sw.js");
 <script>
 const _authSvg=document.querySelector("#authBox svg");if(_authSvg)_authSvg.outerHTML="<img src="logo.png" alt="Zale" style="width:72px;height:72px;border-radius:18px;object-fit:cover;display:block;margin:0 auto 10px" />";
 </script>
+<script>
+window.enrollOwnerPasskey=async function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");
+  if(!u)return toast("Sign in first");
+  if(!window.PublicKeyCredential||!window.isSecureContext)return toast("Open live HTTPS link to enroll thumb");
+  try{
+    const cred=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(16)),rp:{name:"Zale"},user:{id:new TextEncoder().encode(u.email||"owner"),name:u.email||"owner",displayName:u.name||"Owner"},pubKeyCredParams:[{type:"public-key",alg:-7},{type:"public-key",alg:-257}],authenticatorSelection:{authenticatorAttachment:"platform",userVerification:"required"},timeout:30000}});
+    u.bioEnabled=true;u.credId=btoa(String.fromCharCode(...new Uint8Array(cred.rawId)));
+    localStorage.setItem("zale_user",JSON.stringify(u));localStorage.setItem("zale_last_user",JSON.stringify(u));
+    if(typeof user!=="undefined"&&user){user.bioEnabled=true;user.credId=u.credId;}
+    if(typeof renderAll==="function")renderAll();toast("Owner Thumbprint Enrolled ✓");
+  }catch(e){toast("Thumb enrollment cancelled or failed");}
+};
+const _tbOrig=window.toggleBio;
+window.toggleBio=function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");
+  if(u&&!u.bioEnabled)return window.enrollOwnerPasskey();
+  if(typeof _tbOrig==="function")_tbOrig();
+};
+document.addEventListener("click",e=>{
+  const r=e.target.closest(".acc-row,button");
+  if(r&&/fingerprint|biometric/i.test(r.textContent||"")&&r.closest("#tab-account")){
+    const u=JSON.parse(localStorage.getItem("zale_user")||"null");
+    if(u&&(!u.bioEnabled||!u.credId)){e.preventDefault();e.stopImmediatePropagation();window.enrollOwnerPasskey();}
+  }
+},true);
+
+</script>
 </body>
 </html>
