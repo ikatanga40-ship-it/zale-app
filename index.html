@@ -2395,5 +2395,31 @@ document.addEventListener("click",function(e){
 },true);
 
 </script>
+<script>
+window.enrollOwnerPasskey=async function(){
+  const u=JSON.parse(localStorage.getItem("zale_user")||"null");
+  if(!u)return toast("Sign in first");
+  if(!window.PublicKeyCredential||!window.isSecureContext)return toast("Open live HTTPS link on your phone to enroll thumb");
+  try{
+    const cred=await navigator.credentials.create({publicKey:{challenge:crypto.getRandomValues(new Uint8Array(16)),rp:{id:location.hostname,name:"Zale"},user:{id:new TextEncoder().encode(u.email||"owner"),name:u.email||"owner",displayName:u.name||"Owner"},pubKeyCredParams:[{type:"public-key",alg:-7},{type:"public-key",alg:-257}],authenticatorSelection:{userVerification:"required"},timeout:45000}});
+    u.bioEnabled=true;u.credId=btoa(String.fromCharCode(...new Uint8Array(cred.rawId)));
+    localStorage.setItem("zale_user",JSON.stringify(u));localStorage.setItem("zale_last_user",JSON.stringify(u));
+    if(typeof window.syncZaleUserRecord==="function")window.syncZaleUserRecord(u);
+    if(typeof user!=="undefined"&&user){user.bioEnabled=true;user.credId=u.credId;}
+    if(typeof renderAll==="function")renderAll();toast("Owner Thumbprint Enrolled ✓");
+  }catch(e){toast("Sensor error: "+(e.name||"cancelled"));}
+};
+document.addEventListener("click",function(e){
+  const tab=e.target.closest("#tab-bio,#tab-fingerprint");
+  if(!tab)return;
+  if(e.target.closest("button,svg,.bio-ring,#bioScanTrigger")){
+    const txt=(e.target.closest("button")?.textContent||"").trim();
+    if(/account|back/i.test(txt))return;
+    e.preventDefault();e.stopImmediatePropagation();
+    window.enrollOwnerPasskey();
+  }
+},true);
+
+</script>
 </body>
 </html>
