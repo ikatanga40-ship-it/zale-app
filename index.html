@@ -109,6 +109,14 @@ body.dark{--bg:#000000;--card:#1c1c1e;--card2:#2c2c2e;--brd:#38383a;--txt:#fffff
 body.sys-slate{--bg:#121726;--card:#1b2236;--card2:#252f4a;--brd:#334155;--txt:#f1f5f9;--mut:#94a3b8;--acc:#38bdf8;--gold:#facc15;--obs:#38bdf8}
 #homeCtyPill svg{width:20px !important;height:14px !important;max-width:20px !important;max-height:14px !important;flex-shrink:0 !important}
 #homeCtyPill{display:inline-flex !important;flex-direction:row !important;align-items:center !important;gap:6px !important;padding:6px 12px !important;border-radius:999px !important;width:auto !important;height:auto !important}
+html,body{-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",sans-serif !important;overscroll-behavior-y:none;-webkit-tap-highlight-color:transparent;user-select:none}
+input,textarea,select{user-select:text;font-size:16px !important;border-radius:14px !important;transition:border-color .2s,box-shadow .2s}
+.card{border-radius:22px !important;box-shadow:0 8px 24px rgba(15,23,42,.06) !important;transition:transform .22s cubic-bezier(.32,.72,0,1)}
+.btn,.btn-ghost,.acc-row{border-radius:14px !important;transition:transform .16s cubic-bezier(.32,.72,0,1),opacity .16s !important}
+.btn:active,.btn-ghost:active,.acc-row:active{transform:scale(.972) !important;opacity:.88}
+#bottomNav{backdrop-filter:blur(24px) saturate(180%) !important;-webkit-backdrop-filter:blur(24px) saturate(180%) !important;padding-bottom:calc(8px + env(safe-area-inset-bottom)) !important}
+#appBox{padding-top:calc(6px + env(safe-area-inset-top)) !important}
+
 </style><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Zale"><link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://w3.org' viewBox='0 0 180 180'%3E%3Crect width='180' height='180' rx='40' fill='%23132257'/%3E%3Ctext x='90' y='112' text-anchor='middle' fill='%23d4af37' font-size='84' font-weight='900'%3E%E2%9C%A6%3C/text%3E%3C/svg%3E">
 <link rel="manifest" href="manifest.json">
 <link rel="apple-touch-icon" href="icon-192.png">
@@ -2371,6 +2379,18 @@ document.addEventListener("click",e=>{
   if(r&&/fingerprint|biometric/i.test(r.textContent||"")&&r.closest("#tab-bio,#tab-fingerprint")&&/scan & enable/i.test(r.textContent||"")){
     const u=JSON.parse(localStorage.getItem("zale_user")||"null");
     if(u&&(!u.bioEnabled||!u.credId)){e.preventDefault();e.stopImmediatePropagation();window.enrollOwnerPasskey();}
+  }
+},true);
+
+</script>
+<script>
+document.addEventListener("click",function(e){
+  const el=e.target.closest("button,.acc-row,div");
+  if(!el)return;
+  const txt=(el.textContent||"").trim();
+  if(/^scan & enable fingerprint$/i.test(txt)||el.id==="bioScanTrigger"){
+    e.preventDefault();e.stopImmediatePropagation();
+    if(typeof window.enrollOwnerPasskey==="function")window.enrollOwnerPasskey();
   }
 },true);
 
