@@ -1,13 +1,13 @@
 {
-  "name": "Zale App — Pan-African FX, Crypto & Bills",
-  "short_name": "Zale App",
-  "start_url": "./index.html",
-  "scope": "./",
+  "name": "Zale — Borderless Digital Finance",
+  "short_name": "Zale",
+  "start_url": "/zale-app/",
+  "scope": "/zale-app/",
   "display": "standalone",
-  "background_color": "#020617",
-  "theme_color": "#020617",
+  "background_color": "#0b1120",
+  "theme_color": "#132257",
   "icons": [
-    { "src": "./icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
-    { "src": "./icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ]
 }
