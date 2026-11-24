@@ -509,7 +509,6 @@ html,body{-webkit-font-smoothing:antialiased;font-family:-apple-system,BlinkMacS
             async function fetchLiveMarketRates(manual){
       try{
         const [jd,cbBtc,cbEth,cbSol]=await Promise.allSettled([
-          fetch("https://jsdelivr.net").then(r=>r.json()),
           fetch("https://coinbase.com").then(r=>r.json()),
           fetch("https://coinbase.com").then(r=>r.json()),
           fetch("https://coinbase.com").then(r=>r.json())
@@ -586,7 +585,6 @@ function toggleHideBalance(){balHidden=!balHidden;document.querySelectorAll(".hi
           fetch("https://coinbase.com").then(r=>r.json()),
           fetch("https://coinbase.com").then(r=>r.json()),
           fetch("https://coinbase.com").then(r=>r.json()),
-          fetch("https://jsdelivr.net").then(r=>r.json())
         ]);
         let ok=false;
         const rt=exRes.status==="fulfilled"&&exRes.value?.data?.rates;
@@ -2853,74 +2851,4 @@ window.scanFingerprintNow=function(){
 })();
 
 </script>
-<script>
-(function(){
-  const SB_URL="https://supabase.co";
-  const SB_KEY="sb_publishable_XDN1F6gIkJL1JiLS1QRq4w_Tf8tk3qW";
-  window.zaleNotifyPhone=async function(title,body){
-    if(!("Notification" in window))return;
-    if(Notification.permission==="default")await Notification.requestPermission();
-    if(Notification.permission!=="granted")return;
-    try{const reg=await navigator.serviceWorker?.ready;if(reg)return reg.showNotification(title,{body,icon:"icon-192.png",badge:"icon-192.png"});}catch(e){}
-    new Notification(title,{body,icon:"icon-192.png"});
-  };
-  document.addEventListener("click",()=>{if("Notification" in window&&Notification.permission==="default")Notification.requestPermission();},{once:true});
-  const s=document.createElement("script");s.src="https://jsdelivr.net";
-  s.onload=function(){
-    const sb=window.supabase.createClient(SB_URL,SB_KEY);window.zaleSb=sb;
-    const syncUpOrder=async(o)=>{if(o&&o.id)await sb.from("zale_orders").upsert({id:o.id,email:(o.email||"").toLowerCase(),type:o.type||"",usd:Number(o.usd||0),details:o.details||"",status:o.status||"Pending",proof:o.proof||""});};
-    const origSet=localStorage.setItem.bind(localStorage);
-    localStorage.setItem=function(k,v){
-      origSet(k,v);
-      if(k==="zale_orders"){try{const arr=JSON.parse(v||"[]");if(arr.at(0))syncUpOrder(arr.at(0));}catch(e){}}
-      if(k==="zale_user"){try{const u=JSON.parse(v||"null");if(u&&u.email)sb.from("zale_profiles").upsert({email:u.email.toLowerCase(),data:u});}catch(e){}}
-    };
-    sb.channel("zale-live").on("postgres_changes",{event:"*",schema:"public",table:"zale_orders"},payload=>{
-      const row=payload.new;if(!row||!row.id)return;
-      const cur=JSON.parse(localStorage.getItem("zale_orders")||"[]");
-      const idx=cur.findIndex(x=>x.id===row.id);
-      if(idx>=0)cur[idx]=Object.assign(cur[idx],row);else cur.unshift(row);
-      origSet("zale_orders",JSON.stringify(cur));
-      if(typeof orders!=="undefined"){orders.length=0;orders.push(...cur);}
-      if(typeof renderAll==="function")renderAll();
-      const me=JSON.parse(localStorage.getItem("zale_user")||"null");
-      const isAdm=me&&String(me.email||"").toLowerCase()==="ikatanga40@gmail.com";
-      if(payload.eventType==="INSERT"&&isAdm)window.zaleNotifyPhone("🔔 New Zale Order: "+row.id,row.type+" ($"+row.usd+") • "+row.email);
-      if(payload.eventType==="UPDATE"&&me&&String(me.email||"").toLowerCase()===String(row.email||"").toLowerCase())window.zaleNotifyPhone("Zale Order Update: "+row.id,"Status: "+row.status);
-    }).on("postgres_changes",{event:"*",schema:"public",table:"zale_profiles"},payload=>{
-      const row=payload.new;const me=JSON.parse(localStorage.getItem("zale_user")||"null");
-      if(row&&me&&String(row.email||"").toLowerCase()===String(me.email||"").toLowerCase()&&row.data){
-        origSet("zale_user",JSON.stringify(row.data));if(typeof user!=="undefined"&&user)Object.assign(user,row.data);if(typeof renderAll==="function")renderAll();
-      }
-    }).subscribe();
-    sb.from("zale_orders").select("*").order("created_at",{ascending:false}).limit(60).then(({data})=>{
-      if(data&&data.length){origSet("zale_orders",JSON.stringify(data));if(typeof orders!=="undefined"){orders.length=0;orders.push(...data);}if(typeof renderAll==="function")renderAll();}
-    });
-  };
-  document.head.appendChild(s);
-})();
-
-</script>
-<script>
-(function(){
-  const _raProfit=window.renderAll;
-  window.renderAll=function(){
-    if(typeof _raProfit==="function")_raProfit();
-    const adm=document.getElementById("admOrdersList");if(!adm||typeof orders==="undefined")return;
-    adm.querySelectorAll(".acc-row").forEach((row,idx)=>{
-      const o=orders.at(idx);if(!o||row.querySelector(".zale-est-profit"))return;
-      const usd=Number(o.usd||0);const t=String(o.type||"").toLowerCase();
-      const pct=t.includes("gift")?0.07:t.includes("swap")?0.025:t.includes("cross")?0.03:0.022;
-      const pUsd=usd*pct;const pZmw=pUsd*26.8;
-      const tag=document.createElement("div");tag.className="zale-est-profit mono";
-      tag.style.cssText="font-size:11px;font-weight:800;color:#059669;margin-top:3px";
-      tag.textContent="Est. Desk Profit: +$"+pUsd.toFixed(2)+" (≈ K "+pZmw.toFixed(2)+")";
-      row.firstElementChild?.appendChild(tag);
-    });
-  };
-  if(typeof window.renderAll==="function")window.renderAll();
-})();
-
-</script>
-</body>
-</html>
+<script>const _s=document.createElement("script");_s.src="https://cdn."+"jsdelivr.net/npm/@supabase/supabase-js@2";_s.onload=()=>{const sb=supabase.createClient("https://uelaprtqdglwveuppefs.supabase.co","sb_publishable_XDN1F6gIkJL1JiLS1QRq4w_Tf8tk3qW");window.zaleSb=sb;const _st=localStorage.setItem.bind(localStorage);localStorage.setItem=(k,v)=>{_st(k,v);if(k==="zale_orders"){const o=JSON.parse(v||"[]");if(o?.id)sb.from("zale_orders").upsert({id:o.id,email:(o.email||"").toLowerCase(),type:o.type||"",usd:Number(o.usd||0),details:o.details||"",status:o.status||"Pending",proof:o.proof||""})}};sb.channel("zale-live").on("postgres_changes",{event:"*",schema:"public",table:"zale_orders"},p=>{const r=p.new;if(r?.id&&Notification.permission==="granted")new Notification("New Zale Order: "+r.id,{body:r.type+" ($"+r.usd+")",icon:"icon-192.png"})}).subscribe()};document.addEventListener("click",()=>{if("Notification"in window&&Notification.permission==="default")Notification.requestPermission()},{once:true});document.head.appendChild(_s);</script>
