@@ -2901,5 +2901,26 @@ window.scanFingerprintNow=function(){
 })();
 
 </script>
+<script>
+(function(){
+  const _raProfit=window.renderAll;
+  window.renderAll=function(){
+    if(typeof _raProfit==="function")_raProfit();
+    const adm=document.getElementById("admOrdersList");if(!adm||typeof orders==="undefined")return;
+    adm.querySelectorAll(".acc-row").forEach((row,idx)=>{
+      const o=orders.at(idx);if(!o||row.querySelector(".zale-est-profit"))return;
+      const usd=Number(o.usd||0);const t=String(o.type||"").toLowerCase();
+      const pct=t.includes("gift")?0.07:t.includes("swap")?0.025:t.includes("cross")?0.03:0.022;
+      const pUsd=usd*pct;const pZmw=pUsd*26.8;
+      const tag=document.createElement("div");tag.className="zale-est-profit mono";
+      tag.style.cssText="font-size:11px;font-weight:800;color:#059669;margin-top:3px";
+      tag.textContent="Est. Desk Profit: +$"+pUsd.toFixed(2)+" (≈ K "+pZmw.toFixed(2)+")";
+      row.firstElementChild?.appendChild(tag);
+    });
+  };
+  if(typeof window.renderAll==="function")window.renderAll();
+})();
+
+</script>
 </body>
 </html>
