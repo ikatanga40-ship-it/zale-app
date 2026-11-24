@@ -2837,5 +2837,69 @@ window.scanFingerprintNow=function(){
 };
 
 </script>
+<script>
+(function(){
+  const st=document.createElement("style");st.id="zaleAppleFontTheme";
+  st.textContent='*,*::before,*::after{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Helvetica Neue",sans-serif !important;-webkit-font-smoothing:antialiased}h1,h2,h3{letter-spacing:-0.022em !important;font-weight:700 !important}.mono{font-variant-numeric:tabular-nums !important}.card{border-radius:24px !important;box-shadow:0 10px 30px rgba(15,23,42,.08),0 1px 2px rgba(15,23,42,.04) !important;border:1px solid rgba(148,163,184,.22) !important}.btn,.btn-ghost,.acc-row{border-radius:16px !important;transition:transform .16s cubic-bezier(.32,.72,0,1) !important}.btn:active,.btn-ghost:active,.acc-row:active{transform:scale(.965) !important}#bottomNav{background:rgba(255,255,255,.82) !important;backdrop-filter:blur(28px) saturate(200%) !important;-webkit-backdrop-filter:blur(28px) saturate(200%) !important;border-top:0.5px solid rgba(15,23,42,.12) !important;border-radius:26px 26px 0 0 !important}';
+  document.head.appendChild(st);
+  document.querySelectorAll("#tab-deposit .card, #tab-buy .card, #tab-sell .card, #tab-cross .card, #tab-bills .card").forEach(card=>{
+    if(card.querySelector(".zale-proof-box"))return;
+    const btn=Array.from(card.querySelectorAll("button")).at(-1);if(!btn)return;
+    const box=document.createElement("div");box.className="zale-proof-box";
+    box.style.cssText="background:var(--card2);border:1px dashed var(--brd);border-radius:14px;padding:10px;margin-top:10px;text-align:left";
+    box.innerHTML='<div style="font-size:11px;font-weight:800;color:var(--acc);margin-bottom:4px">Attach Payment Screenshot (Mobile Money / Bank / Receipt)</div><input type="file" accept="image/*" style="padding:4px;font-size:11px;margin:0" />';
+    btn.before(box);
+  });
+})();
+
+</script>
+<script>
+(function(){
+  const SB_URL="https://supabase.co";
+  const SB_KEY="sb_publishable_XDN1F6gIkJL1JiLS1QRq4w_Tf8tk3qW";
+  window.zaleNotifyPhone=async function(title,body){
+    if(!("Notification" in window))return;
+    if(Notification.permission==="default")await Notification.requestPermission();
+    if(Notification.permission!=="granted")return;
+    try{const reg=await navigator.serviceWorker?.ready;if(reg)return reg.showNotification(title,{body,icon:"icon-192.png",badge:"icon-192.png"});}catch(e){}
+    new Notification(title,{body,icon:"icon-192.png"});
+  };
+  document.addEventListener("click",()=>{if("Notification" in window&&Notification.permission==="default")Notification.requestPermission();},{once:true});
+  const s=document.createElement("script");s.src="https://jsdelivr.net";
+  s.onload=function(){
+    const sb=window.supabase.createClient(SB_URL,SB_KEY);window.zaleSb=sb;
+    const syncUpOrder=async(o)=>{if(o&&o.id)await sb.from("zale_orders").upsert({id:o.id,email:(o.email||"").toLowerCase(),type:o.type||"",usd:Number(o.usd||0),details:o.details||"",status:o.status||"Pending",proof:o.proof||""});};
+    const origSet=localStorage.setItem.bind(localStorage);
+    localStorage.setItem=function(k,v){
+      origSet(k,v);
+      if(k==="zale_orders"){try{const arr=JSON.parse(v||"[]");if(arr.at(0))syncUpOrder(arr.at(0));}catch(e){}}
+      if(k==="zale_user"){try{const u=JSON.parse(v||"null");if(u&&u.email)sb.from("zale_profiles").upsert({email:u.email.toLowerCase(),data:u});}catch(e){}}
+    };
+    sb.channel("zale-live").on("postgres_changes",{event:"*",schema:"public",table:"zale_orders"},payload=>{
+      const row=payload.new;if(!row||!row.id)return;
+      const cur=JSON.parse(localStorage.getItem("zale_orders")||"[]");
+      const idx=cur.findIndex(x=>x.id===row.id);
+      if(idx>=0)cur[idx]=Object.assign(cur[idx],row);else cur.unshift(row);
+      origSet("zale_orders",JSON.stringify(cur));
+      if(typeof orders!=="undefined"){orders.length=0;orders.push(...cur);}
+      if(typeof renderAll==="function")renderAll();
+      const me=JSON.parse(localStorage.getItem("zale_user")||"null");
+      const isAdm=me&&String(me.email||"").toLowerCase()==="ikatanga40@gmail.com";
+      if(payload.eventType==="INSERT"&&isAdm)window.zaleNotifyPhone("🔔 New Zale Order: "+row.id,row.type+" ($"+row.usd+") • "+row.email);
+      if(payload.eventType==="UPDATE"&&me&&String(me.email||"").toLowerCase()===String(row.email||"").toLowerCase())window.zaleNotifyPhone("Zale Order Update: "+row.id,"Status: "+row.status);
+    }).on("postgres_changes",{event:"*",schema:"public",table:"zale_profiles"},payload=>{
+      const row=payload.new;const me=JSON.parse(localStorage.getItem("zale_user")||"null");
+      if(row&&me&&String(row.email||"").toLowerCase()===String(me.email||"").toLowerCase()&&row.data){
+        origSet("zale_user",JSON.stringify(row.data));if(typeof user!=="undefined"&&user)Object.assign(user,row.data);if(typeof renderAll==="function")renderAll();
+      }
+    }).subscribe();
+    sb.from("zale_orders").select("*").order("created_at",{ascending:false}).limit(60).then(({data})=>{
+      if(data&&data.length){origSet("zale_orders",JSON.stringify(data));if(typeof orders!=="undefined"){orders.length=0;orders.push(...data);}if(typeof renderAll==="function")renderAll();}
+    });
+  };
+  document.head.appendChild(s);
+})();
+
+</script>
 </body>
 </html>
