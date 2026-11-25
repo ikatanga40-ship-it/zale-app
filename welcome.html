@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Zale — Multi-Currency Wallets, Crypto, Gift Cards & Virtual USD Cards</title>
+  <meta name="description" content="Zale is an institutional-grade multi-currency fintech platform for Crypto, Gift Cards, Virtual USD Cards, Cross-Border Payouts, P2P Escrow, and Utility Bills across Africa, the UK, and Europe." />
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{background:#000;color:#f5f5f7;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif;line-height:1.5;-webkit-font-smoothing:antialiased}
+    a{text-decoration:none;color:inherit}
+    .nav{position:sticky;top:0;z-index:50;background:rgba(0,0,0,.8);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:.5px solid rgba(255,255,255,.12);padding:14px 22px}
+    .wrap{max-width:1060px;margin:0 auto}
+    .nav-in{display:flex;justify-content:space-between;align-items:center}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;letter-spacing:-.5px;color:#fff}
+    .logo{width:32px;height:32px;border-radius:9px;background:linear-gradient(135deg,#10b981,#059669);color:#000;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px}
+    .nav-links{display:flex;gap:26px;align-items:center;font-size:13.5px;color:#a1a1a6;font-weight:500}
+    .btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;border-radius:999px;background:#10b981;color:#000;font-weight:700;font-size:14.5px;transition:transform .14s}
+    .btn:active{transform:scale(.97)}
+    .btn-sec{display:inline-flex;align-items:center;justify-content:center;padding:12px 24px;border-radius:999px;background:#1c1c1e;border:.5px solid rgba(255,255,255,.16);color:#f5f5f7;font-weight:600;font-size:14.5px}
+    .hero{padding:68px 22px 50px;background:radial-gradient(ellipse at top,rgba(16,185,129,.18),transparent 62%)}
+    .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+    .eyebrow{display:inline-flex;align-items:center;gap:8px;padding:6px 14px;border-radius:999px;background:#1c1c1e;border:.5px solid rgba(255,255,255,.15);color:#10b981;font-size:12.5px;font-weight:600;margin-bottom:20px}
+    h1{font-size:clamp(34px,5vw,58px);font-weight:700;letter-spacing:-1.6px;line-height:1.06;margin-bottom:18px;color:#fff}
+    .grad{background:linear-gradient(90deg,#fff 15%,#10b981 95%);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+    .sub{color:#a1a1a6;font-size:17.5px;max-width:540px;margin-bottom:28px;line-height:1.48}
+    .cta-row{display:flex;gap:12px;flex-wrap:wrap}
+    .iphone-wrap{position:relative;width:306px;margin:0 auto}.iphone-wrap::before{content:"";position:absolute;left:-3px;top:96px;width:3px;height:28px;background:#636366;border-radius:3px 0 0 3px;box-shadow:0 42px 0 #636366,0 82px 0 #636366}.iphone-wrap::after{content:"";position:absolute;right:-3px;top:132px;width:3px;height:54px;background:#636366;border-radius:0 3px 3px 0}.iphone{width:300px;margin:0 auto;background:linear-gradient(145deg,#636366,#1c1c1e 35%,#2c2c2e 70%,#636366);border-radius:52px;padding:4px;box-shadow:0 35px 80px rgba(0,0,0,.9),0 0 45px rgba(16,185,129,.18)}.iphone-bezel{background:#000;border-radius:48px;padding:7px}
+    .island{width:88px;height:22px;background:#000;border-radius:999px;margin:4px auto 14px}
+    .screen{background:#121215;border-radius:32px;padding:18px 16px;border:.5px solid rgba(255,255,255,.08)}
+    .sc-top{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#8e8e93;margin-bottom:14px}
+    .sc-bal{background:linear-gradient(135deg,#064e3b,#022c22);border:.5px solid rgba(16,185,129,.35);border-radius:18px;padding:14px;margin-bottom:14px}
+    .sc-bal span{font-size:11px;color:#a7f3d0;display:block}
+    .sc-bal b{font-size:24px;font-weight:800;color:#fff;font-variant-numeric:tabular-nums}
+    .sc-receipt{background:#1c1c1e;border-radius:16px;padding:14px;text-align:center;border:.5px solid rgba(255,255,255,.1)}
+    .sc-ring{width:42px;height:42px;border-radius:50%;border:2.5px solid #007aff;color:#007aff;display:flex;align-items:center;justify-content:center;font-size:20px;font-weight:800;margin:0 auto 8px}
+    .sc-row{display:flex;justify-content:space-between;font-size:11px;padding:6px 0;border-top:.5px solid #2c2c2e;color:#8e8e93}
+    .sc-row b{color:#f5f5f7}
+    .metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1px;background:rgba(255,255,255,.1);border-top:.5px solid rgba(255,255,255,.1);border-bottom:.5px solid rgba(255,255,255,.1);margin-top:52px}
+    .metric{background:#000;padding:24px 20px;text-align:center}
+    .metric b{display:block;font-size:26px;font-weight:700;letter-spacing:-.7px;color:#fff}
+    .metric span{font-size:12.5px;color:#8e8e93}
+    .sec{padding:68px 22px}
+    .sec-hdr{text-align:center;max-width:660px;margin:0 auto 42px}
+    .sec-hdr h2{font-size:clamp(28px,4vw,42px);font-weight:700;letter-spacing:-1.1px;line-height:1.12;margin-bottom:12px}
+    .sec-hdr p{font-size:16px;color:#a1a1a6}
+    .bento{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px}
+    .tile{background:#1c1c1e;border:.5px solid rgba(255,255,255,.11);border-radius:26px;padding:28px;display:flex;flex-direction:column;justify-content:space-between}
+    .ico-box{width:44px;height:44px;border-radius:13px;background:rgba(16,185,129,.12);border:.5px solid rgba(16,185,129,.28);color:#10b981;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+    .tile h3{font-size:21px;font-weight:700;letter-spacing:-.4px;margin-bottom:8px;color:#fff}
+    .tile p{font-size:14.5px;color:#a1a1a6;line-height:1.5}
+    .pill-row{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px}
+    .pill{padding:5px 11px;border-radius:999px;background:#2c2c2e;color:#f5f5f7;font-size:12px;font-weight:600}
+    .vcard{margin-top:16px;background:linear-gradient(135deg,#0f172a 0%,#064e3b 65%,#f59e0b 145%);border-radius:16px;padding:16px;border:.5px solid rgba(255,255,255,.22)}
+    .vc-top{display:flex;justify-content:space-between;font-size:11px;font-weight:700;letter-spacing:1px;color:#a7f3d0;margin-bottom:16px}
+    .vc-num{font-size:15px;font-weight:700;letter-spacing:2px;color:#fff;margin-bottom:10px}
+    .vc-bot{display:flex;justify-content:space-between;font-size:10.5px;color:#d1fae5}
+    .trust-box{background:#1c1c1e;border:.5px solid rgba(255,255,255,.12);border-radius:28px;padding:36px 28px;display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:26px}
+    .t-item h4{font-size:17px;font-weight:700;margin-bottom:6px;color:#fff}
+    .t-item p{font-size:14px;color:#a1a1a6}
+    .faq{max-width:760px;margin:0 auto;background:#1c1c1e;border-radius:22px;padding:6px 24px;border:.5px solid rgba(255,255,255,.11)}
+    .faq-row{padding:20px 0;border-bottom:.5px solid #2c2c2e}
+    .faq-row:last-child{border-bottom:none}
+    .faq-row b{display:block;font-size:16px;font-weight:600;color:#fff;margin-bottom:6px}
+    .faq-row span{font-size:14px;color:#a1a1a6}
+    .cta-banner{text-align:center;padding:68px 22px;background:radial-gradient(ellipse at bottom,rgba(16,185,129,.18),transparent 65%);border-top:.5px solid rgba(255,255,255,.1)}
+    .cta-banner h2{font-size:clamp(28px,4vw,40px);font-weight:700;letter-spacing:-1px;margin-bottom:14px}
+    .cta-banner p{color:#a1a1a6;font-size:16px;max-width:540px;margin:0 auto 28px}
+    footer{border-top:.5px solid rgba(255,255,255,.12);padding:34px 22px;color:#8e8e93;font-size:12.5px}
+    .foot-in{display:flex;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:14px}
+    @media(max-width:820px){.hero-grid{grid-template-columns:1fr;text-align:center}.sub{margin-left:auto;margin-right:auto}.cta-row{justify-content:center}.nav-links{display:none}}
+  </style>
+</head>
+<body>
+  <header class="nav"><div class="wrap nav-in"><a href="#top" class="brand"><div class="logo">✦</div>Zale</a><nav class="nav-links"><a href="#services">Services</a><a href="#security">Security</a><a href="#faq">FAQ</a></nav><a class="btn" href="index.html">Open App</a></div></header>
+  <section id="top" class="hero"><div class="wrap hero-grid"><div><div class="eyebrow">✦ Zale Clearing &amp; Multi-Currency Platform</div><h1>Global money movement.<br><span class="grad">Built for speed and certainty.</span></h1><p class="sub">One unified fintech platform to buy and sell crypto, redeem global gift cards, issue 3D Secure Virtual USD Cards, send cross-border payouts, and protect deals with PIN escrow.</p><div class="cta-row"><a class="btn" href="index.html">Launch Zale Web App</a><a class="btn-sec" href="#services">Explore All Services</a></div></div><div id="zalePhoneMount"></div><div class="metrics"><div class="metric"><b>60 Seconds</b><span>Guaranteed Live Rate Lock</span></div><div class="metric"><b>&lt; 5 Minutes</b><span>Average Payout Settlement</span></div><div class="metric"><b>8+ Currencies</b><span>Africa, UK &amp; Europe Rails</span></div><div class="metric"><b>24 / 7</b><span>Live Clearing &amp; Desk Support</span></div></div></section>
+  <section id="services" class="sec wrap"><div class="sec-hdr"><h2>Everything you need in one wallet.</h2><p>Designed with bank-grade clarity across crypto, gift cards, virtual dollar cards, cross-border transfers, escrow, and daily bills.</p></div><div class="bento">
+    <div class="tile"><div><div class="ico-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M9 9h4.5a2 2 0 0 1 0 4H9v-4zm0 4h5a2 2 0 0 1 0 4H9v-4z"/></svg></div><h3>Instant Crypto &amp; Fiat Desk</h3><p>Buy, sell, hold, and swap digital assets and local currencies at transparent live rates with zero hidden spreads.</p></div><div class="pill-row"><span class="pill">USDT (TRC20/BEP20/SOL)</span><span class="pill">BTC</span><span class="pill">ETH</span><span class="pill">USDC</span></div></div>
+    <div class="tile"><div><div class="ico-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="8" width="18" height="12" rx="2"/><path d="M12 8v12M3 12h18"/></svg></div><h3>Live Gift Card Valuation</h3><p>Lock in high institutional payout rates up to 86% and receive instant settlement in USDT, Mobile Money, or Bank Transfer.</p></div><div class="pill-row"><span class="pill">Apple / iTunes</span><span class="pill">Razer Gold</span><span class="pill">Steam</span><span class="pill">Amazon</span><span class="pill">Google Play</span></div></div>
+    <div class="tile"><div><div class="ico-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="3"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><h3>3D Secure Virtual USD Cards</h3><p>Issue virtual Visa &amp; Mastercard dollar cards in minutes for global shopping, Meta &amp; TikTok ads, software, and subscriptions.</p><div class="vcard"><div class="vc-top"><span>✦ ZALE VIRTUAL USD</span><span>VISA</span></div><div class="vc-num">4829 •••• •••• 9104</div><div class="vc-bot"><span>3D SECURE ACTIVE</span><span>EXP 08/29</span></div></div></div></div>
+    <div class="tile"><div><div class="ico-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><h3>Cross-Border Payouts</h3><p>Move funds seamlessly between Mobile Money and bank accounts across Zambia, South Africa, Nigeria, Kenya, Ghana, the UK, and Europe.</p></div><div class="pill-row"><span class="pill">ZMW</span><span class="pill">ZAR</span><span class="pill">NGN</span><span class="pill">KES</span><span class="pill">GHS</span><span class="pill">GBP</span><span class="pill">EUR</span></div></div>
+    <div class="tile"><div><div class="ico-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h3>P2P Digital Escrow</h3><p>Eliminate counterparty risk with Zale Safe-Claim 4-digit PIN verification—funds stay protected until both sides confirm delivery.</p></div><div class="pill-row"><span class="pill">4-Digit Safe-Claim PIN</span><span class="pill">Dispute Protection</span></div></div>
+    <div class="tile"><div><div class="ico-box"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div><h3>Instant Utility Bills</h3><p>Pay electricity tokens, cable TV subscriptions, mobile airtime, and high-speed data bundles directly from your Zale balance.</p></div><div class="pill-row"><span class="pill">Electricity</span><span class="pill">TV &amp; Internet</span><span class="pill">Airtime &amp; Data</span></div></div>
+  </div></section>
+  <section id="security" class="sec wrap"><div class="sec-hdr"><h2>Engineered for trust and transparency.</h2><p>Every transaction on Zale is backed by verifiable rate locks, live tracking receipts, and dedicated human desk verification.</p></div><div class="trust-box"><div class="t-item"><h4>🔒 60-Second Rate Lock</h4><p>Your quoted payout is locked for 60 seconds upon submission—protecting you from mid-trade market slippage.</p></div><div class="t-item"><h4>🧾 Official Settlement Receipts</h4><p>Every transaction generates an auditable ZL- reference ID and real-time settlement receipt inside your Zale Wallet.</p></div><div class="t-item"><h4>🛡️ Biometric &amp; PIN Authorization</h4><p>Protected by device Face ID / Fingerprint authentication and 4-digit authorization PINs before any funds move.</p></div></div></section>
+  <section id="faq" class="sec wrap"><div class="sec-hdr"><h2>Questions &amp; Answers.</h2></div><div class="faq"><div class="faq-row"><b>How fast does Zale settle transactions?</b><span>Once your crypto transfer or gift card code is verified by our clearing desk, payouts settle in under 5 minutes directly to Mobile Money, Bank Transfer, or your USDT wallet.</span></div><div class="faq-row"><b>Which countries and currencies are supported?</b><span>Zale serves individual and business clients across Zambia (ZMW), South Africa (ZAR), Nigeria (NGN), Kenya (KES), Ghana (GHS), the United Kingdom (GBP), and Europe (EUR), alongside global USD &amp; crypto rails.</span></div><div class="faq-row"><b>How do I contact the Zale Clearing Desk?</b><span>Our official support desk is available 24/7 via WhatsApp (+260 77 947 3735), X (@usezalehq), and directly inside the Zale web application.</span></div></div></section>
+  <section class="cta-banner"><div class="wrap"><h2>Ready to experience Zale?</h2><p>Create your multi-currency wallet in seconds and lock your first live rate right now.</p><div class="cta-row"><a class="btn" href="index.html">Launch Zale App →</a><a class="btn-sec" href="https://wa.me" target="_blank">Contact Clearing Desk</a></div></div></section>
+  <footer><div class="wrap"><div class="foot-in"><div style="color:#f5f5f7;font-weight:600">✦ Zale Digital Asset &amp; Fiat Clearing Desk • Lusaka, Zambia</div><div>Official Channels: @usezalehq • WhatsApp: +260 77 947 3735</div></div><p>Security &amp; Compliance Notice: All settlements undergo live verification before disbursement. Never share your account password, authorization PIN, or 4-digit Safe-Claim escrow code with third parties.</p></div></footer>
+</body>
+</html>
+<script>
+document.getElementById("zalePhoneMount").outerHTML = `
+<div class="iphone-wrap">
+  <div class="iphone">
+    <div class="iphone-bezel">
+      <div class="screen" style="border-radius:41px;padding:12px 14px 10px;background:#060d1a;text-align:left">
+        <div style="display:flex;justify-content:space-between;align-items:center;font-size:10.5px;font-weight:700;color:#fff;padding:0 4px 8px">
+          <span>9:41</span>
+          <div style="width:84px;height:22px;background:#000;border-radius:999px;border:.5px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:flex-end;padding-right:7px"><span style="width:7px;height:7px;border-radius:50%;background:#1e3a8a"></span></div>
+          <span>5G 100%</span>
+        </div>
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+          <div style="display:flex;align-items:center;gap:6px"><span style="width:22px;height:22px;border-radius:7px;background:#10b981;color:#060d1a;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:11px">✦</span><b style="font-size:13px;color:#fff">Zale</b></div>
+          <span style="font-size:9.5px;padding:3px 8px;border-radius:999px;background:rgba(16,185,129,.15);color:#10b981;font-weight:700">● Verified Desk</span>
+        </div>
+        <div style="background:linear-gradient(135deg,#064e3b,#0f172a);border:.5px solid rgba(16,185,129,.35);border-radius:16px;padding:12px;margin-bottom:10px">
+          <div style="display:flex;justify-content:space-between;font-size:10px;color:#a7f3d0"><span>Total Balance (USD)</span><span style="color:#fbbf24;font-weight:700">ZMW • GBP • USDT</span></div>
+          <div style="font-size:23px;font-weight:800;color:#fff;margin:3px 0 8px;font-variant-numeric:tabular-nums">$12,480.00</div>
+          <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:5px;text-align:center">
+            <div style="background:rgba(255,255,255,.08);padding:6px 2px;border-radius:9px;font-size:9.5px;font-weight:700;color:#fff">↓ Buy</div>
+            <div style="background:rgba(255,255,255,.08);padding:6px 2px;border-radius:9px;font-size:9.5px;font-weight:700;color:#fff">↑ Sell</div>
+            <div style="background:rgba(255,255,255,.08);padding:6px 2px;border-radius:9px;font-size:9.5px;font-weight:700;color:#fff">⇄ Swap</div>
+            <div style="background:rgba(245,158,11,.18);padding:6px 2px;border-radius:9px;font-size:9.5px;font-weight:700;color:#fbbf24">💳 Card</div>
+          </div>
+        </div>
+        <div style="font-size:9.5px;font-weight:700;color:#94a3b8;margin-bottom:6px;text-transform:uppercase;letter-spacing:.6px">Services</div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-bottom:10px;text-align:center">
+          <div style="background:#0f172a;padding:8px 3px;border-radius:11px;border:.5px solid rgba(148,163,184,.16)"><div style="font-size:13px">₿</div><div style="font-size:9.5px;font-weight:700;color:#fff">Crypto</div></div>
+          <div style="background:#0f172a;padding:8px 3px;border-radius:11px;border:.5px solid rgba(148,163,184,.16)"><div style="font-size:13px">🎁</div><div style="font-size:9.5px;font-weight:700;color:#fff">Gift Cards</div></div>
+          <div style="background:#0f172a;padding:8px 3px;border-radius:11px;border:.5px solid rgba(148,163,184,.16)"><div style="font-size:13px">💳</div><div style="font-size:9.5px;font-weight:700;color:#fff">USD Card</div></div>
+          <div style="background:#0f172a;padding:8px 3px;border-radius:11px;border:.5px solid rgba(148,163,184,.16)"><div style="font-size:13px">🌍</div><div style="font-size:9.5px;font-weight:700;color:#fff">Transfer</div></div>
+          <div style="background:#0f172a;padding:8px 3px;border-radius:11px;border:.5px solid rgba(148,163,184,.16)"><div style="font-size:13px">🛡️</div><div style="font-size:9.5px;font-weight:700;color:#fff">Escrow</div></div>
+          <div style="background:#0f172a;padding:8px 3px;border-radius:11px;border:.5px solid rgba(148,163,184,.16)"><div style="font-size:13px">⚡</div><div style="font-size:9.5px;font-weight:700;color:#fff">Bills</div></div>
+        </div>
+        <div style="background:#0f172a;border-radius:12px;padding:8px 10px;border:.5px solid rgba(148,163,184,.16)">
+          <div style="display:flex;justify-content:space-between;font-size:10px;padding:3px 0;color:#fff"><span>USDT (TRC20)</span><b style="color:#10b981">$1.00 • 60s Lock</b></div>
+          <div style="display:flex;justify-content:space-between;font-size:10px;padding:3px 0;border-top:.5px solid rgba(148,163,184,.12);color:#fff"><span>Razer Gold / Apple</span><b style="color:#fbbf24">Up to 86%</b></div>
+        </div>
+        <div style="display:flex;justify-content:space-around;margin-top:10px;padding-top:7px;border-top:.5px solid rgba(148,163,184,.14);font-size:9px;color:#94a3b8">
+          <span style="color:#10b981;font-weight:700">Home</span><span>Wallet</span><span>Rates</span><span>Account</span>
+        </div>
+        <div style="width:100px;height:4px;background:rgba(255,255,255,.35);border-radius:999px;margin:10px auto 0"></div>
+      </div>
+    </div>
+  </div>
+</div>`;
+</script>
