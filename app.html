@@ -3358,5 +3358,39 @@ window.renderAll=function(){
 if(typeof window.renderAll==="function")window.renderAll();
 })();
 </script>
+<script>
+(function(){
+function getVisibleUserOrders(){
+  var all=JSON.parse(localStorage.getItem("zale_orders")||"[]");
+  var u=JSON.parse(localStorage.getItem("zale_user")||"null");
+  var me=String((u&&u.email)||"").trim().toLowerCase();
+  return me?all.filter(function(o){
+    return String(o.email||"").trim().toLowerCase()===me && !o.hiddenByUser;
+  }):[];
+}
+var btn=document.getElementById("zrSingleWalletBtn");
+if(btn){
+  btn.onclick=function(){
+    var mine=getVisibleUserOrders();
+    if(!mine.length){
+      if(typeof toast==="function")toast("No active transactions — history is clear");
+      return;
+    }
+    if(typeof window.openZaleReceiptList==="function"){
+      window.openZaleReceiptList(mine, false);
+    }
+  };
+}
+var origOpen=window.openZaleReceiptList;
+window.openZaleReceiptList=function(list, isSingle){
+  var clean=(list||[]).filter(function(o){return o && !o.hiddenByUser;});
+  if(!clean.length){
+    if(typeof toast==="function")toast("No active transactions to display");
+    return;
+  }
+  if(typeof origOpen==="function")origOpen(clean, isSingle);
+};
+})();
+</script>
 </body>
 </html>
