@@ -129,6 +129,8 @@ html,body{-webkit-font-smoothing:antialiased;font-family:-apple-system,BlinkMacS
 .btn:active,.btn-ghost:active,.acc-row:active{transform:scale(.965) !important}
 #bottomNav{background:rgba(255,255,255,.82) !important;backdrop-filter:blur(28px) saturate(200%) !important;-webkit-backdrop-filter:blur(28px) saturate(200%) !important;border-top:0.5px solid rgba(15,23,42,.12) !important;border-radius:26px 26px 0 0 !important;box-shadow:0 -8px 32px rgba(15,23,42,.08) !important}
 </style>
+
+
 </head>
 
 <body>
@@ -631,7 +633,7 @@ function toggleHideBalance(){balHidden=!balHidden;document.querySelectorAll(".hi
       if(document.getElementById("admNavBtn"))document.getElementById("admNavBtn").classList.toggle("hide",user?.email!==ADMIN);
       window.window.renderCoins();renderGcGrid();
       if(typeof syncAccountProfile==="function")syncAccountProfile();
-      orders=JSON.parse(localStorage.getItem("zale_orders")||"[]");const _cuW=JSON.parse(localStorage.getItem("zale_user")||"null");const _meW=String(_cuW?.email||"").trim().toLowerCase();const myWalOrders=_meW?orders.filter(o=>String(o.email||"").trim().toLowerCase()===_meW&&!o.hiddenByUser):[];const txHtml=myWalOrders.map(o=>`<div class="acc-row"><div><b>${o.type}</b><div style="font-size:11px;color:var(--mut)">${o.id} | ${o.date}</div></div><div style="text-align:right"><b>$${o.usd}</b><div><span class="pill-pend">${o.status}</span></div></div></div>`).join("");
+      orders=JSON.parse(localStorage.getItem("zale_orders")||"[]");const _cuW=JSON.parse(localStorage.getItem("zale_user")||"null");const _meW=String(_cuW?.email||"").trim().toLowerCase();const myWalOrders=_meW?orders.filter(o=>String(o.email||"").trim().toLowerCase()===_meW&&!o.hiddenByUser):[];const txHtml=myWalOrders.map((o,i)=>{const ok=/approved|completed|settled|successful/i.test(o.status||"");const boxSt=ok?"border:1.5px solid #30d158;background:rgba(48,209,88,.08);border-radius:14px;padding:11px 12px;margin-bottom:8px;cursor:pointer":"border:1px solid rgba(255,159,10,.45);border-radius:14px;padding:11px 12px;margin-bottom:8px;cursor:pointer";const badge=ok?`<span class="zale-blink-ok" style="color:#30d158;font-weight:800;font-size:11.5px">✓ Successful</span>`:`<span style="color:#ff9f0a;font-weight:700;font-size:11.5px">Pending</span>`;return `<div class="acc-row" style="${boxSt}" onclick="window.openZaleReceiptList([JSON.parse(localStorage.getItem('zale_orders')||'[]').find(x=>x.id==='${o.id}')],true)"><div><b>${o.type}</b><div style="font-size:11px;color:var(--mut)">${o.id} | ${o.date}</div></div><div style="text-align:right"><b>$${o.usd}</b><div>${badge}</div></div></div>`;}).join("");
       if(document.getElementById("walEmptyBox"))document.getElementById("walEmptyBox").classList.toggle("hide",myWalOrders.length>0);
       if(document.getElementById("walTxList"))document.getElementById("walTxList").innerHTML=txHtml;
       if(user?.email===ADMIN&&document.getElementById("admOrdersList")){
@@ -3114,6 +3116,246 @@ var h3=vcForm.querySelector("h3");
 if(h3&&h3.nextSibling)vcForm.insertBefore(bar,h3.nextSibling);
 else vcForm.prepend(bar);
 }
+})();
+</script>
+<style id="zaleIos18Touch">
+body,button,input,select{
+  font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text",sans-serif !important;
+  -webkit-font-smoothing:antialiased;
+}
+#zaleBentoGrid > div,.card,.qa-circle,.btn,.btn-ghost{
+  transition:transform .16s cubic-bezier(.25,.8,.25,1),box-shadow .16s ease !important;
+}
+#zaleBentoGrid > div:active,.qa-circle:active,.btn:active{
+  transform:scale(0.965) !important;
+}
+#bottomNav{
+  backdrop-filter:blur(22px) saturate(180%) !important;
+  -webkit-backdrop-filter:blur(22px) saturate(180%) !important;
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+<script>
+(function(){
+var st=document.createElement("style");
+st.textContent=[
+"@keyframes zaleBlink{0%,100%{opacity:1;color:#30d158;text-shadow:0 0 10px rgba(48,209,88,.9)}50%{opacity:.12;color:#30d158;text-shadow:none}}",
+".zale-blink-ok{color:#30d158 !important;font-weight:800 !important;animation:zaleBlink 1.1s ease-in-out infinite !important}",
+".zale-card-approved{border:1.5px solid #30d158 !important;background:rgba(48,209,88,.07) !important;border-radius:14px !important;cursor:pointer !important}",
+".zale-card-pending{border:1px solid rgba(255,159,10,.45) !important;border-radius:14px !important;cursor:pointer !important}"
+].join("");
+document.head.appendChild(st);
+
+function styleAndBindWalletOrders(){
+  var w=document.getElementById("tab-wallet");
+  if(!w)return;
+  var orders=JSON.parse(localStorage.getItem("zale_orders")||"[]");
+  w.querySelectorAll("*").forEach(function(el){
+    if(el.children.length)return;
+    var txt=(el.textContent||"").trim();
+    if(/^(Approved|Completed|Successful|✓\s*Successful)$/i.test(txt)){
+      el.textContent="✓ Successful";
+      el.classList.add("zale-blink-ok");
+      var card=el.closest(".acc-row,.card,[style*='border']");
+      if(card&&card.id!=="tab-wallet")card.classList.add("zale-card-approved");
+    } else if(/Pending/i.test(txt)){
+      el.textContent="Pending";
+      el.style.color="#ff9f0a";
+      el.style.fontWeight="700";
+      var pcard=el.closest(".acc-row,.card,[style*='border']");
+      if(pcard&&pcard.id!=="tab-wallet")pcard.classList.add("zale-card-pending");
+    }
+  });
+  orders.forEach(function(o){
+    if(!o||!o.id)return;
+    w.querySelectorAll("div,li,tr").forEach(function(row){
+      if(row.textContent.indexOf(o.id)!==-1 && row.textContent.length<380){
+        row.style.cursor="pointer";
+        row.onclick=function(){ window.openZaleReceiptList([o], true); };
+      }
+    });
+  });
+}
+
+var origRender=window.renderAll;
+window.renderAll=function(){
+  if(typeof origRender==="function")origRender.apply(this,arguments);
+  styleAndBindWalletOrders();
+};
+setTimeout(styleAndBindWalletOrders,200);
+
+var wTab=document.getElementById("tab-wallet");
+if(!wTab||document.getElementById("tab-receipt"))return;
+var rt=document.createElement("div");rt.id="tab-receipt";rt.className="hide";
+rt.style.cssText="position:fixed;inset:0;z-index:99999;background:#000000;color:#ffffff;"+
+"padding:24px 18px 36px;overflow-y:auto;"+
+"font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display',sans-serif";
+rt.innerHTML=[
+'<div style="max-width:430px;margin:0 auto">',
+'<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">',
+'<span style="font-size:16px;font-weight:600;color:#ffffff">Wallet</span>',
+'<button type="button" onclick="nav(\'wallet\')" style="width:32px;height:32px;border-radius:50%;',
+'background:#2c2c2e;color:#98989d;border:none;font-size:14px;font-weight:700;cursor:pointer;',
+'display:flex;align-items:center;justify-content:center">✕</button></div>',
+'<div style="text-align:center;padding:4px 0 22px">',
+'<div id="arRing" style="width:62px;height:62px;border-radius:50%;border:3px solid #0a84ff;',
+'display:flex;align-items:center;justify-content:center;margin:0 auto 12px;',
+'font-size:28px;font-weight:700;color:#0a84ff">✓</div>',
+'<div id="arHead" style="font-size:19px;font-weight:700;color:#ffffff">Done</div>',
+'<div id="arSub" style="font-size:13px;color:#8e8e93;margin-top:6px">Zale Clearing Desk</div>',
+'<div id="arTotAmt" style="font-size:40px;font-weight:800;letter-spacing:-.03em;',
+'font-variant-numeric:tabular-nums;color:#ffffff;margin-top:2px">$0.00</div>',
+'<div id="arDate" style="font-size:12.5px;color:#8e8e93;margin-top:4px"></div></div>',
+'<div id="arItemsList" style="background:#1c1c1e;border-radius:16px;padding:2px 16px;margin-bottom:24px;font-size:13.5px"></div>',
+'<button type="button" onclick="nav(\'wallet\')" style="width:100%;background:#1c1c1e;',
+'color:#0a84ff;border:none;border-radius:14px;padding:15px;font-size:16px;',
+'font-weight:600;cursor:pointer">Close</button></div>'
+].join("");
+document.body.appendChild(rt);
+
+window.openZaleReceiptList=function(list, isSingle){
+  if(!list||!list.length){
+    list=[{id:"ZL-260929",type:"Submit Crypto Order",usd:100,details:"Zale Instant Rail",status:"Completed",date:new Date().toLocaleDateString()}];
+  }
+  var total=0, box=document.getElementById("arItemsList");
+  box.innerHTML="";
+  if(isSingle){
+    var o=list;
+    total=Number(o.usd||0);
+    var isPend=/pending/i.test(o.status||"");
+    box.innerHTML=
+      '<div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:0.5px solid #2c2c2e"><span style="color:#ffffff">Status</span><span style="color:'+(isPend?"#ff9f0a":"#30d158")+';font-weight:600">'+(isPend?"Pending":"Completed")+'</span></div>'+
+      '<div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:0.5px solid #2c2c2e"><span style="color:#ffffff">Service</span><span style="color:#8e8e93">'+(o.type||"Zale Order")+'</span></div>'+
+      '<div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:0.5px solid #2c2c2e"><span style="color:#ffffff">Payment Method</span><span style="color:#8e8e93">'+(o.details||"Zale Instant Rail")+'</span></div>'+
+      '<div style="display:flex;justify-content:space-between;padding:13px 0"><span style="color:#ffffff">Transaction ID</span><span style="color:#8e8e93;font-family:monospace">'+(o.id||"ZL-000000")+'</span></div>';
+  } else {
+    list.forEach(function(o, idx){
+      var amt=Number(o.usd||0); total+=amt;
+      var isPend=/pending/i.test(o.status||"");
+      var row=document.createElement("div");
+      row.style.cssText="display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:0.5px solid #2c2c2e";
+      row.innerHTML=
+        '<div><div style="color:#ffffff;font-weight:600">'+(o.type||"Zale Order")+'</div>'+
+        '<div style="color:#8e8e93;font-size:11.5px;font-family:monospace;margin-top:2px">'+(o.id||"ZL-000000")+'</div></div>'+
+        '<div style="text-align:right"><div style="color:#ffffff;font-weight:600;font-variant-numeric:tabular-nums">$'+amt.toFixed(2)+'</div>'+
+        '<div style="color:'+(isPend?"#ff9f0a":"#30d158")+';font-size:11.5px;font-weight:600;margin-top:2px">'+(isPend?"Pending":"Completed")+'</div></div>';
+      box.appendChild(row);
+    });
+    var totRow=document.createElement("div");
+    totRow.style.cssText="display:flex;justify-content:space-between;padding:13px 0;font-weight:700";
+    totRow.innerHTML='<span style="color:#ffffff">Total</span><span style="color:#ffffff;font-variant-numeric:tabular-nums">$'+total.toFixed(2)+'</span>';
+    box.appendChild(totRow);
+  }
+  var firstPend=isSingle && /pending/i.test(list.status||"");
+  var ring=document.getElementById("arRing"), head=document.getElementById("arHead");
+  ring.textContent=firstPend?"⏳":"✓";
+  ring.style.borderColor=firstPend?"#ff9f0a":"#0a84ff";
+  ring.style.color=firstPend?"#ff9f0a":"#0a84ff";
+  head.textContent=firstPend?"Processing":"Done";
+  document.getElementById("arSub").textContent=isSingle?"Zale Clearing Desk":"Zale Clearing Desk • Statement";
+  document.getElementById("arTotAmt").textContent="$"+total.toFixed(2);
+  document.getElementById("arDate").textContent=isSingle?(list.date||new Date().toLocaleDateString()):(new Date().toLocaleDateString()+" • "+list.length+" Transaction"+(list.length>1?"s":""));
+  if(typeof nav==="function")nav("receipt");
+};
+
+if(!document.getElementById("zrSingleWalletBtn")){
+  var b=document.createElement("button");b.id="zrSingleWalletBtn";b.type="button";b.className="btn-ghost";
+  b.style.cssText="width:100%;margin-top:10px;padding:12px;font-size:12.5px;font-weight:700";
+  b.textContent="🧾 View Transaction Receipt";
+  b.onclick=function(){
+    var all=JSON.parse(localStorage.getItem("zale_orders")||"[]");
+    window.openZaleReceiptList(all, false);
+  };
+  wTab.appendChild(b);
+}
+})();
+</script>
+<script>
+(function(){
+var st=document.createElement("style");
+st.textContent=[
+"@keyframes zaleGreenBlink{0%,49%{opacity:1;color:#30d158;text-shadow:0 0 10px rgba(48,209,88,.95)}",
+"50%,100%{opacity:.15;color:#30d158;text-shadow:none}}",
+".zale-blink-ok{color:#30d158 !important;font-weight:800 !important;",
+"animation:zaleGreenBlink 1s infinite !important;display:inline-block !important}",
+".zale-box-ok{border:1.5px solid #30d158 !important;",
+"background:rgba(48,209,88,.08) !important;border-radius:14px !important}"
+].join("");
+document.head.appendChild(st);
+
+function applyBlinkAndBoxes(){
+  var w=document.getElementById("tab-wallet");
+  if(!w)return;
+  w.querySelectorAll("span,div,b,small").forEach(function(el){
+    if(el.children.length)return;
+    var t=(el.textContent||"").trim();
+    if(/^(Approved|Completed|Successful|✓\s*Successful)$/i.test(t)){
+      if(el.textContent!=="✓ Successful")el.textContent="✓ Successful";
+      el.classList.add("zale-blink-ok");
+      var box=el.closest(".acc-row,.card,[style*='border']");
+      if(box&&box.id!=="tab-wallet")box.classList.add("zale-box-ok");
+    } else if(/^Pending/i.test(t)){
+      if(el.textContent!=="Pending")el.textContent="Pending";
+      el.style.color="#ff9f0a";
+      el.style.fontWeight="700";
+    }
+  });
+}
+
+var wTab=document.getElementById("tab-wallet");
+if(wTab){
+  new MutationObserver(applyBlinkAndBoxes).observe(wTab,{childList:true,subtree:true});
+  applyBlinkAndBoxes();
+}
+setInterval(applyBlinkAndBoxes,800);
+})();
+</script>
+<script>
+(function(){
+var orig=window.renderAll;
+window.renderAll=function(){
+  if(typeof orig==="function")orig.apply(this,arguments);
+  var box=document.getElementById("walTxList");
+  if(!box)return;
+  var orders=JSON.parse(localStorage.getItem("zale_orders")||"[]");
+  var u=JSON.parse(localStorage.getItem("zale_user")||"null");
+  var me=String((u&&u.email)||"").trim().toLowerCase();
+  var mine=me?orders.filter(function(o){
+    return String(o.email||"").trim().toLowerCase()===me&&!o.hiddenByUser;
+  }):[];
+  box.innerHTML=mine.map(function(o){
+    var ok=/approved|completed|settled|successful/i.test(o.status||"");
+    var st=ok
+      ?"border:1.5px solid #30d158;background:rgba(48,209,88,.08);border-radius:14px;padding:11px 12px;margin-bottom:8px;cursor:pointer"
+      :"border:1px solid rgba(255,159,10,.45);border-radius:14px;padding:11px 12px;margin-bottom:8px;cursor:pointer";
+    var bg=ok
+      ?'<span class="zale-blink-ok" style="color:#30d158;font-weight:800;font-size:11.5px">✓ Successful</span>'
+      :'<span style="color:#ff9f0a;font-weight:700;font-size:11.5px">Pending</span>';
+    return '<div class="acc-row" style="'+st+'" data-oid="'+o.id+'">'+
+      '<div><b>'+o.type+'</b><div style="font-size:11px;color:var(--mut)">'+
+      o.id+' | '+o.date+'</div></div>'+
+      '<div style="text-align:right"><b>$'+o.usd+'</b><div>'+bg+'</div></div></div>';
+  }).join("");
+  box.querySelectorAll("[data-oid]").forEach(function(el){
+    el.onclick=function(){
+      var id=this.getAttribute("data-oid");
+      var found=mine.find(function(x){return x.id===id;});
+      if(found&&typeof window.openZaleReceiptList==="function"){
+        window.openZaleReceiptList([found],true);
+      }
+    };
+  });
+};
+if(typeof window.renderAll==="function")window.renderAll();
 })();
 </script>
 </body>
