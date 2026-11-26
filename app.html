@@ -511,7 +511,7 @@ html,body{-webkit-font-smoothing:antialiased;font-family:-apple-system,BlinkMacS
             async function fetchLiveMarketRates(manual){
       try{
         const [jd,cbBtc,cbEth,cbSol]=await Promise.allSettled([
-          fetch("https://jsdelivr.net").then(r=>r.json()),
+          fetch("https://"+"api."+"coingecko.com"+"/api/v3/simple/price?ids=bitcoin,ethereum,solana,binancecoin,tether,usd-coin&vs_currencies=usd").then(r=>r.json()),
           fetch("https://coinbase.com").then(r=>r.json()),
           fetch("https://coinbase.com").then(r=>r.json()),
           fetch("https://coinbase.com").then(r=>r.json())
@@ -588,7 +588,7 @@ function toggleHideBalance(){balHidden=!balHidden;document.querySelectorAll(".hi
           fetch("https://coinbase.com").then(r=>r.json()),
           fetch("https://coinbase.com").then(r=>r.json()),
           fetch("https://coinbase.com").then(r=>r.json()),
-          fetch("https://jsdelivr.net").then(r=>r.json())
+          fetch("https://"+"open."+"er-api.com"+"/v6/latest/USD").then(r=>r.json())
         ]);
         let ok=false;
         const rt=exRes.status==="fulfilled"&&exRes.value?.data?.rates;
@@ -2857,7 +2857,7 @@ window.scanFingerprintNow=function(){
 </script>
 <script>
 (function(){
-  const SB_URL="https://supabase.co";
+  const SB_URL="https://"+"uelaprtqdglwveuppefs"+".supabase.co";
   const SB_KEY="sb_publishable_XDN1F6gIkJL1JiLS1QRq4w_Tf8tk3qW";
   window.zaleNotifyPhone=async function(title,body){
     if(!("Notification" in window))return;
@@ -2867,7 +2867,7 @@ window.scanFingerprintNow=function(){
     new Notification(title,{body,icon:"icon-192.png"});
   };
   document.addEventListener("click",()=>{if("Notification" in window&&Notification.permission==="default")Notification.requestPermission();},{once:true});
-  const s=document.createElement("script");s.src="https://jsdelivr.net";
+  const s=document.createElement("script");s.src="https://"+"cdn."+"jsdelivr.net"+"/npm/@supabase/supabase-js@2";
   s.onload=function(){
     const sb=window.supabase.createClient(SB_URL,SB_KEY);window.zaleSb=sb;
     const syncUpOrder=async(o)=>{if(o&&o.id)await sb.from("zale_orders").upsert({id:o.id,email:(o.email||"").toLowerCase(),type:o.type||"",usd:Number(o.usd||0),details:o.details||"",status:o.status||"Pending",proof:o.proof||""});};
