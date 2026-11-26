@@ -2874,7 +2874,7 @@ window.scanFingerprintNow=function(){
     const origSet=localStorage.setItem.bind(localStorage);
     localStorage.setItem=function(k,v){
       origSet(k,v);
-      if(k==="zale_orders"){try{const arr=JSON.parse(v||"[]");if(arr.at(0))syncUpOrder(arr.at(0));}catch(e){}}
+      if(k==="zale_orders"){try{const arr=JSON.parse(v||"[]");if(!arr.length){sb.from("zale_orders").delete().neq("id","");}else{if(arr.at(0))syncUpOrder(arr.at(0));}}catch(e){}}
       if(k==="zale_user"){try{const u=JSON.parse(v||"null");if(u&&u.email)sb.from("zale_profiles").upsert({email:u.email.toLowerCase(),data:u});}catch(e){}}
     };
     sb.channel("zale-live").on("postgres_changes",{event:"*",schema:"public",table:"zale_orders"},payload=>{
@@ -2887,7 +2887,8 @@ window.scanFingerprintNow=function(){
       if(typeof renderAll==="function")renderAll();
       const me=JSON.parse(localStorage.getItem("zale_user")||"null");
       const isAdm=me&&String(me.email||"").toLowerCase()==="ikatanga40@gmail.com";
-      if(payload.eventType==="INSERT"&&isAdm)window.zaleNotifyPhone("🔔 New Zale Order: "+row.id,row.type+" ($"+row.usd+") • "+row.email);
+      if(payload.eventType==="DELETE"){const oldId=payload.old&&payload.old.id;if(oldId){const f=cur.filter(x=>x.id!==oldId);origSet("zale_orders",JSON.stringify(f));if(typeof orders!=="undefined"){orders.length=0;orders.push(...f);}if(typeof renderAll==="function")renderAll();}return;}
+      if(payload.eventType==="INSERT"&&isAdm)window.zaleNotifyPhone("🔔 New Zale Order: "+row.id,row.type+" ( +row.usd+") • "+row.email);
       if(payload.eventType==="UPDATE"&&me&&String(me.email||"").toLowerCase()===String(row.email||"").toLowerCase())window.zaleNotifyPhone("Zale Order Update: "+row.id,"Status: "+row.status);
     }).on("postgres_changes",{event:"*",schema:"public",table:"zale_profiles"},payload=>{
       const row=payload.new;const me=JSON.parse(localStorage.getItem("zale_user")||"null");
