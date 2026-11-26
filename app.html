@@ -377,7 +377,7 @@ html,body{-webkit-font-smoothing:antialiased;font-family:-apple-system,BlinkMacS
     <div id="tab-password" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Account</button><span style="font-size:11px;color:var(--acc);font-weight:800">Account Security</span></div><div class="card"><h2 style="margin:0 0 12px;font-size:19px">Update Password</h2><div style="font-size:11.5px;font-weight:800;color:var(--mut)">Current Password</div><input id="curPwInp" type="password" placeholder="Enter current password" style="margin-top:4px;margin-bottom:10px" /><div style="font-size:11.5px;font-weight:800;color:var(--mut)">New Password</div><input id="newPwInp1" type="password" placeholder="Enter new password" style="margin-top:4px;margin-bottom:10px" /><div style="font-size:11.5px;font-weight:800;color:var(--mut)">Re-enter Password</div><input id="newPwInp2" type="password" placeholder="Re-enter password" style="margin-top:4px;margin-bottom:14px" /><button class="btn" onclick="saveNewPasswordInline()">Update</button></div></div>
     <div id="tab-2fa" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('account')">← Security</button><span style="font-size:11px;color:var(--acc);font-weight:800">2FA Protection</span></div><div id="tfaStep1" class="card"><h2 style="margin:0 0 6px;font-size:19px">Secure your account</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 14px">Add a second step when signing in to keep your account safe. Choose how you'd like to confirm it's you.</p><div onclick="show2faStep(2)" style="cursor:pointer;border:1.5px solid var(--acc);background:rgba(16,185,129,.07);border-radius:14px;padding:14px"><span style="display:inline-block;background:var(--acc);color:#03120e;font-size:10px;font-weight:900;padding:3px 8px;border-radius:6px;margin-bottom:8px">RECOMMENDED</span><div style="font-size:15px;font-weight:800">Authenticator App</div><p style="font-size:12px;color:var(--mut);margin:5px 0 12px">Generate codes with Google Authenticator, Authy, or similar. Works offline and is the most secure.</p><button class="btn" style="padding:11px" onclick="show2faStep(2)">Authenticator App →</button></div><div onclick="show2faStep('email')" style="border:1.5px solid var(--brd);background:var(--card2);border-radius:14px;padding:14px;margin-top:10px;cursor:pointer"><div style="font-size:15px;font-weight:800">Email</div><p style="font-size:12px;color:var(--mut);margin:5px 0 10px">Receive a one-time code by email at sign in.</p><button type="button" class="btn-ghost" style="width:100%;padding:10px;font-size:12px">Email OTP →</button></div></div><div id="tfaStep2" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Authenticator App</h2><div class="acc-row"><b>Google Authenticator</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('google')">Get</button></div><div class="acc-row"><b>Authy</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('authy')">Get</button></div><div class="acc-row"><b>Microsoft Authenticator</b><button class="btn-ghost" style="padding:5px 12px;font-size:11px" onclick="openAppStore('ms')">Get</button></div><button class="btn" style="margin-top:14px" onclick="show2faStep(3)">I have an app, continue</button></div><div id="tfaStep3" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Link Authenticator</h2><div class="row" style="background:var(--card2);padding:10px;border-radius:10px;margin:10px 0"><code class="mono" style="font-size:12px;color:var(--gold);font-weight:800">ZALE-2FA9-K84M-77XQ</code><button class="btn-ghost" style="padding:4px 8px;font-size:10.5px" onclick="copyVal('ZALE2FA9K84M77XQ','Setup Key')">Copy Key</button></div><button class="btn" onclick="show2faStep(4)">Continue</button></div><div id="tfaStep4" class="card hide"><h2 style="margin:0 0 6px;font-size:18px">Enter 6-Digit Code</h2><input id="tfaCodeInp" type="text" maxlength="6" placeholder="000000" class="mono" style="text-align:center;font-size:22px;letter-spacing:8px;font-weight:800" /><button class="btn" style="margin-top:14px" onclick="confirmEnable2fa()">Enable 2FA</button></div><div id="tfaStepemail" class="card hide"><h2 style="margin:0 0 8px;font-size:19px">Secure your account</h2><p style="font-size:12.5px;color:var(--mut);margin:0 0 16px">We ensure your account is secure with 2-factor authentication. To enable this, an OTP would be sent to your email to verify it's you.</p><div id="tfaEmailOtpBox" class="hide" style="margin-bottom:12px"><div id="tfaEmailSentMsg" style="font-size:11.5px;color:var(--acc);font-weight:800;margin-bottom:6px"></div><input id="tfaEmailCodeInp" type="text" maxlength="6" placeholder="000000" class="mono" style="text-align:center;font-size:22px;letter-spacing:8px;font-weight:800" /></div><button id="tfaEmailBtn" class="btn" onclick="handleEmail2fa()">Enable 2FA</button></div></div>
         <div id="tab-vcard" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">← Home</button><span style="font-size:11px;color:#38bdf8;font-weight:800">Visa / Mastercard USD</span></div><div class="card"><h3 style="margin:0 0 8px;font-size:15px">Issue or Top Up Virtual Dollar Card</h3><select id="vcNet" onchange="previewVcardCost()"><option value="Visa Virtual USD">Visa Virtual USD (3D Secure)</option><option value="Mastercard Virtual USD">Mastercard Virtual USD (Ads &amp; Global)</option></select><select id="vcAction" onchange="previewVcardCost()"><option value="issue">Issue New Card (+$5 Fee)</option><option value="topup">Top Up Existing Card ($0 Fee)</option></select><input id="vcUsd" type="number" min="5" placeholder="Load Amount in USD (e.g. 50)" oninput="previewVcardCost()" /><div id="vcCostPreview" class="mono" style="background:var(--card2);border:1px solid var(--brd);border-radius:11px;padding:9px 12px;margin-top:8px;font-size:12px;font-weight:800;color:var(--gold)">Total Payable: $0.00 (K0)</div><input id="vcLabel" placeholder="Cardholder Name or Billing Email" /><button class="btn" style="margin-top:10px" onclick="submitVcardOrder()">Submit Virtual Card Request</button></div></div>
-    <div id="tab-utilities" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">← Home</button><span style="font-size:11px;color:var(--acc);font-weight:800">Instant Vending</span></div><div class="card"><h2 style="margin:0 0 8px;font-size:18px">Utility Bills &amp; Split Bill</h2><select id="billType"><option>Electricity (ZESCO)</option><option>Cable TV (DStv/GOtv)</option><option>Airtime &amp; Data</option><option>Split Bill (3+ Friends)</option></select><input id="billMeter" placeholder="Meter / Smartcard / Phone Number" /><input id="billAmt" type="number" placeholder="Amount in USD (e.g. 25)" /><button class="btn" style="margin-top:10px" onclick="submitUtilityBill()">Pay Utility Bill Now</button></div></div>
+    <div id="tab-utilities" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">← Home</button><span style="font-size:11px;color:var(--acc);font-weight:800">Instant Vending</span></div><div class="card"><h2 style="margin:0 0 8px;font-size:18px">Utility Bills &amp; Split Bill</h2><select id="billType"><option>Electricity &amp; Power Tokens</option><option>Cable TV &amp; Streaming</option><option>Airtime &amp; Data</option><option>Split Bill (3+ Friends)</option></select><input id="billMeter" placeholder="Meter / Smartcard / Phone Number" /><input id="billAmt" type="number" placeholder="Amount in USD (e.g. 25)" /><button class="btn" style="margin-top:10px" onclick="submitUtilityBill()">Pay Utility Bill Now</button></div></div>
     <div id="tab-xborder" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">← Home</button><span style="font-size:11px;color:#c084fc;font-weight:800">Multi-Country Rails</span></div><div class="card"><h2 style="margin:0 0 8px;font-size:18px">Cross-Border Payout</h2><select id="xbCorridor"><option>Zambia (ZMW) → South Africa (ZAR)</option><option>Zambia (ZMW) → Nigeria (NGN)</option><option>Zambia (ZMW) → Kenya (KES)</option><option>Nigeria (NGN) → Zambia (ZMW)</option><option>South Africa (ZAR) → Zambia (ZMW)</option></select><input id="xbUsd" type="number" placeholder="Send Amount in USD (e.g. 100)" /><input id="xbRecip" placeholder="Recipient Bank / Mobile Money & Full Name" /><button class="btn" style="margin-top:10px" onclick="submitXborderOrder()">Send Cross-Border Payout</button></div></div>
     <div id="tab-escrow" class="hide"><div class="row" style="margin-bottom:10px"><button class="btn-ghost" style="padding:6px 11px;font-size:11.5px" onclick="nav('home')">← Home</button><span style="font-size:11px;color:var(--gold);font-weight:800">Safe-Claim 4-Digit PIN</span></div><div class="card"><h2 style="margin:0 0 8px;font-size:18px">P2P Digital Escrow</h2><input id="escCounter" placeholder="Counterparty Email or WhatsApp Number" /><input id="escUsd" type="number" placeholder="Escrow Amount in USD (e.g. 150)" /><input id="escPin" maxlength="4" placeholder="Create Secret 4-Digit Release PIN" /><button class="btn-gold" style="width:100%;margin-top:10px;padding:12px" onclick="submitEscrowOrder()">Lock Funds in Zale Escrow</button></div></div>
     <div id="tab-rates" class="hide">
@@ -2922,174 +2922,199 @@ window.scanFingerprintNow=function(){
 })();
 
 </script>
+<script>
+(function(){
+if(document.getElementById("zaleVcardShowcase"))return;
+document.querySelectorAll('[id^="tab-"] button').forEach(function(b){
+var o=b.getAttribute("onclick")||"";
+if(/^nav\(/.test(o)&&/←/.test(b.textContent)){
+b.textContent="✕ Close";b.style.borderRadius="999px";
+b.style.padding="6px 13px";b.style.fontWeight="600";
+}});
+var vc=document.getElementById("tab-vcard");
+if(vc){
+var d=document.createElement("div");d.id="zaleVcardShowcase";
+d.style.cssText="width:100%;box-sizing:border-box;margin:0 0 12px";
+d.innerHTML=[
+'<div style="background:linear-gradient(145deg,#1c1c1e,#111827);',
+'color:#fff;border-radius:20px;padding:18px 20px;',
+'box-shadow:0 12px 28px rgba(0,0,0,.16)">',
+'<div style="display:flex;justify-content:space-between;',
+'align-items:center;margin-bottom:14px">',
+'<span style="font-size:13.5px;font-weight:600">✦ Zale Card</span>',
+'<span id="vc3ds" style="background:rgba(52,199,89,.18);',
+'border:0.5px solid rgba(52,199,89,.45);color:#34c759;',
+'font-size:10px;font-weight:600;padding:3px 9px;',
+'border-radius:999px">3D Secure Active</span></div>',
+'<div style="font-size:10.5px;opacity:.6">Card Balance</div>',
+'<div style="font-size:28px;font-weight:700;margin:2px 0 14px">$0.00</div>',
+'<div id="vcNum" style="font-family:monospace;font-size:15px;',
+'letter-spacing:.12em;margin-bottom:10px">4829  ••••  ••••  9104</div>',
+'<div style="display:flex;justify-content:space-between;font-size:11px">',
+'<div>EXP <b>08/29</b> &nbsp; CVV <b id="vcCvv">•••</b></div>',
+'<b style="font-style:italic;font-size:14px">VISA</b></div></div>',
+'<div style="display:grid;grid-template-columns:1fr 1fr 1fr;',
+'gap:8px;margin:10px 0">',
+'<button type="button" id="vcB1" class="btn-ghost" ',
+'style="padding:9px 6px;font-size:11px;font-weight:600">••• Details</button>',
+'<button type="button" id="vcB2" class="btn-ghost" ',
+'style="padding:9px 6px;font-size:11px;font-weight:600">⧉ Copy Card</button>',
+'<button type="button" id="vcB3" class="btn-ghost" ',
+'style="padding:9px 6px;font-size:11px;font-weight:600">❄ Freeze</button>',
+'</div>',
+'<div id="vcBox" class="card" style="display:none;padding:12px 14px;',
+'border-radius:16px;margin:0 0 10px;font-size:12px">',
+'<div style="font-weight:700;margin-bottom:6px">Full Card Details</div>',
+'<div>Card: <b style="font-family:monospace">4829 7410 3892 9104</b></div>',
+'<div>Expiry: <b>08/29</b> &nbsp;|&nbsp; CVV: <b>842</b></div>',
+'<div>3D Secure: <b style="color:#34c759">Active</b> • ZIP 10101</div>',
+'</div>',
+'<div class="card" style="padding:12px 14px;border-radius:16px;margin:0">',
+'<div style="font-size:12px;font-weight:700">Latest Card Transactions</div>',
+'<div style="font-size:11.5px;color:var(--mut);margin-top:4px">',
+'No card charges yet — fund your card below to begin.</div></div>'
+].join("");
+var r0=vc.querySelector(".row");
+if(r0&&r0.nextSibling)vc.insertBefore(d,r0.nextSibling);else vc.prepend(d);
+var rev=false,frz=false;
+document.getElementById("vcB1").onclick=function(){rev=!rev;
+document.getElementById("vcNum").textContent=
+rev?"4829  7410  3892  9104":"4829  ••••  ••••  9104";
+document.getElementById("vcCvv").textContent=rev?"842":"•••";
+document.getElementById("vcBox").style.display=rev?"block":"none";
+this.textContent=rev?"Hide Details":"••• Details";};
+document.getElementById("vcB2").onclick=function(){
+if(navigator.clipboard)navigator.clipboard.writeText("4829 7410 3892 9104");
+if(typeof toast==="function")toast("Card copied ✓");};
+document.getElementById("vcB3").onclick=function(){frz=!frz;
+var b=document.getElementById("vc3ds");
+b.textContent=frz?"Card Frozen":"3D Secure Active";
+b.style.color=frz?"#ff9500":"#34c759";
+this.textContent=frz?"🔥 Unfreeze":"❄ Freeze";};
+}
+var s0=document.querySelector('.svc-item[onclick*="vcard"]');
+if(s0&&!document.querySelector('.svc-item[onclick*="esim"]')){
+var ei=document.createElement("div");ei.className="svc-item";
+ei.setAttribute("onclick","nav('esim')");
+ei.innerHTML='<div style="display:flex;align-items:center;gap:12px">'+
+'<div class="svc-ico">🌐</div><div>'+
+'<div style="font-size:13.5px;font-weight:800;color:var(--obs)">'+
+'Global Travel eSIM</div>'+
+'<div style="font-size:11.5px;color:var(--mut);margin-top:2px">'+
+'Instant 5G roaming data in 150+ countries</div></div></div>';
+s0.parentNode.insertBefore(ei,s0.nextSibling);
+}
+if(vc&&!document.getElementById("tab-esim")){
+var et=document.createElement("div");et.id="tab-esim";et.className="hide";
+et.innerHTML=[
+'<div class="row" style="margin-bottom:10px">',
+'<button class="btn-ghost" style="padding:6px 13px;font-size:12px;',
+'border-radius:999px;font-weight:600" onclick="nav(\'home\')">✕ Close</button>',
+'<span style="font-size:11px;color:#34c759;font-weight:800">',
+'Instant 5G QR eSIM</span></div>',
+'<div class="card"><h2 style="margin:0 0 6px;font-size:19px">',
+'Global Travel eSIM</h2>',
+'<p style="font-size:12px;color:var(--mut);margin:0 0 12px">',
+'Instant 5G data in Zambia, SA, UK, Europe, USA &amp; 150+ countries.</p>',
+'<select id="esimReg" style="margin-bottom:10px">',
+'<option value="Southern Africa 5GB|12">Southern Africa — 5GB ($12)</option>',
+'<option value="UK & Europe 10GB|18">UK &amp; Europe — 10GB ($18)</option>',
+'<option value="Global 150+ Countries 10GB|28">Global 150+ — 10GB ($28)</option>',
+'<option value="USA & Canada 7 Days|15">USA &amp; Canada — 7 Days ($15)</option>',
+'</select>',
+'<input id="esimMail" type="email" placeholder="Delivery email for QR code" ',
+'style="margin-bottom:12px"/>',
+'<button type="button" class="btn" id="esimBtn">',
+'Issue Instant eSIM QR Code</button></div>'
+].join("");
+vc.parentNode.insertBefore(et,vc.nextSibling);
+document.getElementById("esimBtn").onclick=function(){
+var r=document.getElementById("esimReg").value.split("|");
+var go=function(){
+var u=JSON.parse(localStorage.getItem("zale_user")||"null");
+var l=JSON.parse(localStorage.getItem("zale_orders")||"[]");
+l.unshift({id:"ZL-"+Math.floor(100000+Math.random()*900000),
+email:(u&&u.email)||document.getElementById("esimMail").value||"",
+type:"Global eSIM: "+r,usd:parseFloat(r)||12,details:"ESIM QR",
+status:"Pending Verification",date:new Date().toLocaleDateString()});
+localStorage.setItem("zale_orders",JSON.stringify(l));
+if(typeof renderAll==="function")renderAll();
+if(typeof toast==="function")toast("eSIM order submitted ✓");
+if(typeof nav==="function")nav("wallet");};
+if(typeof window.openApplePinSheet==="function")
+window.openApplePinSheet("Activate "+r,go);else go();};
+}
+var oNav=window.nav;
+window.nav=function(t,m){if(typeof oNav==="function")oNav(t,m);
+document.querySelectorAll('[id^="tab-"]').forEach(function(e){
+e.classList.toggle("hide",e.id!=="tab-"+t);});};
+})();
+</script>
+<script>
+(function(){
+var p=document.querySelector('.svc-item[onclick*="vcard"]')?.parentNode;
+if(!p||document.getElementById("zaleBentoGrid"))return;
+var items=[
+{t:"Virtual Cards",s:"3D Secure USD",k:"vcard",c:"#007aff",bg:"rgba(0,122,255,.12)",i:"💳"},
+{t:"Travel eSIM",s:"150+ Countries",k:"esim",c:"#34c759",bg:"rgba(52,199,89,.12)",i:"🌐"},
+{t:"Utility Bills",s:"Power, TV & Airtime",k:"utilities",c:"#ff9500",bg:"rgba(255,149,0,.12)",i:"⚡"},
+{t:"Cross-Border Payments",s:"Africa, UK & EU",k:"xborder",c:"#af52de",bg:"rgba(175,82,222,.12)",i:"🌍"},
+{t:"Digital Escrow",s:"4-Digit PIN Safe",k:"escrow",c:"#d4af37",bg:"rgba(212,175,55,.15)",i:"🛡"}
+];
+p.querySelectorAll(".svc-item").forEach(function(el){el.style.display="none";});
+var g=document.createElement("div");g.id="zaleBentoGrid";
+g.style.cssText="display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:8px";
+items.forEach(function(x,idx){
+var b=document.createElement("div");
+b.setAttribute("onclick","nav('"+x.k+"')");
+b.style.cssText="background:var(--card2);border:0.5px solid var(--brd);"+
+"border-radius:16px;padding:12px;cursor:pointer;display:flex;"+
+"flex-direction:column;justify-content:space-between;gap:8px;"+
+(idx===4?"grid-column:span 2;flex-direction:row;align-items:center;":"");
+b.innerHTML='<div style="display:flex;align-items:center;gap:10px">'+
+'<span style="width:34px;height:34px;border-radius:10px;background:'+x.bg+
+';color:'+x.c+';display:flex;align-items:center;justify-content:center;'+
+'font-size:16px;flex-shrink:0">'+x.i+'</span>'+
+'<div><div style="font-size:13px;font-weight:700;color:var(--txt)">'+x.t+
+'</div><div style="font-size:10.5px;color:var(--mut);margin-top:1px">'+x.s+
+'</div></div></div>';
+g.appendChild(b);
+});
+p.appendChild(g);
+})();
+</script>
+<script>
+(function(){
+// 1. Apply exact "✕ Close" pill style across ALL tabs (including Crypto, Rates, etc.)
+document.querySelectorAll('[id^="tab-"] button').forEach(function(b){
+var o=b.getAttribute("onclick")||"";
+var t=(b.textContent||"").trim();
+if(/^nav\(/.test(o)&&/^(←|Close|✕)/.test(t)){
+b.textContent="✕ Close";
+b.style.borderRadius="999px";
+b.style.padding="6px 13px";
+b.style.fontSize="12px";
+b.style.fontWeight="600";
+}});
+// 2. Add clean "Works With" merchant pills inside Virtual Card form card (not on the card)
+var vcForm=document.querySelector('#tab-vcard > .card:last-of-type');
+if(vcForm&&!document.getElementById("vcMerchPills")){
+var bar=document.createElement("div");
+bar.id="vcMerchPills";
+bar.style.cssText="display:flex;flex-wrap:wrap;gap:6px;margin:0 0 10px";
+["Meta Ads","TikTok Ads","ChatGPT Plus","Netflix"].forEach(function(m){
+var sp=document.createElement("span");
+sp.textContent="✓ "+m;
+sp.style.cssText="font-size:10.5px;font-weight:700;padding:4px 9px;"+
+"border-radius:999px;background:var(--card2);border:0.5px solid var(--brd);"+
+"color:var(--txt)";
+bar.appendChild(sp);
+});
+var h3=vcForm.querySelector("h3");
+if(h3&&h3.nextSibling)vcForm.insertBefore(bar,h3.nextSibling);
+else vcForm.prepend(bar);
+}
+})();
+</script>
 </body>
 </html>
-<script>(function(){const U="https://uelaprtqdglwveuppefs."+"supabase.co/rest/v1/zale_orders",K="sb_publishable_XDN1F6gIkJL1JiLS1QRq4w_Tf8tk3qW",H={"apikey":K,"Authorization":"Bearer "+K,"Content-Type":"application/json","Prefer":"resolution=merge-duplicates,return=representation"};const getCl=()=>new Set(JSON.parse(localStorage.getItem("zale_cleared")||"[]"));const addCl=ids=>{const s=getCl();ids.forEach(id=>id&&s.add(id));localStorage.setItem("zale_cleared",JSON.stringify([...s]));};
-const hideSb=async(ids,col)=>{addCl(ids);for(const id of ids){if(id)await fetch(U+"?id=eq."+encodeURIComponent(id),{method:"PATCH",headers:H,body:JSON.stringify({[col]:true})});}};
-window.clearMyWalletHistory=async function(){const cur=JSON.parse(localStorage.getItem("zale_orders")||"[]");await hideSb(cur.map(o=>o?.id),"hidden_by_user");cur.forEach(o=>{if(o)o.hiddenByUser=true;});localStorage.setItem("zale_orders",JSON.stringify(cur));localStorage.setItem("zale_gc_orders","[]");if(typeof gcOrders!=="undefined")gcOrders.length=0;if(document.getElementById("walTxList"))document.getElementById("walTxList").innerHTML="";if(document.getElementById("walEmptyBox")){document.getElementById("walEmptyBox").classList.remove("hide");document.getElementById("walEmptyBox").style.display="block";}if(typeof toast==="function")toast("Wallet cleared ✓");};
-document.addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;const t=b.textContent||"";if(/fingerprint/i.test(t)&&b.id!=="zaleBioLogin")localStorage.setItem("zale_bio_ok","1");if(/clear/i.test(t)){if(b.closest("#tab-admin")){const cur=JSON.parse(localStorage.getItem("zale_orders")||"[]");hideSb(cur.map(o=>o?.id),"hidden_by_admin");localStorage.setItem("zale_orders","[]");if(typeof orders!=="undefined")orders.length=0;if(typeof renderAll==="function")renderAll();}else{window.clearMyWalletHistory();}}},true);
-setInterval(()=>{document.querySelectorAll("#tab-wallet span").forEach(el=>{if(el.textContent.trim()==="See All"&&!el.parentElement.querySelector("#zaleClearWalBtn")){const b=document.createElement("button");b.id="zaleClearWalBtn";b.type="button";b.className="btn-ghost";b.style.cssText="padding:3px 9px;font-size:10.5px;margin-left:6px;color:#dc2626;border-color:rgba(220,38,38,.35)";b.textContent="Clear";b.onclick=window.clearMyWalletHistory;el.after(b);}});},800);
-window.zaleSyncNow=async()=>{try{const cl=getCl(),cur=JSON.parse(localStorage.getItem("zale_orders")||"[]");for(const o of cur.slice(0,15)){if(o?.id&&!cl.has(o.id))await fetch(U,{method:"POST",headers:H,body:JSON.stringify({id:o.id,email:(o.email||"").toLowerCase(),type:o.type||"",usd:Number(o.usd||0),details:o.details||"",status:o.status||"Pending Verification",date:o.date||new Date().toLocaleDateString()})});}const r=await fetch(U+"?select=*&hidden_by_admin=eq.false&order=created_at.desc&limit=60",{headers:H}),rows=await r.json();if(Array.isArray(rows)){const v=rows.filter(x=>x?.id&&!cl.has(x.id)).map(x=>Object.assign({},x,{hiddenByUser:!!x.hidden_by_user,hiddenByAdmin:!!x.hidden_by_admin}));localStorage.setItem("zale_orders",JSON.stringify(v));if(typeof orders!=="undefined"){orders.length=0;orders.push(...v);}if(typeof renderAll==="function")renderAll();}}catch(e){}};setInterval(window.zaleSyncNow,3000);setTimeout(window.zaleSyncNow,600);})();</script>
-<script>setInterval(()=>{if(!JSON.parse(localStorage.getItem("zale_orders")||"[]").filter(o=>o&&!o.hiddenByUser).length){document.querySelectorAll("#tab-wallet .acc-row").forEach(r=>r.remove());const e=document.getElementById("walEmptyBox");if(e){e.classList.remove("hide");e.style.display="block";}}},500);</script>
-<script>(function(){const styleApproved=()=>{document.querySelectorAll("#walTxList .acc-row").forEach(row=>{const txt=row.textContent||"";if(/approved|completed|settled/i.test(txt)){row.style.border="1.5px solid #10b981";row.style.background="linear-gradient(135deg,rgba(16,185,129,.12),rgba(16,185,129,.03))";const pill=row.querySelector(".pill-pend,span");if(pill){pill.style.background="#10b981";pill.style.color="#fff";pill.style.padding="4px 9px";pill.style.borderRadius="999px";pill.style.fontWeight="800";pill.textContent="Payment Successful ✓";}}});};setInterval(styleApproved,500);styleApproved();})();</script>
-<script>(function(){const U="https://uelaprtqdglwveuppefs."+"supabase.co/rest/v1/zale_orders",K="sb_publishable_XDN1F6gIkJL1JiLS1QRq4w_Tf8tk3qW",H={"apikey":K,"Authorization":"Bearer "+K,"Content-Type":"application/json"};
-const _origSetSt=window.setOrderStatus;window.setOrderStatus=async function(id,st){if(typeof _origSetSt==="function")_origSetSt(id,st);try{await fetch(U+"?id=eq."+encodeURIComponent(id),{method:"PATCH",headers:H,body:JSON.stringify({status:st})});}catch(e){}};
-window.openZaleReceipt=function(o){let m=document.getElementById("zaleReceiptModal");if(!m){m=document.createElement("div");m.id="zaleReceiptModal";m.style.cssText="position:fixed;inset:0;z-index:99999;background:#060d1a;color:#fff;display:flex;flex-direction:column;justify-content:space-between;padding:28px 20px 24px;font-family:system-ui,-apple-system,sans-serif;overflow-y:auto";document.body.appendChild(m);}const ok=/approved|completed|settled|successful/i.test(o.status||"");m.innerHTML=`<div style="text-align:center;padding-top:10px"><div style="font-size:13px;font-weight:800;letter-spacing:1.4px;color:#10b981;text-transform:uppercase">✦ ZALE OFFICIAL RECEIPT</div><div style="width:74px;height:74px;border-radius:50%;margin:18px auto 14px;background:${ok?"rgba(16,185,129,.16)":"rgba(245,158,11,.16)"};border:2px solid ${ok?"#10b981":"#f59e0b"};display:flex;align-items:center;justify-content:center;font-size:34px;color:${ok?"#10b981":"#f59e0b"}">${ok?"✓":"⏳"}</div><div style="font-size:22px;font-weight:900;margin-bottom:4px">${ok?"Payment Successful":"Order Submitted"}</div><div style="font-size:13px;color:#94a3b8">${ok?"Funds settled & verified by Zale Desk":"Awaiting desk verification"}</div><div style="font-size:36px;font-weight:900;color:#fff;margin:18px 0 6px">$${Number(o.usd||0).toFixed(2)} <span style="font-size:15px;color:#10b981">USD</span></div></div><div style="background:#0f172a;border:1px solid rgba(148,163,184,.18);border-radius:18px;padding:16px;font-size:13px"><div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(148,163,184,.1)"><span style="color:#94a3b8">Transaction</span><b>${o.type||"Digital Settlement"}</b></div><div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(148,163,184,.1)"><span style="color:#94a3b8">Order ID</span><b style="color:#38bdf8">${o.id||"ZL-000000"}</b></div><div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(148,163,184,.1)"><span style="color:#94a3b8">Status</span><b style="color:${ok?"#10b981":"#f59e0b"}">${ok?"Completed & Settled ✓":o.status}</b></div><div style="display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px solid rgba(148,163,184,.1)"><span style="color:#94a3b8">Settlement Speed</span><b>Under 5 Minutes ⚡</b></div><div style="display:flex;justify-content:space-between;padding:9px 0"><span style="color:#94a3b8">Date</span><b>${o.date||new Date().toLocaleDateString()}</b></div></div><button onclick="document.getElementById('zaleReceiptModal').remove()" style="margin-top:18px;width:100%;padding:14px;border-radius:14px;border:none;background:#10b981;color:#060d1a;font-weight:900;font-size:14px;cursor:pointer">Done</button>`;};
-document.addEventListener("click",e=>{const row=e.target.closest("#walTxList .acc-row");if(!row)return;const txt=row.textContent||"";const m=txt.match(/ZL-\d+/i);const all=JSON.parse(localStorage.getItem("zale_orders")||"[]");const found=(m&&all.find(x=>x.id===m[0]))||all[0];if(found)window.openZaleReceipt(found);});})();</script>
-<script>window.openZaleReceipt=function(o){let m=document.getElementById("zaleReceiptModal");if(!m){m=document.createElement("div");m.id="zaleReceiptModal";m.style.cssText="position:fixed;inset:0;z-index:99999;background:#f2f2f7;color:#000;display:flex;flex-direction:column;justify-content:space-between;padding:24px 18px 28px;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif;overflow-y:auto";document.body.appendChild(m);}const ok=/approved|completed|settled|successful/i.test(o.status||"");const c=ok?"#34c759":"#ff9500";m.innerHTML=`<div style="max-width:420px;width:100%;margin:0 auto"><div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px"><span style="font-size:12px;font-weight:700;letter-spacing:.6px;color:#8e8e93">ZALE WALLET RECEIPT</span><button onclick="document.getElementById('zaleReceiptModal').remove()" style="width:30px;height:30px;border-radius:50%;border:none;background:#e5e5ea;color:#3c3c43;font-weight:700;font-size:15px;cursor:pointer">✕</button></div><div style="text-align:center;padding:12px 0 22px"><div style="width:70px;height:70px;border-radius:50%;margin:0 auto 14px;background:${c};box-shadow:0 10px 24px ${ok?"rgba(52,199,89,.32)":"rgba(255,149,0,.32)"};display:flex;align-items:center;justify-content:center;color:#fff;font-size:34px;font-weight:800">${ok?"✓":"•••"}</div><div style="font-size:22px;font-weight:700;letter-spacing:-.4px;color:#000">${ok?"Payment Successful":"Order Submitted"}</div><div style="font-size:13.5px;color:#8e8e93;margin-top:3px">${ok?"Completed & Settled via Zale Desk":"Awaiting Desk Verification"}</div><div style="font-size:42px;font-weight:800;letter-spacing:-1px;color:#000;margin-top:16px">$${Number(o.usd||0).toFixed(2)}</div><div style="display:inline-block;margin-top:6px;padding:4px 12px;border-radius:999px;background:${ok?"rgba(52,199,89,.14)":"rgba(255,149,0,.14)"};color:${c};font-size:12px;font-weight:700">${ok?"Settled • Under 5 Minutes":"Pending Verification"}</div></div><div style="background:#fff;border-radius:16px;padding:4px 16px;box-shadow:0 1px 3px rgba(0,0,0,.04);font-size:14px"><div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:.5px solid #e5e5ea"><span style="color:#8e8e93">Status</span><span style="font-weight:600;color:${c}">${ok?"Completed ✓":o.status}</span></div><div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:.5px solid #e5e5ea"><span style="color:#8e8e93">Service</span><span style="font-weight:600;color:#000">${o.type||"Digital Settlement"}</span></div><div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:.5px solid #e5e5ea"><span style="color:#8e8e93">Reference ID</span><span style="font-weight:600;color:#007aff">${o.id||"ZL-000000"}</span></div><div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:.5px solid #e5e5ea"><span style="color:#8e8e93">Settlement Rail</span><span style="font-weight:600;color:#000">Zale Instant Desk</span></div><div style="display:flex;justify-content:space-between;padding:13px 0"><span style="color:#8e8e93">Date</span><span style="font-weight:600;color:#000">${o.date||new Date().toLocaleDateString()}</span></div></div></div><div style="max-width:420px;width:100%;margin:20px auto 0"><button onclick="document.getElementById('zaleReceiptModal').remove()" style="width:100%;padding:15px;border-radius:14px;border:none;background:#000;color:#fff;font-weight:600;font-size:16px;cursor:pointer">Done</button></div>`;};</script>
-<script>
-window.openZaleReceipt = function(o) {
-  let m = document.getElementById("zaleReceiptModal");
-  if (!m) {
-    m = document.createElement("div");
-    m.id = "zaleReceiptModal";
-    document.body.appendChild(m);
-  }
-  const rgb = (getComputedStyle(document.body).backgroundColor || "").match(/\d+/g);
-  const lum = rgb ? (Number(rgb.at(0)) * 0.299 + Number(rgb.at(1)) * 0.587 + Number(rgb.at(2)) * 0.114) : 255;
-  const dark = true;
-  const ok = /approved|completed|settled|successful/i.test(o.status || "");
-
-  const bg = dark ? "#060d1a" : "#f2f2f7";
-  const card = dark ? "linear-gradient(160deg, rgba(15,23,42,0.96), rgba(9,16,31,0.98))" : "#ffffff";
-  const txt = dark ? "#f8fafc" : "#090d16";
-  const mut = dark ? "#94a3b8" : "#6e6e73";
-  const line = dark ? "rgba(148,163,184,0.14)" : "#e5e5ea";
-  const acc = ok ? (dark ? "#10b981" : "#34c759") : "#f59e0b";
-  const gold = "#f59e0b";
-  const closeBg = dark ? "rgba(30,41,59,0.9)" : "#e5e5ea";
-
-  m.style.cssText = `position:fixed;inset:0;z-index:99999;background:${bg};color:${txt};display:flex;flex-direction:column;justify-content:space-between;padding:22px 18px 28px;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif;overflow-y:auto`;
-
-  m.innerHTML = `
-    <div style="max-width:410px;width:100%;margin:0 auto">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
-        <div style="display:inline-flex;align-items:center;gap:7px;padding:5px 11px;border-radius:999px;background:${dark ? "rgba(16,185,129,0.12)" : "rgba(52,199,89,0.10)"};border:1px solid ${dark ? "rgba(16,185,129,0.28)" : "rgba(52,199,89,0.25)"}">
-          <span style="color:${gold};font-size:13px">✦</span>
-          <span style="font-size:11px;font-weight:800;letter-spacing:1.2px;color:${acc};text-transform:uppercase">Zale Official Receipt</span>
-        </div>
-        <button onclick="document.getElementById('zaleReceiptModal').remove()" style="width:30px;height:30px;border-radius:50%;border:none;background:${closeBg};color:${txt};font-weight:700;font-size:14px;cursor:pointer">✕</button>
-      </div>
-
-      <div style="text-align:center;padding:12px 0 22px">
-        <div style="width:94px;height:94px;border-radius:50%;margin:0 auto 14px;background:${ok ? "rgba(16,185,129,0.10)" : "rgba(245,158,11,0.10)"};border:1px solid ${ok ? "rgba(16,185,129,0.25)" : "rgba(245,158,11,0.25)"};display:flex;align-items:center;justify-content:center">
-          <div style="width:66px;height:66px;border-radius:50%;background:${acc};box-shadow:0 12px 28px ${ok ? "rgba(16,185,129,0.38)" : "rgba(245,158,11,0.38)"};display:flex;align-items:center;justify-content:center;color:#fff;font-size:33px;font-weight:800">${ok ? "✓" : "•••"}</div>
-        </div>
-        <div style="font-size:22px;font-weight:800;letter-spacing:-0.4px">${ok ? "Payment Successful" : "Order Submitted"}</div>
-        <div style="font-size:13px;color:${mut};margin-top:3px">${ok ? "Verified & settled by Zale Clearing Desk" : "Awaiting desk verification"}</div>
-        <div style="font-size:44px;font-weight:800;letter-spacing:-1.3px;font-variant-numeric:tabular-nums;margin-top:16px">$${Number(o.usd || 0).toFixed(2)} <span style="font-size:15px;font-weight:700;color:${acc}">USD</span></div>
-        <div style="display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 14px;border-radius:999px;background:${dark ? "rgba(245,158,11,0.12)" : "rgba(52,199,89,0.12)"};border:1px solid ${dark ? "rgba(245,158,11,0.30)" : "rgba(52,199,89,0.28)"};color:${dark ? gold : acc};font-size:11.5px;font-weight:700">
-          ${ok ? "⚡ Settled in Under 5 Minutes" : "⏳ 60-Second Rate Locked"}
-        </div>
-      </div>
-
-      <div style="background:${card};border:1px solid ${line};border-radius:22px;padding:6px 18px;box-shadow:${dark ? "0 18px 40px rgba(0,0,0,0.45)" : "0 4px 16px rgba(0,0,0,0.05)"};font-size:13.5px">
-        <div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid ${line}">
-          <span style="color:${mut}">Status</span>
-          <span style="font-weight:700;color:${acc}">${ok ? "Completed & Settled ✓" : o.status}</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid ${line}">
-          <span style="color:${mut}">Service</span>
-          <span style="font-weight:600">${o.type || "Digital Settlement"}</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid ${line}">
-          <span style="color:${mut}">Reference ID</span>
-          <span style="font-weight:700;color:${dark ? "#38bdf8" : "#007aff"};font-variant-numeric:tabular-nums">${o.id || "ZL-000000"}</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;padding:13px 0;border-bottom:1px solid ${line}">
-          <span style="color:${mut}">Clearing Desk</span>
-          <span style="font-weight:600">Zale Multi-Currency Rail</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;padding:13px 0">
-          <span style="color:${mut}">Date</span>
-          <span style="font-weight:600">${o.date || new Date().toLocaleDateString()}</span>
-        </div>
-      </div>
-    </div>
-
-    <div style="max-width:410px;width:100%;margin:22px auto 0">
-      <button onclick="document.getElementById('zaleReceiptModal').remove()" style="width:100%;padding:15px;border-radius:16px;border:none;background:${dark ? "linear-gradient(135deg,#10b981,#059669)" : "#090d16"};color:${dark ? "#060d1a" : "#ffffff"};font-weight:800;font-size:15.5px;cursor:pointer">Done</button>
-    </div>
-  `;
-};
-</script>
-<script>
-window.openZaleReceipt = function(o) {
-  let m = document.getElementById("zaleReceiptModal");
-  if (!m) {
-    m = document.createElement("div");
-    m.id = "zaleReceiptModal";
-    document.body.appendChild(m);
-  }
-  const rgb = (getComputedStyle(document.body).backgroundColor || "").match(/\d+/g);
-  const lum = rgb ? (Number(rgb.at(0)) * 0.299 + Number(rgb.at(1)) * 0.587 + Number(rgb.at(2)) * 0.114) : 255;
-  const dark = true;
-  const ok = /approved|completed|settled|successful/i.test(o.status || "");
-
-  const bg = dark ? "#000000" : "#f2f2f7";
-  const card = dark ? "#1c1c1e" : "#ffffff";
-  const txt = dark ? "#ffffff" : "#000000";
-  const mut = dark ? "#8e8e93" : "#8e8e93";
-  const sep = dark ? "#2c2c2e" : "#e5e5ea";
-  const closeBg = dark ? "#2c2c2e" : "#e5e5ea";
-  const ringColor = ok ? "#007aff" : "#ff9500";
-  const statusColor = ok ? "#34c759" : "#ff9500";
-
-  m.style.cssText = `position:fixed;inset:0;z-index:99999;background:${bg};color:${txt};display:flex;flex-direction:column;justify-content:space-between;padding:18px 18px 30px;font-family:-apple-system,BlinkMacSystemFont,'SF Pro Display','SF Pro Text',system-ui,sans-serif;overflow-y:auto`;
-
-  m.innerHTML = `
-    <div style="max-width:400px;width:100%;margin:0 auto">
-      <div style="display:flex;justify-content:space-between;align-items:center;padding:4px 0 8px">
-        <span style="font-size:13px;font-weight:600;color:${mut}">Wallet</span>
-        <button onclick="document.getElementById('zaleReceiptModal').remove()" style="width:30px;height:30px;border-radius:50%;border:none;background:${closeBg};color:${mut};font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center;cursor:pointer">✕</button>
-      </div>
-
-      <div style="text-align:center;padding:18px 0 26px">
-        <svg width="74" height="74" viewBox="0 0 74 74" style="display:block;margin:0 auto 12px">
-          <circle cx="37" cy="37" r="33" fill="none" stroke="${ringColor}" stroke-width="3.5" />
-          ${ok
-            ? `<path d="M23 38.5 L32.5 48 L51.5 27.5" fill="none" stroke="${ringColor}" stroke-width="3.8" stroke-linecap="round" stroke-linejoin="round" />`
-            : `<circle cx="27" cy="37" r="2.6" fill="${ringColor}" /><circle cx="37" cy="37" r="2.6" fill="${ringColor}" /><circle cx="47" cy="37" r="2.6" fill="${ringColor}" />`
-          }
-        </svg>
-        <div style="font-size:17px;font-weight:600;letter-spacing:-0.2px;color:${txt}">${ok ? "Done" : "Processing"}</div>
-        <div style="font-size:13px;font-weight:500;color:${mut};margin-top:16px">Zale Clearing Desk</div>
-        <div style="font-size:46px;font-weight:700;letter-spacing:-1.5px;font-variant-numeric:tabular-nums;margin-top:2px;color:${txt}">$${Number(o.usd || 0).toFixed(2)}</div>
-        <div style="font-size:13px;color:${mut};margin-top:4px">${o.date || new Date().toLocaleDateString()}</div>
-      </div>
-
-      <div style="background:${card};border-radius:14px;padding:0 16px;font-size:15px">
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:0.5px solid ${sep}">
-          <span style="color:${txt}">Status</span>
-          <span style="font-weight:500;color:${statusColor}">${ok ? "Completed" : o.status}</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:0.5px solid ${sep}">
-          <span style="color:${txt}">Service</span>
-          <span style="color:${mut}">${o.type || "Digital Settlement"}</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:13px 0;border-bottom:0.5px solid ${sep}">
-          <span style="color:${txt}">Payment Method</span>
-          <span style="color:${mut}">Zale Instant Rail</span>
-        </div>
-        <div style="display:flex;justify-content:space-between;align-items:center;padding:13px 0">
-          <span style="color:${txt}">Transaction ID</span>
-          <span style="color:${mut};font-variant-numeric:tabular-nums">${o.id || "ZL-000000"}</span>
-        </div>
-      </div>
-    </div>
-
-    <div style="max-width:400px;width:100%;margin:24px auto 0">
-      <button onclick="document.getElementById('zaleReceiptModal').remove()" style="width:100%;padding:15px;border-radius:14px;border:none;background:${dark ? "#1c1c1e" : "#ffffff"};color:#007aff;font-weight:600;font-size:17px;cursor:pointer">Close</button>
-    </div>
-  `;
-};
-</script>
-<style>
-  body, button, input, select { font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', system-ui, sans-serif !important; -webkit-tap-highlight-color: transparent; }
-  input, select, textarea { font-size: 16px !important; border-radius: 13px !important; }
-  button, .acc-row, .card { transition: transform 0.12s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.15s ease !important; }
-  button:active, .acc-row:active { transform: scale(0.97) !important; opacity: 0.92; }
-  .card { border-radius: 20px !important; }
-  nav, .bottom-nav, header { backdrop-filter: saturate(180%) blur(20px) !important; -webkit-backdrop-filter: saturate(180%) blur(20px) !important; }
-  b, strong, .pill-ok, .pill-pend { font-variant-numeric: tabular-nums; }
-</style>
